@@ -471,7 +471,7 @@ def load_calce_cells_multivar():
 def load_tju_cells():
     """TJU (Tongji) cells — capacity only. Rated 2.5Ah, EOL = 1.75Ah (70%)."""
     import numpy as np
-    path = Path(__file__).parent.parent / 'ref_rul_mamba' / 'Data' / 'TJU_Data' / 'Dataset_3_NCM_NCA_Battery_1C.npy'
+    path = Path(__file__).parent.parent / 'reference_repos/ref_rul_mamba' / 'Data' / 'TJU_Data' / 'Dataset_3_NCM_NCA_Battery_1C.npy'
     d = np.load(str(path), allow_pickle=True).item()
     caps = {}
     for k in ['CY25_1', 'CY25_2', 'CY25_3']:

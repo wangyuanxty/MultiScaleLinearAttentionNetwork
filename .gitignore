@@ -30,25 +30,14 @@ __pycache__/
 paper/
 
 # Literature library (third-party markdown conversions; do not redistribute)
-/PatchFormer_A_novel_patch-based_transformer_for_accurate_RUL_prediction.md
-/RUL-Mamba_Mamba-based_RUL_prediction_for_lithium_ion_batteries.md
-/OmniTIEFormer - A tri-branch transformer with cross-scale transfer learning for multi-scale battery.md
-/Gated Delta Networks Improving Mamba2 with Delta Rule.md
-/GatedDeltaNet_v2.md
-/BatteryMFormer_KDD2026.md
-/Pretrained battery transformer (PBT) A foundation model for battery life prediction.md
-/Early prediction of lithium-ion battery capacity and remaining useful life with a generative pre-trained transformer.md
-/A hybrid LSTM-transformer model for accurate remaining useful life prediction of lithium-ion batteri.md
+literature/
+
+# Upstream reference repos / artifacts (clone from originals)
+reference_repos/
+src/lightning_logs/
+*.spl
 
 # IDE / OS
 .vscode/
 .idea/
 .DS_Store
-
-# Upstream reference repos / artifacts
-src/lightning_logs/
-*.spl
-ref_mambalite_micro/
-ref_gated_deltanet_v2/
-/RUL-QMoE_AAAI2026.md
-/"Early prediction of lithium-ion battery degradation with a generative pre-trained transformer.md"

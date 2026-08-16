@@ -6,8 +6,8 @@ trained and evaluated with our exact protocol for a fair comparison.
 import sys, numpy as np, torch
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, str(Path(__file__).parent.parent / "ref_rul_mamba"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "ref_rul_mamba" / "Models"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "reference_repos/ref_rul_mamba"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "reference_repos/ref_rul_mamba" / "Models"))
 from RULMamba import RULMamba  # noqa: E402
 from load_datasets import load_calce_cells_multivar  # noqa: E402
 from data_pipeline import Seq2VecDataset  # noqa: E402

@@ -10,7 +10,7 @@ DeltaNet-2 recurrence, with per-layer gated cross-scale exchange,
 physics-consistent regularization, and K=32 early sensing). The paper
 lives in `paper/` (LaTeX), experiment results in `checkpoints/` +
 `results/`, and the literature library (PDFs + markdown conversions) in
-the repo root. `paper_plan.md` tracks the narrative and all measured
+`literature/`; upstream reference repos in `reference_repos/`. `paper_plan.md` tracks the narrative and all measured
 numbers; `paper/reviewer_report.md` tracks reviewer issues and fixes.
 
 ## Environments
@@ -18,7 +18,7 @@ numbers; `paper/reviewer_report.md` tracks reviewer issues and fixes.
 - **`py312`** (D:\anaconda\envs\py312, torch 2.13) — primary environment
   for training, evaluation, and figures. Always use this one.
 - `patchformer` (torch 2.6 + pytorch_forecasting) — only for running
-  PatchFormer baseline code in `ref_patchformer/`.
+  PatchFormer baseline code in `reference_repos/ref_patchformer/`.
 - GPU is available (`torch.cuda.is_available()` True); batched forwards
   are fast, per-window Python loops are slow (~76 ms/forward).
 
@@ -80,7 +80,7 @@ cd paper && pdflatex -interaction=nonstopmode main.tex && bibtex main \
   Table A = non-recursive single-step trajectory (per-SP MAE/RMSE/R²/AE,
   AE via first threshold crossing); Table B = K=32 stride-1 early-sensing
   (first window whose last pred < EOL → interpolated crossing → AE).
-- **`ref_*` directories** are read-only upstream repos (PatchFormer,
+- **`reference_repos/`** holds read-only upstream repos (PatchFormer,
   RUL-Mamba, GatedDeltaNet-2, etc.) with their own envs/configs; do not
   modify them. Their results/trajectories feed the comparison table.
 

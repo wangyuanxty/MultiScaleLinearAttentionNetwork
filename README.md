@@ -36,6 +36,11 @@ src/
   make_figures*.py     paper figure generation
   export_gdn_weights.py  weight export for the C deployment
   *.c / *.h            MCU deployment (gdn2_mcu.c scan kernel, verification harnesses)
+
+Upstream reference implementations (PatchFormer, RUL-Mamba, GatedDeltaNet, etc.)
+live outside this repository under `reference_repos/` (git-ignored); clone them
+from their original repositories. Third-party paper markdown conversions live
+under `literature/` (git-ignored, not redistributed).
 ```
 
 Other `test_*.py` / `diag_*.py` files are one-off experiments kept for
@@ -57,7 +62,7 @@ the standard formats):
 | NASA PCoE | [NASA Prognostics Data Repository](https://www.nasa.gov/prognostics-data-repository) | `data/nasa/` |
 | MIT/Stanford | [data.matr.io/1](https://data.matr.io/1/) | `data/mit_stanford/` .mat (v7.3) |
 | PANASONIC | as distributed by OmniTIEFormer / TJU sources | `data/panasonic/` |
-| TJU | as distributed by PatchFormer / RUL-Mamba | `ref_rul_mamba/Data/TJU_Data/` |
+| TJU | as distributed by PatchFormer / RUL-Mamba | `reference_repos/ref_rul_mamba/Data/TJU_Data/` (clone the upstream repo first) |
 
 ## Reproduction
 
