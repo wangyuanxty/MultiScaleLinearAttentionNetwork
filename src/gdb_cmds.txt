@@ -1,0 +1,6 @@
+set pagination off
+target remote :1234
+continue
+x/wx 0x20000000
+x/8wf 0x20001000
+x/2wf 0x20002000
