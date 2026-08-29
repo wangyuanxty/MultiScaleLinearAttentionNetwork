@@ -16,6 +16,8 @@ paper/**/*.blg
 paper/**/*.out
 paper/**/*.synctex.gz
 paper/**/texput.log
-paper/**/__pycache__/
-paper/**/*.pyc
-paper/**/.ruff_cache/
+
+# Python caches (all dirs)
+__pycache__/
+*.pyc
+.ruff_cache/
