@@ -21,3 +21,6 @@ paper/**/texput.log
 __pycache__/
 *.pyc
 .ruff_cache/
+
+# IDE
+.vscode/
