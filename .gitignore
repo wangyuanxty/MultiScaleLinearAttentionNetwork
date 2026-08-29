@@ -21,6 +21,9 @@ paper/**/texput.log
 __pycache__/
 *.pyc
 .ruff_cache/
+*.egg-info/
+.pytest_cache/
+.coverage
 
 # IDE
 .vscode/
