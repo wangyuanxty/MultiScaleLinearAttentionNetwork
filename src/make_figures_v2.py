@@ -123,7 +123,7 @@ def fig_metrics_sp():
 
 # ---------------- fig_compare ----------------
 def fig_compare():
-    # baseline numbers from tab:lit (published, per-SP MAE)
+    # baseline numbers from tab:lit (published, per-SP MAE); grouped bars
     methods = ["PatchFormer", "RUL-Mamba", "iTransformer",
                "ModernTCN", "TimeMixer", "Ours"]
     nasa = {  # SP50/70/90 MAE
@@ -142,18 +142,28 @@ def fig_compare():
         "TimeMixer": [0.0071, 0.0086, 0.0123],
         "Ours": [0.0011, 0.0012, 0.0012],
     }
-    fig, axes = plt.subplots(1, 2, figsize=(9, 3.5))
+    sps = ["SP1", "SP2", "SP3"]
+    colors = {"Ours": "#4C8C5A"}
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4.2))
     for ax, data, title in [(axes[0], nasa, "NASA"),
                             (axes[1], tju, "TJU")]:
-        for i, m in enumerate(methods):
-            ax.plot([0, 1, 2], data[m], marker="o", ms=4, lw=1.2,
-                    color=f"C{i}", label=m)
-        ax.set_xticks([0, 1, 2])
-        ax.set_xticklabels(["SP1", "SP2", "SP3"])
+        xs = np.arange(len(sps))
+        width = 0.13
+        for mi, m in enumerate(methods):
+            offset = (mi - (len(methods) - 1) / 2) * width
+            ax.bar(xs + offset, data[m], width,
+                   color=colors.get(m, f"C{mi}"), edgecolor="black",
+                   lw=0.5, label=m if title == "NASA" else None)
+        ax.set_xticks(xs)
+        ax.set_xticklabels(sps)
         ax.set_title(title)
         ax.set_xlabel("starting point")
-    axes[0].set_ylabel("MAE (normalized)")
-    axes[0].legend(fontsize=6)
+        ax.set_ylabel("MAE (normalized)")
+        ax.set_yscale("log")
+        ax.grid(axis="y", alpha=0.25)
+        if title == "NASA":
+            ax.legend(fontsize=6.5, ncol=2, loc="center left",
+                      bbox_to_anchor=(1.02, 0.5))
     fig.tight_layout()
     fig.savefig(OUT + "fig_compare.pdf")
     fig.savefig(OUT + "fig_compare.png", dpi=150)

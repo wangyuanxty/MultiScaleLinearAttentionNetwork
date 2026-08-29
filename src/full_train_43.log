@@ -1,0 +1,35 @@
+training calce seed43 (N=2715, W=64) ...
+    ep0 loss=0.6503
+    ep25 loss=0.3072
+    ep50 loss=0.3229
+    ep75 loss=0.4164
+  [calce seed43] MAE=0.0068 R2=0.9957 regen=0.217 AE=1
+  saved ../checkpoints/full_calce_seed43.pt
+training nasa seed43 (N=378, W=30) ...
+    ep0 loss=0.7709
+    ep25 loss=0.4252
+    ep50 loss=0.1941
+    ep75 loss=0.2302
+  [nasa seed43] MAE=0.0080 R2=0.9939 regen=0.117 AE=0
+  saved ../checkpoints/full_nasa_seed43.pt
+training mit seed43 (N=3364, W=64) ...
+    ep0 loss=0.5372
+    ep25 loss=0.4448
+    ep50 loss=0.2862
+    ep75 loss=0.1691
+  [mit seed43] MAE=0.0014 R2=0.9999 regen=0.000 AE=0
+  saved ../checkpoints/full_mit_seed43.pt
+training panasonic seed43 (N=1786, W=30) ...
+    ep0 loss=0.8282
+    ep25 loss=0.3343
+    ep50 loss=0.3420
+    ep75 loss=0.1742
+  [panasonic seed43] MAE=0.0034 R2=0.9989 regen=0.080 AE=1
+  saved ../checkpoints/full_panasonic_seed43.pt
+training tju seed43 (N=1713, W=64) ...
+    ep0 loss=0.1500
+    ep25 loss=0.0983
+    ep50 loss=0.0790
+    ep75 loss=0.0709
+  [tju seed43] MAE=0.0010 R2=1.0000 regen=0.009 AE=1
+  saved ../checkpoints/full_tju_seed43.pt

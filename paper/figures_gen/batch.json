@@ -1,0 +1,37 @@
+{
+  "jobs": 3,
+  "tasks": [
+    {
+      "id": "arch_main",
+      "promptFiles": ["prompts/arch_main.md"],
+      "image": "../figures/fig_arch_main.png",
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "ar": "16:9"
+    },
+    {
+      "id": "gdn2_block",
+      "promptFiles": ["prompts/gdn2_block.md"],
+      "image": "../figures/fig_gdn2_block.png",
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "ar": "16:9"
+    },
+    {
+      "id": "phys_ir",
+      "promptFiles": ["prompts/phys_ir.md"],
+      "image": "../figures/fig_phys_ir.png",
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "ar": "16:9"
+    },
+    {
+      "id": "deploy",
+      "promptFiles": ["prompts/deploy.md"],
+      "image": "../figures/fig_deploy.png",
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "ar": "16:9"
+    }
+  ]
+}

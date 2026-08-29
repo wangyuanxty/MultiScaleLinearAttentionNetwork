@@ -1,0 +1,12 @@
+training direct-abs (N=2715) ...
+    ep0 loss=0.0488
+    ep10 loss=0.0241
+    ep20 loss=0.0245
+    ep30 loss=0.0214
+    ep40 loss=0.0139
+    ep50 loss=0.0152
+    ep60 loss=0.0215
+    ep70 loss=0.0153
+    ep80 loss=0.0197
+    ep90 loss=0.0123
+direct-abs: MAE=0.0097 R2=0.9952 regen=0.146 AE=1

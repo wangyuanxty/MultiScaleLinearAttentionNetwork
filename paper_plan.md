@@ -66,6 +66,28 @@
 | TJU(W=64) | 42 | 0.0013 | 0.9999 | 0 | ✅ |
 | 全部 | 43 / 44 | — | — | — | ⏳(待补) |
 
+### 1.1b 逐 SP 10-seed 协议(PatchFormer 对齐,2026-08-26 汇总)
+
+协议(2026-08-17 拍板,严格 PatchFormer 一致性):每个 (SP, seed) 独立重训 —— 训练集 = 非测试电池全部序列 + **测试电池 SP 之前的循环**(NASADataPreProcess 约定);评估自 SP 段起;10 seeds(1..10)。产物:`checkpoints/per_sp/{ds}/SP{sp}_seed{seed}.pt` + `src/results/per_sp_train.json`;聚合(每 seed 先对测试电池平均,再对 10 seeds mean±std,ddof=1;AE 报 seed 均值)见 `src/agg_per_sp.py` → `src/results/per_sp_summary.json`。
+
+| 数据集 | SP | TRUL | MAE | RMSE | R² | AE |
+|---|---|---|---|---|---|---|
+| CALCE | 300 | 339 | 0.0066±0.0007 | 0.0146±0.0013 | 0.9951±0.0008 | 3.2 |
+|  | 400 | 239 | 0.0078±0.0010 | 0.0170±0.0019 | 0.9933±0.0015 | 2.5 |
+|  | 500 | 139 | 0.0092±0.0016 | 0.0196±0.0028 | 0.9898±0.0030 | 2.4 |
+| NASA | 50 | 73 | 0.0098±0.0018 | 0.0145±0.0013 | 0.9908±0.0018 | 0.9 |
+|  | 70 | 53 | 0.0089±0.0009 | 0.0148±0.0005 | 0.9822±0.0011 | 0.4 |
+|  | 90 | 33 | 0.0080±0.0009 | 0.0115±0.0011 | 0.9804±0.0036 | 0.5 |
+| PANASONIC | 300 | 287 | 0.0037±0.0003 | 0.0096±0.0001 | 0.9976±0.0001 | 0.8 |
+|  | 400 | 187 | 0.0036±0.0002 | 0.0101±0.0001 | 0.9965±0.0001 | 0.8 |
+|  | 500 | 87 | 0.0040±0.0003 | 0.0111±0.0003 | 0.9936±0.0003 | 0.9 |
+| TJU | 200 | 577 | 0.0013±0.0002 | 0.0020±0.0001 | 0.9999±0.0000 | 0.2 |
+|  | 300 | 477 | 0.0014±0.0002 | 0.0021±0.0002 | 0.9998±0.0000 | 0.9 |
+|  | 400 | 377 | 0.0018±0.0004 | 0.0026±0.0005 | 0.9996±0.0001 | 1.6 |
+| MIT | 200/300/400 | — | ✅ 10-seed 完成(2026-08-29):SP200 MAE 0.0019/R² 0.9998/AE 0.9;SP300 0.0025/0.9997/0.9;SP400 0.0032/0.9995/1.1;per-cell AE 0.2/1.6;已入 Table A(全 30 配置收官) |  |  |  |
+
+**与旧 tab:tableA(全量 3-seed 42/43/44)差异**:CALCE 持平(SP500 MAE 0.0092 vs 0.0083);NASA SP50 略降(0.0098 vs 0.0078)但 AE 更小(0.9 vs 2.0,旧表 AE 为数据集聚合值);PANASONIC 几乎零差别(旧表无 SP400 行,SP400 另补 0.0038/0.0103/0.9963);TJU 微降(SP400 MAE 0.0018 vs 0.0012、AE 1.6 vs 0.3)。**结论:逐 SP 训练(与 PatchFormer 同协议)下四数据集表现与全量训练基本等效,SOTA 叙事不因换协议受损(尤其 PANASONIC 0.0037 vs PatchFormer 0.0105)。**
+
 ### 1.2 基线参照(旧管道数字,已作废,待新数字替换)
 PatchFormer / RUL-Mamba 论文数字见 paper 对比表;我方旧数字全部作废,不保留。
 
@@ -115,6 +137,7 @@ PatchFormer / RUL-Mamba 论文数字见 paper 对比表;我方旧数字全部作
 - ✅ 对比表拆分:4 张 per-dataset 小表入各 case-study;PANASONIC SP400 补算(0.0038/0.0103/0.9963);CALCE 加 RULMamba 行(OmniTIEFormer 基线 AE 12.5/12.5/13.0);RUL-Mamba 论文有 AE(Table5/7)——NASA 0.8/0.9/2.5、TJU 2.6/2.6/2.6 已填;并发现 TJU 行原抄错方法(Autoformer 值误作 RUL-Mamba*),已改 0.0014/0.0022/0.9998;PANASONIC iTransformer SP500 由 OmniTIEFormer 平均行反推(0.0203/0.0327/0.9278/1.4)
 - ✅ CALCE AE seed 分布解释入文(0/1/7,均值 2.7;平尾斜率 0.0022/cycle ≈1.9 mAh/cycle,~10 mAh 局部偏置 → 5–7 cycle 平移;逐 epoch 诊断确认非过拟合)
 - ✅ K=32 相关删除、Method StageQuery 重写;Sec4 重构(2026-08-16):tableA 移 case studies 前、sec:compare 改名 Cross-dataset comparison discussion 删 fig_metrics_sp、sec:phys 拆 3 subsubsection、图 12 张、per-dataset 口径矛盾句修正、non-recursive 全文降调、fig_compare 数字更新重绘
+- ✅ 消融重构(2026-08-17 用户指令):tab:ablation 纯架构 3 行(single/multi 无交互/multi+stage-query),物理行(0.0097 归因、0.0042 速率头)与注入路线研究移入 sec:phys 开头;AE SP 不变性证明写入协议节;8KB 软化 fixed-size;CALCE 第二定位、NASA R² 第二;架构消融扩展 PANASONIC 列入定稿清单
 - ✅ 物理章节补图:fig_extrap(0.374/0.775/−5.28)+ fig_robust(drop30 23→17)已入 sec:phys 三个 subsubsection;ckpt 存 checkpoints/phys_figs_models.pt、轨迹存 results/phys_figs.npz(重画零训练)
 - ✅ 物理机制泄露审查(2026-08-16,用户要求):6 项全过(窗口/目标对齐、IR 只用最后一步因果、lo/hi 仅训练集、容量序列与主表逐点一致、前向填充无未来、跨 cell 隔离);三个诚实性注记入文:①IR 是同期健康信号(相关−0.98)非预测未来,4.6.1 机制表述改为 Q̂=Q_last−r 锚定+IR 同期感知;②IR 信号 cell 间不均(CS2_38 相关仅−0.12)已作 limitation;③drop30 明确定义为容量通道单独故障场景(电流传感器漂移/容量估计失效),全遥测掉线不在场景内
 - ✅ CALCE seed 定案:44 重训复现 AE=7(确定性,非 bug);45=6;Table A 维持 42/43/44,AE 报均值 2.7;逐 epoch 诊断:AE 自 ep5 起 1↔7 振荡,非过拟合(ep10 即 7 且 train loss 持续下降)

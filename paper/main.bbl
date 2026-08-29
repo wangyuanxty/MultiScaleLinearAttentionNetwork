@@ -1,0 +1,351 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{ref_yang_review}
+K.~Yang, S.~Wang, L.~Zhou, C.~Fernandez, F.~Blaabjerg, A critical review of
+  {AI}-based battery remaining useful life prediction for energy storage
+  systems, Batteries 11~(10) (2025) 376.
+\newblock \href {https://doi.org/10.3390/batteries11100376}
+  {\path{doi:10.3390/batteries11100376}}.
+
+\bibitem{ref_sbarra_dt}
+R.~G. Sbarra, M.~Pasquali, G.~Coppotelli, P.~Gaudenzi, D.~di~Ienno,
+  C.~Ciancarelli, N.~Picci, Digital twins for space battery management systems:
+  A comprehensive review of different approaches for predictive maintenance and
+  monitoring, Energies 18~(21) (2025) 5858.
+\newblock \href {https://doi.org/10.3390/en18215858}
+  {\path{doi:10.3390/en18215858}}.
+
+\bibitem{ref_qu_bess}
+J.~Qu, Y.~Wang, Y.~Fu, P.~Zhang, W.~Li, M.~Li,
+  \href{https://arxiv.org/abs/2601.03007}{From inconsistency to decision:
+  Explainable operation and maintenance of battery energy storage systems}
+  (2026).
+\newblock \href {http://arxiv.org/abs/2601.03007} {\path{arXiv:2601.03007}}.
+\newline\urlprefix\url{https://arxiv.org/abs/2601.03007}
+
+\bibitem{ref_rulmamba}
+J.~Huang, L.~Liu, H.~Zhao, T.~Li, B.~Li, {RUL-Mamba}: Mamba-based remaining
+  useful life prediction for lithium-ion batteries, Journal of Energy Storage
+  120 (2025) 116376.
+\newblock \href {https://doi.org/10.1016/j.est.2025.116376}
+  {\path{doi:10.1016/j.est.2025.116376}}.
+
+\bibitem{ref_omnitie}
+X.~Yi, J.~Xiao, G.~Lei, X.~Hu, M.~Wu, B.~Xu, C.~Ouyang, Omnitieformer: A
+  tri-branch transformer with cross-scale transfer learning for multi-scale
+  battery life-cycle forecasting, Applied Energy 414 (2026) 127858.
+\newblock \href {https://doi.org/10.1016/j.apenergy.2026.127858}
+  {\path{doi:10.1016/j.apenergy.2026.127858}}.
+
+\bibitem{ref_ekf_yan}
+W.~Yan, B.~Zhang, G.~Zhao, S.~Tang, G.~Niu, X.~Wang, A battery management
+  system with a {Lebesgue}-sampling-based extended {Kalman} filter, IEEE
+  Transactions on Industrial Electronics 66~(4) (2019) 3227--3236.
+\newblock \href {https://doi.org/10.1109/TIE.2018.2842808}
+  {\path{doi:10.1109/TIE.2018.2842808}}.
+
+\bibitem{ref_upf_cong}
+X.~Cong, C.~Zhang, J.~Jiang, W.~Zhang, Y.~Jiang, X.~Jia, An improved unscented
+  particle filter method for remaining useful life prognostic of lithium-ion
+  batteries with {Li(NiMnCo)O2} cathode with capacity diving, IEEE Access 8
+  (2020) 58717--58729.
+\newblock \href {https://doi.org/10.1109/ACCESS.2020.2978245}
+  {\path{doi:10.1109/ACCESS.2020.2978245}}.
+
+\bibitem{ref_pf_echem}
+C.~Lyu, Q.~Lai, T.~Ge, H.~Yu, L.~Wang, N.~Ma, A lead-acid battery's remaining
+  useful life prediction by using electrochemical model in the particle
+  filtering framework, Energy 120 (2017) 975--984.
+\newblock \href {https://doi.org/10.1016/j.energy.2016.12.004}
+  {\path{doi:10.1016/j.energy.2016.12.004}}.
+
+\bibitem{ref_pf_rbf}
+C.~Sbarufatti, M.~Corbetta, M.~Giglio, F.~Cadini, Adaptive prognosis of
+  lithium-ion batteries based on the combination of particle filters and radial
+  basis function neural networks, Journal of Power Sources 344 (2017) 128--140.
+\newblock \href {https://doi.org/10.1016/j.jpowsour.2017.01.105}
+  {\path{doi:10.1016/j.jpowsour.2017.01.105}}.
+
+\bibitem{ref_pf_lui}
+Y.~Lui, M.~Li, A.~Downey, S.~Shen, V.~P. Nemani, H.~Ye, C.~VanElzen, C.~Hu,
+  Physics-based prognostics of implantable-grade lithium-ion battery for
+  remaining useful life prediction, Journal of Power Sources 485 (2021) 229327.
+\newblock \href {https://doi.org/10.1016/j.jpowsour.2020.229327}
+  {\path{doi:10.1016/j.jpowsour.2020.229327}}.
+
+\bibitem{ref_lstm_transformer}
+S.~Hochreiter, J.~Schmidhuber, Long short-term memory, Neural Computation 9~(8)
+  (1997) 1735--1780.
+\newblock \href {https://doi.org/10.1162/neco.1997.9.8.1735}
+  {\path{doi:10.1162/neco.1997.9.8.1735}}.
+
+\bibitem{ref_lstm_rul_zhang}
+Y.~Zhang, R.~Xiong, H.~He, M.~G. Pecht, Long short-term memory recurrent neural
+  network for remaining useful life prediction of lithium-ion batteries, IEEE
+  Transactions on Vehicular Technology 67~(7) (2018) 5695--5705.
+\newblock \href {https://doi.org/10.1109/TVT.2018.2805189}
+  {\path{doi:10.1109/TVT.2018.2805189}}.
+
+\bibitem{ref_gru_ding}
+G.~Ding, W.~Wang, T.~Zhu, Remaining useful life prediction for lithium-ion
+  batteries based on {CS-VMD} and {GRU}, IEEE Access 10 (2022) 89402--89413.
+\newblock \href {https://doi.org/10.1109/ACCESS.2022.3200865}
+  {\path{doi:10.1109/ACCESS.2022.3200865}}.
+
+\bibitem{ref_vaswani}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  {\L}.~Kaiser, I.~Polosukhin, Attention is all you need, in: Advances in
+  Neural Information Processing Systems (NeurIPS), Vol.~30, 2017, pp.
+  5998--6008.
+
+\bibitem{ref_patchformer}
+L.~Liu, J.~Huang, H.~Zhao, T.~Li, B.~Li, Patchformer: A novel patch-based
+  transformer for accurate remaining useful life prediction of lithium-ion
+  batteries, Journal of Power Sources 631 (2025) 236187.
+\newblock \href {https://doi.org/10.1016/j.jpowsour.2025.236187}
+  {\path{doi:10.1016/j.jpowsour.2025.236187}}.
+
+\bibitem{ref_autoformer}
+H.~Wu, J.~Xu, J.~Wang, M.~Long, Autoformer: Decomposition transformers with
+  auto-correlation for long-term series forecasting, in: Advances in Neural
+  Information Processing Systems (NeurIPS), Vol.~34, 2021, pp. 22419--22430.
+
+\bibitem{ref_fedformer}
+T.~Zhou, Z.~Ma, Q.~Wen, X.~Wang, L.~Sun, R.~Jin, {FEDformer}: Frequency
+  enhanced decomposed transformer for long-term series forecasting, in:
+  International Conference on Machine Learning (ICML), Vol. 162, 2022, pp.
+  27268--27286.
+
+\bibitem{ref_mamba}
+A.~Gu, T.~Dao, Mamba: Linear-time sequence modeling with selective state
+  spaces, arXiv preprint arXiv:2312.00752 (2023).
+
+\bibitem{ref_svm_klass}
+V.~Klass, M.~Behm, G.~Lindbergh, A support vector machine-based state-of-health
+  estimation method for lithium-ion batteries under electric vehicle operation,
+  Journal of Power Sources 270 (2014) 262--272.
+\newblock \href {https://doi.org/10.1016/j.jpowsour.2014.07.116}
+  {\path{doi:10.1016/j.jpowsour.2014.07.116}}.
+
+\bibitem{ref_svm_patil}
+M.~A. Patil, P.~Tagade, K.~S. Hariharan, S.~M. Kolake, T.~Song, T.~Yeo, S.~Doo,
+  A novel multistage support vector machine based approach for {Li} ion battery
+  remaining useful life estimation, Applied Energy 159 (2015) 285--297.
+\newblock \href {https://doi.org/10.1016/j.apenergy.2015.08.119}
+  {\path{doi:10.1016/j.apenergy.2015.08.119}}.
+
+\bibitem{ref_svr_wang}
+S.~Wang, L.~Zhao, X.~Su, P.~Ma, Prognostics of lithium-ion batteries based on
+  battery performance analysis and flexible support vector regression, Energies
+  7~(10) (2014) 6492--6508.
+\newblock \href {https://doi.org/10.3390/en7106492}
+  {\path{doi:10.3390/en7106492}}.
+
+\bibitem{ref_rvm_guo}
+W.~Guo, M.~He, An optimal relevance vector machine with a modified degradation
+  model for remaining useful lifetime prediction of lithium-ion batteries,
+  Applied Soft Computing 124 (2022) 108967.
+\newblock \href {https://doi.org/10.1016/j.asoc.2022.108967}
+  {\path{doi:10.1016/j.asoc.2022.108967}}.
+
+\bibitem{ref_lstm_elman_li}
+X.~Li, L.~Zhang, Z.~Wang, P.~Dong, Remaining useful life prediction for
+  lithium-ion batteries based on a hybrid model combining the long short-term
+  memory and {Elman} neural networks, Journal of Energy Storage 21 (2019)
+  510--518.
+\newblock \href {https://doi.org/10.1016/j.est.2018.12.017}
+  {\path{doi:10.1016/j.est.2018.12.017}}.
+
+\bibitem{ref_gru_rnn}
+Y.~Song, L.~Li, Y.~Peng, D.~Liu, Lithium-ion battery remaining useful life
+  prediction based on {GRU-RNN}, in: 2018 12th International Conference on
+  Reliability, Maintainability, and Safety (ICRMS), 2018, pp. 317--322.
+\newblock \href {https://doi.org/10.1109/ICRMS.2018.00067}
+  {\path{doi:10.1109/ICRMS.2018.00067}}.
+
+\bibitem{ref_rnn_catelani}
+M.~Catelani, L.~Ciani, R.~Fantacci, G.~Patrizi, B.~Picano, Remaining useful
+  life estimation for prognostics of lithium-ion batteries based on recurrent
+  neural network, IEEE Transactions on Instrumentation and Measurement 70
+  (2021) 1--11.
+\newblock \href {https://doi.org/10.1109/TIM.2021.3057786}
+  {\path{doi:10.1109/TIM.2021.3057786}}.
+
+\bibitem{ref_cnn_bilstm}
+Z.~Zhu, Q.~Yang, X.~Liu, D.~Gao, Attention-based {CNN-BiLSTM} for {SOH} and
+  {RUL} estimation of lithium-ion batteries, Journal of Algorithms and
+  Computational Technology 16 (2022).
+\newblock \href {https://doi.org/10.1177/17483026221130598}
+  {\path{doi:10.1177/17483026221130598}}.
+
+\bibitem{ref_tcn_lstm}
+C.~Li, X.~Han, Q.~Zhang, M.~Li, Z.~Rao, W.~Liao, Z.~Yan, State-of-health and
+  remaining-useful-life estimations of lithium-ion battery based on temporal
+  convolutional network-long short-term memory, Journal of Energy Storage 74
+  (2023) 109413.
+\newblock \href {https://doi.org/10.1016/j.est.2023.109413}
+  {\path{doi:10.1016/j.est.2023.109413}}.
+
+\bibitem{ref_trans_rul}
+D.~Chen, W.~Hong, X.~Zhou, Transformer network for remaining useful life
+  prediction of lithium-ion batteries, IEEE Access 10 (2022) 19621--19628.
+\newblock \href {https://doi.org/10.1109/ACCESS.2022.3151825}
+  {\path{doi:10.1109/ACCESS.2022.3151825}}.
+
+\bibitem{ref_ceemdan_trans}
+Y.~Cai, W.~Li, T.~Zahid, C.~Zheng, Q.~Zhang, K.~Xu, Early prediction of
+  remaining useful life for lithium-ion batteries based on
+  {CEEMDAN}-transformer-{DNN} hybrid model, Heliyon 9 (2023).
+\newblock \href {https://doi.org/10.1016/j.heliyon.2023.e17754}
+  {\path{doi:10.1016/j.heliyon.2023.e17754}}.
+
+\bibitem{ref_itransformer}
+Y.~Liu, T.~Hu, H.~Zhang, H.~Wu, S.~Wang, L.~Ma, M.~Long, {iTransformer}:
+  Inverted transformers are effective for time series forecasting, in:
+  International Conference on Learning Representations (ICLR), 2024, pp. 1--24,
+  arXiv:2310.06625.
+
+\bibitem{ref_patchtst}
+Y.~Nie, N.~H. Nguyen, P.~Sinthong, J.~Kalagnanam, A time series is worth 64
+  words: Long-term forecasting with transformers, in: International Conference
+  on Learning Representations (ICLR), 2023, pp. 1--16.
+
+\bibitem{ref_timesnet}
+H.~Wu, T.~Hu, Y.~Liu, H.~Zhou, J.~Wang, M.~Long, Timesnet: Temporal
+  2d-variation modeling for general time series analysis, in: International
+  Conference on Learning Representations (ICLR), 2023, pp. 1--18.
+
+\bibitem{ref_timemixer}
+S.~Wang, H.~Wu, X.~Shi, T.~Hu, H.~Luo, L.~Ma, J.~Y. Zhang, J.~Zhou, Timemixer:
+  Decomposable multiscale mixing for time series forecasting, in: International
+  Conference on Learning Representations (ICLR), 2024, pp. 1--23.
+
+\bibitem{ref_lipu_review}
+M.~H. Lipu, M.~Hannan, A.~Hussain, M.~Hoque, P.~Ker, M.~Saad, A.~Ayob, A review
+  of state of health and remaining useful life estimation methods for
+  lithium-ion battery in electric vehicles: challenges and recommendations,
+  Journal of Cleaner Production 205 (2018) 115--133.
+\newblock \href {https://doi.org/10.1016/j.jclepro.2018.09.065}
+  {\path{doi:10.1016/j.jclepro.2018.09.065}}.
+
+\bibitem{ref_he_review}
+W.~He, Z.~Li, T.~Liu, Z.~Liu, X.~Guo, J.~Du, D.~Li, Z.~Zou, Research progress
+  and application of deep learning in remaining useful life, state of health
+  and battery thermal management of lithium batteries, Journal of Energy
+  Storage 70 (2023) 107868.
+\newblock \href {https://doi.org/10.1016/j.est.2023.107868}
+  {\path{doi:10.1016/j.est.2023.107868}}.
+
+\bibitem{ref_mamba_survey}
+H.~Qu, L.~Ning, R.~An, W.~Fan, T.~Derr, X.~Xu, Q.~Li, A survey of mamba, arXiv
+  preprint arXiv:2408.01129 (2024).
+
+\bibitem{ref_samamba_tsf}
+Z.~Wang, F.~Kong, S.~Feng, M.~Wang, X.~Yang, H.~Zhao, D.~Wang, Y.~Zhang, Is
+  mamba effective for time series forecasting?, arXiv preprint arXiv:2403.11144
+  (2024).
+
+\bibitem{ref_mambalithium}
+Z.~Shi, \href{https://arxiv.org/abs/2403.05430}{{MambaLithium}: Selective state
+  space model for remaining-useful-life, state-of-health, and state-of-charge
+  estimation of lithium-ion batteries} (2024).
+\newblock \href {http://arxiv.org/abs/2403.05430} {\path{arXiv:2403.05430}}.
+\newline\urlprefix\url{https://arxiv.org/abs/2403.05430}
+
+\bibitem{ref_grey_hybrid}
+K.~Li, N.~Xie, H.~Li, A hybrid grey approach for battery remaining useful life
+  prediction considering capacity regeneration, Expert Systems with
+  Applications 274 (2025) 126905.
+\newblock \href {https://doi.org/10.1016/j.eswa.2025.126905}
+  {\path{doi:10.1016/j.eswa.2025.126905}}.
+
+\bibitem{ref_grey_frac}
+F.~E. Sapnken, Y.~Wang, N.~Xie, G.~J.~B. Ntegmi, R.~J.~J. Molu, A novel
+  adaptive weighted fractional-order reverse accumulation grey model for
+  predicting state-of-health in lithium-ion batteries, Energy 360 5 (2026)
+  100060.
+\newblock \href {https://doi.org/10.1016/j.energ.2026.100060}
+  {\path{doi:10.1016/j.energ.2026.100060}}.
+
+\bibitem{ref_grey_pemfc}
+F.~E. Sapnken, Y.~Wang, F.~Posso, N.~Xie, P.~G. Noumo, G.~J.~B. Ntegmi,
+  R.~J.~J. Molu, J.~G. Tamba, A novel fractional-order heuristic grey model for
+  robust prognostics of {PEMFC} degradation under static and dynamic operating
+  regimes, Energy 360 4 (2025) 100046.
+\newblock \href {https://doi.org/10.1016/j.energ.2025.100046}
+  {\path{doi:10.1016/j.energ.2025.100046}}.
+
+\bibitem{ref_grey_nn}
+F.~E. Sapnken, Y.~Wang, F.~Posso, G.~J.~B. Ntegmi, R.~J.~J. Molu, N.~Xie,
+  Real-time degradation prognostics for proton exchange membrane fuel cells
+  using a self-adaptive grey neural network model, Journal of Power Sources 688
+  (2026) 240651.
+\newblock \href {https://doi.org/10.1016/j.jpowsour.2026.240651}
+  {\path{doi:10.1016/j.jpowsour.2026.240651}}.
+
+\bibitem{ref_grey_kalman}
+Z.~Xu, N.~Xie, State of charge estimation for lithium battery based on grey
+  {Kalman} filter model, Journal of Systems Engineering and Electronics 36~(6)
+  (2025) 1579--1594.
+\newblock \href {https://doi.org/10.23919/JSEE.2025.000125}
+  {\path{doi:10.23919/JSEE.2025.000125}}.
+
+\bibitem{ref_grey_iter}
+K.~Li, N.~Xie, N.~Chen, W.~Dong, L.~Gu, Battery degradation prognosis and its
+  health management based on grey iterative modeling, Engineering Failure
+  Analysis 185 (2026) 110384.
+\newblock \href {https://doi.org/10.1016/j.engfailanal.2025.110384}
+  {\path{doi:10.1016/j.engfailanal.2025.110384}}.
+
+\bibitem{ref_wang_pinn}
+F.~Wang, Z.~Zhai, Z.~Zhao, Y.~Di, X.~Chen, Physics-informed neural network for
+  lithium-ion battery degradation stable modeling and prognosis, Nature
+  Communications 15 (2024) 4332.
+\newblock \href {https://doi.org/10.1038/s41467-024-48779-z}
+  {\path{doi:10.1038/s41467-024-48779-z}}.
+
+\bibitem{ref_piddm}
+Z.~Chen, R.~Jian, S.~Sigdel, G.~Xiong, J.-X. Wang, T.~Luo,
+  \href{https://arxiv.org/abs/2607.29095}{{PiDDM}: Physics-informed
+  differentiable degradation modeling for lithium-ion battery state-of-health
+  prediction} (2026).
+\newblock \href {http://arxiv.org/abs/2607.29095} {\path{arXiv:2607.29095}}.
+\newline\urlprefix\url{https://arxiv.org/abs/2607.29095}
+
+\bibitem{ref_gdn}
+S.~Yang, J.~Kautz, A.~Hatamizadeh, Gated delta networks: Improving {Mamba2}
+  with delta rule, in: International Conference on Learning Representations
+  (ICLR), 2025, pp. 1--22, openReview; arXiv:2412.06464.
+
+\bibitem{ref_gdn2}
+A.~Hatamizadeh, Y.~Choi, J.~Kautz,
+  \href{https://arxiv.org/abs/2605.22791}{Gated {DeltaNet-2}: Decoupling erase
+  and write in linear attention} (2026).
+\newblock \href {http://arxiv.org/abs/2605.22791} {\path{arXiv:2605.22791}}.
+\newline\urlprefix\url{https://arxiv.org/abs/2605.22791}
+
+\bibitem{ref_nasa_data}
+B.~Saha, K.~Goebel, Battery data set, NASA Ames Prognostics Data Repository,
+  https://www.nasa.gov/prognostics-data-repository (2007).
+
+\bibitem{ref_severson}
+K.~A. Severson, P.~M. Attia, N.~Jin, N.~Perkins, B.~Jiang, Z.~Yang, M.~H. Chen,
+  M.~Aykol, P.~K. Herring, D.~Fraggedakis, M.~Z. Bazant, S.~J. Harris, W.~C.
+  Chueh, R.~D. Braatz, Data-driven prediction of battery cycle life before
+  capacity degradation, Nature Energy 4 (2019) 383--391.
+\newblock \href {https://doi.org/10.1038/s41560-019-0356-8}
+  {\path{doi:10.1038/s41560-019-0356-8}}.
+
+\bibitem{ref_zhou2025}
+Y.~Zhou, C.~Wang, Y.~Chen, Early prediction of lithium-ion battery capacity and
+  remaining useful life based on cycle-consistency learning and an improved
+  transformer, Journal of Energy Storage 134 (2025) 118147.
+\newblock \href {https://doi.org/10.1016/j.est.2025.118147}
+  {\path{doi:10.1016/j.est.2025.118147}}.
+
+\end{thebibliography}

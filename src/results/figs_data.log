@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\make_figures.py", line 151, in predict_series
+    model.load_state_dict(torch.load(ckpt, map_location=DEV, weights_only=True))
+  File "D:\anaconda\envs\py312\Lib\site-packages\torch\nn\modules\module.py", line 2638, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for GDNBatteryModel:
+	Missing key(s) in state_dict: "cross_stage.0.W_q.weight", "cross_stage.0.W_k.weight", "cross_stage.0.W_v.weight", "cross_stage.1.W_q.weight", "cross_stage.1.W_k.weight", "cross_stage.1.W_v.weight". 
+	Unexpected key(s) in state_dict: "rope.theta", "cross.0.gate_fn.0.weight", "cross.0.gate_fn.0.bias", "cross.0.gate_fn.2.weight", "cross.0.gate_fn.2.bias", "cross.0.proj.weight", "cross.0.proj.bias", "cross.1.gate_fn.0.weight", "cross.1.gate_fn.0.bias", "cross.1.gate_fn.2.weight", "cross.1.gate_fn.2.bias", "cross.1.proj.weight", "cross.1.proj.bias". 

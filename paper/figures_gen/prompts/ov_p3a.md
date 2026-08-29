@@ -1,0 +1,3 @@
+Concept-style flat illustration for a Journal of Power Sources figure, landscape 4:3, no text overlay beyond short labels, no watermark, no logo, no 3D.
+
+First-place leaderboard: a simple stylized podium (three-step winner's platform) in the foreground — gold #1 spot in the center-top, #2 silver and #3 bronze steps slightly lower to the sides. Above the podium hangs a minimal leaderboard banner with a gold #1 marker and blank placeholder rows. Warm accent color gold, white background, flat fills, thin black outline, clean minimal geometric style (like a researcher's vector diagram), modest shadows only.

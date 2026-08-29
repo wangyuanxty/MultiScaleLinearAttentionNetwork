@@ -1,0 +1,25 @@
+training phys_ir frac=1.0 (N=2715) ...
+    ep0 loss=0.0136
+    ep10 loss=0.0082
+    ep20 loss=0.0048
+    ep30 loss=0.0040
+    ep40 loss=0.0047
+    ep50 loss=0.0034
+    ep60 loss=0.0049
+    ep70 loss=0.0048
+    ep80 loss=0.0087
+    ep90 loss=0.0038
+  [std] phys_ir: MAE=0.0042 R2=0.9971 regen=0.163 AE=1
+training phys_ir frac=0.9 (N=2422) ...
+    ep0 loss=0.0129
+    ep10 loss=0.0040
+    ep20 loss=0.0075
+    ep30 loss=0.0064
+    ep40 loss=0.0041
+    ep50 loss=0.0054
+    ep60 loss=0.0064
+    ep70 loss=0.0049
+    ep80 loss=0.0045
+    ep90 loss=0.0086
+  [extrap] phys_ir: extR2=0.7745 extMAE=0.0111 regen=0.136
+reference (direct head, z-score): MAE=0.0059 R2=0.9963 AE=2 regen=0.248 | extrap RoPE 0.6106 / n-ch 0.4471

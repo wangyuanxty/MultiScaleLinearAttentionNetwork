@@ -1,0 +1,11 @@
+training NASA [C] (N=378) ...
+    ep0 loss=0.3704
+    ep25 loss=0.2685
+    ep50 loss=0.3000
+    ep75 loss=0.1620
+NASA B0005: dropped 48/168 points in 6 segments
+rate models: local r=0.00359 | physics coefs=['0.0672', '-0.0014', '0.9904', '-0.9255']
+  forward-fill (GDN): MAE=0.0135 R2=0.9884 AE=5
+  local-fill  (GDN): MAE=0.0109 R2=0.9912 AE=4
+  phys-fill   (GDN): MAE=0.0107 R2=0.9909 AE=4
+  phys-takeover (no GDN): MAE=0.0045 AE=4

@@ -1,0 +1,41 @@
+﻿\section{Conclusion}
+\label{sec:conclusion}
+
+Battery-intensive operations generate a continuous stream of
+maintenance and replacement decisions, and each decision consumes
+three ingredients that this paper shows can now be delivered by one
+capacity-only monitoring loop running on the device itself.
+DeltaCycle combines a multi-scale linear-attention model whose
+fixed-size recurrent state runs in C on a microcontroller, a
+physics-consistent degradation-rate head driven by measured internal
+resistance, and conformal-calibrated prediction intervals.
+
+Three findings carry the managerial message. First, decision-grade
+accuracy no longer requires the cloud: across five public datasets
+spanning four chemistries, the loop reaches first-tier accuracy
+among protocol-matched baselines---state of the art on PANASONIC,
+matched against the strongest published baseline on TJU, with
+R$^2 \ge 0.9995$ on MIT and explicit tracking of capacity
+regeneration---while the verified deployment chain (floating-point-accurate C,
+essentially lossless INT8) makes per-device monitoring economically
+feasible at fleet scale. Second, adding physics to the model measurably helps: the rate head
+doubles unseen-tail extrapolation fidelity and wins every
+corruption-robustness setting tested---direct evidence that the
+physics mechanism earns its place rather than acting as a
+decorative constraint. Third, risk-aware scheduling becomes a
+direct output rather than an afterthought: the calibrated
+P2.5/P50/P97.5 band, at $93.3\%$ coverage for a nominal $95\%$,
+bounds the missed-EOL rate a replacement policy would incur, so
+maintenance trade-offs can be made explicit.
+
+Several limitations bound the current evidence---ten training seeds
+per dataset, single-cell calibration of the uncertainty layer, the
+single-step evaluation protocol, and laboratory rather than field
+data. Future work includes large-format cells, pack-level
+heterogeneity, online adaptation of the rate head, and closed-loop
+evaluation on production BMS hardware.
+
+Stepping back, the direction of battery management mirrors the
+direction of this paper: from reactive response to proactive
+prediction, and from numerical indicators to explainable decisions
+\cite{ref_qu_bess,ref_sbarra_dt}.

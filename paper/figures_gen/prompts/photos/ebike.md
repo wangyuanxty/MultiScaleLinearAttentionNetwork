@@ -1,0 +1,1 @@
+Studio photograph, photorealistic, high detail: a shared e-bike battery swap cabinet with two slot bays, street level. Sharp focus, soft even studio lighting, neutral light-gray seamless background, subject fills the frame, low-key shadows. NO text, NO labels, NO watermark, NO logos, NO branding anywhere in the image.

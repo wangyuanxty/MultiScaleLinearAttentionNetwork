@@ -1,0 +1,34 @@
+panasonic SP300 seed1: AE=[1] MAE=0.0036 R2=0.9976 trainN=1786+270
+panasonic SP300 seed2: AE=[0] MAE=0.0033 R2=0.9977 trainN=1786+270
+panasonic SP300 seed3: AE=[1] MAE=0.0039 R2=0.9976 trainN=1786+270
+panasonic SP300 seed4: AE=[1] MAE=0.0037 R2=0.9975 trainN=1786+270
+panasonic SP300 seed5: AE=[1] MAE=0.0039 R2=0.9976 trainN=1786+270
+panasonic SP300 seed6: AE=[1] MAE=0.0040 R2=0.9976 trainN=1786+270
+panasonic SP300 seed7: AE=[1] MAE=0.0035 R2=0.9976 trainN=1786+270
+panasonic SP300 seed8: AE=[0] MAE=0.0037 R2=0.9976 trainN=1786+270
+panasonic SP300 seed9: AE=[1] MAE=0.0042 R2=0.9976 trainN=1786+270
+panasonic SP300 seed10: AE=[1] MAE=0.0035 R2=0.9977 trainN=1786+270
+panasonic SP400 seed1: AE=[0] MAE=0.0033 R2=0.9966 trainN=1786+370
+panasonic SP400 seed2: AE=[0] MAE=0.0034 R2=0.9965 trainN=1786+370
+panasonic SP400 seed3: AE=[1] MAE=0.0037 R2=0.9964 trainN=1786+370
+panasonic SP400 seed4: AE=[1] MAE=0.0038 R2=0.9963 trainN=1786+370
+panasonic SP400 seed5: AE=[1] MAE=0.0035 R2=0.9965 trainN=1786+370
+panasonic SP400 seed6: AE=[1] MAE=0.0038 R2=0.9965 trainN=1786+370
+panasonic SP400 seed7: AE=[1] MAE=0.0037 R2=0.9966 trainN=1786+370
+panasonic SP400 seed8: AE=[1] MAE=0.0037 R2=0.9965 trainN=1786+370
+panasonic SP400 seed9: AE=[1] MAE=0.0035 R2=0.9966 trainN=1786+370
+panasonic SP400 seed10: AE=[1] MAE=0.0036 R2=0.9965 trainN=1786+370
+panasonic SP500 seed1: AE=[1] MAE=0.0043 R2=0.9936 trainN=1786+470
+panasonic SP500 seed2: AE=[1] MAE=0.0040 R2=0.9938 trainN=1786+470
+panasonic SP500 seed3: AE=[1] MAE=0.0040 R2=0.9936 trainN=1786+470
+panasonic SP500 seed4: AE=[1] MAE=0.0041 R2=0.9932 trainN=1786+470
+panasonic SP500 seed5: AE=[1] MAE=0.0036 R2=0.9938 trainN=1786+470
+panasonic SP500 seed6: AE=[1] MAE=0.0038 R2=0.9938 trainN=1786+470
+panasonic SP500 seed7: AE=[1] MAE=0.0039 R2=0.9935 trainN=1786+470
+panasonic SP500 seed8: AE=[0] MAE=0.0045 R2=0.9929 trainN=1786+470
+panasonic SP500 seed9: AE=[1] MAE=0.0037 R2=0.9938 trainN=1786+470
+panasonic SP500 seed10: AE=[1] MAE=0.0042 R2=0.9936 trainN=1786+470
+=== per-SP means over seeds ===
+SP300: AE=0.80 MAE=0.0037 RMSE=0.0096 R2=0.9976
+SP400: AE=0.80 MAE=0.0036 RMSE=0.0101 R2=0.9965
+SP500: AE=0.90 MAE=0.0040 RMSE=0.0111 R2=0.9936

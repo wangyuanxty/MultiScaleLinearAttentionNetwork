@@ -1,0 +1,24 @@
+{
+ "tasks": [
+  {
+   "prompt": "Photo-realistic close-up for a Journal of Power Sources figure, landscape 4:3, no text overlay, no watermark, no logo.\n\nA. First-tier accuracy + regeneration tracking: a laboratory cell-cycling wire rack holding dozens of small cylindrical lithium cells under test, cycling cabinets with glowing LCD and cables neatly dressed; subtle motion of a finger pointing at a small digital capacity readout. Concept: monitoring accuracy and capture of local regeneration events. Clean studio-laboratory lighting, shallow depth of field, no persons' faces, no brand text.\n",
+   "image": "paper/figures_gen/ov_p3a.png",
+   "ar": "4:3"
+  },
+  {
+   "prompt": "Photo-realistic close-up for a Journal of Power Sources figure, landscape 4:3, no text overlay, no watermark, no logo.\n\nB. Physics-consistent head: a battery test operator's gloved hands connecting an impedance analyzer probe to a single 18650 cell in a test fixture, oscilloscope-like screen soft in the background. Concept: measured physical feature (internal resistance) driving physics-aware extrapolation and robustness to corrupted data. Clean laboratory lighting, shallow depth of field, no faces, no brand text.\n",
+   "image": "paper/figures_gen/ov_p3b.png",
+   "ar": "4:3"
+  },
+  {
+   "prompt": "Photo-realistic close-up for a Journal of Power Sources figure, landscape 4:3, no text overlay, no watermark, no logo.\n\nC. Decision-grade UQ: a maintenance engineer in a workshop holding a tablet showing a simple scheduling board with green/red calendar blocks, battery packs on a metal shelf behind, soft workshop lighting. Concept: risk-aware maintenance scheduling from a calibrated interval (P2.5/P97.5), not just a point estimate. No faces, no brand text.\n",
+   "image": "paper/figures_gen/ov_p3c.png",
+   "ar": "4:3"
+  },
+  {
+   "prompt": "Photo-realistic close-up for a Journal of Power Sources figure, landscape 4:3, no text overlay, no watermark, no logo.\n\nD. Edge deployment: a small bare STM32-class microcontroller board (green PCB, visible MCU chip, headers) mounted next to a cylindrical battery cell on a fixture, a laptop with a code window far out of focus in the background. Concept: on-device inference with fixed-size state, no cloud. Clean bench lighting, shallow depth of field, no faces, no brand text.\n",
+   "image": "paper/figures_gen/ov_p3d.png",
+   "ar": "4:3"
+  }
+ ]
+}

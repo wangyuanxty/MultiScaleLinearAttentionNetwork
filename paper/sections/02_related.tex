@@ -1,0 +1,116 @@
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Model-based and traditional machine-learning methods}
+
+Physics-based prognostics build degradation models from electrochemical
+dynamics, estimated with filters such as extended Kalman filters
+\cite{ref_ekf_yan}, unscented particle filters \cite{ref_upf_cong},
+and particle filters with electrochemical or empirical state models
+\cite{ref_pf_echem,ref_pf_rbf,ref_pf_lui}. These methods encode
+mechanistic knowledge but require accurate parameter identification
+and struggle with regeneration-rich or heterogeneous degradation.
+Traditional machine learning provides a lighter alternative:
+support vector machines \cite{ref_svm_klass,ref_svm_patil}, support
+vector regression \cite{ref_svr_wang}, and relevance vector machines
+\cite{ref_rvm_guo} regress health indicators directly from capacity
+or voltage features, yet their fixed kernels cannot easily extrapolate
+over the strongly nonlinear EOL-acceleration phase.
+
+\subsection{Deep sequence models for battery prognostics}
+
+Recurrent models were among the first deep approaches to capacity sequences:
+LSTM-based predictors \cite{ref_lstm_rul_zhang,ref_lstm_elman_li},
+GRU variants \cite{ref_gru_ding,ref_gru_rnn}, and recurrent networks
+for RUL \cite{ref_rnn_catelani} capture temporal dynamics but suffer
+from long-term dependency limitations. Convolutional hybrids combine
+local feature extraction with recurrence, including CNN-BiLSTM
+\cite{ref_cnn_bilstm}, TCN-LSTM \cite{ref_tcn_lstm}, and attention
+mechanisms \cite{ref_lstm_transformer}. Transformer-based models
+\cite{ref_vaswani} brought global attention to battery prognostics:
+direct Transformer RUL predictors \cite{ref_trans_rul}, hybrid
+CEEMDAN-Transformer-DNN models \cite{ref_ceemdan_trans}, and
+PatchFormer \cite{ref_patchformer}, which combines dual patch-wise
+attention with feature-wise attention. General time-series
+transformers evaluated on battery tasks include Autoformer
+\cite{ref_autoformer}, FEDformer \cite{ref_fedformer}, iTransformer
+\cite{ref_itransformer}, PatchTST \cite{ref_patchtst}, TimesNet
+\cite{ref_timesnet}, and TimeMixer \cite{ref_timemixer}. All
+attention-based methods share the quadratic-complexity bottleneck
+that constrains embedded deployment. Comprehensive surveys of this
+line are given in \cite{ref_lipu_review,ref_he_review}.
+
+\subsection{State space models}
+
+Mamba \cite{ref_mamba} is a selective state space model with
+linear-time inference, extensively surveyed in \cite{ref_mamba_survey}
+and evaluated for general time-series forecasting in
+\cite{ref_samamba_tsf}. For batteries, MambaLithium \cite{ref_mambalithium}
+applies a pure Mamba network to SOH/RUL/SOC estimation, and RUL-Mamba
+\cite{ref_rulmamba} combines a Mamba encoder with a feature attention
+network and a gated residual decoder, reporting state-of-the-art
+results on NASA, Oxford, and TJU datasets. While these works emphasize
+efficient training and fast inference, their efficiency claims are
+based on GPU measurements; none of them validates execution on
+embedded hardware, which is the target of the present work.
+
+\subsection{Grey system models}
+
+Grey system theory models degradation using accumulated sequences and
+fractional-order operators. Recent work includes grey models with
+capacity-regeneration consideration \cite{ref_grey_hybrid}, adaptive
+weighted fractional-order reverse accumulation for SOH
+\cite{ref_grey_frac}, fractional-order heuristic models for PEMFC
+prognostics \cite{ref_grey_pemfc}, self-adaptive grey neural networks
+for real-time PEMFC degradation \cite{ref_grey_nn}, grey Kalman
+filtering for SOC estimation \cite{ref_grey_kalman}, and grey
+iterative modeling for battery health management \cite{ref_grey_iter}.
+These methods are lightweight and interpretable but rely on
+hand-crafted model forms that must be re-specified for each battery
+chemistry and operating regime.
+
+\subsection{Physics-informed battery modeling}
+
+Physics-informed neural networks (PINNs) embed degradation physics
+into the learning objective. Wang et al.\ \cite{ref_wang_pinn}
+proposed a physics-informed network for stable degradation modeling,
+and PiDDM \cite{ref_piddm} incorporates Arrhenius degradation kinetics
+into the training objective, reporting improved extrapolation at the
+end of life. Our systematic injection-route study (Section
+\ref{sec:ablation}) revisits this paradigm for a sequence model that
+already ingests the capacity trajectory: objective regularization,
+input feature concatenation, and structural heads all fail---the
+per-window z-score target space is structurally incompatible with
+monotone predictors, and the features are redundant with capacity
+history. The mechanism that survives is a degradation-rate head
+driven by measured internal resistance, trained in absolute capacity
+space (Section~\ref{sec:physics}).
+
+\subsection{Linear attention and recurrent mixing}
+
+Linear attention replaces the softmax attention map with a recurrent
+matrix state, achieving $O(N)$ complexity. Gated DeltaNet
+\cite{ref_gdn} combined the delta rule with learned gating, and
+Gated DeltaNet-2 (GDN-2) \cite{ref_gdn2} decoupled channel-wise erase
+and write gates, improving long-context retrieval in language
+modeling. To our knowledge, the present work is the first to report
+floating-point-accurate MCU deployment of a linear-attention battery model.
+
+Stepping back from individual architectures, the surveyed literature
+answers one question---which model is most accurate on public cycling
+data---while leaving the questions that decide operational adoption
+largely open. First, accuracy has been demonstrated only on
+server-class hardware: none of the battery-specific models above
+reports a deployment path onto the microcontrollers that production
+BMS firmware actually runs on, so operators must either pay for
+cloud connectivity or accept simpler on-device estimators. Second,
+forecasts are evaluated as point trajectories, yet the operational
+consumer of a forecast is a maintenance schedule, which requires an
+explicit statement of risk; few works report calibrated intervals
+suitable for scheduling. Third, evaluations are confined to clean
+laboratory data: the end-of-life acceleration tail and the
+corrupted-sensor regimes---where field decisions concentrate---are
+rarely tested, so reported accuracy says little about how a
+predictor will behave in deployment. DeltaCycle is designed around
+these three operational gaps rather than around a single benchmark
+number.

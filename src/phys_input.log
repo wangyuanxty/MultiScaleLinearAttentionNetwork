@@ -1,0 +1,30 @@
+training use_ir=False (N=2715, in_dim=1) ...
+    ep0 loss=0.6325
+    ep10 loss=0.5284
+    ep20 loss=0.3330
+    ep30 loss=0.1762
+    ep40 loss=0.2251
+    ep50 loss=0.2320
+    ep60 loss=0.2157
+    ep70 loss=0.3014
+    ep80 loss=0.3738
+    ep90 loss=0.1719
+  [clean] use_ir=False: MAE=0.0059 R2=0.9963 regen=0.248 AE=2
+  [drop30] use_ir=False: MAE=0.0120 R2=0.9857 regen=0.257 AE=23
+  [gauss] use_ir=False: MAE=0.0109 R2=0.9936 regen=0.435 AE=1
+  [impulse] use_ir=False: MAE=0.0081 R2=0.9948 regen=0.335 AE=1
+training use_ir=True (N=2715, in_dim=2) ...
+    ep0 loss=0.5967
+    ep10 loss=0.4775
+    ep20 loss=0.2964
+    ep30 loss=0.1957
+    ep40 loss=0.2147
+    ep50 loss=0.2171
+    ep60 loss=0.2317
+    ep70 loss=0.2533
+    ep80 loss=0.3343
+    ep90 loss=0.1887
+  [clean] use_ir=True: MAE=0.0066 R2=0.9960 regen=0.266 AE=7
+  [drop30] use_ir=True: MAE=0.0124 R2=0.9852 regen=0.275 AE=23
+  [gauss] use_ir=True: MAE=0.0107 R2=0.9939 regen=0.393 AE=7
+  [impulse] use_ir=True: MAE=0.0090 R2=0.9945 regen=0.348 AE=7

@@ -1,0 +1,12 @@
+training calce seed44 (N=2715, W=64) ...
+  ep  5 mean_train_loss=0.4845 test MAE=0.0098 R2=0.9913 AE=1
+  ep 10 mean_train_loss=0.3959 test MAE=0.0081 R2=0.9938 AE=7
+  ep 15 mean_train_loss=0.3622 test MAE=0.0073 R2=0.9947 AE=7
+  ep 20 mean_train_loss=0.3423 test MAE=0.0081 R2=0.9947 AE=7
+  ep 25 mean_train_loss=0.3434 test MAE=0.0086 R2=0.9930 AE=1
+  ep 30 mean_train_loss=0.3363 test MAE=0.0074 R2=0.9948 AE=7
+  ep 35 mean_train_loss=0.3282 test MAE=0.0073 R2=0.9946 AE=7
+  ep 40 mean_train_loss=0.3329 test MAE=0.0076 R2=0.9956 AE=7
+  ep 45 mean_train_loss=0.3398 test MAE=0.0074 R2=0.9943 AE=7
+  ep 50 mean_train_loss=0.3188 test MAE=0.0069 R2=0.9953 AE=7
+  ep 55 mean_train_loss=0.3176 test MAE=0.0071 R2=0.9959 AE=7

@@ -1,43 +1,7 @@
-# Tool config / session state
-.claude/
+# Only ignore large/third-party data directories; everything else (paper/,
+# .claude/, results/, PDFs, sources) is tracked.
 
-# Data / artifacts
 checkpoints/
-results/
 data/
-src/data_cache/
-*.pt
-*.pkl
-*.npy
-*.xlsx
-~$*
-
-# Build / logs
-*.log
-__pycache__/
-*.pyc
-*.aux
-*.bbl
-*.blg
-*.out
-*.toc
-*.lof
-*.lot
-*.fls
-*.fdb_latexmk
-*.synctex.gz
-# Manuscript (kept private until acceptance)
-paper/
-
-# Literature library (third-party markdown conversions; do not redistribute)
 literature/
-
-# Upstream reference repos / artifacts (clone from originals)
 reference_repos/
-src/lightning_logs/
-*.spl
-
-# IDE / OS
-.vscode/
-.idea/
-.DS_Store

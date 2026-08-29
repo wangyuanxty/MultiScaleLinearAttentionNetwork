@@ -1,0 +1,1 @@
+Studio photograph, photorealistic, high detail: a cordless power drill with its inserted battery pack, on a workshop bench. Sharp focus, soft even studio lighting, neutral light-gray seamless background, subject fills the frame, low-key shadows. NO text, NO labels, NO watermark, NO logos, NO branding anywhere in the image.

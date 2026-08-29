@@ -1,0 +1,7 @@
+training calce seed44 (N=2715, W=64) ...
+    ep0 loss=0.4600
+    ep25 loss=0.4428
+    ep50 loss=0.2119
+    ep75 loss=0.2780
+  [calce seed44] MAE=0.0065 R2=0.9959 regen=0.233 AE=7
+  saved ../checkpoints/full_calce_seed44.pt

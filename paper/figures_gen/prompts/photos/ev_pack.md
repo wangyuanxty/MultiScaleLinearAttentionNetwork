@@ -1,0 +1,1 @@
+Studio photograph, photorealistic, high detail: an electric vehicle traction battery module, several prismatic cells with aluminum busbars, on a workbench. Sharp focus, soft even studio lighting, neutral light-gray seamless background, subject fills the frame, low-key shadows. NO text, NO labels, NO watermark, NO logos, NO branding anywhere in the image.

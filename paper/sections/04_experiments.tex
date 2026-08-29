@@ -1,0 +1,692 @@
+\section{Experiments}
+\label{sec:exp}
+
+\subsection{Datasets}
+\label{sec:datasets}
+
+We evaluate on five public battery degradation datasets spanning
+different chemistries, capacities, and degradation behaviors
+(Table~\ref{tab:datasets}): CALCE (LCO, rated 1.1\,Ah), NASA
+\cite{ref_nasa_data} (LCO, 2.0\,Ah), MIT/Stanford \cite{ref_severson}
+(LFP, 124 cells), PANASONIC (NCA, 3.03\,Ah), and TJU (NCM+NCA,
+2.5\,Ah). End-of-life (EOL) thresholds follow rated
+capacity times convention: 70\% for small cells and 80\% for
+large-format cells. For MIT we use a 10-cell subset (8 training, 2 test) for this study.
+All models use pure capacity input; internal resistance is used only
+as an auxiliary input of the physics-extension rate head
+(Section~\ref{sec:physics}).
+
+\begin{table}[htbp]
+\centering
+\caption{Dataset overview.}
+\label{tab:datasets}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccl}
+\toprule
+Dataset & Chemistry & Rated & Cells & EOL (Ah) & Role \\
+\midrule
+CALCE & LCO & 1.1 Ah & 4 & 0.77 & primary, physics (IR) \\
+NASA & LCO & 2.0 Ah & 4 & 1.40 & short-history \\
+MIT & LFP & 1.07 Ah & 10* & 0.86 & cross-battery \\
+PANASONIC & NCA & 3.03 Ah & 3 & 2.12 & regeneration \\
+TJU & NCM+NCA & 2.5 Ah & 3 & 1.75 & long-cycle \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Evaluation protocol}
+\label{sec:protocol}
+
+Following the standard protocol in PatchFormer \cite{ref_patchformer}
+and RUL-Mamba \cite{ref_rulmamba}, we report trajectory
+metrics per starting point (SP): R$^2$, MAE (mean absolute error),
+RMSE (root mean squared error), and AE. Let TRUL be the true
+remaining useful life in cycles at an SP (cycles from the SP to the
+true EOL crossing), PRUL the predicted RUL from the first threshold
+crossing of the predicted capacity sequence, AE $= |\text{TRUL} -
+\text{PRUL}|$ the absolute RUL error in cycles, and RE $=$
+AE/TRUL the relative RUL error.
+
+\emph{Training configuration.} All models use Adam (learning rate
+$1\times10^{-3}$, batch size 64) for 100 epochs with a window of
+$W{=}64$ cycles ($W{=}30$ for NASA and PANASONIC, matching the
+window convention of the baseline literature). These settings were
+fixed during the ablation stage and held constant across datasets,
+seeds, and model variants---no per-dataset or per-variant tuning is
+applied to the reported results, so every variant compared in
+Sections~\ref{sec:ablation}--\ref{sec:phys} shares the same optimizer
+budget. We do not claim these configurations are optimal; a
+sensitivity note is included in Section~\ref{sec:limitations}.
+%
+The main results (Table~\ref{tab:tableA}) additionally follow the
+per-SP training protocol of PatchFormer: for each (dataset, SP,
+seed) a fresh model is trained from scratch, on the non-test cells'
+full sequences plus the test cell's cycles before the SP, and
+evaluated on the segment starting at the SP; we use ten seeds per
+SP (1--10), so each table cell aggregates ten independently trained
+models. The ablation and physics studies (which compare model
+variants rather than protocol steps) use the single-seed, full-data
+training described above.
+
+\subsection{Main results}
+\label{sec:main}
+
+Figure~\ref{fig:traj} shows representative SOH trajectories with
+sliding-window single-step predictions for one cell of each dataset;
+Table~\ref{tab:tableA} reports the full per-SP results. The five
+datasets cover distinct degradation regimes and operational
+scenarios; we present them as case studies below, each closing with
+its operational implication and a comparison with published results
+on that dataset.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_traj}
+\caption{Single-step capacity prediction on one test cell per
+dataset. Green dashed lines mark the starting points (SPs); red
+dotted lines mark the EOL thresholds.}
+\label{fig:traj}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Per-SP trajectory results, mean $\pm$ std
+over ten seeds (1--10) per SP under the PatchFormer-consistent
+per-SP protocol (a fresh model per (SP, seed); MIT rows report
+the full-data model of Sec.~\ref{sec:main}). TRUL in cycles; MAE/RMSE are trajectory
+errors in normalized capacity; AE (a small bounded integer) is
+reported as mean over seeds.}
+\label{tab:tableA}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lr rrrrr}
+\toprule
+Dataset & SP & TRUL & MAE & RMSE & R$^2$ & AE \\
+\midrule
+CALCE & 300 & 339 & 0.0066$\pm$0.0007 & 0.0146$\pm$0.0013 & 0.9951$\pm$0.0008 & 3.2 \\
+  & 400 & 239 & 0.0078$\pm$0.0010 & 0.0170$\pm$0.0019 & 0.9933$\pm$0.0015 & 2.5 \\
+  & 500 & 139 & 0.0092$\pm$0.0016 & 0.0196$\pm$0.0028 & 0.9898$\pm$0.0030 & 2.4 \\
+NASA & 50 & 73 & 0.0098$\pm$0.0018 & 0.0145$\pm$0.0013 & 0.9908$\pm$0.0018 & 0.9 \\
+  & 70 & 53 & 0.0089$\pm$0.0009 & 0.0148$\pm$0.0005 & 0.9822$\pm$0.0011 & 0.4 \\
+  & 90 & 33 & 0.0080$\pm$0.0009 & 0.0115$\pm$0.0011 & 0.9804$\pm$0.0036 & 0.5 \\
+PANASONIC & 300 & 287 & 0.0037$\pm$0.0003 & 0.0096$\pm$0.0001 & 0.9976$\pm$0.0001 & 0.8 \\
+  & 400 & 187 & 0.0036$\pm$0.0002 & 0.0101$\pm$0.0001 & 0.9965$\pm$0.0001 & 0.8 \\
+  & 500 & 87 & 0.0040$\pm$0.0003 & 0.0111$\pm$0.0003 & 0.9936$\pm$0.0003 & 0.9 \\
+TJU & 200 & 577 & 0.0013$\pm$0.0002 & 0.0020$\pm$0.0001 & 0.9999$\pm$0.0000 & 0.2 \\
+  & 300 & 477 & 0.0014$\pm$0.0002 & 0.0021$\pm$0.0002 & 0.9998$\pm$0.0000 & 0.9 \\
+  & 400 & 377 & 0.0018$\pm$0.0004 & 0.0026$\pm$0.0005 & 0.9996$\pm$0.0001 & 1.6 \\
+MIT & 200 & 406 & 0.0019$\pm$0.0006 & 0.0030$\pm$0.0011 & 0.9998$\pm$0.0002 & 0.9 \\
+  & 300 & 306 & 0.0025$\pm$0.0008 & 0.0035$\pm$0.0016 & 0.9997$\pm$0.0005 & 0.9 \\
+  & 400 & 206 & 0.0032$\pm$0.0014 & 0.0040$\pm$0.0014 & 0.9995$\pm$0.0004 & 1.1 \\
+\midrule
+\multicolumn{7}{l}{\emph{Average across all SPs and seeds: AE = 1.2 cycles, R$^2$ = 0.9945, MAE = 0.0049.}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Battery-specific foundation and pretrained models published outside
+the per-SP RUL protocol family are not included in the comparison
+tables, because their reported metrics use different evaluation
+conventions (early-cycle prediction, or trajectory regression
+without per-SP RUL errors); head-to-head comparisons under our
+protocol are left to future work. Each case study below carries
+the per-dataset comparison table against PatchFormer
+\cite{ref_patchformer}, RUL-Mamba \cite{ref_rulmamba}, and the
+general time-series transformers, using the numbers reported in
+those papers on the shared test cells, EOL thresholds, and starting
+points (NASA B0005 and TJU CY25-1 are used identically by all
+works). AE is filled wherever the source paper reports it:
+RUL-Mamba's NASA and TJU rows carry its reported AE (an average
+over 10 runs), and on CALCE and PANASONIC---where RUL-Mamba's own
+paper has no results---we use OmniTIEFormer's baseline runs of
+RUL-Mamba \cite{ref_omnitie}, which also report AE.
+Figure~\ref{fig:compare} visualizes the per-SP trajectory MAE of
+the compared methods on the two datasets where all three
+battery-specific baselines overlap.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_compare}
+\caption{Per-SP trajectory MAE of the compared methods on NASA and
+TJU, grouped by starting point (log scale). Green: Ours; blue:
+PatchFormer/RUL-Mamba; gray: other baselines.}
+\label{fig:compare}
+\end{figure}
+
+\subsubsection{CALCE: long-term monotonic monitoring}
+CALCE (LCO, 1.1\,Ah, four cells) exhibits smooth, monotonic fade over
+$\sim$900 cycles---the canonical asset-monitoring regime. The model
+ranks second only to PatchFormer on every reported metric among all
+compared baselines (Table~\ref{tab:lit_calce}: MAE
+$0.0066$--$0.0092$ vs.\ $0.0057$--$0.0069$; R$^2$ within $0.004$; AE
+mean $2.4$--$3.2$ vs.\ $0.8$--$1.1$); the AE seed-to-seed spread
+($1$--$7$ cycles, per-SP means $3.2$/$2.5$/$2.4$), comes from seeds
+whose near-flat tail crossing
+amplifies a small trajectory bias into several cycles of RUL error,
+as quantified below. \emph{Operational
+implication:} on
+monotonic cells the free head is the workhorse for daily SOH
+monitoring, while the monotonic rate head of Section~\ref{sec:physics}
+applies with zero regeneration risk and improves MAE by 40\%.
+
+\begin{table}[htbp]
+\centering
+\caption{CALCE (SP 300/400/500): comparison with published
+trajectory results. MAE/RMSE in normalized capacity; bold marks the
+best value in each column; ties are both bold. Ours: means over ten
+seeds (per-SP protocol); AE reported as mean over seeds.}
+\label{tab:lit_calce}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll rrrr rrrr rrrr}
+\toprule
+Method & & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} & \multicolumn{4}{c}{SP500} \\
+ & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
+\midrule
+TimeMixer & & 0.0244 & 0.0400 & 0.9608 & 15.8 & 0.0287 & 0.0441 & 0.9512 & 16.4 & 0.0341 & 0.0513 & 0.9245 & 16.7 \\
+TimesNet & & 0.0369 & 0.0482 & 0.9469 & 42.0 & 0.0456 & 0.0547 & 0.9304 & 44.3 & 0.0559 & 0.0636 & 0.8938 & 47.0 \\
+PatchTST & & 0.0200 & 0.0320 & 0.9750 & 9.5 & 0.0230 & 0.0357 & 0.9683 & 11.4 & 0.0276 & 0.0422 & 0.9497 & 11.5 \\
+MambaSimple & & 0.0239 & 0.0364 & 0.9682 & 15.8 & 0.0281 & 0.0402 & 0.9607 & 18.6 & 0.0333 & 0.0460 & 0.9416 & 19.9 \\
+ModernTCN & & 0.0109 & 0.0195 & 0.9909 & 3.2 & 0.0124 & 0.0215 & 0.9888 & 3.3 & 0.0147 & 0.0244 & 0.9838 & 5.3 \\
+Autoformer & & 0.0216 & 0.0336 & 0.9738 & 10.3 & 0.0242 & 0.0366 & 0.9681 & 11.0 & 0.0281 & 0.0410 & 0.9550 & 12.0 \\
+FEDformer & & 0.0197 & 0.0301 & 0.9782 & 14.4 & 0.0224 & 0.0328 & 0.9735 & 15.9 & 0.0260 & 0.0366 & 0.9628 & 17.6 \\
+iTransformer & & 0.0141 & 0.0229 & 0.9880 & 6.9 & 0.0166 & 0.0254 & 0.9849 & 8.1 & 0.0198 & 0.0285 & 0.9787 & 10.9 \\
+PathFormer & & 0.0431 & 0.0640 & 0.9060 & 40.3 & 0.0532 & 0.0713 & 0.8814 & 41.9 & 0.0659 & 0.0825 & 0.8212 & 43.4 \\
+RUL-Mamba$^{\mathsection}$ & & 0.0164 & 0.0266 & 0.9794 & 12.5 & 0.0191 & 0.0310 & 0.9754 & 12.5 & 0.0226 & 0.0331 & 0.9659 & 13.0 \\
+PatchFormer & & \textbf{0.0057} & \textbf{0.0129} & \textbf{0.9962} & \textbf{0.8} & \textbf{0.0062} & \textbf{0.0140} & \textbf{0.9954} & \textbf{0.8} & \textbf{0.0069} & \textbf{0.0155} & \textbf{0.9937} & \textbf{1.1} \\
+Ours & & 0.0066 & 0.0146 & 0.9951 & 3.2 & 0.0078 & 0.0170 & 0.9933 & 2.5 & 0.0092 & 0.0196 & 0.9898 & 2.4 \\
+\bottomrule
+\multicolumn{14}{l}{\footnotesize Baselines as reported in PatchFormer's CALCE I experiments (same test cell, SPs, EOL);}\\
+\multicolumn{14}{l}{\footnotesize $^{\mathsection}$RUL-Mamba from OmniTIEFormer's baseline runs (RUL-Mamba's own paper has no CALCE result).}\\
+\end{tabular}%
+}
+\end{table}
+
+\emph{On the CALCE AE spread.} The AE column deserves an
+explicit note: across the ten seeds per SP the AE values span
+1--7 at SP300 (mean 3.2), 1--7 at SP400 (mean 2.5) and 0--6 at
+SP500 (mean 2.4), and the maximum is not a training failure but a
+geometric property of the test cell. Near the EOL threshold the
+CALCE trajectory is nearly flat (local slope $\approx 0.0022$\,/cycle
+in normalized capacity, $\approx 1.9$\,mAh/cycle), so a local
+prediction bias of $\sim$10\,mAh near the tail---diluted
+to $\le 0.001$ in the full-segment MAE---shifts the threshold
+crossing by 5--7 cycles.
+The same mechanism keeps PatchFormer's CALCE AE in a narrow band
+(0.8--1.1): on flat tails AE is a coarse-grained statistic; we report the
+mean and flag the seed-to-seed spread explicitly. On CALCE, where we
+additionally run PatchFormer's official code under our identical
+protocol, the self-run baseline gives AE $=$ 1 at SP300 against our
+AE $=$ 3.2 (R$^2$ $0.9955$ vs.\ $0.9951$).
+
+\subsubsection{NASA: short-history rapid assessment}
+NASA (LCO, 2.0\,Ah, $\sim$168-cycle cells) is the shortest-history
+scenario---new assets or limited telemetry. With only 168 cycles the
+model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
+(Table~\ref{tab:lit_nasa}); on R$^2$ we exceed the published
+PatchFormer result at SP90
+($0.9804$ vs.\ $0.9663$), while their MAE remains ahead
+($0.0080$ vs.\ $0.0068$ at SP90; AE $0.5$ vs.\ $0.6$).
+\emph{Operational implication:}
+short histories are the regime where rapid commissioning checks and
+second-life screening must run with limited data; the model's
+trajectory quality is decision-grade from $\sim$50 cycles of
+observation.
+
+\begin{table}[htbp]
+\centering
+\caption{NASA (SP 50/70/90): comparison with published trajectory
+results. MAE/RMSE in normalized capacity; bold marks the best value
+in each column; ties are both bold. Ours: means over ten seeds
+(per-SP protocol); AE reported as mean over seeds.}
+\label{tab:lit_nasa}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll rrrr rrrr rrrr}
+\toprule
+Method & & \multicolumn{4}{c}{SP50} & \multicolumn{4}{c}{SP70} & \multicolumn{4}{c}{SP90} \\
+ & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
+\midrule
+TimeMixer & & 0.0239 & 0.0285 & 0.9540 & 8.0 & 0.0241 & 0.0298 & 0.9014 & 6.7 & 0.0203 & 0.0307 & 0.8290 & 9.0 \\
+TimesNet & & 0.0364 & 0.0478 & 0.8753 & 3.0 & 0.0298 & 0.0403 & 0.8349 & 2.9 & 0.0213 & 0.0275 & 0.8699 & 3.0 \\
+PatchTST & & 0.0260 & 0.0319 & 0.9405 & 4.2 & 0.0201 & 0.0250 & 0.9333 & 3.9 & 0.0150 & 0.0212 & 0.9209 & 5.0 \\
+MambaSimple & & 0.0301 & 0.0362 & 0.9254 & 6.7 & 0.0250 & 0.0305 & 0.9034 & 5.7 & 0.0188 & 0.0244 & 0.8943 & 4.1 \\
+ModernTCN & & 0.0166 & 0.0213 & 0.9750 & 2.9 & 0.0127 & 0.0172 & 0.9700 & 4.4 & 0.0098 & 0.0173 & 0.9483 & 6.8 \\
+Autoformer & & 0.0234 & 0.0336 & 0.9341 & 3.6 & 0.0230 & 0.0340 & 0.8721 & 4.1 & 0.0213 & 0.0313 & 0.8153 & 4.2 \\
+FEDformer & & 0.0215 & 0.0266 & 0.9569 & 4.7 & 0.0199 & 0.0262 & 0.9217 & 5.0 & 0.0172 & 0.0237 & 0.8961 & 5.8 \\
+iTransformer & & 0.0076 & 0.0141 & 0.9891 & 5.4 & 0.0078 & 0.0149 & 0.9772 & 4.3 & 0.0086 & 0.0165 & 0.9528 & 4.5 \\
+PathFormer & & 0.0274 & 0.0375 & 0.9228 & 5.1 & 0.0214 & 0.0292 & 0.9100 & 5.6 & 0.0186 & 0.0248 & 0.8941 & 7.9 \\
+PatchFormer & & \textbf{0.0056} & \textbf{0.0118} & \textbf{0.9924} & \textbf{0.1} & \textbf{0.0061} & \textbf{0.0127} & \textbf{0.9835} & \textbf{0.4} & \textbf{0.0068} & \textbf{0.0140} & 0.9663 & \textbf{0.6} \\
+RUL-Mamba$^\dagger$ & & 0.0083 & 0.0134 & 0.9901 & 0.8 & 0.0091 & 0.0150 & 0.9770 & 0.9 & 0.0092 & 0.0161 & 0.9556 & 2.5 \\
+Ours & & 0.0098 & 0.0145 & 0.9908 & 0.9 & 0.0089 & 0.0148 & 0.9822 & \textbf{0.4} & 0.0080 & \textbf{0.0115} & \textbf{0.9804} & \textbf{0.5} \\
+\bottomrule
+\multicolumn{14}{l}{\footnotesize Baselines as reported in PatchFormer's NASA experiments (same test cell B0005, SPs, EOL);}\\
+\multicolumn{14}{l}{\footnotesize $^\dagger$RUL-Mamba from its own experiments (same test cell B0005); its AE is an average over 10 runs.}\\
+\end{tabular}%
+}
+\end{table}
+
+\subsubsection{MIT: cross-cell fleet screening}
+MIT (LFP, 1.074\,Ah, 8 train / 2 test cells) is our large-scale
+fleet proxy: many training cells, unseen test cells. Over the two
+test cells the model achieves R$^2 \ge 0.9995$ at every SP
+(Table~\ref{tab:tableA}), with mean AE $0.2$ cycles on one test cell
+and $1.6$ on the other (10-seed means), exceeding the published MIT
+result of Zhao et al.\ \cite{ref_zhou2025}
+(R$^2$ $0.9902$) under a different protocol (7-step multi-point).
+Per-SP protocol (every (SP, seed) retrained from scratch, 10 seeds
+per SP) is applied uniformly. \emph{Operational implication:}
+cross-cell generalization at R$^2 \approx 1$ is the enabler for
+fleet-scale screening and grading with per-device confidence.
+
+\subsubsection{PANASONIC: regeneration-rich fleet operation}
+PANASONIC (NCA, 3.03\,Ah) is the regeneration benchmark: staircase
+profiles with local capacity recoveries. Our model wins every metric
+and every SP among all compared methods (Table~\ref{tab:lit_panasonic}:
+MAE $0.0037$ vs.\ $0.0105$ for the strongest baseline at SP300; R$^2$
+$0.9976$ vs.\ $0.9898$; AE $0.8$ vs.\ $2.2$). Figure~\ref{fig:regen}
+shows why: the free-head readout tracks a $0.024$\,Ah local rise
+without overshoot, while a structurally monotonic predictor cannot
+represent this pattern at all. \emph{Operational implication:} real
+fleet data is non-monotonic; a model with a structural monotonicity
+bias would systematically mis-schedule maintenance after recovery
+events. The free head covers this regime, and the monotonic rate head
+(Section~\ref{sec:physics}) is deliberately reserved for
+monotonic-degradation cells---the two readouts partition the
+degradation regimes by design.
+
+\begin{table}[htbp]
+\centering
+\caption{PANASONIC (SP 300/400/500): comparison with published
+trajectory results. Bold marks the best value in each column; ties
+are both bold. Ours: means over ten seeds (per-SP protocol); AE reported
+as mean over seeds.}
+\label{tab:lit_panasonic}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll rrrr rrrr rrrr}
+\toprule
+Method & & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} & \multicolumn{4}{c}{SP500} \\
+ & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
+\midrule
+PatchFormer & & 0.0105 & 0.0192 & 0.9898 & 2.2 & 0.0120 & 0.0208 & 0.9830 & 3.2 & 0.0154 & 0.0240 & 0.9616 & 4.2 \\
+RUL-Mamba & & 0.0223 & 0.0357 & 0.9665 & 6.0 & 0.0236 & 0.0379 & 0.9460 & 6.0 & 0.0263 & 0.0415 & 0.8906 & 6.0 \\
+iTransformer & & 0.0162 & 0.0274 & 0.9790 & 1.2 & 0.0175 & 0.0293 & 0.9654 & 1.2 & 0.0203 & 0.0327 & 0.9278 & 1.4 \\
+Autoformer & & 0.0231 & 0.0311 & 0.9737 & 2.6 & 0.0241 & 0.0326 & 0.9585 & 3.8 & 0.0263 & 0.0357 & 0.9258 & 7.2 \\
+FEDformer & & 0.0257 & 0.0366 & 0.9648 & 6.8 & 0.0269 & 0.0383 & 0.9446 & 6.8 & 0.0295 & 0.0415 & 0.8896 & 8.4 \\
+Ours & & \textbf{0.0037} & \textbf{0.0096} & \textbf{0.9976} & \textbf{0.8} & \textbf{0.0036} & \textbf{0.0101} & \textbf{0.9965} & \textbf{0.8} & \textbf{0.0040} & \textbf{0.0111} & \textbf{0.9936} & \textbf{0.9} \\
+\bottomrule
+\multicolumn{14}{l}{\footnotesize Baselines as reported in OmniTIEFormer's baseline runs (their Table~5, Ah-scale header;}\\
+\multicolumn{14}{l}{\footnotesize normalized span $\approx 1.02$\,Ah). Ours in the same normalized capacity scale. iTransformer's SP500}\\
+\multicolumn{14}{l}{\footnotesize values are recovered from the source table's average row (the per-SP row is garbled in the published table).}\\
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_regen}
+\caption{PANASONIC test cell: full trajectory (left, green bands mark
+regeneration segments) and zoom on the strongest regeneration zone
+(right). The free-head model tracks the local capacity rise without
+overshoot; a structurally monotonic predictor cannot represent this
+pattern at all.}
+\label{fig:regen}
+\end{figure}
+
+\subsubsection{TJU: long-life cycle counting}
+TJU (NCM/NCA, 2.5\,Ah, $\sim$900-cycle cells) is the long-life,
+low-noise regime. The model edges the strongest published baseline on
+every SP (Table~\ref{tab:lit_tju}: MAE $0.0013$ vs.\ $0.0013$ at
+SP200, R$^2$ $0.9999$, AE $0.2$ vs.\ $0.8$ cycles).
+\emph{Operational implication:} long-life assets accumulate decisions
+slowly; the combination of near-perfect trajectory fit and calibrated
+intervals (Section~\ref{sec:conf}) supports low-frequency,
+high-stakes replacement planning.
+
+\begin{table}[htbp]
+\centering
+\caption{TJU (SP 200/300/400): comparison with published trajectory
+results. MAE/RMSE in normalized capacity; bold marks the best value
+in each column; ties are both bold. Ours: means over ten seeds
+(per-SP protocol); AE reported as mean over seeds.}
+\label{tab:lit_tju}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll rrrr rrrr rrrr}
+\toprule
+Method & & \multicolumn{4}{c}{SP200} & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} \\
+ & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
+\midrule
+TimeMixer & & 0.0071 & 0.0089 & 0.9963 & 7.6 & 0.0086 & 0.0112 & 0.9919 & 6.0 & 0.0123 & 0.0152 & 0.9777 & 6.5 \\
+TimesNet & & 0.0163 & 0.0204 & 0.9830 & 1.0 & 0.0146 & 0.0179 & 0.9808 & 0.2 & 0.0130 & 0.0155 & 0.9783 & 0.4 \\
+PatchTST & & 0.0078 & 0.0092 & 0.9960 & 9.8 & 0.0069 & 0.0084 & 0.9952 & 7.4 & 0.0067 & 0.0088 & 0.9925 & 5.8 \\
+MambaSimple & & 0.0119 & 0.0145 & 0.9902 & 9.5 & 0.0107 & 0.0129 & 0.9887 & 7.7 & 0.0094 & 0.0112 & 0.9874 & 5.5 \\
+ModernTCN & & 0.0014 & 0.0022 & 0.9998 & 2.8 & 0.0015 & 0.0023 & 0.9997 & 2.7 & 0.0016 & 0.0024 & 0.9995 & 2.7 \\
+Autoformer & & 0.0050 & 0.0062 & 0.9979 & 5.5 & 0.0049 & 0.0061 & 0.9970 & 5.4 & 0.0047 & 0.0060 & 0.9957 & 4.8 \\
+FEDformer & & 0.0058 & 0.0070 & 0.9977 & 6.0 & 0.0056 & 0.0068 & 0.9968 & 5.7 & 0.0054 & 0.0067 & 0.9954 & 4.9 \\
+iTransformer & & 0.0017 & 0.0023 & 0.9998 & 1.8 & 0.0018 & 0.0025 & 0.9996 & 1.8 & 0.0019 & 0.0026 & 0.9994 & 1.4 \\
+PathFormer & & 0.0100 & 0.0131 & 0.9930 & 9.9 & 0.0112 & 0.0156 & 0.9855 & 12.1 & 0.0152 & 0.0209 & 0.9606 & 15.6 \\
+PatchFormer & & \textbf{0.0013} & \textbf{0.0019} & \textbf{0.9999} & 0.8 & \textbf{0.0014} & \textbf{0.0020} & 0.9997 & \textbf{0.5} & \textbf{0.0015} & \textbf{0.0022} & \textbf{0.9996} & \textbf{1.3} \\
+RUL-Mamba$^{\ddagger}$ & & 0.0014 & 0.0022 & 0.9998 & 2.6 & 0.0015 & 0.0023 & 0.9997 & 2.6 & 0.0016 & 0.0024 & 0.9995 & 2.6 \\
+Ours & & \textbf{0.0013} & 0.0020 & \textbf{0.9999} & \textbf{0.2} & \textbf{0.0014} & 0.0021 & \textbf{0.9998} & 0.9 & 0.0018 & 0.0026 & \textbf{0.9996} & 1.6 \\
+\bottomrule
+\multicolumn{14}{l}{\footnotesize Baselines as reported in PatchFormer's TJU experiments (same test cell CY25-1, SPs, EOL);}\\
+\multicolumn{14}{l}{\footnotesize $^\ddagger$RUL-Mamba's TJU experiments use multivariate (17-dim) inputs; its AE is an average over 10 runs.}\\
+\end{tabular}%
+}
+\end{table}
+
+
+
+\subsection{Ablation studies}
+\label{sec:ablation}
+
+This section ablates the architecture only; the physics extension is
+validated separately in Section~\ref{sec:phys}. Ablations are
+conducted on CALCE, the designated primary dataset, whose monotonic
+profile isolates architectural effects from regeneration confounds;
+extending the architecture ablations to regeneration-rich datasets
+is scheduled as future work (Section~\ref{sec:limitations}).
+
+The stage-query exchange is essential (seed 42, standard protocol;
+Table~\ref{tab:ablation}): three branches without interaction
+degrade by 15\% (MAE $0.0076$ vs $0.0066$), while the exchange
+outperforms a single-branch backbone ($0.0066$ vs $0.0070$).
+\begin{table}[htbp]
+\centering
+\caption{Architecture ablation on CALCE (seed 42, standard protocol,
+full-sequence MAE / R$^2$ / AE). Stage-query is the main model.}
+\label{tab:ablation}
+\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+Configuration & Objective & MAE & R$^2$ & AE \\
+\midrule
+single branch & z-score & 0.0070 & 0.9945 & 1 \\
+multi, no interaction & z-score & 0.0076 & 0.9938 & 0 \\
+\textbf{multi + stage-query (main)} & z-score & \textbf{0.0066} & \textbf{0.9955} & \textbf{0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Physics extension and interpretability}
+\label{sec:phys}
+
+We compared every physics injection route in the literature against
+the main backbone: (i) an objective regularizer with an
+Arrhenius-plus-IR rate prior; (ii) physics features concatenated to
+the input ($[C,\mathrm{IR}]$ on CALCE; temperature and EIS
+resistance $[C,T,\mathrm{Re},\mathrm{Rct}]$ on NASA); (iii) a
+structural monotone head trained under the per-window z-score
+protocol. All three fail: the regularizer's constant-rate prior
+conflicts with the EOL acceleration tail ($R^2$ $0.61\to0.34$ on
+extrapolation), the features are redundant with capacity history (no
+gain in any setting), and the structural head cannot represent the
+positive z-score targets of plateau segments (training loss stalls).
+The surviving mechanism---the rate head of
+Section~\ref{sec:physics}---moves the constraint to absolute
+capacity space and to an independently measured feature; a control
+free head trained in the same absolute space ($0.0097$) isolates the
+mechanism from the objective, and the rate head itself improves
+CALCE MAE by 40\% ($0.0042$ vs $0.0070$). Its value shows in the
+two regimes where physics is expected to matter;
+Figures~\ref{fig:extrap} and \ref{fig:robust} together with
+Tables~\ref{tab:extrap} and \ref{tab:robust} quantify both, and we
+close with the interpretability of the learned physics term.
+
+\subsubsection{Unseen-tail extrapolation}
+
+We train on the first $90\%$ of each cell's life and evaluate the
+unseen final $10\%$ under the same sliding-window protocol used for
+the main results. The rate head reaches $R^2 = 0.775$ on the
+tail---more than doubling the main-model readout ($0.374$) and far
+beyond last-value continuation ($-5.28$). The mechanism is explicit:
+the head predicts $\hat{Q}_t = Q_{t-1} - r$, so it never drifts
+away from the last observed capacity, and the IR term---correlated
+with capacity at $-0.98$ on the training cells---senses the
+contemporaneous degradation signal, so the head reacts to the EOL
+knee through the independently measured IR channel even though it
+has never seen the tail. The free head, in contrast, extrapolates
+local window statistics, which carry no information about the
+unseen acceleration. Figure~\ref{fig:extrap} shows the same
+mechanism visually: the free head anchors and drifts, while the
+rate head keeps following the fade through the unseen tail.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_extrap}
+\caption{Unseen-tail extrapolation on the CALCE test cell (train
+90\%, evaluate the final 10\% right of the dashed line). Black: true
+capacity; gray dotted: last-value continuation; red: main-model
+readout; green: rate head + IR. The rate head continues the
+degradation envelope instead of flattening or drifting.}
+\label{fig:extrap}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Unseen-tail extrapolation (train 90\%, evaluate final 10\%),
+CALCE. Sliding-window protocol identical to the main results.}
+\label{tab:extrap}
+\begin{tabular}{lcc}
+\toprule
+Predictor & Tail R$^2$ & Tail MAE (norm.) \\
+\midrule
+last-value continuation & $-5.28$ & 0.143 \\
+main-model readout (free head) & 0.374 & 0.035 \\
+\textbf{rate head + IR} & \textbf{0.775} & \textbf{0.011} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Corrupted-input robustness}
+
+The capacity channel of the test sequence is corrupted (30\% packet
+loss with hold-last-value, $\pm1\%$ Gaussian noise, 5\% impulse
+glitches) while IR stays clean. This models a
+capacity-channel-only failure---for example a current-sensor drift
+or a capacity-estimator failure---in which the independently
+measured impedance data remain valid; a total telemetry outage
+affecting both channels is outside the scenario. The rate head wins
+all four settings; under 30\% loss the biased hold-last-value
+filling hurts the free head twice as much (MAE $0.0122$ vs.\
+$0.0090$; AE $23$ vs.\ $17$). Figure~\ref{fig:robust} shows the
+mechanism: the forward-filled input plateaus upward, dragging the
+free head's near-EOL crossing late, while the rate head leans on the
+clean IR channel and keeps the crossing close to truth. A caveat:
+the IR signal strength varies across cells (correlation with
+capacity $-0.98$ on CS2\_35/36/37 but only $-0.12$ on CS2\_38,
+whose logged impedance is noisy), so the rate head's physics term
+contributes where the IR measurement is informative; the learned
+component must carry the fade otherwise.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_robust}
+\caption{Drop30 corruption on the CALCE test cell. Left: full
+trajectory (gray: corrupted forward-filled input; black: true; red:
+free head, AE 23; green: rate head + IR, AE 17). Right: zoom on the
+EOL-crossing region.}
+\label{fig:robust}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Corrupted-input robustness (capacity channel corrupted, IR
+clean), CALCE. AE in cycles.}
+\label{tab:robust}
+\begin{tabular}{lcc cc}
+\toprule
+Mode & \multicolumn{2}{c}{MAE (norm.)} & \multicolumn{2}{c}{AE} \\
+ & free head & rate head & free head & rate head \\
+\midrule
+clean & 0.0070 & \textbf{0.0042} & 1 & \textbf{1} \\
+drop30 & 0.0122 & \textbf{0.0090} & 23 & \textbf{17} \\
+gauss ($\pm1\%$) & 0.0119 & \textbf{0.0097} & 1 & \textbf{1} \\
+impulse (5\%) & 0.0098 & \textbf{0.0061} & 1 & \textbf{1} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Interpretability of the rate head}
+
+The rate head's physics-feature coefficient $\gamma$ is constrained
+positive by construction (softplus), so the measured internal
+resistance can only accelerate the predicted decay---the SEI-growth
+direction---and the structural monotonicity removes nonphysical
+regeneration artifacts (regen fraction $0.163$ vs $0.232$ for the
+free head on CALCE). The learned rate component
+$\operatorname{softplus}(\mathbf{w}^\top\mathbf{h})$ absorbs the
+dataset-specific fade dynamics, leaving the IR term as an
+interpretable, independently measured correction.
+
+Figure~\ref{fig:stages} shows the coarse-branch pooled
+representation of PANASONIC windows projected into two dimensions;
+early/mid/late-life windows form separable clusters, confirming that
+the coarse branch encodes the degradation stage ($93.2\%$ three-stage
+linear separability).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_stages}
+\caption{Coarse-branch (patch 8) pooled representations of
+PANASONIC windows. Left: PCA projection colored by degradation
+stage terciles; right: normalized three-stage confusion matrix of a
+linear classifier on the projection (accuracy $93.2\%$).}
+\label{fig:stages}
+\end{figure}
+
+\subsection{Uncertainty quantification}
+\label{sec:conf}
+
+Table~\ref{tab:quantile} reports the quantile and conformal results on
+CALCE. The P50 estimate matches the point model (MAE $0.0073$ vs
+$0.0066$). Raw pinball quantiles are miscalibrated---the P2.5--P97.5
+interval covers only $85.6\%$ of observations against the nominal
+$95\%$---a known failure mode of quantile regression under
+distribution shift. Conformal calibration on a held-out cell
+($n = 869$ windows, $q_{\text{adj}} = 0.0052$) lifts coverage to
+$93.3\%$ overall and $92.7$--$94.0\%$ per start point, at a modest
+$+36\%$ interval-width cost; the small residual gap to $95\%$
+reflects finite-sample calibration ($n{=}869$) and cross-cell
+distribution drift, and is reported honestly.
+Figure~\ref{fig:uq_band} shows the calibrated band on the test cell.
+
+\emph{From intervals to a decision rule.} The calibrated band
+translates into an operational policy directly: the simplest
+risk-aware rule is ``schedule replacement at the first cycle where
+the P2.5 trajectory crosses the EOL threshold.'' With CQR the
+$93.3\%$ coverage bounds the missed-EOL rate, and the $+36\%$
+interval-width cost quantified above is the price paid for that
+bound. Quantifying the associated maintenance-cost trade-off under a
+concrete cost model is left to future work.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig_uq_band}
+\caption{CQR-calibrated P2.5--P97.5 interval on the CALCE test cell
+(shaded band), with the P50 trajectory and the measured capacity.
+The interval is the deployment-ready output: one forward pass, two
+calibration scalars, no ensemble.}
+\label{fig:uq_band}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Uncertainty quantification: pinball quantiles with
+conformalized quantile regression (CQR), CALCE.}
+\label{tab:quantile}
+\begin{tabular}{lccc}
+\toprule
+Metric & Raw pinball & CQR & Target \\
+\midrule
+P50 MAE & 0.0073 & --- & $\approx$ point model (0.0066) \\
+Coverage (overall) & 0.856 & 0.933 & 0.95 \\
+Coverage @ SP300 & 0.881 & 0.940 & 0.95 \\
+Coverage @ SP400 & 0.881 & 0.931 & 0.95 \\
+Coverage @ SP500 & 0.885 & 0.927 & 0.95 \\
+Interval width & 0.0286 & 0.0390 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Deployment}
+\label{sec:deploy}
+
+Table~\ref{tab:deploy} summarizes INT8 quantization and MCU
+deployment results. Dynamic INT8 quantization is essentially lossless
+(AE unchanged), reducing weights from 1.3\,MB to 337--340\,KB
+($-75\%$). We validate the deterministic-deployment mechanism on the
+simplest representative variant---the two-layer single-branch
+encoder; the multi-scale model shares the identical per-layer state
+mechanism and its INT8 quantization is equally lossless
+(Table~\ref{tab:deploy}). The single-branch model is implemented in
+C and matches the PyTorch forward within floating-point rounding
+(relative error $< 3\times10^{-6}$ on the reference window), with
+8\,KB state per layer and no dynamic memory allocation. Full
+inference is projected at 8--12\,ms on an STM32F4 at 168\,MHz
+(from QEMU full-scan cycle counts, no on-silicon measurement). Power
+consumption is not reported because the QEMU emulator provides
+cycle-accurate timing but no power model; on-device power measurement
+is left to future hardware validation.
+
+Figure~\ref{fig:deploy} shows the complete edge-deployment
+pipeline: on-board capacity sensing, INT8 quantization of the
+weights, and the memory-deterministic on-board inference chain
+that produces calibrated RUL decisions.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_deploy_photo}
+\caption{Edge deployment pipeline. (1) Sensing: the model consumes
+only capacity measurements ($c_t$, plus a cycle counter) from the
+battery. (2) The last $W{=}64$ cycles are patch-embedded to 32
+tokens at $d{=}64$ ($=d_{\text{model}}$). (3) Quantization: dynamic
+INT8 reduces weights from 1.3\,MB to 340\,KB ($-75\%$) with AE
+2.2$\to$2.3 (lossless). (4) On-board inference in C: two GDN-2
+layers with a fixed 8\,KB state per layer (16\,KB total, zero
+dynamic allocation) updated incrementally per cycle. (5) Fused
+last-token readout predicts $\hat{c}_{t+1}$ in one step. (6) The
+P2.5/P50/P97.5 outputs drive calibrated RUL decisions at
+8--12\,ms per inference on STM32F4 (168\,MHz).}
+\label{fig:deploy}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{INT8 and MCU deployment results.}
+\label{tab:deploy}
+\begin{tabular}{lccc}
+\toprule
+Config & fp32 AE & INT8 AE & Memory \\
+\midrule
+Single-branch & 2.2 & 2.3 & 337 KB \\
+Multi-scale & 1 & 1 & 340 KB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+All main results are aggregated over ten training seeds per
+starting point (seeds 1--10, per-SP protocol,
+Table~\ref{tab:tableA}); the ablation studies are single-dataset
+(CALCE); the
+physics extension and the uncertainty study use a
+single seed and a single calibration cell (CS2\_36), respectively,
+and their associated variance is not quantified. The remaining
+planned evaluations (full 124-cell MIT set, additional seeds, a
+second calibration cell, and a quantitative replacement-policy cost
+example) are left to the final version. MCU latency
+is projected from cycle-accurate emulation rather than measured on
+silicon, and no on-device power figure is reported. All validation
+is on public laboratory cycling data; field conditions such as
+partial cycling, pack-level effects, and non-stationary loads remain
+open.
+

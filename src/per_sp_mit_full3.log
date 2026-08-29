@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\train_per_sp.py", line 181, in <module>
+    main()
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\train_per_sp.py", line 148, in main
+    if skey in out[ds].get(str(sp), {}):
+               ~~~^^^^
+KeyError: 'mit'

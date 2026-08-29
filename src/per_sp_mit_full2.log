@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\train_per_sp.py", line 173, in <module>
+    f"R2={np.mean(vals['R2']):.4f}", flush=True)
+
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\train_per_sp.py", line 144, in main
+    n_tr = len(Xtr)
+        ^^^^^^^^^^^
+  File "D:\anaconda\envs\py312\Lib\site-packages\torch\serialization.py", line 1002, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda\envs\py312\Lib\site-packages\torch\serialization.py", line 864, in _open_zipfile_writer
+    return container(name_or_buffer)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda\envs\py312\Lib\site-packages\torch\serialization.py", line 828, in __init__
+    torch._C.PyTorchFileWriter(
+RuntimeError: Parent directory ../checkpoints/per_sp/mit does not exist.

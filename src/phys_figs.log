@@ -1,0 +1,22 @@
+training direct_z frac=0.9 (N=2422) ...
+    ep0 loss=0.8445
+    ep25 loss=0.4228
+    ep50 loss=0.1836
+    ep75 loss=0.1705
+training phys_ir frac=0.9 (N=2422) ...
+    ep0 loss=0.0129
+    ep25 loss=0.0084
+    ep50 loss=0.0054
+    ep75 loss=0.0045
+training direct_z frac=1.0 (N=2715) ...
+    ep0 loss=0.6039
+    ep25 loss=0.2627
+    ep50 loss=0.2273
+    ep75 loss=0.1575
+training phys_ir frac=1.0 (N=2715) ...
+    ep0 loss=0.0136
+    ep25 loss=0.0081
+    ep50 loss=0.0034
+    ep75 loss=0.0051
+saved fig_extrap
+saved fig_robust

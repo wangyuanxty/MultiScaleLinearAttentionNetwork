@@ -1,0 +1,27 @@
+CALCE extrapolation ablation, [C] vs [C,IR]:
+training use_ir=False (N=2422, in_dim=1) ...
+    ep0 loss=0.8994
+    ep10 loss=0.3590
+    ep20 loss=0.4244
+    ep30 loss=0.3792
+    ep40 loss=0.2700
+    ep50 loss=0.1430
+    ep60 loss=0.3840
+    ep70 loss=0.2134
+    ep80 loss=0.1834
+    ep90 loss=0.2035
+  seed42 use_ir=False: extR2=0.6106 extMAE=0.0251 regen_frac=0.386 AE=0
+=== use_ir=False: R2=0.6106¡À0.0000 MAE=0.0251¡À0.0000 regen=0.3864 AE=0.0
+training use_ir=True (N=2422, in_dim=2) ...
+    ep0 loss=0.9004
+    ep10 loss=0.4021
+    ep20 loss=0.4923
+    ep30 loss=0.3846
+    ep40 loss=0.3877
+    ep50 loss=0.2240
+    ep60 loss=0.3959
+    ep70 loss=0.3269
+    ep80 loss=0.2302
+    ep90 loss=0.2817
+  seed42 use_ir=True: extR2=0.4320 extMAE=0.0324 regen_frac=0.182 AE=0
+=== use_ir=True: R2=0.4320¡À0.0000 MAE=0.0324¡À0.0000 regen=0.1818 AE=0.0

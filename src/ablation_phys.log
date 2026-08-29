@@ -1,0 +1,25 @@
+training phys_ir (N=2715) ...
+    ep0 loss=0.0136
+    ep10 loss=0.0082
+    ep20 loss=0.0048
+    ep30 loss=0.0040
+    ep40 loss=0.0047
+    ep50 loss=0.0034
+    ep60 loss=0.0049
+    ep70 loss=0.0048
+    ep80 loss=0.0087
+    ep90 loss=0.0038
+  [phys_ir] MAE=0.0042 R2=0.9971 regen=0.163 AE=1
+training direct_z (N=2715) ...
+    ep0 loss=0.6039
+    ep10 loss=0.6014
+    ep20 loss=0.3322
+    ep30 loss=0.2047
+    ep40 loss=0.3101
+    ep50 loss=0.2273
+    ep60 loss=0.2455
+    ep70 loss=0.2493
+    ep80 loss=0.4202
+    ep90 loss=0.1592
+  [direct_z] MAE=0.0070 R2=0.9945 regen=0.232 AE=1
+reference: direct_abs 0.0097 (attribution, already measured) | phys_ir extrap 0.7745 (vs RoPE 0.6106 / n 0.4471)

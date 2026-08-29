@@ -1,0 +1,279 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./fig_overview_standalone.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-29>
+(d:/software/texlive/2025/texmf-dist/tex/latex/standalone/standalone.cls
+Document Class: standalone 2025/02/22 v1.5a Class to compile TeX sub-files stan
+dalone
+(d:/software/texlive/2025/texmf-dist/tex/latex/tools/shellesc.sty)
+(d:/software/texlive/2025/texmf-dist/tex/generic/iftex/ifluatex.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty))
+(d:/software/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/xkeyval/keyval.tex))))
+(d:/software/texlive/2025/texmf-dist/tex/latex/standalone/standalone.cfg)
+(d:/software/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(d:/software/texlive/2025/texmf-dist/tex/latex/base/size10.clo)))
+(d:/software/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/lmodern.sty)
+(d:/software/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex
+) (d:/software/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.t
+ex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.de
+f)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.te
+x
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfi
+ltered.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.
+def
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-
+pdf.def)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol
+.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.te
+x (d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.te
+x)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basi
+c.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trig
+onometric.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rand
+om.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comp
+arison.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.roun
+d.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.inte
+gerarithmetics.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+)) (d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.c
+ode.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathcons
+truct.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusag
+e.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.c
+ode.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphics
+tate.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransfor
+mations.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.
+code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproc
+essing.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.c
+ode.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.c
+ode.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspar
+ency.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code
+.tex)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-versio
+n-0-65.sty)
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-versio
+n-1-18.sty))
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+)) (d:/software/texlive/2025/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.co
+de.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotha
+ndlers.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarytopaths.code.tex)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneri
+c.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.
+code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplo
+tsoldpgfsupp_loader.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplo
+tsoldpgfsupp_pgfutil-common-lists.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.cod
+e.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sliststructure.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sliststructureext.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sarray.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+smatrix.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstabl
+eshared.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sdeque.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.c
+ode.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.d
+ata.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.ver
+b.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplo
+ts.surfshading.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplot
+s.surfshading.pgfsys-pdftex.def)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap
+.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.co
+de.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.
+code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.
+code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandl
+er.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage
+.code.tex)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessi
+ng.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.te
+x)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.t
+ex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarydecorations.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoratio
+ns.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarydecorations.pathmorphing.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgfl
+ibrarydecorations.pathmorphing.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarydecorations.pathreplacing.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgfl
+ibrarydecorations.pathreplacing.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfpl
+ots.contourlua.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibraryplotmarks.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotma
+rks.code.tex)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows
+.meta.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarypositioning.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarycalc.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibraryfit.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd)
+(d:/software/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./fig_overview_standalone.aux)
+(d:/software/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (d:/software/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+Package pgfplots notification 'compat/show suggested version=true': you might b
+enefit from \pgfplotsset{compat=1.18} (current compat level: 1.16).
+
+
+Package pgfplots Warning: Loading deprecated style option /tikz/every axis. Ple
+ase replace '\tikzstyle{every axis}' with '\pgfplotsset{every axis/.style={}}' 
+(or '\pgfplotsset{every axis/.append style={}}'). on input line 80.
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/ot1lmr.fd)
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd)
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd)
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd)
+
+Package pgfplots Warning: Loading deprecated style option /tikz/every axis. Ple
+ase replace '\tikzstyle{every axis}' with '\pgfplotsset{every axis/.style={}}' 
+(or '\pgfplotsset{every axis/.append style={}}'). on input line 90.
+
+
+Package pgfplots Warning: Loading deprecated style option /tikz/every axis. Ple
+ase replace '\tikzstyle{every axis}' with '\pgfplotsset{every axis/.style={}}' 
+(or '\pgfplotsset{every axis/.append style={}}'). on input line 109.
+
+[1
+Non-PDF special ignored!
+<special> papersize=507.6384pt,281.98769pt
+{d:/software/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/soft
+ware/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{d:/software/texlive/
+2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{d:/software/texlive/2025/texmf-di
+st/fonts/enc/dvips/lm/lm-mathit.enc}{d:/software/texlive/2025/texmf-dist/fonts/
+enc/dvips/lm/lm-mathsy.enc} <../photos/ev_pack.png (PNG copy)> <../photos/robot
+.png (PNG copy)> <../photos/power_tool.png (PNG copy)> <../photos/medical.png (
+PNG copy)> <../photos/ebike.png (PNG copy)> <../photos/second_life.png (PNG cop
+y)> <../photos/mcu_board.png (PNG copy)>] (./fig_overview_standalone.aux) )<d:/
+software/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><d:/software/
+texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx8.pfb><d:/software/texlive/20
+25/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><d:/software/texlive/2025/texmf-d
+ist/fonts/type1/public/lm/lmr10.pfb><d:/software/texlive/2025/texmf-dist/fonts/
+type1/public/lm/lmr5.pfb><d:/software/texlive/2025/texmf-dist/fonts/type1/publi
+c/lm/lmr7.pfb><d:/software/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10
+.pfb>
+Output written on fig_overview_standalone.pdf (1 page, 12618909 bytes).
+Transcript written on fig_overview_standalone.log.

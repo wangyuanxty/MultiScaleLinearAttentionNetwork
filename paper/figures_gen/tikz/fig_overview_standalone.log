@@ -1,0 +1,722 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2026.1.14)  27 AUG 2026 00:32
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**fig_overview_standalone.tex
+(./fig_overview_standalone.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-29>
+(d:/software/texlive/2025/texmf-dist/tex/latex/standalone/standalone.cls
+Document Class: standalone 2025/02/22 v1.5a Class to compile TeX sub-files stan
+dalone
+(d:/software/texlive/2025/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
+Package shellesc Info: Restricted shell escape enabled on input line 77.
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+(d:/software/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2025/11/04 v2.10 package option processing (HA)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks17
+\XKV@tempa@toks=\toks18
+\XKV@tempb@toks=\toks19
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/xkeyval/keyval.tex))
+\XKV@depth=\count275
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+\sa@internal=\count276
+\c@sapage=\count277
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/standalone/standalone.cfg
+File: standalone.cfg 2025/02/22 v1.5a Default configuration file for 'standalon
+e' class
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(d:/software/texlive/2025/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count278
+\c@section=\count279
+\c@subsection=\count280
+\c@subsubsection=\count281
+\c@paragraph=\count282
+\c@subparagraph=\count283
+\c@figure=\count284
+\c@table=\count285
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen148
+)
+\sa@box=\box53
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex
+)
+Package: pgfplots 2025/08/14 v1.18.2 Data Visualization (1.18.2)
+ (d:/software/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+)
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.t
+ex
+\pgfutil@everybye=\toks20
+\pgfutil@tempdima=\dimen151
+\pgfutil@tempdimb=\dimen152
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.de
+f
+\pgfutil@abb=\box54
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.te
+x
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks21
+\pgfkeys@temptoks=\toks22
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfi
+ltered.code.tex
+\pgfkeys@tmptoks=\toks23
+))
+\pgf@x=\dimen153
+\pgf@y=\dimen154
+\pgf@xa=\dimen155
+\pgf@ya=\dimen156
+\pgf@xb=\dimen157
+\pgf@yb=\dimen158
+\pgf@xc=\dimen159
+\pgf@yc=\dimen160
+\pgf@xd=\dimen161
+\pgf@yd=\dimen162
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count286
+\c@pgf@countb=\count287
+\c@pgf@countc=\count288
+\c@pgf@countd=\count289
+\t@pgf@toka=\toks24
+\t@pgf@tokb=\toks25
+\t@pgf@tokc=\toks26
+\pgf@sys@id@count=\count290
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.
+def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-
+pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath
+.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count291
+\pgfsyssoftpath@bigbuffer@items=\count292
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol
+.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.te
+x
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+ (d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.te
+x
+\pgfmath@dimen=\dimen163
+\pgfmath@count=\count293
+\pgfmath@box=\box55
+\pgfmath@toks=\toks27
+\pgfmath@stack@operand=\toks28
+\pgfmath@stack@operation=\toks29
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basi
+c.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trig
+onometric.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rand
+om.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comp
+arison.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.roun
+d.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc
+.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.inte
+gerarithmetics.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count294
+)) (d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.c
+ode.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen164
+\pgf@picmaxx=\dimen165
+\pgf@picminy=\dimen166
+\pgf@picmaxy=\dimen167
+\pgf@pathminx=\dimen168
+\pgf@pathmaxx=\dimen169
+\pgf@pathminy=\dimen170
+\pgf@pathmaxy=\dimen171
+\pgf@xx=\dimen172
+\pgf@xy=\dimen173
+\pgf@yx=\dimen174
+\pgf@yy=\dimen175
+\pgf@zx=\dimen176
+\pgf@zy=\dimen177
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathcons
+truct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen178
+\pgf@path@lasty=\dimen179
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusag
+e.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen180
+\pgf@shorten@start@additional=\dimen181
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.c
+ode.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box56
+\pgf@hbox=\box57
+\pgf@layerbox@main=\box58
+\pgf@picture@serial@count=\count295
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphics
+tate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen182
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransfor
+mations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen183
+\pgf@pt@y=\dimen184
+\pgf@pt@temp=\dimen185
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.co
+de.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.
+code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproc
+essing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.c
+ode.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen186
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.co
+de.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen187
+\pgf@sys@shading@range@num=\count296
+\pgf@shadingcount=\count297
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.co
+de.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal
+.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box59
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.c
+ode.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspar
+ency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns
+.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code
+.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.co
+de.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box60
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code
+.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-versio
+n-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen188
+\pgf@nodesepend=\dimen189
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-versio
+n-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(d:/software/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+)) (d:/software/texlive/2025/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen190
+\pgffor@skip=\dimen191
+\pgffor@stack=\toks30
+\pgffor@toks=\toks31
+))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.co
+de.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotha
+ndlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count298
+\pgfplotmarksize=\dimen192
+)
+\tikz@lastx=\dimen193
+\tikz@lasty=\dimen194
+\tikz@lastxsaved=\dimen195
+\tikz@lastysaved=\dimen196
+\tikz@lastmovetox=\dimen197
+\tikz@lastmovetoy=\dimen198
+\tikzleveldistance=\dimen199
+\tikzsiblingdistance=\dimen256
+\tikz@figbox=\box61
+\tikz@figbox@bg=\box62
+\tikz@tempbox=\box63
+\tikz@tempbox@bg=\box64
+\tikztreelevel=\count299
+\tikznumberofchildren=\count300
+\tikznumberofcurrentchild=\count301
+\tikz@fig@count=\count302
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.co
+de.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count303
+\pgfmatrixcurrentcolumn=\count304
+\pgf@matrix@numberofcolumns=\count305
+)
+\tikz@expandcount=\count306
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+\t@pgfplots@toka=\toks32
+\t@pgfplots@tokb=\toks33
+\t@pgfplots@tokc=\toks34
+\pgfplots@tmpa=\dimen257
+\c@pgfplots@coordindex=\count307
+\c@pgfplots@scanlineindex=\count308
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneri
+c.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.
+code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplo
+tsoldpgfsupp_loader.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplo
+tsoldpgfsupp_pgfutil-common-lists.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.cod
+e.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sliststructure.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sliststructureext.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sarray.code.tex
+\c@pgfplotsarray@tmp=\count309
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+smatrix.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstabl
+eshared.code.tex
+\c@pgfplotstable@counta=\count310
+\t@pgfplotstable@a=\toks35
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplot
+sdeque.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.c
+ode.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.d
+ata.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.ver
+b.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplo
+ts.surfshading.code.tex
+\c@pgfplotslibrarysurf@no=\count311
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplot
+s.surfshading.pgfsys-pdftex.def)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap
+.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.co
+de.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.
+code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.
+code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandl
+er.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage
+.code.tex)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessi
+ng.code.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.co
+de.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code
+.tex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.te
+x)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.t
+ex)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarydecorations.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoratio
+ns.code.tex
+\pgfdecoratedcompleteddistance=\dimen258
+\pgfdecoratedremainingdistance=\dimen259
+\pgfdecoratedinputsegmentcompleteddistance=\dimen260
+\pgfdecoratedinputsegmentremainingdistance=\dimen261
+\pgf@decorate@distancetomove=\dimen262
+\pgf@decorate@repeatstate=\count312
+\pgfdecorationsegmentamplitude=\dimen263
+\pgfdecorationsegmentlength=\dimen264
+)
+\tikz@lib@dec@box=\box65
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarydecorations.pathmorphing.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgfl
+ibrarydecorations.pathmorphing.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarydecorations.pathreplacing.code.tex
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgfl
+ibrarydecorations.pathreplacing.code.tex))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfpl
+ots.contourlua.code.tex)
+\pgfplots@numplots=\count313
+\pgfplots@xmin@reg=\dimen265
+\pgfplots@xmax@reg=\dimen266
+\pgfplots@ymin@reg=\dimen267
+\pgfplots@ymax@reg=\dimen268
+\pgfplots@zmin@reg=\dimen269
+\pgfplots@zmax@reg=\dimen270
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibraryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotma
+rks.code.tex
+File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows
+.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen271
+\pgfarrowlength=\dimen272
+\pgfarrowwidth=\dimen273
+\pgfarrowlinewidth=\dimen274
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(d:/software/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librari
+es/tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 27
+.
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+(d:/software/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count314
+)
+(./fig_overview_standalone.aux)
+\openout1 = `fig_overview_standalone.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+
+(d:/software/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count315
+\scratchdimen=\dimen275
+\scratchbox=\box66
+\nofMPsegments=\count316
+\nofMParguments=\count317
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count318
+\MPscratchDim=\dimen276
+\MPnumerator=\count319
+\makeMPintoPDFobject=\count320
+\everyMPtoPDFconversion=\toks37
+) (d:/software/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+(d:/software/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package pgfplots notification 'compat/show suggested version=true': you might b
+enefit from \pgfplotsset{compat=1.18} (current compat level: 1.16).
+
+<../photos/ev_pack.png, id=4, 1258.7025pt x 1258.7025pt>
+File: ../photos/ev_pack.png Graphic file (type png)
+<use ../photos/ev_pack.png>
+Package pdftex.def Info: ../photos/ev_pack.png  used on input line 35.
+(pdftex.def)             Requested size: 33.57248pt x 33.57248pt.
+<../photos/robot.png, id=5, 1258.7025pt x 1258.7025pt>
+File: ../photos/robot.png Graphic file (type png)
+<use ../photos/robot.png>
+Package pdftex.def Info: ../photos/robot.png  used on input line 38.
+(pdftex.def)             Requested size: 33.57248pt x 33.57248pt.
+<../photos/power_tool.png, id=6, 1258.7025pt x 1258.7025pt>
+File: ../photos/power_tool.png Graphic file (type png)
+<use ../photos/power_tool.png>
+Package pdftex.def Info: ../photos/power_tool.png  used on input line 41.
+(pdftex.def)             Requested size: 33.57248pt x 33.57248pt.
+<../photos/medical.png, id=7, 1258.7025pt x 1258.7025pt>
+File: ../photos/medical.png Graphic file (type png)
+<use ../photos/medical.png>
+Package pdftex.def Info: ../photos/medical.png  used on input line 44.
+(pdftex.def)             Requested size: 33.57248pt x 33.57248pt.
+<../photos/ebike.png, id=8, 1258.7025pt x 1258.7025pt>
+File: ../photos/ebike.png Graphic file (type png)
+<use ../photos/ebike.png>
+Package pdftex.def Info: ../photos/ebike.png  used on input line 47.
+(pdftex.def)             Requested size: 33.57248pt x 33.57248pt.
+<../photos/second_life.png, id=9, 1258.7025pt x 1258.7025pt>
+File: ../photos/second_life.png Graphic file (type png)
+<use ../photos/second_life.png>
+Package pdftex.def Info: ../photos/second_life.png  used on input line 50.
+(pdftex.def)             Requested size: 33.57248pt x 33.57248pt.
+PGFPlots: reading {../data/capacity.dat}
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 7
+9.
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 7
+9.
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+79.
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+79.
+
+(d:/software/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 79.
+PGFPlots: reading {../data/ext.dat}
+PGFPlots: reading {../data/ext.dat}
+PGFPlots: reading {../data/ext.dat}
+PGFPlots: reading {../data/capacity.dat}
+<../photos/mcu_board.png, id=10, 1258.7025pt x 1258.7025pt>
+File: ../photos/mcu_board.png Graphic file (type png)
+<use ../photos/mcu_board.png>
+Package pdftex.def Info: ../photos/mcu_board.png  used on input line 123.
+(pdftex.def)             Requested size: 46.94002pt x 46.94002pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 132.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 132.
+ [1
+
+
+Non-PDF special ignored!
+<special> papersize=476.54974pt,258.34103pt
+{d:/software/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/soft
+ware/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{d:/software/texlive/
+2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{d:/software/texlive/2025/texmf-di
+st/fonts/enc/dvips/lm/lm-mathit.enc}{d:/software/texlive/2025/texmf-dist/fonts/
+enc/dvips/lm/lm-mathsy.enc} <../photos/ev_pack.png (PNG copy)> <../photos/robot
+.png (PNG copy)> <../photos/power_tool.png (PNG copy)> <../photos/medical.png (
+PNG copy)> <../photos/ebike.png (PNG copy)> <../photos/second_life.png (PNG cop
+y)> <../photos/mcu_board.png (PNG copy)>] (./fig_overview_standalone.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-29>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 23715 strings out of 467538
+ 630977 string characters out of 5419036
+ 1383517 words of memory out of 5000000
+ 52232 multiletter control sequences out of 15000+600000
+ 657445 words of font info for 57 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 99i,18n,108p,744b,2337s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<d:/software/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><d:/sof
+tware/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx8.pfb><d:/software/texl
+ive/2025/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><d:/software/texlive/2025/t
+exmf-dist/fonts/type1/public/lm/lmr10.pfb><d:/software/texlive/2025/texmf-dist/
+fonts/type1/public/lm/lmr5.pfb><d:/software/texlive/2025/texmf-dist/fonts/type1
+/public/lm/lmr7.pfb><d:/software/texlive/2025/texmf-dist/fonts/type1/public/lm/
+lmsy10.pfb>
+Output written on fig_overview_standalone.pdf (1 page, 12618630 bytes).
+PDF statistics:
+ 63 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
+

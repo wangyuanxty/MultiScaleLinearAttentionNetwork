@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600, initial-scale=1">
+<title>GDN-2 Block</title>
+<style>
+@page { size: 1600px 900px; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #F3F5F7; color: #1F262B;
+  width: 1600px; height: 900px; overflow: hidden;
+}
+.container {
+  width: 100%; height: 100%; padding: 10px 16px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.head-strip {
+  flex: 0 0 28px; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; display: flex; align-items: center;
+  justify-content: center; gap: 16px;
+  font-size: 13px; font-weight: bold; letter-spacing: 1px;
+}
+.head-strip .m { font-family: Georgia, serif; font-style: italic; font-weight: normal; color: #2E7D8C; }
+.main { flex: 1; min-height: 0; display: flex; gap: 8px; }
+.panel {
+  display: flex; flex-direction: column; min-height: 0; height: 100%;
+}
+.col-l { flex: 0 0 342px; }
+.col-m { flex: 1; }
+.col-r { flex: 0 0 422px; }
+.panel > .box {
+  background: #FFFFFF; border: 1px solid #C9D1D8; border-radius: 6px;
+  display: flex; flex-direction: column; height: 100%; min-height: 0;
+}
+.phead {
+  flex: 0 0 26px; font-size: 12px; font-weight: bold; letter-spacing: 1px;
+  text-align: center; display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid #E3E8EC;
+}
+.ph-b { background: #DCE8F3; }
+.ph-a { background: #F6EED8; }
+.ph-g { background: #E4EDDD; }
+img.w { width: 100%; height: 100%; object-fit: contain; }
+.chips {
+  flex: 0 0 48px; display: flex; gap: 6px; padding: 0 8px 3px;
+}
+.wchip {
+  flex: 1; background: #EAF1F8; border: 1px solid #A8BDD1; border-radius: 4px;
+  font-size: 10.5px; color: #6B7680; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.wchip b { color: #1F262B; font-size: 11px; font-family: Georgia, serif; font-style: italic; }
+.formulas { flex: 0 0 340px; border-top: 1px solid #EEF1F4; padding: 12px 14px; }
+.f-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.f-tag {
+  flex: 0 0 80px; font-size: 11px; font-weight: bold; color: #FFFFFF;
+  text-align: center; border-radius: 4px; padding: 8px 8px;
+}
+.tag-r { background: #D64533; } .tag-b { background: #2E7D8C; }
+.tag-g { background: #4C8C5A; } .tag-o { background: #B08A2E; }
+.f-math {
+  flex: 1; background: #F7F9FB; border: 1px solid #E3E8EC; border-radius: 4px;
+  padding: 9px 14px;
+  font-family: Georgia, 'Times New Roman', serif; font-style: italic;
+  font-size: 16.5px; color: #1F262B;
+}
+.f-out { margin-top: 3px; display: flex; align-items: center; gap: 10px; }
+.f-out .f-math { font-size: 16px; background: #FBF7EF; border-color: #E4DCC8; }
+.f-note { font-size: 15px; color: #1F262B; line-height: 1.45; margin-top: 4px; }
+.f-note small { color: #6B7680; font-size: 12.5px; }
+.split-v { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.split-v .cell { flex: 1; min-height: 0; padding: 6px 8px 6px; }
+.foot-strip {
+  flex: 0 0 42px; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+}
+.ft {
+  background: #EAF1F8; border: 1px solid #A8BDD1; border-radius: 4px;
+  padding: 4px 13px; font-size: 12.5px; font-weight: bold; color: #2E7D8C;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="head-strip">
+    ONE GDN-2 LAYER <span class="m">· q / k / v projections → causal conv → gated state → single query</span>
+  </div>
+
+  <div class="main">
+
+    <div class="panel col-l">
+      <div class="box">
+        <div class="phead ph-b">CAUSAL CONVOLUTION WINDOW</div>
+        <div style="flex:1; min-height:0; padding:6px 8px 3px;"><img class="w" src="../ms_conv_window.png" alt="conv window"></div>
+        <div class="chips">
+          <span class="wchip">kernel <b>k = 4</b></span>
+          <span class="wchip">depthwise <b>groups = d</b></span>
+          <span class="wchip">padding <b>k − 1</b></span>
+        </div>
+        <div style="flex:0 0 160px; padding:0 8px 8px;"><img class="w" src="../ms_win_steps.png" alt="window steps"></div>
+      </div>
+    </div>
+
+    <div class="panel col-m">
+      <div class="box">
+        <div class="phead ph-a">PROJECTION · GATE GENERATION · MECHANISM</div>
+        <div style="flex:1; min-height:0; padding:6px 8px 2px;"><img class="w" src="../ms_gdn_flow.png" alt="gdn flow"></div>
+        <div class="formulas">
+          <div class="f-row"><div class="f-tag tag-r">erase</div>
+            <div class="f-math">S ← ( I − k_t (b_t ⊙ k_t)ᵀ ) S</div></div>
+          <div class="f-row"><div class="f-tag tag-b">decay</div>
+            <div class="f-math">S ← diag(α_t) S</div></div>
+          <div class="f-row"><div class="f-tag tag-g">write</div>
+            <div class="f-math">S ← S + k_t (w_t ⊙ v_t)ᵀ</div></div>
+          <div class="f-out"><div class="f-tag tag-o">output</div>
+            <div class="f-math">o_t = S_tᵀ q_t → Linear(128 → 64) → RMSNorm</div></div>
+          <div class="f-row"><div class="f-tag tag-b">α law</div>
+            <div class="f-math">α_t = exp(g), &nbsp; g = −exp(A<sub>log</sub>) · softplus(raw_g + dt_bias)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel col-r">
+      <div class="box">
+        <div class="phead ph-g">FIXED-SIZE STATE · 8 KB</div>
+        <div class="split-v">
+          <div class="cell"><img class="w" src="../ms_state_grid.png" alt="state grid"></div>
+          <div class="cell"><img class="w" src="../ms_fwd_back.png" alt="gate semantics"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot-strip">
+    <span class="ft">H = 4</span><span class="ft">d_k = 16</span><span class="ft">d_v = 32</span>
+    <span class="ft">state 8 KB</span><span class="ft">O(L) per layer</span><span class="ft">per-layer gating</span>
+  </div>
+</div>
+</body>
+</html>

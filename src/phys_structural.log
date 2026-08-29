@@ -1,0 +1,48 @@
+training readout=last frac=1.0 (N=2715) ...
+    ep0 loss=0.6039
+    ep10 loss=0.6014
+    ep20 loss=0.3322
+    ep30 loss=0.2047
+    ep40 loss=0.3101
+    ep50 loss=0.2273
+    ep60 loss=0.2455
+    ep70 loss=0.2493
+    ep80 loss=0.4202
+    ep90 loss=0.1592
+  [std] readout=last: MAE=0.0070 R2=0.9945 regen=0.232 AE=1
+training readout=last frac=0.9 (N=2422) ...
+    ep0 loss=0.8445
+    ep10 loss=0.3834
+    ep20 loss=0.4691
+    ep30 loss=0.3100
+    ep40 loss=0.2381
+    ep50 loss=0.1836
+    ep60 loss=0.3255
+    ep70 loss=0.2141
+    ep80 loss=0.2127
+    ep90 loss=0.1795
+  [extrap] readout=last: extR2=0.3743 extMAE=0.0346 regen=0.227 AE=0
+training readout=phys frac=1.0 (N=2715) ...
+    ep0 loss=1.9023
+    ep10 loss=1.7162
+    ep20 loss=1.8311
+    ep30 loss=1.4337
+    ep40 loss=1.9141
+    ep50 loss=1.9184
+    ep60 loss=1.8630
+    ep70 loss=1.7551
+    ep80 loss=2.1090
+    ep90 loss=1.3421
+  [std] readout=phys: MAE=0.0334 R2=0.9424 regen=0.029 AE=47
+training readout=phys frac=0.9 (N=2422) ...
+    ep0 loss=2.2360
+    ep10 loss=1.7658
+    ep20 loss=1.9124
+    ep30 loss=1.9860
+    ep40 loss=1.8872
+    ep50 loss=1.7064
+    ep60 loss=1.2074
+    ep70 loss=1.4448
+    ep80 loss=1.1523
+    ep90 loss=0.9684
+  [extrap] readout=phys: extR2=-1.9375 extMAE=0.0884 regen=0.034 AE=0

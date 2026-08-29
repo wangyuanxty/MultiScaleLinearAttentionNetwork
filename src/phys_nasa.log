@@ -1,0 +1,60 @@
+training [C] (N=378) ...
+    ep0 loss=0.3704
+    ep10 loss=0.2671
+    ep20 loss=0.2272
+    ep30 loss=0.3238
+    ep40 loss=0.3939
+    ep50 loss=0.3000
+    ep60 loss=0.2658
+    ep70 loss=0.1820
+    ep80 loss=0.2382
+    ep90 loss=0.1796
+  [C]: MAE=0.0085 R2=0.9926 regen=0.088 AE=1
+training [C,n] (N=378) ...
+    ep0 loss=0.3952
+    ep10 loss=0.2782
+    ep20 loss=0.3310
+    ep30 loss=0.3056
+    ep40 loss=0.3296
+    ep50 loss=0.2874
+    ep60 loss=0.3165
+    ep70 loss=0.1648
+    ep80 loss=0.1813
+    ep90 loss=0.1393
+  [C,n]: MAE=0.0069 R2=0.9941 regen=0.109 AE=0
+training [C,n,T_mean] (N=378) ...
+    ep0 loss=0.4197
+    ep10 loss=0.1973
+    ep20 loss=0.2015
+    ep30 loss=0.3111
+    ep40 loss=0.2957
+    ep50 loss=0.1970
+    ep60 loss=0.2641
+    ep70 loss=0.1546
+    ep80 loss=0.1879
+    ep90 loss=0.1415
+  [C,n,T_mean]: MAE=0.0100 R2=0.9938 regen=0.117 AE=0
+training [C,n,Re,Rct] (N=378) ...
+    ep0 loss=0.3921
+    ep10 loss=0.3217
+    ep20 loss=0.2265
+    ep30 loss=0.2718
+    ep40 loss=0.2927
+    ep50 loss=0.2800
+    ep60 loss=0.2550
+    ep70 loss=0.2005
+    ep80 loss=0.1425
+    ep90 loss=0.1648
+  [C,n,Re,Rct]: MAE=0.0117 R2=0.9910 regen=0.168 AE=1
+training [C,n,T_mean,Re,Rct] (N=378) ...
+    ep0 loss=0.3492
+    ep10 loss=0.2379
+    ep20 loss=0.2449
+    ep30 loss=0.2574
+    ep40 loss=0.2491
+    ep50 loss=0.1683
+    ep60 loss=0.1927
+    ep70 loss=0.1071
+    ep80 loss=0.0886
+    ep90 loss=0.0832
+  [C,n,T_mean,Re,Rct]: MAE=0.0080 R2=0.9948 regen=0.117 AE=0

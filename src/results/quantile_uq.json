@@ -1,0 +1,41 @@
+{
+  "seed": 42,
+  "alpha": 0.05,
+  "quantiles": [
+    0.025,
+    0.5,
+    0.975
+  ],
+  "train_cells": [
+    "CS2_37",
+    "CS2_38"
+  ],
+  "cal_cell": "CS2_36",
+  "test_cell": "CS2_35",
+  "q_adj": 0.0052,
+  "P50_MAE": 0.0073,
+  "raw_coverage": 0.856,
+  "cqr_coverage": 0.933,
+  "raw_width": 0.0286,
+  "cqr_width": 0.039,
+  "per_sp": [
+    {
+      "SP": 300,
+      "raw_cov": 0.881,
+      "cqr_cov": 0.94,
+      "cqr_width": 0.0391
+    },
+    {
+      "SP": 400,
+      "raw_cov": 0.881,
+      "cqr_cov": 0.931,
+      "cqr_width": 0.0414
+    },
+    {
+      "SP": 500,
+      "raw_cov": 0.885,
+      "cqr_cov": 0.927,
+      "cqr_width": 0.0449
+    }
+  ]
+}

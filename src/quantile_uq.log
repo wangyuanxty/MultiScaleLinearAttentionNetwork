@@ -1,0 +1,13 @@
+training quantile-UQ on ['CS2_37', 'CS2_38'] (N=1846) ...
+    ep0 loss=0.1319
+    ep25 loss=0.0892
+    ep50 loss=0.0812
+    ep75 loss=0.0617
+saved ../checkpoints/quantile_calce_seed42.pt
+  calibration (CS2_36, n=869): q_adj=0.0052 (scores mean=-0.0069)
+  raw: P50 MAE=0.0073 coverage=0.856 width=0.0286
+  CQR: coverage=0.933 width=0.0390
+  SP300: raw=0.881 CQR=0.940 width=0.0391
+  SP400: raw=0.881 CQR=0.931 width=0.0414
+  SP500: raw=0.885 CQR=0.927 width=0.0449
+saved results/quantile_uq.json

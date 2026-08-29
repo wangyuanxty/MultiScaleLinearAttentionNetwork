@@ -1,0 +1,425 @@
+{
+  "calce_K1": {
+    "dataset": "calce",
+    "K": 1,
+    "epochs": 100,
+    "seed": 44,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-10 18:08",
+    "table_a": {
+      "R2": 0.9972,
+      "traj_MAE_sp300": 0.0053,
+      "traj_RMSE_sp300": 0.0122,
+      "traj_R2_sp300": 0.9966,
+      "AE_sp300": 3.0,
+      "traj_MAE_sp400": 0.0056,
+      "traj_RMSE_sp400": 0.0133,
+      "traj_R2_sp400": 0.9959,
+      "AE_sp400": 3.0,
+      "traj_MAE_sp500": 0.006,
+      "traj_RMSE_sp500": 0.0146,
+      "traj_R2_sp500": 0.9944,
+      "AE_sp500": 3.0
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 60.7,
+        "true_eol": 640,
+        "pred_eol": 700.7
+      },
+      "RUL_sp400": {
+        "rul_mae": 154.6,
+        "true_eol": 640,
+        "pred_eol": 794.6
+      },
+      "RUL_sp500": {
+        "rul_mae": 150.4,
+        "true_eol": 640,
+        "pred_eol": 790.4
+      }
+    }
+  },
+  "calce_K32": {
+    "dataset": "calce",
+    "K": 32,
+    "epochs": 100,
+    "seed": 44,
+    "params": 369467,
+    "physics": false,
+    "timestamp": "2026-08-10 22:00",
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 82.8,
+        "true_eol": 640,
+        "pred_eol": 722.8
+      },
+      "RUL_sp400": {
+        "rul_mae": 187.1,
+        "true_eol": 640,
+        "pred_eol": 827.1
+      },
+      "RUL_sp500": {
+        "rul_mae": 115.0,
+        "true_eol": 640,
+        "pred_eol": 755.0
+      }
+    }
+  },
+  "nasa_K1": {
+    "dataset": "nasa",
+    "K": 1,
+    "epochs": 100,
+    "seed": 44,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-10 22:02",
+    "table_a": {
+      "R2": 0.9926,
+      "traj_MAE_sp50": 0.0079,
+      "traj_RMSE_sp50": 0.0149,
+      "traj_R2_sp50": 0.9903,
+      "AE_sp50": 0.0,
+      "traj_MAE_sp70": 0.009,
+      "traj_RMSE_sp70": 0.0162,
+      "traj_R2_sp70": 0.9785,
+      "AE_sp70": 0.0,
+      "traj_MAE_sp90": 0.0089,
+      "traj_RMSE_sp90": 0.0134,
+      "traj_R2_sp90": 0.9739,
+      "AE_sp90": 0.0
+    },
+    "rul": {
+      "RUL_sp50": {
+        "rul_mae": 6.0,
+        "true_eol": 124,
+        "pred_eol": 118.0
+      },
+      "RUL_sp70": {
+        "rul_mae": 7.1,
+        "true_eol": 124,
+        "pred_eol": 116.9
+      },
+      "RUL_sp90": {
+        "rul_mae": 1.6,
+        "true_eol": 124,
+        "pred_eol": 125.6
+      }
+    }
+  },
+  "nasa_K32": {
+    "dataset": "nasa",
+    "K": 32,
+    "epochs": 100,
+    "seed": 44,
+    "params": 369467,
+    "physics": false,
+    "timestamp": "2026-08-10 22:03",
+    "rul": {
+      "RUL_sp50": {
+        "rul_mae": 10.1,
+        "true_eol": 124,
+        "pred_eol": 113.9
+      },
+      "RUL_sp70": {
+        "rul_mae": 21.3,
+        "true_eol": 124,
+        "pred_eol": 102.7
+      },
+      "RUL_sp90": {
+        "rul_mae": 2.2,
+        "true_eol": 124,
+        "pred_eol": 121.8
+      }
+    }
+  },
+  "mit-subset_K1": {
+    "dataset": "mit-subset",
+    "K": 1,
+    "epochs": 100,
+    "seed": 42,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-11 12:23",
+    "table_a": {
+      "R2": 0.9982,
+      "traj_MAE_sp200": 0.0029,
+      "traj_RMSE_sp200": 0.0049,
+      "traj_R2_sp200": 0.9939,
+      "AE_sp200": 1.0,
+      "traj_MAE_sp300": 0.0032,
+      "traj_RMSE_sp300": 0.0034,
+      "traj_R2_sp300": 0.9927,
+      "AE_sp300": 1.0,
+      "traj_MAE_sp400": NaN,
+      "traj_RMSE_sp400": NaN,
+      "traj_R2_sp400": 1.0,
+      "AE_sp400": 0.0
+    },
+    "rul": {
+      "RUL_sp200": {
+        "rul_mae": 86.5,
+        "true_eol": 344,
+        "pred_eol": 257.5
+      },
+      "RUL_sp300": {
+        "rul_mae": 18.0,
+        "true_eol": 344,
+        "pred_eol": 326.0
+      }
+    }
+  },
+  "mit-subset_K32": {
+    "dataset": "mit-subset",
+    "K": 32,
+    "epochs": 100,
+    "seed": 42,
+    "params": 369467,
+    "physics": false,
+    "timestamp": "2026-08-11 14:05",
+    "rul": {
+      "RUL_sp200": {
+        "rul_mae": 22.3,
+        "true_eol": 344,
+        "pred_eol": 321.7
+      },
+      "RUL_sp300": {
+        "rul_mae": 7.0,
+        "true_eol": 344,
+        "pred_eol": 351.0
+      }
+    }
+  },
+  "panasonic_K1": {
+    "dataset": "panasonic",
+    "K": 1,
+    "epochs": 100,
+    "seed": 44,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-10 22:38",
+    "table_a": {
+      "R2": 0.9984,
+      "traj_MAE_sp300": 0.0078,
+      "traj_RMSE_sp300": 0.0117,
+      "traj_R2_sp300": 0.9965,
+      "AE_sp300": 2.0,
+      "traj_MAE_sp500": 0.0098,
+      "traj_RMSE_sp500": 0.0137,
+      "traj_R2_sp500": 0.9903,
+      "AE_sp500": 2.0,
+      "traj_MAE_sp700": 0.0117,
+      "traj_RMSE_sp700": 0.015,
+      "traj_R2_sp700": 0.9669,
+      "AE_sp700": 0.0
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": null,
+        "true_eol": 588,
+        "pred_eol": null
+      },
+      "RUL_sp500": {
+        "rul_mae": null,
+        "true_eol": 588,
+        "pred_eol": null
+      }
+    }
+  },
+  "panasonic_K32": {
+    "dataset": "panasonic",
+    "K": 32,
+    "epochs": 100,
+    "seed": 44,
+    "params": 369467,
+    "physics": false,
+    "timestamp": "2026-08-10 23:10",
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 187.8,
+        "true_eol": 588,
+        "pred_eol": 400.2
+      },
+      "RUL_sp500": {
+        "rul_mae": 38.9,
+        "true_eol": 588,
+        "pred_eol": 549.1
+      }
+    }
+  },
+  "gotion_K1": {
+    "dataset": "gotion",
+    "K": 1,
+    "epochs": 100,
+    "seed": 42,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-09 16:39",
+    "table_a": {
+      "R2": 0.9973,
+      "traj_MAE_sp500": 0.0085,
+      "traj_RMSE_sp500": 0.0116,
+      "traj_R2_sp500": 0.9958,
+      "AE_sp500": 31.0,
+      "traj_MAE_sp800": 0.0093,
+      "traj_RMSE_sp800": 0.013,
+      "traj_R2_sp800": 0.9911,
+      "AE_sp800": 31.0,
+      "traj_MAE_sp1100": 0.011,
+      "traj_RMSE_sp1100": 0.0156,
+      "traj_R2_sp1100": 0.9412,
+      "AE_sp1100": 31.0
+    },
+    "rul": {
+      "RUL_sp500": {
+        "rul_mae": null,
+        "true_eol": 1372,
+        "pred_eol": null
+      },
+      "RUL_sp800": {
+        "rul_mae": null,
+        "true_eol": 1372,
+        "pred_eol": null
+      },
+      "RUL_sp1100": {
+        "rul_mae": null,
+        "true_eol": 1372,
+        "pred_eol": null
+      }
+    }
+  },
+  "gotion_K32": {
+    "dataset": "gotion",
+    "K": 32,
+    "epochs": 100,
+    "seed": 42,
+    "params": 369467,
+    "physics": false,
+    "timestamp": "2026-08-09 16:50",
+    "rul": {
+      "RUL_sp500": {
+        "rul_mae": null,
+        "true_eol": 1372,
+        "pred_eol": null
+      },
+      "RUL_sp800": {
+        "rul_mae": null,
+        "true_eol": 1372,
+        "pred_eol": null
+      },
+      "RUL_sp1100": {
+        "rul_mae": null,
+        "true_eol": 1372,
+        "pred_eol": null
+      }
+    }
+  },
+  "tju_K1": {
+    "dataset": "tju",
+    "K": 1,
+    "epochs": 100,
+    "seed": 44,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-10 23:44",
+    "table_a": {
+      "R2": 0.9999,
+      "traj_MAE_sp200": 0.0021,
+      "traj_RMSE_sp200": 0.0033,
+      "traj_R2_sp200": 0.9997,
+      "AE_sp200": 3.0,
+      "traj_MAE_sp300": 0.0024,
+      "traj_RMSE_sp300": 0.0035,
+      "traj_R2_sp300": 0.9996,
+      "AE_sp300": 3.0,
+      "traj_MAE_sp400": 0.0026,
+      "traj_RMSE_sp400": 0.0038,
+      "traj_R2_sp400": 0.9992,
+      "AE_sp400": 3.0
+    },
+    "rul": {
+      "RUL_sp200": {
+        "rul_mae": 105.0,
+        "true_eol": 778,
+        "pred_eol": 883.0
+      },
+      "RUL_sp300": {
+        "rul_mae": 106.3,
+        "true_eol": 778,
+        "pred_eol": 884.3
+      },
+      "RUL_sp400": {
+        "rul_mae": 115.5,
+        "true_eol": 778,
+        "pred_eol": 893.5
+      }
+    }
+  },
+  "tju_K32": {
+    "dataset": "tju",
+    "K": 32,
+    "epochs": 100,
+    "seed": 44,
+    "params": 369467,
+    "physics": false,
+    "timestamp": "2026-08-11 00:24",
+    "rul": {
+      "RUL_sp200": {
+        "rul_mae": 195.8,
+        "true_eol": 778,
+        "pred_eol": 582.2
+      },
+      "RUL_sp300": {
+        "rul_mae": 134.8,
+        "true_eol": 778,
+        "pred_eol": 643.2
+      },
+      "RUL_sp400": {
+        "rul_mae": 78.6,
+        "true_eol": 778,
+        "pred_eol": 699.4
+      }
+    }
+  },
+  "mit_K1": {
+    "dataset": "mit",
+    "K": 1,
+    "epochs": 100,
+    "seed": 43,
+    "params": 365468,
+    "physics": false,
+    "timestamp": "2026-08-12 13:19",
+    "table_a": {
+      "R2": 0.9974,
+      "traj_MAE_sp200": 0.0022,
+      "traj_RMSE_sp200": 0.0048,
+      "traj_R2_sp200": 0.9949,
+      "AE_sp200": 0.0,
+      "traj_MAE_sp300": 0.0019,
+      "traj_RMSE_sp300": 0.002,
+      "traj_R2_sp300": 0.9989,
+      "AE_sp300": 0.0,
+      "traj_MAE_sp400": 0.0017,
+      "traj_RMSE_sp400": 0.0018,
+      "traj_R2_sp400": 0.9985,
+      "AE_sp400": 0.0
+    },
+    "rul": {
+      "RUL_sp200": {
+        "rul_mae": 253.7,
+        "true_eol": 525,
+        "pred_eol": 271.3
+      },
+      "RUL_sp300": {
+        "rul_mae": 158.7,
+        "true_eol": 525,
+        "pred_eol": 366.3
+      },
+      "RUL_sp400": {
+        "rul_mae": 67.7,
+        "true_eol": 525,
+        "pred_eol": 457.3
+      }
+    }
+  }
+}

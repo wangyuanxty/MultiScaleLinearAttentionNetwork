@@ -1,0 +1,30 @@
+training phys_ir clean (N=2715) ...
+    ep0 loss=0.0136
+    ep10 loss=0.0082
+    ep20 loss=0.0048
+    ep30 loss=0.0040
+    ep40 loss=0.0047
+    ep50 loss=0.0034
+    ep60 loss=0.0049
+    ep70 loss=0.0048
+    ep80 loss=0.0087
+    ep90 loss=0.0038
+  [clean] phys_ir: MAE=0.0042 R2=0.9971 AE=1
+  [drop30] phys_ir: MAE=0.0090 R2=0.9870 AE=17
+  [gauss] phys_ir: MAE=0.0097 R2=0.9949 AE=1
+  [impulse] phys_ir: MAE=0.0061 R2=0.9940 AE=1
+training direct_z clean (N=2715) ...
+    ep0 loss=0.6039
+    ep10 loss=0.6014
+    ep20 loss=0.3322
+    ep30 loss=0.2047
+    ep40 loss=0.3101
+    ep50 loss=0.2273
+    ep60 loss=0.2455
+    ep70 loss=0.2493
+    ep80 loss=0.4202
+    ep90 loss=0.1592
+  [clean] direct_z: MAE=0.0070 R2=0.9945 AE=1
+  [drop30] direct_z: MAE=0.0122 R2=0.9841 AE=23
+  [gauss] direct_z: MAE=0.0119 R2=0.9916 AE=1
+  [impulse] direct_z: MAE=0.0098 R2=0.9921 AE=1

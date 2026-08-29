@@ -1,0 +1,113 @@
+﻿% ============================================================
+% A Multi-Scale Linear-Attention Network with
+% Physics-Consistent Degradation-Rate Head for Battery Prognostics
+%
+% Target: Journal of Power Sources (Elsevier, elsarticle)
+% ============================================================
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+
+\journal{Journal of Power Sources}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{DeltaCycle: A Multi-Scale Linear-Attention
+Network with a Physics-Consistent Degradation-Rate Head for Battery
+Prognostics}
+
+\author[nuaa]{Naiming Xie\corref{cor1}}
+\ead{xienaiming@nuaa.edu.cn}
+\cortext[cor1]{Corresponding author}
+
+\author[nuaa]{Yuan Wang}
+\author[nuaa]{Mingshan Li}
+
+\affiliation[nuaa]{organization={College of Economics and Management,
+  Nanjing University of Aeronautics and Astronautics},
+  addressline={29 Jiangjun Avenue}, city={Nanjing}, postcode={211106},
+  country={China}}
+
+\begin{abstract}
+Lithium-ion battery fleets---in electric vehicles, robotics,
+portable medical devices, and second-life markets---generate a
+continuous stream of maintenance and replacement decisions, in a
+market projected to grow several-fold over the coming decade. Every
+such decision requires three things that current monitoring
+technology cannot deliver simultaneously: models accurate enough to
+be decision-grade, yet small enough to run on the microcontrollers
+inside battery management systems rather than in the cloud;
+forecasts that stay trustworthy as horizons lengthen and field data
+corrupts; and uncertainty statements that let operators trade risk
+against cost explicitly.
+
+We propose DeltaCycle, a capacity-only battery monitoring loop built
+for deployment. Its multi-scale linear-attention encoder is
+deployment-verified via a simplest-representative single-branch
+variant that runs in C on a microcontroller with a fixed-size
+recurrent state, matching PyTorch within floating-point rounding; a
+physics-consistent degradation-rate head driven by measured internal
+resistance---the macroscopic signature of lithium-inventory loss,
+brought into the learning loop as a constraint on the decay
+direction; and conformal-calibrated prediction intervals that
+convert point forecasts into decision-grade outputs.
+
+Across five public datasets spanning four chemistries, DeltaCycle
+achieves first-tier accuracy among protocol-matched baselines---state
+of the art on PANASONIC, matched against the strongest published
+explicit tracking of capacity regeneration. The physics term is
+validated where physics should matter: it doubles unseen-tail
+extrapolation fidelity and wins every corruption-robustness setting
+tested---direct evidence that the mechanism earns its place. Interval
+coverage is lifted to $93.3\%$ at nominal $95\%$. For battery
+operators this translates into a capability shift:
+continuous, risk-aware asset monitoring that runs on-device at
+near-zero marginal cost, without cloud connectivity, model
+retraining, or specialist hardware.
+\end{abstract}
+
+\begin{keyword}
+Battery RUL \sep SOH prediction \sep Predictive maintenance \sep
+Linear attention \sep Gated DeltaNet \sep Edge deployment \sep
+Uncertainty quantification
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01_intro}
+\input{sections/02_related}
+\input{sections/03_method}
+\input{sections/04_experiments}
+\clearpage
+\input{sections/05_conclusion}
+
+\section*{Data and code availability}
+
+The datasets used in this study are public: CALCE (Center for
+Advanced Life Cycle Engineering, request access), NASA (Prognostics
+Center of Excellence Data Repository), MIT/Stanford
+(data.matr.io/1), PANASONIC and TJU (as distributed with the
+PatchFormer and RUL-Mamba repositories). Code for training,
+evaluation, figure generation, and the MCU deployment is available
+at \url{https://github.com/wangyuanxty/MultiScaleLinearAttentionNetwork}.
+
+\section*{CRediT authorship contribution statement}
+
+\section*{Declaration of competing interest}
+
+\section*{Acknowledgements}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+
+\end{document}

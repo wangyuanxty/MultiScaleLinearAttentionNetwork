@@ -1,0 +1,24 @@
+  frac=0.9 seed=42 ep0 loss=1.3127 gnorm=4.611
+  frac=0.9 seed=42 ep5 loss=0.7155 gnorm=4.845
+  frac=0.9 seed=42 ep10 loss=0.3603 gnorm=7.158
+  frac=0.9 seed=42 ep15 loss=0.3604 gnorm=4.371
+  frac=0.9 seed=42 ep20 loss=0.3223 gnorm=1.567
+  frac=0.9 seed=42 ep25 loss=0.3065 gnorm=4.238
+  frac=0.9 seed=42 ep30 loss=0.3521 gnorm=2.306
+  frac=0.9 seed=42 ep35 loss=0.2897 gnorm=2.114
+==> frac=0.9 seed=42: ok
+  frac=0.9 seed=43 ep0 loss=1.5510 gnorm=3.877
+  frac=0.9 seed=43 ep5 loss=0.6556 gnorm=1.663
+  frac=0.9 seed=43 ep10 loss=0.6876 gnorm=0.665
+  frac=0.9 seed=43 ep15 loss=0.6290 gnorm=12.626
+  frac=0.9 seed=43 ep20 loss=0.5975 gnorm=1.946
+  frac=0.9 seed=43 ep25 loss=0.5534 gnorm=6.255
+  frac=0.9 seed=43 ep30 loss=0.4616 gnorm=4.118
+  frac=0.9 seed=43 ep35 loss=0.3379 gnorm=10.175
+==> frac=0.9 seed=43: ok
+  frac=1.0 seed=42 ep0 loss=1.2197 gnorm=4.811
+  frac=1.0 seed=42 ep5 loss=0.4883 gnorm=1.471
+  frac=1.0 seed=42 ep10 loss=0.3232 gnorm=1.968
+  frac=1.0 seed=42 ep15 loss=0.4617 gnorm=1.449
+  frac=1.0 seed=42 ep20 loss=0.2613 gnorm=1.761
+  frac=1.0 seed=42 ep25 loss=0.3286 gnorm=2.352

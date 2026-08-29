@@ -1,0 +1,13 @@
+training use_ir=False (N=2422, in_dim=1) ...
+    ep0 loss=0.8445
+    ep10 loss=0.3834
+    ep20 loss=0.4691
+    ep30 loss=0.3100
+    ep40 loss=0.2381
+    ep50 loss=0.1836
+    ep60 loss=0.3255
+    ep70 loss=0.2141
+    ep80 loss=0.2127
+    ep90 loss=0.1795
+  seed42 use_ir=False: extR2=0.3743 extMAE=0.0346 regen_frac=0.227 AE=0
+REPRO free-head extrap: R2=0.3743 MAE=0.0346

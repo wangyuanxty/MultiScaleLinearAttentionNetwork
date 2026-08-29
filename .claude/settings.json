@@ -1,0 +1,11 @@
+{
+  "enabledPlugins": {
+    "cli-anything@cli-anything": false,
+    "academic-research-skills@academic-research-skills": true,
+    "ecc@ecc": true,
+    "claude-mem@thedotmack": true,
+    "arxiv-mcp-server@arxiv-mcp": true,
+    "baoyu-skills@baoyu-skills": true,
+    "frontend-design@claude-plugins-official": true
+  }
+}

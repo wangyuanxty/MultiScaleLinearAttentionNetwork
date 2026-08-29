@@ -1,0 +1,25 @@
+training multi (N=2715) ...
+    ep0 loss=0.6208
+    ep10 loss=0.6004
+    ep20 loss=0.3110
+    ep30 loss=0.2246
+    ep40 loss=0.2466
+    ep50 loss=0.2500
+    ep60 loss=0.2308
+    ep70 loss=0.2363
+    ep80 loss=0.3739
+    ep90 loss=0.1573
+  [multi] MAE=0.0076 R2=0.9938 regen=0.272 AE=0
+training stage (N=2715) ...
+    ep0 loss=0.6167
+    ep10 loss=0.5199
+    ep20 loss=0.4487
+    ep30 loss=0.2355
+    ep40 loss=0.2844
+    ep50 loss=0.2771
+    ep60 loss=0.2547
+    ep70 loss=0.3083
+    ep80 loss=0.4643
+    ep90 loss=0.2078
+  [stage] MAE=0.0066 R2=0.9955 regen=0.289 AE=0
+reference: single direct-z MAE=0.0059 R2=0.9963 AE=2 | phys_ir single MAE=0.0042

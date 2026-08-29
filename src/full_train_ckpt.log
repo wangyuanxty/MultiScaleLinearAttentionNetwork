@@ -1,0 +1,35 @@
+training calce seed42 (N=2715, W=64) ...
+    ep0 loss=0.6167
+    ep25 loss=0.2446
+    ep50 loss=0.2771
+    ep75 loss=0.1802
+  [calce seed42] MAE=0.0066 R2=0.9955 regen=0.289 AE=0
+  saved ../checkpoints/full_calce_seed42.pt
+training nasa seed42 (N=378, W=30) ...
+    ep0 loss=0.5011
+    ep25 loss=0.2857
+    ep50 loss=0.2836
+    ep75 loss=0.2217
+  [nasa seed42] MAE=0.0096 R2=0.9920 regen=0.080 AE=6
+  saved ../checkpoints/full_nasa_seed42.pt
+training mit seed42 (N=3364, W=64) ...
+    ep0 loss=0.6355
+    ep25 loss=0.3415
+    ep50 loss=0.1443
+    ep75 loss=0.1392
+  [mit seed42] MAE=0.0013 R2=0.9999 regen=0.000 AE=0
+  saved ../checkpoints/full_mit_seed42.pt
+training panasonic seed42 (N=1786, W=30) ...
+    ep0 loss=0.6847
+    ep25 loss=0.3609
+    ep50 loss=0.2321
+    ep75 loss=0.3408
+  [panasonic seed42] MAE=0.0037 R2=0.9988 regen=0.087 AE=1
+  saved ../checkpoints/full_panasonic_seed42.pt
+training tju seed42 (N=1713, W=64) ...
+    ep0 loss=0.1185
+    ep25 loss=0.0845
+    ep50 loss=0.0965
+    ep75 loss=0.0920
+  [tju seed42] MAE=0.0013 R2=0.9999 regen=0.011 AE=0
+  saved ../checkpoints/full_tju_seed42.pt

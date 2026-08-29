@@ -1,0 +1,24 @@
+training [C,n] frac=1.0 (N=2715) ...
+    ep0 loss=0.5927
+    ep10 loss=0.7670
+    ep20 loss=0.3813
+    ep30 loss=0.1751
+    ep40 loss=0.2263
+    ep50 loss=0.2824
+    ep60 loss=0.2663
+    ep70 loss=0.3683
+    ep80 loss=0.3474
+    ep90 loss=0.1520
+  [std] [C,n]: MAE=0.0061 R2=0.9959 regen=0.257 AE=1
+training [C,n] frac=0.9 (N=2422) ...
+    ep0 loss=0.8756
+    ep10 loss=0.4333
+    ep20 loss=0.4337
+    ep30 loss=0.2626
+    ep40 loss=0.3064
+    ep50 loss=0.1839
+    ep60 loss=0.3811
+    ep70 loss=0.2460
+    ep80 loss=0.2207
+    ep90 loss=0.2203
+  [extrap] [C,n]: extR2=0.4471 extMAE=0.0322 regen=0.227 AE=0

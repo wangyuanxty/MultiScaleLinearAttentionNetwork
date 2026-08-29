@@ -1,0 +1,13 @@
+training combo frac=1.0 (N=2715) ...
+    ep0 loss=0.0102
+    ep10 loss=0.0081
+    ep20 loss=0.0048
+    ep30 loss=0.0039
+    ep40 loss=0.0047
+    ep50 loss=0.0033
+    ep60 loss=0.0049
+    ep70 loss=0.0050
+    ep80 loss=0.0087
+    ep90 loss=0.0038
+  [std] combo: MAE=0.0042 R2=0.9971 regen=0.163 AE=1
+reference: phys_ir single MAE=0.0042 R2=0.9971 AE=1

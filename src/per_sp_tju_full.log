@@ -1,0 +1,34 @@
+tju SP200 seed1: SKIP (already in JSON)
+tju SP200 seed2: SKIP (already in JSON)
+tju SP200 seed3: SKIP (already in JSON)
+tju SP200 seed4: SKIP (already in JSON)
+tju SP200 seed5: SKIP (already in JSON)
+tju SP200 seed6: SKIP (already in JSON)
+tju SP200 seed7: SKIP (already in JSON)
+tju SP200 seed8: SKIP (already in JSON)
+tju SP200 seed9: SKIP (already in JSON)
+tju SP200 seed10: SKIP (already in JSON)
+tju SP300 seed1: SKIP (already in JSON)
+tju SP300 seed2: SKIP (already in JSON)
+tju SP300 seed3: AE=[1] MAE=0.0015 R2=0.9998 trainN=1713+236
+tju SP300 seed4: AE=[1] MAE=0.0013 R2=0.9998 trainN=1713+236
+tju SP300 seed5: AE=[1] MAE=0.0012 R2=0.9999 trainN=1713+236
+tju SP300 seed6: AE=[2] MAE=0.0016 R2=0.9998 trainN=1713+236
+tju SP300 seed7: AE=[1] MAE=0.0012 R2=0.9999 trainN=1713+236
+tju SP300 seed8: AE=[1] MAE=0.0015 R2=0.9998 trainN=1713+236
+tju SP300 seed9: AE=[0] MAE=0.0014 R2=0.9998 trainN=1713+236
+tju SP300 seed10: AE=[0] MAE=0.0012 R2=0.9999 trainN=1713+236
+tju SP400 seed1: AE=[2] MAE=0.0021 R2=0.9996 trainN=1713+336
+tju SP400 seed2: AE=[3] MAE=0.0021 R2=0.9995 trainN=1713+336
+tju SP400 seed3: AE=[0] MAE=0.0013 R2=0.9998 trainN=1713+336
+tju SP400 seed4: AE=[0] MAE=0.0015 R2=0.9997 trainN=1713+336
+tju SP400 seed5: AE=[3] MAE=0.0021 R2=0.9995 trainN=1713+336
+tju SP400 seed6: AE=[0] MAE=0.0013 R2=0.9998 trainN=1713+336
+tju SP400 seed7: AE=[3] MAE=0.0022 R2=0.9994 trainN=1713+336
+tju SP400 seed8: AE=[2] MAE=0.0013 R2=0.9997 trainN=1713+336
+tju SP400 seed9: AE=[0] MAE=0.0015 R2=0.9997 trainN=1713+336
+tju SP400 seed10: AE=[3] MAE=0.0021 R2=0.9995 trainN=1713+336
+=== per-SP means over seeds ===
+SP200: AE=0.20 MAE=0.0013 RMSE=0.0020 R2=0.9999
+SP300: AE=0.90 MAE=0.0014 RMSE=0.0021 R2=0.9998
+SP400: AE=1.60 MAE=0.0018 RMSE=0.0026 R2=0.9996

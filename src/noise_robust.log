@@ -1,0 +1,30 @@
+training phys=False ...
+    ep0 loss=0.6325
+    ep10 loss=0.5284
+    ep20 loss=0.3330
+    ep30 loss=0.1762
+    ep40 loss=0.2251
+    ep50 loss=0.2320
+    ep60 loss=0.2157
+    ep70 loss=0.3014
+    ep80 loss=0.3738
+    ep90 loss=0.1719
+  [clean] phys eval: MAE=0.0059 R2=0.9963 regen=0.248
+  [drop30] phys eval: MAE=0.0120 R2=0.9857 regen=0.257
+  [gauss] phys eval: MAE=0.0109 R2=0.9936 regen=0.435
+  [impulse] phys eval: MAE=0.0081 R2=0.9948 regen=0.335
+training phys=True ...
+    ep0 loss=0.6334
+    ep10 loss=0.6085
+    ep20 loss=0.3066
+    ep30 loss=0.2196
+    ep40 loss=0.2193
+    ep50 loss=0.2774
+    ep60 loss=0.2198
+    ep70 loss=0.2595
+    ep80 loss=0.3726
+    ep90 loss=0.1184
+  [clean] phys eval: MAE=0.0070 R2=0.9958 regen=0.257
+  [drop30] phys eval: MAE=0.0122 R2=0.9863 regen=0.224
+  [gauss] phys eval: MAE=0.0109 R2=0.9937 regen=0.418
+  [impulse] phys eval: MAE=0.0095 R2=0.9943 regen=0.353

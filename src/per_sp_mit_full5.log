@@ -1,0 +1,19 @@
+mit SP200 seed1: SKIP (already in JSON)
+mit SP200 seed2: SKIP (already in JSON)
+mit SP200 seed3: SKIP (already in JSON)
+mit SP200 seed4: SKIP (already in JSON)
+mit SP200 seed5: SKIP (already in JSON)
+mit SP200 seed6: SKIP (already in JSON)
+mit SP200 seed7: SKIP (already in JSON)
+mit SP200 seed8: SKIP (already in JSON)
+mit SP200 seed9: AE=[0, 2] MAE=0.0018 R2=0.9998 trainN=3364+272
+mit SP200 seed10: AE=[0, 2] MAE=0.0017 R2=0.9998 trainN=3364+272
+mit SP300 seed1: AE=[0, 0] MAE=0.0020 R2=0.9999 trainN=3364+472
+mit SP300 seed2: AE=[0, 2] MAE=0.0021 R2=0.9998 trainN=3364+472
+mit SP300 seed3: AE=[1, 1] MAE=0.0029 R2=0.9997 trainN=3364+472
+mit SP300 seed4: AE=[0, 3] MAE=0.0030 R2=0.9989 trainN=3364+472
+mit SP300 seed5: AE=[1, 2] MAE=0.0030 R2=0.9996 trainN=3364+472
+mit SP300 seed6: AE=[0, 3] MAE=0.0034 R2=0.9994 trainN=3364+472
+mit SP300 seed7: AE=[0, 2] MAE=0.0019 R2=0.9998 trainN=3364+472
+mit SP300 seed8: AE=[1, 0] MAE=0.0025 R2=0.9998 trainN=3364+472
+mit SP300 seed9: AE=[1, 0] MAE=0.0021 R2=0.9998 trainN=3364+472
