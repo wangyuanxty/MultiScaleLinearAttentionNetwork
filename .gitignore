@@ -5,3 +5,17 @@ checkpoints/
 data/
 literature/
 reference_repos/
+
+# LaTeX build artifacts (paper/ only)
+paper/**/*.aux
+paper/**/*.log
+paper/**/*.toc
+paper/**/*.fls
+paper/**/*.bbl
+paper/**/*.blg
+paper/**/*.out
+paper/**/*.synctex.gz
+paper/**/texput.log
+paper/**/__pycache__/
+paper/**/*.pyc
+paper/**/.ruff_cache/
