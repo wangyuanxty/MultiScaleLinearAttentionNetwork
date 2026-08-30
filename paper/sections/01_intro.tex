@@ -168,103 +168,33 @@ risk-averse scheduler actually cares about.}
 
 \begin{figure}[htbp]
 \centering
-% Row 1: six deployment contexts (photos)
-\begin{subfigure}[b]{0.155\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_app1}
-\caption{E-bike swap}\label{fig:ov_app1}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.155\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_app2}
-\caption{Second life}\label{fig:ov_app2}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.155\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_app3}
-\caption{Portable medical}\label{fig:ov_app3}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.155\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_app4}
-\caption{EV fleet}\label{fig:ov_app4}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.155\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_app5}
-\caption{Robot fleet}\label{fig:ov_app5}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.155\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_app6}
-\caption{Power tools}\label{fig:ov_app6}
-\end{subfigure}
-
-\medskip
-% Row 2: model pipeline (wider tiles)
-\begin{subfigure}[b]{0.31\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_ms_train}
-\caption{Training}\label{fig:ov_attr_train}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.31\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_ms_model}
-\caption{Model structure}\label{fig:ov_attr_model}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.31\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_ms_infer}
-\caption{Inference}\label{fig:ov_attr_infer}
-\end{subfigure}
-
-\medskip
-% Row 3: four capabilities (A-D)
-\begin{subfigure}[b]{0.235\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_p3a}
-\caption{First-tier accuracy}\label{fig:ov_attr_acc}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.235\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_p3b}
-\caption{Physics-consistent head}\label{fig:ov_attr_phys}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.235\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_p3c}
-\caption{Decision-grade UQ}\label{fig:ov_attr_uq}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.235\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/ov_p3d}
-\caption{Edge deployment}\label{fig:ov_attr_edge}
-\end{subfigure}
-\caption{System overview. Top row: six deployment-context scenes
-whose monitoring needs stress a specific capability (shared e-bike
-swap, second-life grading, portable medical, EV fleets, robot
-fleets, power tools). Middle row: the pipeline---train once per
-(dataset, starting point, seed) with min--max input and per-window
-z-score targets, the multi-scale GDN-2 model, and per-cycle on-device
-inference. Bottom row: four connected capabilities: (A) first-tier
-trajectory accuracy including regeneration tracking; (B) a
-physics-consistent rate head---physics added to the model, validated
-on unseen-tail extrapolation and corrupted field data; (C)
-conformal-calibrated P2.5/P50/P97.5 intervals (95\% nominal $\to$
-93.3\% actual coverage) for risk-aware maintenance scheduling; and
-(D) edge deployment on a microcontroller (16\,KB fixed state,
-340\,KB INT8, no dynamic allocation, no cloud).}
+\includegraphics[width=\textwidth]{figures/new_overview.png}
+\caption{System overview: the overall pipeline of the proposed
+method and an outlook on its application across physical battery
+systems with different power and operating profiles---spacecraft
+satellites, unmanned aerial vehicles (UAVs), energy-storage battery
+cabinets, and power-battery packs. The pipeline starts from public
+cycling datasets (CALCE, NASA, MIT, PANASONIC, TJU), performs data
+preprocessing and trains a fresh model per (dataset, starting point,
+seed) under the PatchFormer-consistent protocol, and exports an
+INT8-quantized model whose fixed 8\,KB state and minimal compute
+footprint make it deployable on resource-constrained embedded
+devices, laying the foundation for on-device online monitoring.
+Application images are illustrative; the experimental validation is
+conducted on public laboratory data.}
 \label{fig:overview}
 \end{figure}
 
 The technical contributions above translate into an operational
 value chain in which each application stresses a specific DeltaCycle
 capability rather than generic monitoring (Figure~\ref{fig:overview}):
-no-connectivity edge deployment (EV fleets, robot fleets, power
-tools/consumer packs with on-pack MCU gauges), risk-aware scheduling
-with calibrated intervals (portable medical devices, shared e-bike
-swap fleets), and regeneration tracking for non-monotonic field
-histories (second-life grading). We stress that the experimental
+no-connectivity edge deployment (spacecraft satellites
+and UAV fleets, where physical access and onboard
+connectivity budget rule out cloud dependence), risk-aware
+scheduling with calibrated intervals (energy-storage battery
+cabinets and power-battery packs, where the missed-EOL rate sets
+the maintenance window), and regeneration tracking for
+non-monotonic field histories. We stress that the experimental
 validation in this paper is conducted on public laboratory cycling
 data; the figure is an \emph{application outlook}, not a deployment
 report.

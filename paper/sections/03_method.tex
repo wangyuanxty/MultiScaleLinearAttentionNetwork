@@ -69,33 +69,31 @@ static buffer.
 \subsection{Multi-scale branches with per-layer cross-scale exchange}
 \label{sec:multiscale}
 
-Figure~\ref{fig:arch} shows the multi-scale encoder,
-Figure~\ref{fig:sqx} details the per-layer stage-query exchange, and
-Figure~\ref{fig:gdn2} details the internal recurrence of one GDN-2
-block.
+Figure~\ref{fig:arch} shows the multi-scale encoder
+together with the per-layer cross-scale exchange submodule (bottom,
+light-green box), and Figure~\ref{fig:gdn2} details the internal
+recurrence of one GDN-2 block.
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/fig_arch_ms}
-\caption{The multi-scale GDN-2 encoder: three parallel branches of
-two layers each (8\,KB fixed state per layer). The $W{=}64$ window
-is pooled with stride 2/4/8 into 32/16/8 tokens, embedded to
-$d{=}64$, linked per layer by the stage-query exchange, fused at the
-last token (192 $\to$ 128 $\to$ GELU $\to$ 1) to predict
-$\hat{c}_{t+1}$, which rolls forward.}
+\includegraphics[width=\textwidth]{figures/new_modelarch.png}
+\caption{Multi-scale GDN-2 architecture and cross-scale exchange
+submodule. Top: the fixed window of $W{=}64$ capacity cycles (the
+tokens $cap_t$; $cyc_t$ denotes the cycle index) is encoded in
+parallel at three scales (patch 2/4/8, 32/16/8 tokens), embedded
+per scale, and passed through two GDN-2 layers per branch ($8$\,KB
+fixed state per layer); the three branches exchange multi-scale
+information through the per-layer cross-scale exchange (orange
+arrows, coarse state as query), fuse at the $fuse$ node, and emit
+the next-cycle capacity prediction
+$\hat{c}_{t+1}$ via the last-token readout (Linear\,128 $\to$ GELU
+$\to$ Linear\,1). Bottom (light-green box): the cross-scale exchange
+submodule maps the coarse state $S$ (2048 elements) to a single
+query $q$ ($d_q{=}32$) via $W_q$; single-query attention interacts
+$q$ with the fine/mid branch keys and values ($k, v$,
+$d_{\text{model}}{=}64$) to produce the context $c_f$, added to the
+fused state: $h_f = h_{\text{fuse}} + c_f$.}
 \label{fig:arch}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.60\textwidth]{figures/fig_sqx_exchange}
-\caption{The per-layer stage-query cross-scale exchange: the coarse
-branch's GDN state $S$ (2048 elements) is projected to a single
-query ($d_k{=}32$) that sweeps the fine/mid branch $k/v$ streams
-($d_{\text{model}}{=}64$) by single-query linear attention
-($O(L)$, no gating), merging additively
-($h_f \leftarrow h_f + c_f$).}
-\label{fig:sqx}
 \end{figure}
 
 \begin{figure}[!ht]
