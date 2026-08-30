@@ -1,0 +1,225 @@
+{
+  "single-cap": {
+    "config": {
+      "name": "single-cap",
+      "multiscale": false,
+      "physics": false,
+      "K": 1
+    },
+    "epochs": 100,
+    "seed": 42,
+    "params": 113674,
+    "train_loss": 0.0133,
+    "timestamp": "2026-08-09 09:44",
+    "table_a": {
+      "R2": 0.9953,
+      "traj_MAE_sp300": 0.0096,
+      "traj_RMSE_sp300": 0.0147,
+      "traj_R2_sp300": 0.9951,
+      "traj_MAE_sp400": 0.0091,
+      "traj_RMSE_sp400": 0.0151,
+      "traj_R2_sp400": 0.9947,
+      "traj_MAE_sp500": 0.0089,
+      "traj_RMSE_sp500": 0.016,
+      "traj_R2_sp500": 0.9933
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 270.0,
+        "true_eol": 640,
+        "pred_eol": 370.0
+      },
+      "RUL_sp400": {
+        "rul_mae": 172.4,
+        "true_eol": 640,
+        "pred_eol": 467.6
+      },
+      "RUL_sp500": {
+        "rul_mae": 98.3,
+        "true_eol": 640,
+        "pred_eol": 541.7
+      }
+    }
+  },
+  "multi-cap": {
+    "config": {
+      "name": "multi-cap",
+      "multiscale": true,
+      "physics": false,
+      "K": 1
+    },
+    "epochs": 100,
+    "seed": 42,
+    "params": 340506,
+    "train_loss": 0.0209,
+    "timestamp": "2026-08-09 10:00",
+    "table_a": {
+      "R2": 0.9929,
+      "traj_MAE_sp300": 0.0135,
+      "traj_RMSE_sp300": 0.0174,
+      "traj_R2_sp300": 0.9931,
+      "traj_MAE_sp400": 0.013,
+      "traj_RMSE_sp400": 0.0176,
+      "traj_R2_sp400": 0.9928,
+      "traj_MAE_sp500": 0.0127,
+      "traj_RMSE_sp500": 0.0183,
+      "traj_R2_sp500": 0.9913
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 307.8,
+        "true_eol": 640,
+        "pred_eol": 332.2
+      },
+      "RUL_sp400": {
+        "rul_mae": 208.3,
+        "true_eol": 640,
+        "pred_eol": 431.7
+      },
+      "RUL_sp500": {
+        "rul_mae": 119.9,
+        "true_eol": 640,
+        "pred_eol": 520.1
+      }
+    }
+  },
+  "multi-cap-xchg": {
+    "config": {
+      "name": "multi-cap-xchg",
+      "multiscale": true,
+      "physics": false,
+      "K": 1,
+      "cross": true
+    },
+    "epochs": 100,
+    "seed": 42,
+    "params": 365468,
+    "train_loss": 0.016,
+    "timestamp": "2026-08-09 10:17",
+    "table_a": {
+      "R2": 0.9936,
+      "traj_MAE_sp300": 0.0136,
+      "traj_RMSE_sp300": 0.0177,
+      "traj_R2_sp300": 0.9929,
+      "traj_MAE_sp400": 0.0137,
+      "traj_RMSE_sp400": 0.0184,
+      "traj_R2_sp400": 0.9922,
+      "traj_MAE_sp500": 0.0143,
+      "traj_RMSE_sp500": 0.0197,
+      "traj_R2_sp500": 0.9899
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 297.0,
+        "true_eol": 640,
+        "pred_eol": 343.0
+      },
+      "RUL_sp400": {
+        "rul_mae": 198.3,
+        "true_eol": 640,
+        "pred_eol": 441.7
+      },
+      "RUL_sp500": {
+        "rul_mae": 112.4,
+        "true_eol": 640,
+        "pred_eol": 527.6
+      }
+    }
+  },
+  "multi-cap-physics": {
+    "config": {
+      "name": "multi-cap-physics",
+      "multiscale": true,
+      "physics": true,
+      "K": 1
+    },
+    "epochs": 100,
+    "seed": 42,
+    "params": 340506,
+    "train_loss": 0.0185,
+    "timestamp": "2026-08-09 10:31",
+    "physics": {
+      "lambda": 0.1,
+      "gamma_ir": 0.029434,
+      "gamma_t": 0.01815,
+      "Ea_J_per_mol": 54598.1,
+      "base": -0.002191
+    },
+    "table_a": {
+      "R2": 0.9941,
+      "traj_MAE_sp300": 0.0124,
+      "traj_RMSE_sp300": 0.0166,
+      "traj_R2_sp300": 0.9937,
+      "traj_MAE_sp400": 0.0122,
+      "traj_RMSE_sp400": 0.0171,
+      "traj_R2_sp400": 0.9932,
+      "traj_MAE_sp500": 0.0123,
+      "traj_RMSE_sp500": 0.0181,
+      "traj_R2_sp500": 0.9915
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 301.7,
+        "true_eol": 640,
+        "pred_eol": 338.3
+      },
+      "RUL_sp400": {
+        "rul_mae": 203.2,
+        "true_eol": 640,
+        "pred_eol": 436.8
+      },
+      "RUL_sp500": {
+        "rul_mae": 115.5,
+        "true_eol": 640,
+        "pred_eol": 524.5
+      }
+    }
+  },
+  "multi-cap-traj32": {
+    "config": {
+      "name": "multi-cap-traj32",
+      "multiscale": true,
+      "physics": false,
+      "K": 32
+    },
+    "epochs": 100,
+    "seed": 42,
+    "params": 344505,
+    "train_loss": 0.0166,
+    "timestamp": "2026-08-09 10:43",
+    "traj": {
+      "sp300": {
+        "mae": 0.0121,
+        "rmse": 0.0137,
+        "r2": -1.644
+      },
+      "sp400": {
+        "mae": 0.0195,
+        "rmse": 0.0203,
+        "r2": -5.889
+      },
+      "sp500": {
+        "mae": 0.0068,
+        "rmse": 0.0081,
+        "r2": 0.398
+      }
+    },
+    "rul": {
+      "RUL_sp300": {
+        "rul_mae": 141.2,
+        "true_eol": 640,
+        "pred_eol": 498.8
+      },
+      "RUL_sp400": {
+        "rul_mae": 39.3,
+        "true_eol": 640,
+        "pred_eol": 600.7
+      },
+      "RUL_sp500": {
+        "rul_mae": 11.0,
+        "true_eol": 640,
+        "pred_eol": 629.0
+      }
+    }
+  }
+}
