@@ -44,16 +44,19 @@ CONFIGS = {
 }
 
 
-def train_one(seed, X, Y, W, cfg):
+def train_one(seed, X, Y, W, cfg, schedule="const", lr=1e-3, epochs=None):
     torch.manual_seed(seed)
     np.random.seed(seed)
     model = build_gdn_model(
         multiscale=cfg["multiscale"], stage_query=cfg["stage_query"],
         input_dim=1, window_size=W, output_len=1, readout="last",
     ).to(DEV)
-    opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+    opt = torch.optim.Adam(model.parameters(), lr=lr)
+    n_epochs = epochs or EPOCHS
+    sched = (torch.optim.lr_scheduler.CosineAnnealingLR(
+        opt, T_max=n_epochs, eta_min=1e-6) if schedule == "cosine" else None)
     N = len(X)
-    for ep in range(EPOCHS):
+    for ep in range(n_epochs):
         model.train()
         perm = np.random.permutation(N)
         for s in range(0, N, BATCH):
@@ -68,8 +71,13 @@ def train_one(seed, X, Y, W, cfg):
             loss = masked_mae(pred, tgt, torch.ones_like(y))
             loss.backward()
             opt.step()
-        if ep % 10 == 0:
+        if sched is not None and ep % 10 == 0:
+            print(f"  ep{ep} loss={loss.item():.4f} lr={sched.get_last_lr()[0]:.2e}",
+                  flush=True)
+        elif ep % 10 == 0:
             print(f"  ep{ep} loss={loss.item():.4f}", flush=True)
+        if sched is not None:
+            sched.step()
     return model
 
 
@@ -98,28 +106,35 @@ def eval_fullseq(model, caps, test_cell, W, lo, hi, eol_ah):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--dataset", choices=["calce", "nasa"], default="calce")
     ap.add_argument("--config", nargs="+", required=True, choices=list(CONFIGS))
     ap.add_argument("--seeds", type=int, default=10)
     ap.add_argument("--start-seed", type=int, default=1)
     ap.add_argument("--repro42", action="store_true",
                     help="Also run seed 42 (checks old table-4 numbers reproduce)")
+    ap.add_argument("--lr-schedule", choices=["const", "cosine"], default="const")
+    ap.add_argument("--lr", type=float, default=1e-3)
+    ap.add_argument("--epochs", type=int, default=100)
+    ap.add_argument("--tag", default="",
+                    help="Suffix for output JSON/ckpt paths (isolation)")
     args = ap.parse_args()
 
-    caps, train_cells, test_cell, W, sps, eol_ah = load_series("calce")
+    caps, train_cells, test_cell, W, sps, eol_ah = load_series(args.dataset)
     caps = {c: caps[c].astype(np.float32) for c in caps}
 
     all_tr = np.concatenate([caps[c] for c in train_cells])
     lo, hi = float(all_tr.min()), float(all_tr.max())
     X, Y = build_windows(caps, train_cells, lo, hi, W)
 
-    out_path = "results/ablation_fullseq_calce.json"
+    tag = f"_{args.tag}" if args.tag else ""
+    out_path = f"results/ablation_fullseq_{args.dataset}{tag}.json"
     out = {}
     if os.path.exists(out_path):
         try:
             out = json.load(open(out_path)) or {}
         except json.JSONDecodeError:
             print("WARN: results JSON 为空/损坏,按空结果处理", flush=True)
-    os.makedirs("../checkpoints/abl_seed", exist_ok=True)
+    os.makedirs(f"../checkpoints/abl_seed/{args.dataset}{tag}", exist_ok=True)
 
     seed_list = list(range(args.start_seed, args.start_seed + args.seeds))
     if args.repro42:
@@ -127,7 +142,7 @@ def main():
 
     for cfg_name in args.config:
         cfg = CONFIGS[cfg_name]
-        ckpt_dir = f"../checkpoints/abl_seed/{cfg_name}"
+        ckpt_dir = f"../checkpoints/abl_seed/{args.dataset}{tag}/{cfg_name}"
         os.makedirs(ckpt_dir, exist_ok=True)
         for seed in seed_list:
             skey = str(seed)
@@ -145,7 +160,8 @@ def main():
                 model.load_state_dict(ckpt["state_dict"])
                 print(f"[{cfg_name}] seed{seed}: 复用 ckpt(跳过训练)", flush=True)
             else:
-                model = train_one(seed, X, Y, W, cfg)
+                model = train_one(seed, X, Y, W, cfg, schedule=args.lr_schedule,
+                                  lr=args.lr, epochs=args.epochs)
                 torch.save({"state_dict": model.state_dict(), "seed": seed,
                             "lo": lo, "hi": hi, "W": W, "eol_ah": eol_ah,
                             "config": cfg_name}, ckpt_path)

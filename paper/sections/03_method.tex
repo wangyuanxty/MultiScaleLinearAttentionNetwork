@@ -175,9 +175,7 @@ $\mathbf{v}_t = \mathbf{W}_v \mathbf{h}_a[t]$, and the summation is a
 single-query linear-attention readout with $O(L)$ cost per layer.
 The exchange is additive (residual, no gating) and applied
 per layer. Ablation studies (Section \ref{sec:ablation}) show that
-branches without interaction degrade consistently (MAE $0.0076$ vs
-$0.0066$ on CALCE), and that the stage-query exchange outperforms a
-single-branch backbone ($0.0066$ vs $0.0070$).
+branches without interaction degrade consistently (CALCE MAE $0.0068$ vs $0.0065$; Wilcoxon $p=0.037$), while the stage-query exchange restores the multi-scale model to the single-branch level on CALCE and yields the best mean on the regeneration-rich NASA dataset ($0.0084$ vs $0.0087$); the exchange never degrades accuracy relative to a single branch.
 
 An interpretability analysis (Section \ref{sec:phys}) reveals that
 the coarse branch (patch 8) spontaneously encodes the degradation

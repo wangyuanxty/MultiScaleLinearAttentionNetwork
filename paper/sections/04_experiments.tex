@@ -387,32 +387,66 @@ Ours & & \textbf{0.0013} & 0.0020 & \textbf{0.9999} & \textbf{0.2} & \textbf{0.0
 \label{sec:ablation}
 
 This section ablates the architecture only; the physics extension is
-validated separately in Section~\ref{sec:phys}. Ablations are
-conducted on CALCE, the designated primary dataset, whose monotonic
-profile isolates architectural effects from regeneration confounds;
-extending the architecture ablations to regeneration-rich datasets
-is scheduled as future work (Section~\ref{sec:limitations}).
+validated separately in Section~\ref{sec:phys}. Every configuration
+is trained from ten seeds on two datasets: CALCE, the designated
+primary dataset whose monotonic profile isolates architectural
+effects from regeneration confounds, and NASA, whose cycles include
+strong capacity regeneration and therefore stress the multi-scale
+design's intended regime.
 
-The stage-query exchange is essential (seed 42, standard protocol;
-Table~\ref{tab:ablation}): three branches without interaction
-degrade by 15\% (MAE $0.0076$ vs $0.0066$), while the exchange
-outperforms a single-branch backbone ($0.0066$ vs $0.0070$).
+The stage-query exchange is necessary rather than merely beneficial
+(Table~\ref{tab:ablation}): on CALCE, three branches without
+interaction degrade significantly relative to the exchanged model
+(MAE $0.0068$ vs $0.0065$; two-sided Wilcoxon signed-rank
+$p=0.037$). The exchange restores the multi-scale model to the
+single-branch level on CALCE ($0.0065$ vs $0.0065$; $p=0.625$) and
+yields the best mean on NASA ($0.0084\pm0.0004$ vs
+$0.0087\pm0.0002$; $p=0.322$), although the NASA contrasts are not
+statistically resolvable at $n{=}10$; there the no-interaction
+multi-scale config again carries the largest seed-to-seed variance
+($\pm0.0014$). The single-seed version of this table (seed 42,
+$0.0070$/$0.0076$/$0.0066$) is not reproduced here---it is one draw
+from the seed distribution, which explains the earlier
+``exchange outperforms single-branch'' reading of
+Table~\ref{tab:ablation}.
 \begin{table}[htbp]
 \centering
-\caption{Architecture ablation on CALCE (seed 42, standard protocol,
-full-sequence MAE / R$^2$ / AE). Stage-query is the main model.}
+\caption{Architecture ablation, ten seeds, full-sequence MAE / R$^2$ /
+AE (mean over seeds 1--10; std shown for MAE). Bold = best in the
+dataset block; ties are both bold. Two-sided Wilcoxon signed-rank
+$p$-values against the main model are given in the text. Stage-query
+is the main model.}
 \label{tab:ablation}
 \footnotesize
 \begin{tabular}{lcccc}
 \toprule
-Configuration & Objective & MAE & R$^2$ & AE \\
+Dataset & Configuration & MAE & R$^2$ & AE \\
 \midrule
-single branch & z-score & 0.0070 & 0.9945 & 1 \\
-multi, no interaction & z-score & 0.0076 & 0.9938 & 0 \\
-\textbf{multi + stage-query (main)} & z-score & \textbf{0.0066} & \textbf{0.9955} & \textbf{0} \\
+CALCE & single branch & $\mathbf{0.0065\pm0.0003}$ & $\mathbf{0.9956}$ & $\mathbf{1.9}$ \\
+  & multi, no interaction & 0.0068$\pm$0.0003 & 0.9954 & 4.2 \\
+  & \textbf{multi + stage-query (main)} & $\mathbf{0.0065\pm0.0003}$ & 0.9955 & 3.6 \\
+\midrule
+NASA & single branch & 0.0087$\pm$0.0002 & 0.9932 & 1.8 \\
+  & multi, no interaction & 0.0098$\pm$0.0014 & 0.9930 & 1.8 \\
+  & \textbf{multi + stage-query (main)} & $\mathbf{0.0084\pm0.0004}$ & $\mathbf{0.9934}$ & $\mathbf{0.5}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\paragraph{Robustness to training protocol.}
+The 100-epoch constant-LR setting above is not chosen adversarially:
+a checkpoint-continuation study on NASA (seeds 1--3; 100 $\to$ 200
+$\to$ 300 $\to$ 500 epochs) shows that at every epoch level the
+single branch remains at or near the best configuration (means
+$0.0090$/$0.0079$/$0.0078$/$0.0081$), while the multi-scale
+configs reach shallow optima near 300 epochs and never overtake it.
+Both a cosine decay ($10^{-3}\to10^{-6}$) and a constant $10^{-4}$
+learning rate strictly hurt every configuration, and selecting each
+run's personally best checkpoint does not change the ranking
+(best-of: single $0.0076$, multi $0.0077$, xchg $0.0081$). The
+exchange therefore neither wins nor loses on training-protocol
+choices; its one significant, reproducible effect is rescuing
+multi-scale degradation on the monotonic CALCE data.
 
 \subsection{Physics extension and interpretability}
 \label{sec:phys}
@@ -676,8 +710,8 @@ Multi-scale & 1 & 1 & 340 KB \\
 
 All main results are aggregated over ten training seeds per
 starting point (seeds 1--10, per-SP protocol,
-Table~\ref{tab:tableA}); the ablation studies are single-dataset
-(CALCE); the
+Table~\ref{tab:tableA}); the ablation studies span CALCE and NASA at
+ten seeds (dataset-level contrasts significant only on CALCE); the
 physics extension and the uncertainty study use a
 single seed and a single calibration cell (CS2\_36), respectively,
 and their associated variance is not quantified. The remaining
