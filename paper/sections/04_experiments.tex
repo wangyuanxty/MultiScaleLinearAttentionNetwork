@@ -64,9 +64,10 @@ seed) a fresh model is trained from scratch, on the non-test cells'
 full sequences plus the test cell's cycles before the SP, and
 evaluated on the segment starting at the SP; we use ten seeds per
 SP (1--10), so each table cell aggregates ten independently trained
-models. The ablation and physics studies (which compare model
-variants rather than protocol steps) use the single-seed, full-data
-training described above.
+models. The ablation studies (Section~\ref{sec:ablation}) use the
+same optimizer budget with ten seeds; the physics extension and the
+uncertainty study use the single-seed, full-data training described
+above (variance quantified in Section~\ref{sec:limitations}).
 
 \subsection{Main results}
 \label{sec:main}
@@ -432,21 +433,6 @@ NASA & single branch & 0.0087$\pm$0.0002 & 0.9932 & 1.8 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\paragraph{Robustness to training protocol.}
-The 100-epoch constant-LR setting above is not chosen adversarially:
-a checkpoint-continuation study on NASA (seeds 1--3; 100 $\to$ 200
-$\to$ 300 $\to$ 500 epochs) shows that at every epoch level the
-single branch remains at or near the best configuration (means
-$0.0090$/$0.0079$/$0.0078$/$0.0081$), while the multi-scale
-configs reach shallow optima near 300 epochs and never overtake it.
-Both a cosine decay ($10^{-3}\to10^{-6}$) and a constant $10^{-4}$
-learning rate strictly hurt every configuration, and selecting each
-run's personally best checkpoint does not change the ranking
-(best-of: single $0.0076$, multi $0.0077$, xchg $0.0081$). The
-exchange therefore neither wins nor loses on training-protocol
-choices; its one significant, reproducible effect is rescuing
-multi-scale degradation on the monotonic CALCE data.
 
 \subsection{Physics extension and interpretability}
 \label{sec:phys}
