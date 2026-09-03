@@ -39,10 +39,10 @@ Prognostics}
   country={China}}
 
 \begin{abstract}
-Lithium-ion battery fleets---in electric vehicles, robotics,
-portable medical devices, and second-life markets---generate a
-continuous stream of maintenance and replacement decisions, in a
-market projected to grow several-fold over the coming decade. Every
+
+Lithium-ion battery fleets—across electric vehicles, robotics, portable medical devices, 
+and second-life use—generate a continuous stream of maintenance and replacement decisions. 
+This market is projected to grow several-fold over the coming decade. Every
 such decision requires three things that current monitoring
 technology cannot deliver simultaneously: models accurate enough to
 be decision-grade, yet small enough to run on the microcontrollers
@@ -52,15 +52,12 @@ corrupts; and uncertainty statements that let operators trade risk
 against cost explicitly.
 
 We propose DeltaCycle, a capacity-only battery monitoring loop built
-for deployment. Its multi-scale linear-attention encoder is
-deployment-verified via a simplest-representative single-branch
-variant that runs in C on a microcontroller with a fixed-size
-recurrent state, matching PyTorch within floating-point rounding; a
-physics-consistent degradation-rate head driven by measured internal
-resistance---the macroscopic signature of lithium-inventory loss,
-brought into the learning loop as a constraint on the decay
-direction; and conformal-calibrated prediction intervals that
-convert point forecasts into decision-grade outputs.
+for deployment. It consists of three components: a multi-scale linear-attention encoder, 
+deployment-verified through a minimal single-branch variant that runs in C on a microcontroller 
+with a fixed-size recurrent state and matches PyTorch to within floating-point rounding error; 
+a physics-consistent degradation-rate head driven by measured internal resistance—the 
+macroscopic signature of lithium-inventory loss—which acts as a constraint on the decay direction; 
+and conformal-calibrated prediction intervals that convert point forecasts into decision-grade outputs.
 
 Across five public datasets spanning four chemistries, DeltaCycle
 achieves first-tier accuracy among protocol-matched baselines---state
