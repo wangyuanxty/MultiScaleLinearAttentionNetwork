@@ -58,7 +58,7 @@ $\mathbf{S}_t \in \mathbb{R}^{d_k \times d_v}$ is fixed-size and
 updated incrementally, yielding $O(N)$ scan complexity with
 constant memory. With $H$ heads, $d_k=16$, and $d_v=32$, the total
 state is $H \cdot d_k \cdot d_v \cdot 4$ bytes $= 8$\,KB per layer.
-Figure~\subref{fig:cost} contrasts the per-window cost of this
+Figure~\ref{fig:evidence}\subref{fig:cost} contrasts the per-window cost of this
 scan with quadratic self-attention.
 During a window scan the state is updated incrementally---each new
 cycle erases part of the old memory (via $\mathbf{b}_t$) and writes
@@ -152,7 +152,7 @@ Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
 long-term monotonic envelope. We encode these with three parallel
 branches using patch sizes $P \in \{2,4,8\}$
-(Figure~\subref{fig:patch_pool} shows the real capacity series at each
+(Figure~ef{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
 patch scale). Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
 two GDN-2 layers. After every GDN layer, branches exchange

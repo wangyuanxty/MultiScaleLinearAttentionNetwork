@@ -277,7 +277,7 @@ fleet proxy: many training cells, unseen test cells. Over the two
 test cells the model achieves R$^2 \ge 0.9995$ at every SP
 (Table~\ref{tab:tableA}), with mean AE $0.2$ cycles on one test cell
 and $1.6$ on the other (10-seed means), exceeding the published MIT
-result of Zhao et al.\ \cite{ref_zhou2025}
+result of Zhou et al.\ \cite{ref_zhou2025}
 (R$^2$ $0.9902$) under a different protocol (7-step multi-point).
 Per-SP protocol (every (SP, seed) retrained from scratch, 10 seeds
 per SP) is applied uniformly. \emph{Operational implication:}
@@ -698,7 +698,7 @@ P2.5/P50/P97.5 outputs drive calibrated RUL decisions at
 Config & fp32 AE & INT8 AE & Memory \\
 \midrule
 Single-branch & 2.2 & 2.3 & 337 KB \\
-Multi-scale & 1 & 1 & 340 KB \\
+Multi-scale & 1.0 & 1.0 & 340 KB \\
 \bottomrule
 \end{tabular}
 \end{table}
