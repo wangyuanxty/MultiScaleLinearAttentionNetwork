@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Battery SOH/RUL prediction research for a Journal of Power Sources paper
 (**DeltaCycle** — multi-scale linear-attention network on the Gated
 DeltaNet-2 recurrence, with per-layer gated cross-scale exchange,
-physics-consistent regularization, and K=32 early sensing). The paper
+physics-consistent regularization). The paper
 lives in `paper/` (LaTeX), experiment results in `checkpoints/` +
 `results/`, and the literature library (PDFs + markdown conversions) in
 `literature/`; upstream reference repos in `reference_repos/`. `paper_plan.md` tracks the narrative and all measured
@@ -25,7 +25,7 @@ numbers; `paper/reviewer_report.md` tracks reviewer issues and fixes.
 ## Commands
 
 ```bash
-# Train (K=1 SOH / K=32 trajectory / both). Seed default 42.
+# Train (per-SP protocol; seed 1..10 default 1).
 python src/test_unified_train.py --dataset calce --k both --seed 43
 #   datasets: calce | nasa | mit-subset | panasonic | tju | gotion
 #   outputs: checkpoints/unified_{ds}_K{K}_seed{S}.pt
@@ -37,7 +37,7 @@ python src/run_ablation.py --dataset calce
 
 # Evaluation (non-recursive protocols, no retraining)
 python src/test_recompute_ae.py       # Table A: per-SP MAE/RMSE/R2/AE
-python src/test_recompute_ae_k32.py   # Table B: K=32 early-sensing AE
+python src/test_physics_ir_seeds.py   # physics rate-head 10-seed (std/extrap/robust/control)
 python src/eval_multiseed.py          # mean±std over seeds 42/43/44
 
 # Figures (matplotlib; all write paper/figures/*.pdf|png)
@@ -78,8 +78,7 @@ cd paper && pdflatex -interaction=nonstopmode main.tex && bibtex main \
   de-normalize with the same lo/hi the model was trained with.
 - **Evaluation protocols** (paper §Experiments):
   Table A = non-recursive single-step trajectory (per-SP MAE/RMSE/R²/AE,
-  AE via first threshold crossing); Table B = K=32 stride-1 early-sensing
-  (first window whose last pred < EOL → interpolated crossing → AE).
+  AE via first threshold crossing). Architecture ablation (tab:ablation): two datasets at 10 seeds; physics rate-head, extrapolation, robustness, UQ/conformal in sec:phys/sec:conf.
 - **`reference_repos/`** holds read-only upstream repos (PatchFormer,
   RUL-Mamba, GatedDeltaNet-2, etc.) with their own envs/configs; do not
   modify them. Their results/trajectories feed the comparison table.
