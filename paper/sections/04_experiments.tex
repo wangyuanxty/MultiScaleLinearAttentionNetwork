@@ -65,9 +65,11 @@ full sequences plus the test cell's cycles before the SP, and
 evaluated on the segment starting at the SP; we use ten seeds per
 SP (1--10), so each table cell aggregates ten independently trained
 models. The ablation studies (Section~\ref{sec:ablation}) use the
-same optimizer budget with ten seeds; the physics extension and the
-uncertainty study use the single-seed, full-data training described
-above (variance quantified in Section~\ref{sec:limitations}).
+same optimizer budget with ten seeds; the physics extension is
+reported over the same ten seeds for its head, extrapolation, and
+robustness studies, and the uncertainty study uses the single-seed,
+full-data training described above (variance quantified in
+Section~\ref{sec:limitations}).
 
 \subsection{Main results}
 \label{sec:main}
@@ -451,9 +453,11 @@ positive z-score targets of plateau segments (training loss stalls).
 The surviving mechanism---the rate head of
 Section~\ref{sec:physics}---moves the constraint to absolute
 capacity space and to an independently measured feature; a control
-free head trained in the same absolute space ($0.0097$) isolates the
-mechanism from the objective, and the rate head itself improves
-CALCE MAE by 40\% ($0.0042$ vs $0.0070$). Its value shows in the
+free head trained in the same absolute space (MAE
+$0.0090\pm0.0058$ over ten seeds, ranging $0.0052$--$0.0244$)
+isolates the mechanism from the objective, and the rate head
+itself improves CALCE MAE by 53\% ($0.00427\pm0.00002$ vs
+$0.0090\pm0.0058$). Its value shows in the
 two regimes where physics is expected to matter;
 Figures~\ref{fig:extrap} and \ref{fig:robust} together with
 Tables~\ref{tab:extrap} and \ref{tab:robust} quantify both, and we
@@ -463,8 +467,9 @@ close with the interpretability of the learned physics term.
 
 We train on the first $90\%$ of each cell's life and evaluate the
 unseen final $10\%$ under the same sliding-window protocol used for
-the main results. The rate head reaches $R^2 = 0.775$ on the
-tail---more than doubling the main-model readout ($0.374$) and far
+the main results. The rate head reaches $R^2 = 0.7745\pm0.0001$ (ten seeds)
+on the tail---more than doubling the main-model readout
+($0.374$) and far
 beyond last-value continuation ($-5.28$). The mechanism is explicit:
 the head predicts $\hat{Q}_t = Q_{t-1} - r$, so it never drifts
 away from the last observed capacity, and the IR term---correlated
@@ -499,7 +504,7 @@ Predictor & Tail R$^2$ & Tail MAE (norm.) \\
 \midrule
 last-value continuation & $-5.28$ & 0.143 \\
 main-model readout (free head) & 0.374 & 0.035 \\
-\textbf{rate head + IR} & \textbf{0.775} & \textbf{0.011} \\
+\textbf{rate head + IR} & \textbf{0.7745$\pm$0.0001} & \textbf{0.0111$\pm$0.0001} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -513,9 +518,13 @@ capacity-channel-only failure---for example a current-sensor drift
 or a capacity-estimator failure---in which the independently
 measured impedance data remain valid; a total telemetry outage
 affecting both channels is outside the scenario. The rate head wins
-all four settings; under 30\% loss the biased hold-last-value
-filling hurts the free head twice as much (MAE $0.0122$ vs.\
-$0.0090$; AE $23$ vs.\ $17$). Figure~\ref{fig:robust} shows the
+all four settings on every MAE contrast (clean $-34\%$, drop30
+$-30\%$, gauss $-13\%$, impulse $-32\%$); under 30\% loss the
+biased hold-last-value filling hurts the free head worst (MAE
+$0.0105\pm0.0028$ vs.\ $0.0074\pm0.0010$; worst-case AE $574$
+vs.\ $9$---the free head occasionally catastrophically misses the
+crossing, while the rate head's AE stays bounded (median $1$ in
+every mode). Figure~\ref{fig:robust} shows the
 mechanism: the forward-filled input plateaus upward, dragging the
 free head's near-EOL crossing late, while the rate head leans on the
 clean IR channel and keeps the crossing close to truth. A caveat:
@@ -538,17 +547,20 @@ EOL-crossing region.}
 \begin{table}[htbp]
 \centering
 \caption{Corrupted-input robustness (capacity channel corrupted, IR
-clean), CALCE. AE in cycles.}
+clean), CALCE, ten seeds (mean $\pm$ std; AE as mean over seeds,
+median 1 for the rate head in every mode).
+$^{\dagger}$worst-case AE 574 in a single free-head seed;
+$^{\ddagger}$worst-case AE 68 in a single rate-head seed.}
 \label{tab:robust}
 \begin{tabular}{lcc cc}
 \toprule
 Mode & \multicolumn{2}{c}{MAE (norm.)} & \multicolumn{2}{c}{AE} \\
  & free head & rate head & free head & rate head \\
 \midrule
-clean & 0.0070 & \textbf{0.0042} & 1 & \textbf{1} \\
-drop30 & 0.0122 & \textbf{0.0090} & 23 & \textbf{17} \\
-gauss ($\pm1\%$) & 0.0119 & \textbf{0.0097} & 1 & \textbf{1} \\
-impulse (5\%) & 0.0098 & \textbf{0.0061} & 1 & \textbf{1} \\
+clean & $0.0065\pm0.0003$ & \textbf{$0.00427\pm0.00002$} & 1.9 & \textbf{1.0} \\
+drop30 & $0.0105\pm0.0028$ & \textbf{$0.0074\pm0.0010$} & $59.6^{\dagger}$ & \textbf{3.4} \\
+gauss ($\pm1\%$) & $0.0111\pm0.0005$ & \textbf{$0.0097\pm0.0003$} & 2.9 & \textbf{2.5} \\
+impulse (5\%) & $0.0088\pm0.0003$ & \textbf{$0.0060\pm0.0001$} & \textbf{3.2} & $8.4^{\ddagger}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -698,7 +710,7 @@ All main results are aggregated over ten training seeds per
 starting point (seeds 1--10, per-SP protocol,
 Table~\ref{tab:tableA}); the ablation studies span CALCE and NASA at
 ten seeds (dataset-level contrasts significant only on CALCE); the
-physics extension and the uncertainty study use a
+physics extension is also ten-seed, and the uncertainty study uses a
 single seed and a single calibration cell (CS2\_36), respectively,
 and their associated variance is not quantified. The remaining
 planned evaluations (full 124-cell MIT set, additional seeds, a
