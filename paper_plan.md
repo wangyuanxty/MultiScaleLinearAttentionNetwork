@@ -141,5 +141,6 @@ PatchFormer / RUL-Mamba 论文数字见 paper 对比表;我方旧数字全部作
 - ✅ 物理章节补图:fig_extrap(0.374/0.775/−5.28)+ fig_robust(drop30 23→17)已入 sec:phys 三个 subsubsection;ckpt 存 checkpoints/phys_figs_models.pt、轨迹存 results/phys_figs.npz(重画零训练)
 - ✅ 物理机制泄露审查(2026-08-16,用户要求):6 项全过(窗口/目标对齐、IR 只用最后一步因果、lo/hi 仅训练集、容量序列与主表逐点一致、前向填充无未来、跨 cell 隔离);三个诚实性注记入文:①IR 是同期健康信号(相关−0.98)非预测未来,4.6.1 机制表述改为 Q̂=Q_last−r 锚定+IR 同期感知;②IR 信号 cell 间不均(CS2_38 相关仅−0.12)已作 limitation;③drop30 明确定义为容量通道单独故障场景(电流传感器漂移/容量估计失效),全遥测掉线不在场景内
 - ✅ CALCE seed 定案:44 重训复现 AE=7(确定性,非 bug);45=6;Table A 维持 42/43/44,AE 报均值 2.7;逐 epoch 诊断:AE 自 ep5 起 1↔7 振荡,非过拟合(ep10 即 7 且 train loss 持续下降)
-- ⏳【定稿阶段统一处理,用户 2026-08-16 拍板】自跑 PatchFormer(PANASONIC+TJU)、phys_ir 3 seeds、MIT 全集、Response to Reviewers、MCU phys_ir 头验证——全部留到最后,现在不动
+- ✅【2026-09-03 完成】自跑 PatchFormer+RUL-Mamba(NASA B0005/TJU CY25-1,3 repeats,官方管线=mat/csv 官方读取+官方 TSD/Trainer;PF NASA batch16);PS PANASONIC 未跑(无官方运行器,omitie 数值保留);phys_ir 3 seeds、MIT 全集、MCU phys_ir 头验证仍待办
+- ${table-注} tab:lit_nasa/tab:lit_tju 的 PF/RM 行已换自跑值并重核加粗;RM TJU 自跑复现文献(说明其 TJU 管线实为单变量,原 17-dim 脚注已删)
 

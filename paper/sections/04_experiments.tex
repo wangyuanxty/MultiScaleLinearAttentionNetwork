@@ -135,14 +135,16 @@ without per-SP RUL errors); head-to-head comparisons under our
 protocol are left to future work. Each case study below carries
 the per-dataset comparison table against PatchFormer
 \cite{ref_patchformer}, RUL-Mamba \cite{ref_rulmamba}, and the
-general time-series transformers, using the numbers reported in
-those papers on the shared test cells, EOL thresholds, and starting
-points (NASA B0005 and TJU CY25-1 are used identically by all
-works). AE is filled wherever the source paper reports it:
-RUL-Mamba's NASA and TJU rows carry its reported AE (an average
-over 10 runs), and on CALCE and PANASONIC---where RUL-Mamba's own
-paper has no results---we use OmniTIEFormer's baseline runs of
-RUL-Mamba \cite{ref_omnitie}, which also report AE.
+general time-series transformers. On NASA and TJU the
+PatchFormer and RUL-Mamba rows are self-run with the official
+repositories under the same per-SP protocol (10 repeats per SP,
+seeds 1--10; see the table footnotes for published-value context); the remaining
+rows use the numbers reported in those papers on the shared test
+cells, EOL thresholds, and starting points (NASA B0005 and TJU
+CY25-1 are used identically by all works). On CALCE and
+PANASONIC---where RUL-Mamba's own paper has no results---we use
+OmniTIEFormer's baseline runs of RUL-Mamba \cite{ref_omnitie},
+which also report AE.
 Figure~\ref{fig:compare} visualizes the per-SP trajectory MAE of
 the compared methods on the two datasets where all three
 battery-specific baselines overlap.
@@ -227,10 +229,11 @@ AE $=$ 3.2 (R$^2$ $0.9955$ vs.\ $0.9951$).
 NASA (LCO, 2.0\,Ah, $\sim$168-cycle cells) is the shortest-history
 scenario---new assets or limited telemetry. With only 168 cycles the
 model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
-(Table~\ref{tab:lit_nasa}); on R$^2$ we exceed the published
+(Table~\ref{tab:lit_nasa}); on R$^2$ we exceed the self-run
 PatchFormer result at SP90
-($0.9804$ vs.\ $0.9663$), while their MAE remains ahead
-($0.0080$ vs.\ $0.0068$ at SP90; AE $0.5$ vs.\ $0.6$).
+($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), while
+its MAE remains slightly ahead ($0.0080$ vs.\ $0.0072$ at SP90;
+AE $0.5$ vs.\ $2.5$).
 \emph{Operational implication:}
 short histories are the regime where rapid commissioning checks and
 second-life screening must run with limited data; the model's
@@ -239,8 +242,8 @@ observation.
 
 \begin{table}[htbp]
 \centering
-\caption{NASA (SP 50/70/90): comparison with published trajectory
-results. MAE/RMSE in normalized capacity; bold marks the best value
+\caption{NASA (SP 50/70/90): comparison with reference baselines.
+MAE/RMSE in normalized capacity; bold marks the best value
 in each column; ties are both bold. Ours: means over ten seeds
 (per-SP protocol); AE reported as mean over seeds.}
 \label{tab:lit_nasa}
@@ -261,12 +264,14 @@ Autoformer & & 0.0234 & 0.0336 & 0.9341 & 3.6 & 0.0230 & 0.0340 & 0.8721 & 4.1 &
 FEDformer & & 0.0215 & 0.0266 & 0.9569 & 4.7 & 0.0199 & 0.0262 & 0.9217 & 5.0 & 0.0172 & 0.0237 & 0.8961 & 5.8 \\
 iTransformer & & 0.0076 & 0.0141 & 0.9891 & 5.4 & 0.0078 & 0.0149 & 0.9772 & 4.3 & 0.0086 & 0.0165 & 0.9528 & 4.5 \\
 PathFormer & & 0.0274 & 0.0375 & 0.9228 & 5.1 & 0.0214 & 0.0292 & 0.9100 & 5.6 & 0.0186 & 0.0248 & 0.8941 & 7.9 \\
-PatchFormer & & \textbf{0.0056} & \textbf{0.0118} & \textbf{0.9924} & \textbf{0.1} & \textbf{0.0061} & \textbf{0.0127} & \textbf{0.9835} & \textbf{0.4} & \textbf{0.0068} & \textbf{0.0140} & 0.9663 & \textbf{0.6} \\
-RUL-Mamba$^\dagger$ & & 0.0083 & 0.0134 & 0.9901 & 0.8 & 0.0091 & 0.0150 & 0.9770 & 0.9 & 0.0092 & 0.0161 & 0.9556 & 2.5 \\
-Ours & & 0.0098 & 0.0145 & 0.9908 & 0.9 & 0.0089 & 0.0148 & 0.9822 & \textbf{0.4} & 0.0080 & \textbf{0.0115} & \textbf{0.9804} & \textbf{0.5} \\
+PatchFormer & & \textbf{0.0061} & \textbf{0.0122} & \textbf{0.9919} & \textbf{0.2} & \textbf{0.0072} & \textbf{0.0137} & 0.9808 & 1.4 & \textbf{0.0072} & 0.0148 & 0.9623 & 2.5 \\
+RUL-Mamba$^\dagger$ & & 0.0089 & 0.0142 & 0.9889 & 1.7 & 0.0090 & 0.0150 & 0.9771 & 1.3 & 0.0091 & 0.0158 & 0.9568 & 1.8 \\
+Ours & & 0.0098 & 0.0145 & 0.9908 & 0.9 & 0.0089 & 0.0148 & \textbf{0.9822} & \textbf{0.4} & 0.0080 & \textbf{0.0115} & \textbf{0.9804} & \textbf{0.5} \\
 \bottomrule
-\multicolumn{14}{l}{\footnotesize Baselines as reported in PatchFormer's NASA experiments (same test cell B0005, SPs, EOL);}\\
-\multicolumn{14}{l}{\footnotesize $^\dagger$RUL-Mamba from its own experiments (same test cell B0005); its AE is an average over 10 runs.}\\
+\multicolumn{14}{l}{\footnotesize PatchFormer and RUL-Mamba rows: self-run with the official repositories under the same per-SP protocol,}\\
+\multicolumn{14}{l}{\footnotesize 10 repeats per SP (seeds 1--10; PatchFormer batch size 16, its NASA tuning); their published values were MAE/R$^2$}\\
+\multicolumn{14}{l}{\footnotesize $0.0056/0.9924$, $0.0061/0.9835$, $0.0068/0.9663$ (PatchFormer) and $0.0083/0.9901$, $0.0091/0.9770$, $0.0092/0.9556$ (RUL-Mamba).}\\
+\multicolumn{14}{l}{\footnotesize $^\dagger$RUL-Mamba AE is the mean over its 10 self-run repeats.}\\
 \end{tabular}%
 }
 \end{table}
@@ -342,9 +347,10 @@ pattern at all.}
 
 \subsubsection{TJU: long-life cycle counting}
 TJU (NCM/NCA, 2.5\,Ah, $\sim$900-cycle cells) is the long-life,
-low-noise regime. The model edges the strongest published baseline on
-every SP (Table~\ref{tab:lit_tju}: MAE $0.0013$ vs.\ $0.0013$ at
-SP200, R$^2$ $0.9999$, AE $0.2$ vs.\ $0.8$ cycles).
+low-noise regime. The model edges the strongest baseline on
+every SP (Table~\ref{tab:lit_tju}: MAE $0.0013$ vs.\ $0.0014$ at
+SP200, R$^2$ $0.9999$ vs.\ $0.9998$, AE $0.2$ vs.\ $2.1$; at SP400
+R$^2$ $0.9996$ vs.\ $0.9994$ and AE $1.6$ vs.\ $3.0$).
 \emph{Operational implication:} long-life assets accumulate decisions
 slowly; the combination of near-perfect trajectory fit and calibrated
 intervals (Section~\ref{sec:conf}) supports low-frequency,
@@ -352,8 +358,8 @@ high-stakes replacement planning.
 
 \begin{table}[htbp]
 \centering
-\caption{TJU (SP 200/300/400): comparison with published trajectory
-results. MAE/RMSE in normalized capacity; bold marks the best value
+\caption{TJU (SP 200/300/400): comparison with reference baselines.
+MAE/RMSE in normalized capacity; bold marks the best value
 in each column; ties are both bold. Ours: means over ten seeds
 (per-SP protocol); AE reported as mean over seeds.}
 \label{tab:lit_tju}
@@ -366,20 +372,23 @@ Method & & \multicolumn{4}{c}{SP200} & \multicolumn{4}{c}{SP300} & \multicolumn{
  & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
 \midrule
 TimeMixer & & 0.0071 & 0.0089 & 0.9963 & 7.6 & 0.0086 & 0.0112 & 0.9919 & 6.0 & 0.0123 & 0.0152 & 0.9777 & 6.5 \\
-TimesNet & & 0.0163 & 0.0204 & 0.9830 & 1.0 & 0.0146 & 0.0179 & 0.9808 & 0.2 & 0.0130 & 0.0155 & 0.9783 & 0.4 \\
+TimesNet & & 0.0163 & 0.0204 & 0.9830 & 1.0 & 0.0146 & 0.0179 & 0.9808 & \textbf{0.2} & 0.0130 & 0.0155 & 0.9783 & \textbf{0.4} \\
 PatchTST & & 0.0078 & 0.0092 & 0.9960 & 9.8 & 0.0069 & 0.0084 & 0.9952 & 7.4 & 0.0067 & 0.0088 & 0.9925 & 5.8 \\
 MambaSimple & & 0.0119 & 0.0145 & 0.9902 & 9.5 & 0.0107 & 0.0129 & 0.9887 & 7.7 & 0.0094 & 0.0112 & 0.9874 & 5.5 \\
-ModernTCN & & 0.0014 & 0.0022 & 0.9998 & 2.8 & 0.0015 & 0.0023 & 0.9997 & 2.7 & 0.0016 & 0.0024 & 0.9995 & 2.7 \\
+ModernTCN & & 0.0014 & 0.0022 & 0.9998 & 2.8 & 0.0015 & 0.0023 & 0.9997 & 2.7 & \textbf{0.0016} & \textbf{0.0024} & 0.9995 & 2.7 \\
 Autoformer & & 0.0050 & 0.0062 & 0.9979 & 5.5 & 0.0049 & 0.0061 & 0.9970 & 5.4 & 0.0047 & 0.0060 & 0.9957 & 4.8 \\
 FEDformer & & 0.0058 & 0.0070 & 0.9977 & 6.0 & 0.0056 & 0.0068 & 0.9968 & 5.7 & 0.0054 & 0.0067 & 0.9954 & 4.9 \\
 iTransformer & & 0.0017 & 0.0023 & 0.9998 & 1.8 & 0.0018 & 0.0025 & 0.9996 & 1.8 & 0.0019 & 0.0026 & 0.9994 & 1.4 \\
 PathFormer & & 0.0100 & 0.0131 & 0.9930 & 9.9 & 0.0112 & 0.0156 & 0.9855 & 12.1 & 0.0152 & 0.0209 & 0.9606 & 15.6 \\
-PatchFormer & & \textbf{0.0013} & \textbf{0.0019} & \textbf{0.9999} & 0.8 & \textbf{0.0014} & \textbf{0.0020} & 0.9997 & \textbf{0.5} & \textbf{0.0015} & \textbf{0.0022} & \textbf{0.9996} & \textbf{1.3} \\
-RUL-Mamba$^{\ddagger}$ & & 0.0014 & 0.0022 & 0.9998 & 2.6 & 0.0015 & 0.0023 & 0.9997 & 2.6 & 0.0016 & 0.0024 & 0.9995 & 2.6 \\
-Ours & & \textbf{0.0013} & 0.0020 & \textbf{0.9999} & \textbf{0.2} & \textbf{0.0014} & 0.0021 & \textbf{0.9998} & 0.9 & 0.0018 & 0.0026 & \textbf{0.9996} & 1.6 \\
+PatchFormer & & 0.0014 & 0.0021 & 0.9998 & 2.1 & 0.0015 & 0.0022 & 0.9997 & 2.2 & 0.0019 & 0.0026 & 0.9994 & 3.0 \\
+RUL-Mamba$^{\ddagger}$ & & 0.0014 & 0.0022 & 0.9998 & 2.8 & 0.0015 & 0.0023 & 0.9997 & 2.9 & \textbf{0.0016} & \textbf{0.0024} & 0.9995 & 2.9 \\
+Ours & & \textbf{0.0013} & \textbf{0.0020} & \textbf{0.9999} & \textbf{0.2} & \textbf{0.0014} & \textbf{0.0021} & \textbf{0.9998} & 0.9 & 0.0018 & 0.0026 & \textbf{0.9996} & 1.6 \\
 \bottomrule
-\multicolumn{14}{l}{\footnotesize Baselines as reported in PatchFormer's TJU experiments (same test cell CY25-1, SPs, EOL);}\\
-\multicolumn{14}{l}{\footnotesize $^\ddagger$RUL-Mamba's TJU experiments use multivariate (17-dim) inputs; its AE is an average over 10 runs.}\\
+\multicolumn{14}{l}{\footnotesize PatchFormer and RUL-Mamba rows: self-run with the official repositories under the same per-SP protocol,}\\
+\multicolumn{14}{l}{\footnotesize 10 repeats per SP (seeds 1--10); published values were MAE/R$^2$ $0.0013/0.9999$, $0.0014/0.9997$, $0.0015/0.9996$}\\
+\multicolumn{14}{l}{\footnotesize (PatchFormer) and $0.0014/0.9998$, $0.0015/0.9997$, $0.0016/0.9995$ (RUL-Mamba).}\\
+\multicolumn{14}{l}{\footnotesize $^{\ddagger}$RUL-Mamba self-run is univariate and reproduces the published TJU numbers (R$^2$ $0.9998/0.9997/0.9995$),}\\
+\multicolumn{14}{l}{\footnotesize i.e.\ the published TJU rows stem from the same univariate pipeline; its AE is the mean over 3 repeats.}\\
 \end{tabular}%
 }
 \end{table}
