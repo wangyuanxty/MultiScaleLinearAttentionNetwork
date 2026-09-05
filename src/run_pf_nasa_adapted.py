@@ -1,41 +1,35 @@
-"""Self-run of the PatchFormer baseline (NASA B0005 / TJU CY25_1) —
-official pipeline composition.
+"""Self-run of the PatchFormer baseline (5 datasets) — official
+pipeline composition.
 
-This driver composes the official code paths of the upstream
-PatchFormer repo (ref_patchformer) verbatim:
+For NASA and TJU the ingestion uses the upstream repo's official
+readers (NASADataPreProcess / TJUDataPreProcess / CALCEDataPreProcess);
+for PANASONIC and MIT the upstream repo ships no data, so our own
+well-tested loaders (checkpoints/data_cache/load_series_*.pkl) provide
+the per-cell capacity series — the training/evaluation pipeline is the
+official one in every case (pytorch_forecasting TimeSeriesDataSet +
+PatchFormerNetModel, per-window EncoderNormalizer targets, SMAPE,
+lr 1e-3, early stopping, non-recursive full-trajectory evaluation,
+official rul_value_error).
 
-  * data ingestion : NASADataPreProcess.py / TJUDataPreProcess.py —
-    official readers (NASA .mat -> per-cycle discharge capacity;
-    TJU csv -> CY25_1/2/3 capacities, 886/904/937 cycles), official
-    train/test split & min--max normalization (train = other cells
-    + test-cell cycles before the start point, exactly the NASA
-    DataProcess rule; the TJU official process omits the per-cell
-    prefix, and we add it back with the same rule for protocol
-    uniformity across datasets).
-  * model + training/eval : RUL_Prediction_PatchFormer_NASA.py —
-    pytorch_forecasting TimeSeriesDataSet/PatchFormerNetModel with
-    per-window EncoderNormalizer targets, SMAPE loss, lr=1e-3,
-    early stopping, non-recursive full-trajectory evaluation and the
-    official rul_value_error metric.
+Per-SP protocol (uniform, matches the paper): train = other cells in
+full + test-cell cycles before the start point; min--max from the
+train part; df_test truncated at Cycle >= start - seq_len; actuals
+measured from Cycle >= start.  The group_id column is added the way
+CALCEDataPreProcess hardcodes it (TimeSeriesDataSet requires it).
 
-The group_id column is added the same way CALCEDataPreProcess
-hardcodes it for CALCE (NASA's DataProcess drops BatteryName while
-TimeSeriesDataSet requires group_ids=['group_id']); the per-patch
-config follows each dataset's official NASA runner args
-(seq_len 30/batch 128 NASA, seq_len 64 TJU).
+Run with the `patchformer` conda env:
 
-Run with the `patchformer` conda env (pytorch_forecasting):
-
-  D:\\anaconda\\envs\\patchformer\\python.exe src/run_pf_nasa_adapted.py --count 3
-  D:\\anaconda\\envs\\patchformer\\python.exe src/run_pf_nasa_adapted.py --dataset tju --count 3
+  python src/run_pf_nasa_adapted.py --dataset {nasa,tju,calce,panasonic,mit} --count 10
 
 Outputs (in ref_patchformer, official layout):
-  results_RUL_prediction_sl_*/<test>/PatchFormer/...  (per-run logs)
-  results/pf_{nasa,tju}_selfrun_*.json               (per-SP metrics)
+  results_{out_dir}/<test>/PatchFormer/...  (per-run logs)
+  results/pf_{ds}_selfrun_*.json            (per-SP metrics, resumable)
 """
 import argparse
+import functools
 import json
 import os
+import pickle
 import random
 import sys
 from types import SimpleNamespace
@@ -56,38 +50,51 @@ def _patched_load(*a, **kw):
 torch.load = _patched_load
 
 REPO = r"D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\reference_repos\ref_patchformer"
+PROOT = r"D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models"
 os.chdir(REPO)
 sys.path.insert(0, REPO)
+sys.path.insert(0, PROOT)
 
 DATASETS = {
     "nasa": dict(
         rated=2.0, seql=30, batch=128, sps=[50, 70, 90], test="B0005",
-        out_dir="results_RUL_prediction_sl_30",
+        eol_frac=0.7, out_dir="results_RUL_prediction_sl_30",
         json_out="results/pf_nasa_selfrun_B0005.json",
         gid={"B0005": 0, "B0006": 1, "B0007": 2, "B0018": 3},
         batteries=["B0005", "B0006", "B0007", "B0018"],
     ),
     "tju": dict(
         rated=2.5, seql=64, batch=128, sps=[200, 300, 400], test="CY25_1",
-        out_dir="results_TJU_RUL_prediction_sl_64",
+        eol_frac=0.7, out_dir="results_TJU_RUL_prediction_sl_64",
         json_out="results/pf_tju_selfrun_CY25_1.json",
         gid={"CY25_1": 0, "CY25_2": 1, "CY25_3": 2},
         batteries=["CY25_1", "CY25_2", "CY25_3"],
     ),
+    "calce": dict(
+        rated=1.1, seql=64, batch=128, sps=[300, 400, 500], test="CS2_35",
+        eol_frac=0.7, out_dir="results_CALCE_RUL_prediction_sl_64",
+        json_out="results/pf_calce_selfrun_CS2_35.json",
+        gid={"CS2_35": 0, "CS2_36": 1, "CS2_37": 2, "CS2_38": 3},
+        batteries=["CS2_35", "CS2_36", "CS2_37", "CS2_38"],
+    ),
+    "panasonic": dict(
+        rated=3.03, seql=30, batch=128, sps=[300, 400, 500], test="Cell03",
+        eol_frac=0.7, out_dir="results_PANASONIC_RUL_prediction_sl_30",
+        json_out="results/pf_panasonic_selfrun_Cell03.json",
+        gid={}, rids=None, batteries=None,
+    ),
+    "mit": dict(
+        rated=1.075, seql=64, batch=128, sps=[200, 300, 400], test="batch2_cell5",
+        eol_frac=0.8, out_dir="results_MIT_RUL_prediction_sl_64",
+        json_out="results/pf_mit_selfrun_batch2_cell5.json",
+        gid={}, rids=None, batteries=None,
+    ),
 }
 
 
-def prep_import(ds):
-    """Import the official data module for `ds`.
-
-    NASA's module runs its parser + full DataRead at import time, so a
-    fake argv takes the official defaults (B0005, [50,70,90], Rated 2.0).
-    Both modules run assistant.get_gpus_memory_info() at import to pick
-    the GPU; that helper crashes when nvidia-smi reports 'N/A' (e.g.
-    while another job holds the GPU), so we stub it to device 0 first."""
-    import assistant
-
-    assistant.get_gpus_memory_info = lambda: (0, None)
+@functools.lru_cache(maxsize=None)
+def _series_dict(ds):
+    """{name: DataFrame(Cycle 1..N, Capacity in Ah)} per dataset."""
     if ds == "nasa":
         old = list(sys.argv)
         sys.argv = ["NASADataPreProcess.py"]
@@ -95,11 +102,45 @@ def prep_import(ds):
             import NASADataPreProcess as mod
         finally:
             sys.argv = old
-        return mod
-    import TJUDataPreProcess as mod
-    mod.BatteryData = mod.BatteryDataRead(  # official csv reader (runs only
-        SimpleNamespace(Rated_Capacity=2.5, seq_len=64))   # in __main__)
-    return mod
+        rows = pd.DataFrame(mod.BatteryData,
+                            columns=["BatteryName", "Cycle", "Capacity"])
+        return {n: g.reset_index(drop=True)[["Cycle", "Capacity"]]
+                for n, g in rows.groupby("BatteryName")}
+    if ds == "tju":
+        import assistant
+        assistant.get_gpus_memory_info = lambda: (0, None)
+        import TJUDataPreProcess as mod
+        Data = mod.BatteryDataRead(
+            SimpleNamespace(Rated_Capacity=2.5, seq_len=64))
+        return {n: g[["Cycle", "Capacity"]].reset_index(drop=True)
+                for n, g in Data.items()}
+    if ds == "calce":
+        import CALCEDataPreProcess as mod
+        Data = mod.BatteryDataRead(
+            ["CS2_35", "CS2_36", "CS2_37", "CS2_38"], "data/CALCE data/")
+        return {n: g[["Cycle", "Capacity"]].reset_index(drop=True)
+                for n, g in Data.items()}
+    # panasonic / mit: our load_series cache (per-cell Ah series)
+    with open(os.path.join(PROOT, "checkpoints", "data_cache",
+                           f"load_series_{ds}.pkl"), "rb") as f:
+        caps, _tr, _te, _w, _sps, _eol = pickle.load(f)
+    out = {}
+    for n, arr in caps.items():
+        df = pd.DataFrame({"Cycle": np.arange(1, len(arr) + 1),
+                           "Capacity": arr.astype(np.float64)})
+        out[n] = df
+    return out
+
+
+def prepare_cfg(ds):
+    """Resolve gid/ratings from the series dict for pkl-based datasets."""
+    cfg = dict(DATASETS[ds])
+    if cfg.get("batteries") is None:
+        s = _series_dict(ds)
+        names = list(s.keys())
+        cfg["batteries"] = names
+        cfg["gid"] = {n: i for i, n in enumerate(names)}
+    return cfg
 
 
 def rul_value_error(y_test, y_predict, threshold):
@@ -122,43 +163,19 @@ def rul_value_error(y_test, y_predict, threshold):
     return rul_real, rul_pred, ae_error, re_score
 
 
-def base_frame(ds, mod):
-    """Official per-cycle capacity table for the dataset.
-
-    NASA: flat rows from NASADataPreProcess.DataRead (mat discharge
-    cycles).  TJU: dict of per-battery frames from
-    TJUDataPreProcess.BatteryDataRead (csv, 3-sigma cleaned).
-    """
-    if ds == "nasa":
-        return pd.DataFrame(mod.BatteryData,
-                            columns=["BatteryName", "Cycle", "Capacity"])
-    parts = [mod.BatteryData[k][["BatteryName", "Cycle", "Capacity"]]
-             for k in mod.BatteryData]
-    return pd.concat(parts).reset_index(drop=True)
-
-
-def build_dfs(ds, mod, cfg, start_point):
-    """Official DataProcess semantics + group_id.
-
-    Mirrors NASADataPreProcess.DataProcess (NASA) /
-    TJUDataPreProcess.BatteryDataProcess (TJU): Capacity/Rated,
-    train-test split by BatteryName, min--max from train only,
-    target = Capacity; adds group_id the way
-    CALCEDataPreProcess.BatteryDataProcess does, plus the runner's
-    df_test truncation (Cycle >= start - seq_len).  The train split
-    follows the NASA official rule (other cells + test cycles before
-    start_point) for both datasets, so all per-SP rows share one
-    protocol.
-    """
-    base = base_frame(ds, mod)
+def build_dfs(cfg, start_point):
+    """Official DataProcess semantics + group_id (see module docstring)."""
+    s = _series_dict(cfg["_ds"])
+    base = pd.concat([pd.DataFrame(
+        {"BatteryName": n, "Cycle": g["Cycle"], "Capacity": g["Capacity"]})
+        for n, g in s.items()]).reset_index(drop=True)
     df = base.copy()
     df["Capacity"] /= cfg["rated"]
     df["target"] = df["Capacity"]
-    df["constant"] = df["Capacity"] * 0  # unused column kept by official proc
+    df["constant"] = df["Capacity"] * 0
 
     in_test = df["BatteryName"] == cfg["test"]
-    train_rows = df[(~in_test)
-                    | (in_test & (df["Cycle"] < start_point))]
+    train_rows = df[(~in_test) | (in_test & (df["Cycle"] < start_point))]
     test_rows = df[in_test]
     minv = train_rows["Capacity"].min()
     maxv = train_rows["Capacity"].max()
@@ -173,7 +190,7 @@ def build_dfs(ds, mod, cfg, start_point):
         return r
 
     df_train = prep(train_rows)
-    df_test_all = prep(test_rows)             # full test battery (df_all)
+    df_test_all = prep(test_rows)
     df_test = df_test_all.loc[
         df_test_all["Cycle"] >= start_point - cfg["seql"],
         ["time_idx", "group_id", "Cycle", "Capacity", "target", "constant"]]
@@ -200,7 +217,7 @@ def make_dataset(df, batch_size, shuffle, drop_last, seql):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", default="nasa", choices=list(DATASETS))
-    ap.add_argument("--count", type=int, default=3,
+    ap.add_argument("--count", type=int, default=10,
                     help="independent runs (official seeds 1..count)")
     ap.add_argument("--batch_size", type=int, default=None)
     ap.add_argument("--max_epochs", type=int, default=200)
@@ -215,21 +232,16 @@ def main():
     from pytorch_forecasting.metrics import SMAPE
     from ModelsModify.PatchFormer import PatchFormerNetModel
 
-    cfg = DATASETS[args.dataset]
+    cfg = prepare_cfg(args.dataset)
+    cfg["_ds"] = args.dataset
     if args.batch_size is not None:
         cfg = dict(cfg, batch=args.batch_size)
     if args.suffix:
         cfg = dict(cfg,
                    json_out=cfg["json_out"].replace(".json", f"_{args.suffix}.json"),
                    out_dir=f'{cfg["out_dir"]}_{args.suffix}')
-
-    mod = prep_import(args.dataset)
-    if args.dataset == "nasa":
-        have = {r[0] for r in mod.BatteryData}
-    else:
-        have = set(mod.BatteryData.keys())
     for name in cfg["batteries"]:
-        assert name in have, name + " missing"
+        assert name in _series_dict(args.dataset), name + " missing"
 
     out_dir = os.path.join(cfg["out_dir"], cfg["test"], "PatchFormer")
     os.makedirs(out_dir, exist_ok=True)
@@ -242,7 +254,7 @@ def main():
         except (json.JSONDecodeError, ValueError):
             summary = {}
     for sp in cfg["sps"]:
-        df_train, df_test, df_all = build_dfs(args.dataset, mod, cfg, sp)
+        df_train, df_test, df_all = build_dfs(cfg, sp)
         mask_len = len(df_train)
         if args.check_data:
             print(f"SP{sp}: train={len(df_train)} test={len(df_test)} "
@@ -305,8 +317,9 @@ def main():
             mae = float(np.mean(np.abs(y_true[mask] - y_pred[mask])))
             rmse = float(np.sqrt(np.mean(np.square(y_true[mask] - y_pred[mask]))))
             r2 = float(r2_score(y_true[mask], y_pred[mask]))
-            r_real, r_pred, ae, re = rul_value_error(y_true[mask], y_pred[mask],
-                                                     threshold=cfg["rated"] * 0.7)
+            r_real, r_pred, ae, re = rul_value_error(
+                y_true[mask], y_pred[mask],
+                threshold=cfg["rated"] * cfg["eol_frac"])
             per_run.append({"seed": seed, "mae": mae, "rmse": rmse, "r2": r2,
                             "rul_real": int(r_real), "rul_pred": int(r_pred),
                             "ae": int(ae), "re": float(re)})
