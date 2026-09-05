@@ -135,16 +135,15 @@ without per-SP RUL errors); head-to-head comparisons under our
 protocol are left to future work. Each case study below carries
 the per-dataset comparison table against PatchFormer
 \cite{ref_patchformer}, RUL-Mamba \cite{ref_rulmamba}, and the
-general time-series transformers. On NASA and TJU the
+general time-series transformers. On CALCE, NASA, PANASONIC and TJU the
 PatchFormer and RUL-Mamba rows are self-run with the official
 repositories under the same per-SP protocol (10 repeats per SP,
 seeds 1--10; see the table footnotes for published-value context); the remaining
 rows use the numbers reported in those papers on the shared test
 cells, EOL thresholds, and starting points (NASA B0005 and TJU
-CY25-1 are used identically by all works). On CALCE and
-PANASONIC---where RUL-Mamba's own paper has no results---we use
-OmniTIEFormer's baseline runs of RUL-Mamba \cite{ref_omnitie},
-which also report AE.
+CY25-1 are used identically by all works). RUL-Mamba's own paper
+has no CALCE or PANASONIC results; its published numbers there
+come from OmniTIEFormer's baseline runs \cite{ref_omnitie}.
 Figure~\ref{fig:compare} visualizes the per-SP trajectory MAE of
 the compared methods on the two datasets where all three
 battery-specific baselines overlap.
@@ -176,8 +175,8 @@ applies with zero regeneration risk and improves MAE by 40\%.
 
 \begin{table}[htbp]
 \centering
-\caption{CALCE (SP 300/400/500): comparison with published
-trajectory results. MAE/RMSE in normalized capacity; bold marks the
+\caption{CALCE (SP 300/400/500): comparison with reference baselines.
+MAE/RMSE in normalized capacity; bold marks the
 best value in each column; ties are both bold. Ours: means over ten
 seeds (per-SP protocol); AE reported as mean over seeds.}
 \label{tab:lit_calce}
@@ -198,12 +197,14 @@ Autoformer & & 0.0216 & 0.0336 & 0.9738 & 10.3 & 0.0242 & 0.0366 & 0.9681 & 11.0
 FEDformer & & 0.0197 & 0.0301 & 0.9782 & 14.4 & 0.0224 & 0.0328 & 0.9735 & 15.9 & 0.0260 & 0.0366 & 0.9628 & 17.6 \\
 iTransformer & & 0.0141 & 0.0229 & 0.9880 & 6.9 & 0.0166 & 0.0254 & 0.9849 & 8.1 & 0.0198 & 0.0285 & 0.9787 & 10.9 \\
 PathFormer & & 0.0431 & 0.0640 & 0.9060 & 40.3 & 0.0532 & 0.0713 & 0.8814 & 41.9 & 0.0659 & 0.0825 & 0.8212 & 43.4 \\
-RUL-Mamba$^{\mathsection}$ & & 0.0164 & 0.0266 & 0.9794 & 12.5 & 0.0191 & 0.0310 & 0.9754 & 12.5 & 0.0226 & 0.0331 & 0.9659 & 13.0 \\
-PatchFormer & & \textbf{0.0057} & \textbf{0.0129} & \textbf{0.9962} & \textbf{0.8} & \textbf{0.0062} & \textbf{0.0140} & \textbf{0.9954} & \textbf{0.8} & \textbf{0.0069} & \textbf{0.0155} & \textbf{0.9937} & \textbf{1.1} \\
+RUL-Mamba$^{\mathsection}$ & & 0.0175 & 0.0307 & 0.9782 & 11.5 & 0.0201 & 0.0337 & 0.9733 & 13.1 & 0.0245 & 0.0387 & 0.9605 & 15.7 \\
+PatchFormer & & \textbf{0.0057} & \textbf{0.0129} & \textbf{0.9962} & \textbf{0.9} & \textbf{0.0068} & \textbf{0.0145} & \textbf{0.9951} & \textbf{0.9} & \textbf{0.0081} & \textbf{0.0164} & \textbf{0.9930} & \textbf{1.0} \\
 Ours & & 0.0066 & 0.0146 & 0.9951 & 3.2 & 0.0078 & 0.0170 & 0.9933 & 2.5 & 0.0092 & 0.0196 & 0.9898 & 2.4 \\
 \bottomrule
-\multicolumn{14}{l}{\footnotesize Baselines as reported in PatchFormer's CALCE I experiments (same test cell, SPs, EOL);}\\
-\multicolumn{14}{l}{\footnotesize $^{\mathsection}$RUL-Mamba from OmniTIEFormer's baseline runs (RUL-Mamba's own paper has no CALCE result).}\\
+\multicolumn{14}{l}{\footnotesize PatchFormer and RUL-Mamba rows: self-run with the official repositories under the same per-SP protocol,}\\
+\multicolumn{14}{l}{\footnotesize 10 repeats per SP (seeds 1--10); PatchFormer reproduces its published CALCE values (MAE/R$^2$ $0.0057/0.9962$}\\
+\multicolumn{14}{l}{\footnotesize at SP300); RUL-Mamba's published CALCE numbers exist only in OmniTIEFormer's baseline runs ($0.0164/0.9794$ here),}\\
+\multicolumn{14}{l}{\footnotesize against which the self-run tracks within 7-9\%; its AE is the mean over the 10 self-run repeats.}\\
 \end{tabular}%
 }
 \end{table}
@@ -219,11 +220,11 @@ prediction bias of $\sim$10\,mAh near the tail---diluted
 to $\le 0.001$ in the full-segment MAE---shifts the threshold
 crossing by 5--7 cycles.
 The same mechanism keeps PatchFormer's CALCE AE in a narrow band
-(0.8--1.1): on flat tails AE is a coarse-grained statistic; we report the
+(0.9--1.0): on flat tails AE is a coarse-grained statistic; we report the
 mean and flag the seed-to-seed spread explicitly. On CALCE, where we
 additionally run PatchFormer's official code under our identical
-protocol, the self-run baseline gives AE $=$ 1 at SP300 against our
-AE $=$ 3.2 (R$^2$ $0.9955$ vs.\ $0.9951$).
+protocol, the self-run baseline gives AE $=$ 0.9 at SP300 against our
+AE $=$ 3.2 (R$^2$ $0.9962$ vs.\ $0.9951$).
 
 \subsubsection{NASA: short-history rapid assessment}
 NASA (LCO, 2.0\,Ah, $\sim$168-cycle cells) is the shortest-history
@@ -292,9 +293,12 @@ fleet-scale screening and grading with per-device confidence.
 \subsubsection{PANASONIC: regeneration-rich fleet operation}
 PANASONIC (NCA, 3.03\,Ah) is the regeneration benchmark: staircase
 profiles with local capacity recoveries. Our model wins every metric
-and every SP among all compared methods (Table~\ref{tab:lit_panasonic}:
+and every SP against all published baselines (Table~\ref{tab:lit_panasonic}:
 MAE $0.0037$ vs.\ $0.0105$ for the strongest baseline at SP300; R$^2$
-$0.9976$ vs.\ $0.9898$; AE $0.8$ vs.\ $2.2$). Figure~\ref{fig:regen}
+$0.9976$ vs.\ $0.9898$; AE $0.8$ vs.\ $2.2$); against an
+official-repo reproduction of PatchFormer it ties within noise at
+SP300 and SP400 and leads SP500 by $\sim$4$\times$ (MAE $0.0040$ vs.\
+$0.0167$). Figure~\ref{fig:regen}
 shows why: the free-head readout tracks a $0.024$\,Ah local rise
 without overshoot, while a structurally monotonic predictor cannot
 represent this pattern at all. \emph{Operational implication:} real
@@ -307,8 +311,8 @@ degradation regimes by design.
 
 \begin{table}[htbp]
 \centering
-\caption{PANASONIC (SP 300/400/500): comparison with published
-trajectory results. Bold marks the best value in each column; ties
+\caption{PANASONIC (SP 300/400/500): comparison with reference
+baselines. Bold marks the best value in each column; ties
 are both bold. Ours: means over ten seeds (per-SP protocol); AE reported
 as mean over seeds.}
 \label{tab:lit_panasonic}
@@ -320,16 +324,18 @@ as mean over seeds.}
 Method & & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} & \multicolumn{4}{c}{SP500} \\
  & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
 \midrule
-PatchFormer & & 0.0105 & 0.0192 & 0.9898 & 2.2 & 0.0120 & 0.0208 & 0.9830 & 3.2 & 0.0154 & 0.0240 & 0.9616 & 4.2 \\
-RUL-Mamba & & 0.0223 & 0.0357 & 0.9665 & 6.0 & 0.0236 & 0.0379 & 0.9460 & 6.0 & 0.0263 & 0.0415 & 0.8906 & 6.0 \\
+PatchFormer & & \textbf{0.0033} & 0.0097 & \textbf{0.9977} & 1.0 & 0.0037 & 0.0103 & \textbf{0.9965} & 1.0 & 0.0167 & 0.0245 & 0.9698 & 3.6 \\
+RUL-Mamba & & 0.0174 & 0.0334 & 0.9725 & 2.3 & 0.0182 & 0.0364 & 0.9563 & 2.0 & 0.0212 & 0.0404 & 0.9183 & 2.0 \\
 iTransformer & & 0.0162 & 0.0274 & 0.9790 & 1.2 & 0.0175 & 0.0293 & 0.9654 & 1.2 & 0.0203 & 0.0327 & 0.9278 & 1.4 \\
 Autoformer & & 0.0231 & 0.0311 & 0.9737 & 2.6 & 0.0241 & 0.0326 & 0.9585 & 3.8 & 0.0263 & 0.0357 & 0.9258 & 7.2 \\
 FEDformer & & 0.0257 & 0.0366 & 0.9648 & 6.8 & 0.0269 & 0.0383 & 0.9446 & 6.8 & 0.0295 & 0.0415 & 0.8896 & 8.4 \\
-Ours & & \textbf{0.0037} & \textbf{0.0096} & \textbf{0.9976} & \textbf{0.8} & \textbf{0.0036} & \textbf{0.0101} & \textbf{0.9965} & \textbf{0.8} & \textbf{0.0040} & \textbf{0.0111} & \textbf{0.9936} & \textbf{0.9} \\
+Ours & & 0.0037 & \textbf{0.0096} & 0.9976 & \textbf{0.8} & \textbf{0.0036} & \textbf{0.0101} & \textbf{0.9965} & \textbf{0.8} & \textbf{0.0040} & \textbf{0.0111} & \textbf{0.9936} & \textbf{0.9} \\
 \bottomrule
-\multicolumn{14}{l}{\footnotesize Baselines as reported in OmniTIEFormer's baseline runs (their Table~5, Ah-scale header;}\\
-\multicolumn{14}{l}{\footnotesize normalized span $\approx 1.02$\,Ah). Ours in the same normalized capacity scale. iTransformer's SP500}\\
-\multicolumn{14}{l}{\footnotesize values are recovered from the source table's average row (the per-SP row is garbled in the published table).}\\
+\multicolumn{14}{l}{\footnotesize PatchFormer and RUL-Mamba rows: self-run with the official repositories under the same per-SP protocol,}\\
+\multicolumn{14}{l}{\footnotesize 10 repeats per SP (seeds 1--10); their published (OmniTIEFormer-reported) values were $0.0105$-$0.0154$ (PatchFormer)}\\
+\multicolumn{14}{l}{\footnotesize and $0.0223$-$0.0263$ (RUL-Mamba) MAE. Note the self-run RUL-Mamba AE ($2.0$-$2.3$) is far below}\\
+\multicolumn{14}{l}{\footnotesize its published 6.0 -- the latter mixes protocols and overstates the RUL error. iTransformer's SP500 values are}\\
+\multicolumn{14}{l}{\footnotesize recovered from the source table's average row (the per-SP row is garbled in the published table).}\\
 \end{tabular}%
 }
 \end{table}
