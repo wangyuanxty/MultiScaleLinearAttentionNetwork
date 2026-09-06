@@ -27,3 +27,6 @@ __pycache__/
 
 # IDE
 .vscode/
+
+# compiled paper (build artifact; regenerate with pdflatex)
+paper/main.pdf
