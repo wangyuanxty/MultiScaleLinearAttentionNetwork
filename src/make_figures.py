@@ -99,10 +99,21 @@ def _load_series_raw(ds):
         caps = {c: caps_all[c].copy().astype(np.float32) for c in caps_all}
         cells = sorted(caps.keys())
         return caps, cells[:-1], cells[-1], 30, [300, 500, 700], 2.12
+    if ds == "gotion":
+        from load_datasets import load_gotion_cells
+        caps_all = load_gotion_cells()
+        caps = {c: caps_all[c].copy().astype(np.float32) for c in caps_all}
+        return caps, ["Cell02", "Cell03"], "Cell01", 30, [450, 600, 750], 21.6
     # tju
     caps_all = load_tju_cells()
     caps = {c: caps_all[c].copy().astype(np.float32) for c in caps_all}
     return caps, ["CY25_2", "CY25_3"], "CY25_1", 64, [200, 300, 400], 1.75
+
+
+def norm_setup(caps, train_cells):
+    all_tr = np.concatenate([caps[c] for c in train_cells])
+    lo, hi = all_tr.min(), all_tr.max()
+    return lo, hi
 
 
 def norm_setup(caps, train_cells):
@@ -123,6 +134,24 @@ def predict_series(ds, K=1, seeds=(42, 43, 44)):
     tc = (caps[test_cell] - lo) / (hi - lo + 1e-8)
     windows = np.stack([tc[i - W:i] for i in range(W, len(tc))])  # (N, W)
     cin = torch.tensor(windows, dtype=torch.float32).unsqueeze(-1).to(DEV)
+
+    if ds == "gotion":
+        # the legacy unified_gotion ckpt is an old architecture; use
+        # the current per-SP SP500 model (same non-recursive view)
+        ck = torch.load(f"{CKPT}/per_sp/gotion/SP500_seed1.pt",
+                        map_location=DEV, weights_only=False)
+        model = build_gdn_model(
+            multiscale=True, stage_query=True, input_dim=1,
+            window_size=W, output_len=1, readout="last").to(DEV)
+        model.load_state_dict(ck["state_dict"])
+        model.eval()
+        with torch.no_grad():
+            p_norm = model(cin).squeeze(-1).cpu().numpy()
+        wmean = windows.mean(axis=1, keepdims=True)
+        wstd = windows.std(axis=1, keepdims=True) + 1e-6
+        pv = (p_norm * wstd + wmean)[: len(tc) - W][:, None]
+        tv = tc[W:]
+        return pv, tv, lo, hi, W, sps, eol_ah
 
     if seeds is None:
         paths = [f"{CKPT}/unified_{ds}_K{K}.pt"]
@@ -169,6 +198,7 @@ def fig_traj():
         "mit": ("MIT (batch2-05)", "LFP · 1.07 Ah"),
         "panasonic": ("PANASONIC", "NCA · 3.03 Ah"),
         "tju": ("TJU (CY25-1)", "NCM+NCA · 2.5 Ah"),
+        "gotion": ("GOTION", "large-format · 27 Ah"),
     }
     fig, axes = plt.subplots(2, 3, figsize=(10.5, 5.6), sharex=False)
     for ax, (ds, (title, sub)) in zip(axes.ravel(), ds_meta.items()):
@@ -188,7 +218,7 @@ def fig_traj():
         ax.set_xlabel("cycle")
         ax.set_ylabel("capacity (Ah)")
         ax.legend(loc="best", frameon=False, ncol=1)
-    axes.ravel()[-1].axis("off")
+    axes.ravel()[-1].axis("off") if len(ds_meta) > len(axes.ravel()) else None
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_traj.pdf"))
     plt.close(fig)

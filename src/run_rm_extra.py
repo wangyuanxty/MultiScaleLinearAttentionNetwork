@@ -58,6 +58,10 @@ MODELS = {
         rated=1.075, seql=64, sps=[200, 300, 400], test="batch2_cell5",
         gid=None, batteries=None, name="MIT",
         d_model=16, n_dec=2, pkl="mit"),
+    "gotion": dict(
+        rated=27.0, seql=30, sps=[450, 600, 750], test="Cell01",
+        eol_frac=0.8, gid=None, batteries=None, name="GOTION",
+        d_model=48, n_dec=1, pkl="gotion"),
 }
 
 REF = r"D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\reference_repos\ref_rul_mamba"
@@ -67,6 +71,10 @@ CACHE_DIR = os.path.join(PROOT, "checkpoints", "data_cache")
 
 
 def series(ds):
+    if ds == "gotion":
+        # direct source read (cache pkl is numpy2-incompatible in this env)
+        from load_datasets import load_gotion_cells
+        return load_gotion_cells()
     with open(os.path.join(CACHE_DIR, f"load_series_{ds}.pkl"), "rb") as f:
         caps, _tr, _te, _w, _sps, _eol = pickle.load(f)
     return caps

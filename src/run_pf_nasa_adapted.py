@@ -89,6 +89,12 @@ DATASETS = {
         json_out="results/pf_mit_selfrun_batch2_cell5.json",
         gid={}, rids=None, batteries=None,
     ),
+    "gotion": dict(
+        rated=27.0, seql=30, batch=128, sps=[450, 600, 750], test="Cell01",
+        eol_frac=0.8, out_dir="results_GOTION_RUL_prediction_sl_30",
+        json_out="results/pf_gotion_selfrun_Cell01.json",
+        gid={}, rids=None, batteries=None,
+    ),
 }
 
 
@@ -120,6 +126,17 @@ def _series_dict(ds):
             ["CS2_35", "CS2_36", "CS2_37", "CS2_38"], "data/CALCE data/")
         return {n: g[["Cycle", "Capacity"]].reset_index(drop=True)
                 for n, g in Data.items()}
+    if ds == "gotion":
+        # read the source directly: the load_series cache pkl is written
+        # by numpy 2.x (py312) and unreadable in the numpy 1.x patchformer env
+        from load_datasets import load_gotion_cells
+        caps_all = load_gotion_cells()
+        out = {}
+        for n, arr in caps_all.items():
+            df = pd.DataFrame({"Cycle": np.arange(1, len(arr) + 1),
+                               "Capacity": arr.astype(np.float64)})
+            out[n] = df
+        return out
     # panasonic / mit: our load_series cache (per-cell Ah series)
     with open(os.path.join(PROOT, "checkpoints", "data_cache",
                            f"load_series_{ds}.pkl"), "rb") as f:

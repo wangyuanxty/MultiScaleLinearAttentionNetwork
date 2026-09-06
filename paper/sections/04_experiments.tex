@@ -77,7 +77,7 @@ Section~\ref{sec:limitations}).
 
 Figure~\ref{fig:traj} shows representative SOH trajectories with
 sliding-window single-step predictions for one cell of each dataset;
-Table~\ref{tab:tableA} reports the full per-SP results. The five
+Table~\ref{tab:tableA} reports the full per-SP results. The six
 datasets cover distinct degradation regimes and operational
 scenarios; we present them as case studies below, each closing with
 its operational implication and a comparison with published results
@@ -121,8 +121,9 @@ TJU & 200 & 577 & 0.0013$\pm$0.0002 & 0.0020$\pm$0.0001 & 0.9999$\pm$0.0000 & 0.
 MIT & 200 & 406 & 0.0019$\pm$0.0006 & 0.0030$\pm$0.0011 & 0.9998$\pm$0.0002 & 0.9 \\
   & 300 & 306 & 0.0025$\pm$0.0008 & 0.0035$\pm$0.0015 & 0.9997$\pm$0.0004 & 0.9 \\
   & 400 & 206 & 0.0032$\pm$0.0014 & 0.0040$\pm$0.0014 & 0.9995$\pm$0.0004 & 1.1 \\
-  & 300 & 306 & 0.0025$\pm$0.0008 & 0.0035$\pm$0.0016 & 0.9997$\pm$0.0005 & 0.9 \\
-  & 400 & 206 & 0.0032$\pm$0.0014 & 0.0040$\pm$0.0014 & 0.9995$\pm$0.0004 & 1.1 \\
+GOTION & 500 & 871 & 0.0077$\pm$0.0001 & 0.0103$\pm$0.0002 & 0.9967$\pm$0.0001 & 13.9 \\
+  & 800 & 571 & 0.0087$\pm$0.0001 & 0.0117$\pm$0.0002 & 0.9928$\pm$0.0003 & 14.8 \\
+  & 1100 & 271 & 0.0100$\pm$0.0002 & 0.0136$\pm$0.0003 & 0.9549$\pm$0.0019 & 14.1 \\
 \midrule
 \multicolumn{7}{l}{\emph{Average across all SPs and seeds: AE = 1.2 cycles, R$^2$ = 0.9945, MAE = 0.0049.}} \\
 \bottomrule
@@ -152,7 +153,7 @@ the compared methods on all six datasets (mean over the three SPs).
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_compare}
-\caption{Per-SP trajectory MAE of the compared methods on all five
+\caption{Per-SP trajectory MAE of the compared methods on all six
 datasets, averaged over the three SPs (log scale). Green: Ours; blue:
 PatchFormer/RUL-Mamba; gray: other baselines.}
 \label{fig:compare}
@@ -402,17 +403,6 @@ Ours & & \textbf{0.0013} & \textbf{0.0020} & \textbf{0.9999} & \textbf{0.2} & \t
 
 
 
-\subsection{Ablation studies}
-\label{sec:ablation}
-
-This section ablates the architecture only; the physics extension is
-validated separately in Section~\ref{sec:phys}. Every configuration
-is trained from ten seeds on two datasets: CALCE, the designated
-primary dataset whose monotonic profile isolates architectural
-effects from regeneration confounds, and NASA, whose cycles include
-strong capacity regeneration and therefore stress the multi-scale
-design's intended regime.
-
 \subsubsection{GOTION: large-format fleet operation}
 GOTION (27\,Ah, three cells, 2 train / 1 test) is the large-format
 regime: 1400-cycle deep-discharge profiles with a wide dynamic
@@ -451,6 +441,19 @@ Ours & & \textbf{0.0077} & \textbf{0.0103} & \textbf{0.9967} & 13.9 & \textbf{0.
 \end{tabular}%
 }
 \end{table}
+
+
+
+\subsection{Ablation studies}
+\label{sec:ablation}
+
+This section ablates the architecture only; the physics extension is
+validated separately in Section~\ref{sec:phys}. Every configuration
+is trained from ten seeds on two datasets: CALCE, the designated
+primary dataset whose monotonic profile isolates architectural
+effects from regeneration confounds, and NASA, whose cycles include
+strong capacity regeneration and therefore stress the multi-scale
+design's intended regime.
 
 The stage-query exchange is necessary rather than merely beneficial
 (Table~\ref{tab:ablation}): on CALCE, three branches without

@@ -75,6 +75,68 @@ def train_one(seed, X, Y, W):
     return model
 
 
+def train_one_earlystop(seed, X, Y, W, val_frac=0.2, patience=10,
+                        min_delta=1e-5, max_epochs=200):
+    """train_one + official-style validation.
+
+    The validation split is the official row-order tail (last
+    val_frac of the concatenated train frame, as in the PatchFormer/
+    RUL-Mamba trainers); val loss uses the same per-window z-score
+    target definition.  Best checkpoint (lowest val loss) is kept and
+    training stops after `patience` epochs without improvement.
+    Returns (best_model, best_epoch).
+    """
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    model = build_gdn_model(
+        multiscale=True, stage_query=True, input_dim=1, window_size=W,
+        output_len=1, readout="last").to(DEV)
+    opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+    N = len(X)
+    n_tr = int((1 - val_frac) * N)
+    Xt, Yt, Xv, Yv = X[:n_tr], Y[:n_tr], X[n_tr:], Y[n_tr:]
+
+    def val_loss():
+        model.eval()
+        with torch.no_grad():
+            x = torch.tensor(Xv, device=DEV)
+            y = torch.tensor(Yv, device=DEV)
+            pred = model(x).squeeze(-1)
+            wmean = x[:, :, 0].mean(dim=1)
+            wstd = x[:, :, 0].std(dim=1) + EPS
+            return float(masked_mae(pred, (y - wmean) / wstd,
+                                    torch.ones_like(y)))
+
+    best_loss, best_epoch, best_state = float("inf"), 0, None
+    bad = 0
+    for ep in range(max_epochs):
+        model.train()
+        perm = np.random.permutation(n_tr)
+        for s in range(0, n_tr, BATCH):
+            idx = perm[s:s + BATCH]
+            x = torch.tensor(Xt[idx], device=DEV)
+            y = torch.tensor(Yt[idx], device=DEV)
+            opt.zero_grad()
+            pred = model(x).squeeze(-1)
+            wmean = x[:, :, 0].mean(dim=1)
+            wstd = x[:, :, 0].std(dim=1) + EPS
+            loss = masked_mae(pred, (y - wmean) / wstd,
+                              torch.ones_like(y))
+            loss.backward()
+            opt.step()
+        vl = val_loss()
+        if vl < best_loss - min_delta:
+            best_loss, best_epoch, bad = vl, ep + 1, 0
+            best_state = {k: v.detach().cpu().clone()
+                          for k, v in model.state_dict().items()}
+        else:
+            bad += 1
+            if bad >= patience:
+                break
+    model.load_state_dict(best_state)
+    return model, best_epoch
+
+
 def eval_sp(model, caps, test_cells, lo, hi, W, sp, eol_ah):
     model.eval()
     th = (eol_ah - lo) / (hi - lo + EPS)
@@ -112,6 +174,11 @@ def main():
     ap.add_argument("--start-seed", type=int, default=1)
     ap.add_argument("--sps", type=int, nargs="+", default=None,
                     help="Override SP list; default uses load_series")
+    ap.add_argument("--early-stop", action="store_true",
+                    help="official-style 0.8/0.2 row-tail validation + "
+                         "patience-10 best-checkpoint selection (ckpt "
+                         "saved as SP{sp}_seed{n}_es.pt)")
+    ap.add_argument("--patience", type=int, default=10)
     args = ap.parse_args()
     ds = args.dataset
 
@@ -148,15 +215,23 @@ def main():
             if skey in out.setdefault(ds, {}).get(str(sp), {}):
                 print(f"{ds} SP{sp} seed{seed}: SKIP (already in JSON)", flush=True)
                 continue
-            model = train_one(seed, X_all, Y_all, W)
+            if args.early_stop:
+                model, best_ep = train_one_earlystop(
+                    seed, X_all, Y_all, W, patience=args.patience)
+                suffix = "_es"
+                tag = f"best_ep={best_ep}"
+            else:
+                model = train_one(seed, X_all, Y_all, W)
+                suffix = ""
+                tag = f"epochs={EPOCHS}"
             torch.save(
                 {"state_dict": model.state_dict(), "seed": seed,
                  "lo": lo, "hi": hi, "W": W, "sp": sp, "eol_ah": eol_ah,
                  "test_cells": test_cells, "train_cells": train_cells},
-                f"../checkpoints/per_sp/{ds}/SP{sp}_seed{seed}.pt")
+                f"../checkpoints/per_sp/{ds}/SP{sp}_seed{seed}{suffix}.pt")
             rows = eval_sp(model, caps, test_cells, lo, hi, W, sp, eol_ah)
             out.setdefault(ds, {}).setdefault(str(sp), {})[str(seed)] = rows
-            print(f"{ds} SP{sp} seed{seed}: "
+            print(f"{ds} SP{sp} seed{seed} ({tag}): "
                   f"AE={[r['AE'] for r in rows]} "
                   f"MAE={np.mean([r['MAE'] for r in rows]):.4f} "
                   f"R2={np.mean([r['R2'] for r in rows]):.4f} "

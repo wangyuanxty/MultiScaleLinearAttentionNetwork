@@ -88,7 +88,11 @@ space (Section~\ref{sec:physics}).
 
 \subsection{Linear attention and recurrent mixing}
 
-Linear attention replaces the softmax attention map with a recurrent
+Linear attention and state space models share the recurrent-state
+view, and the two families are sometimes presented as one; we keep
+them apart because the battery-SSM literature above frames
+efficiency as a GPU concern, while the delta-rule family below is
+the technical lineage of our backbone. Linear attention replaces the softmax attention map with a recurrent
 matrix state, achieving $O(N)$ complexity. Gated DeltaNet
 \cite{ref_gdn} combined the delta rule with learned gating, and
 Gated DeltaNet-2 (GDN-2) \cite{ref_gdn2} decoupled channel-wise erase
