@@ -52,7 +52,8 @@ corrupts; and uncertainty statements that let operators trade risk
 against cost explicitly.
 
 We propose DeltaCycle, a capacity-only battery monitoring loop built
-for deployment. It consists of three components: a multi-scale linear-attention encoder, 
+for deployment. Our work makes the following innovations:
+a multi-scale linear-attention encoder, 
 deployment-verified through a minimal single-branch variant that runs in C on a microcontroller 
 with a fixed-size recurrent state and matches PyTorch to within floating-point rounding error; 
 a physics-consistent degradation-rate head driven by measured internal resistance—the 

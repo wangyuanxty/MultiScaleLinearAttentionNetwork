@@ -1,9 +1,9 @@
 ﻿\section{Introduction}
 \label{sec:intro}
 
-Lithium-ion batteries power electric vehicles, grid-scale energy
-storage, spacecraft, and portable electronics, and the market they
-serve is projected to grow several-fold over the coming decade
+Lithium-ion batteries power electric vehicles, grid-scale energy storage,
+ spacecraft and portable electronics. The market they serve is projected 
+ to grow several-fold over the coming decade
 \cite{ref_yang_review,ref_sbarra_dt}---making battery health
 management a first-order economic concern rather than a technical
 nicety. Each application stresses battery management differently:
@@ -20,19 +20,15 @@ cause of mission loss \cite{ref_sbarra_dt}; and portable electronics
 make battery health the most ubiquitous---and least
 supervised---monitoring problem of all.
 
-Battery management systems (BMS) distill battery health into three
-state quantities: \emph{state of charge} (SOC), the fraction of
-remaining usable charge---the ``fuel gauge''; \emph{state of health}
-(SOH), the current full capacity relative to rated capacity---the
-``health report,'' whose convention-specified end-of-life threshold
-(typically 70--80\% of rated capacity) defines retirement; and
-\emph{remaining useful life} (RUL), the number of cycles until that
-threshold is crossed---the ``countdown.'' The three form a
-progression: SOC describes how much energy remains now, SOH how far
-aging has progressed, and RUL how long the asset will keep serving;
-of the three, RUL is the forward-looking quantity that maintenance
-and replacement decisions actually consume
-\cite{ref_yang_review,ref_sbarra_dt}.
+Battery management systems (BMS) characterize battery health through three state quantities: 
+state of charge (SOC), defined as the fraction of remaining usable charge; 
+state of health (SOH), defined as the current full capacity relative to rated capacity, 
+with end-of-life conventionally set at $70–80\%$ of rated capacity; and remaining useful life (RUL), 
+defined as the number of cycles until that threshold is crossed. 
+These three quantities form a natural progression: SOC describes present energy availability, 
+SOH quantifies aging to date, and RUL forecasts remaining service life. 
+Of these, RUL is the forward-looking measure upon which maintenance and 
+replacement decisions ultimately depend.
 
 That progression rests on a fundamental contradiction: the chemistry
 prized for its high energy density and long cycle life ages

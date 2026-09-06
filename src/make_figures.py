@@ -125,9 +125,9 @@ def norm_setup(caps, train_cells):
 def predict_series(ds, K=1, seeds=(42, 43, 44)):
     """Non-recursive K-step predictions over the test cell. Returns (pv, tv, lo, hi, W, sps, eol_ah).
 
-    Averages the predictions over the given seed checkpoints
-    (default: the three seeds used in the paper). Legacy single
-    checkpoints (no _seed suffix) are used as fallback for seed 42.
+    Uses the current-architecture per-SP checkpoint (first SP, seed 1)
+    for every dataset: the legacy unified_* checkpoints predate the
+    cross-stage architecture and cannot be loaded.
     """
     caps, train_cells, test_cell, W, sps, eol_ah = load_series(ds)
     lo, hi = norm_setup(caps, train_cells)
@@ -135,57 +135,20 @@ def predict_series(ds, K=1, seeds=(42, 43, 44)):
     windows = np.stack([tc[i - W:i] for i in range(W, len(tc))])  # (N, W)
     cin = torch.tensor(windows, dtype=torch.float32).unsqueeze(-1).to(DEV)
 
-    if ds == "gotion":
-        # the legacy unified_gotion ckpt is an old architecture; use
-        # the current per-SP SP500 model (same non-recursive view)
-        ck = torch.load(f"{CKPT}/per_sp/gotion/SP500_seed1.pt",
-                        map_location=DEV, weights_only=False)
-        model = build_gdn_model(
-            multiscale=True, stage_query=True, input_dim=1,
-            window_size=W, output_len=1, readout="last").to(DEV)
-        model.load_state_dict(ck["state_dict"])
-        model.eval()
-        with torch.no_grad():
-            p_norm = model(cin).squeeze(-1).cpu().numpy()
-        wmean = windows.mean(axis=1, keepdims=True)
-        wstd = windows.std(axis=1, keepdims=True) + 1e-6
-        pv = (p_norm * wstd + wmean)[: len(tc) - W][:, None]
-        tv = tc[W:]
-        return pv, tv, lo, hi, W, sps, eol_ah
-
-    if seeds is None:
-        paths = [f"{CKPT}/unified_{ds}_K{K}.pt"]
-    else:
-        paths = []
-        for s in seeds:
-            p = f"{CKPT}/unified_{ds}_K{K}_seed{s}.pt"
-            if s == 42 and not os.path.exists(p):
-                # legacy naming; MIT additionally had the mit-subset
-                # prefix before the full-dataset rename
-                for alt in (f"{CKPT}/unified_{ds}_K{K}.pt",
-                            f"{CKPT}/unified_mit-subset_K{K}_seed42.pt"):
-                    if os.path.exists(alt):
-                        p = alt
-                        break
-            if os.path.exists(p):
-                paths.append(p)  # skip seeds still training
-    if not paths:
-        raise FileNotFoundError(f"no unified checkpoint for {ds} K={K}")
-    preds = []
-    for ckpt in paths:
-        model = build_gdn_model(
-            multiscale=True, cross_exchange=False, stage_query=True,
-            input_dim=1, window_size=W, output_len=K, readout="last",
-        ).to(DEV)
-        model.load_state_dict(torch.load(ckpt, map_location=DEV, weights_only=True))
-        model.eval()
-        with torch.no_grad():
-            p_norm = model(cin).cpu().numpy()  # (N, K) in per-window domain
-        # per-window de-normalize: each window scaled by its own mean/std
-        wmean = windows.mean(axis=1, keepdims=True)
-        wstd = windows.std(axis=1, keepdims=True) + 1e-6
-        preds.append(p_norm * wstd + wmean)  # back to (0,1) capacity space
-    pv = np.mean(preds, axis=0)[: len(tc) - W]
+    path = f"{CKPT}/per_sp/{ds}/SP{sps[0]}_seed1.pt"
+    if not os.path.exists(path):
+        path = f"{CKPT}/per_sp/{ds}/SP500_seed1.pt"  # GOTION fallback
+    ck = torch.load(path, map_location=DEV, weights_only=False)
+    model = build_gdn_model(
+        multiscale=True, stage_query=True, input_dim=1,
+        window_size=W, output_len=1, readout="last").to(DEV)
+    model.load_state_dict(ck["state_dict"])
+    model.eval()
+    with torch.no_grad():
+        p_norm = model(cin).squeeze(-1).cpu().numpy()
+    wmean = windows.mean(axis=1, keepdims=True)
+    wstd = windows.std(axis=1, keepdims=True) + 1e-6
+    pv = (p_norm * wstd + wmean)[: len(tc) - W][:, None]
     tv = tc[W:]
     return pv, tv, lo, hi, W, sps, eol_ah
 
