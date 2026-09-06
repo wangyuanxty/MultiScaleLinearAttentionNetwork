@@ -121,7 +121,7 @@ def fig_compare():
             "PatchFormer": 0.0008, "RUL-Mamba": 0.0016, "Ours": 0.0025,
         },
         "GOTION": {
-            "PatchFormer": 0.0648, "RUL-Mamba": 0.0620, "Ours": 0.0088,
+            "PatchFormer": 0.0568, "RUL-Mamba": 0.0558, "Ours": 0.0080,
         },
     }
     fig, axes = plt.subplots(1, 6, figsize=(17.0, 3.1), sharey=True)
