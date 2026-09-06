@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1788683601.78322 "main.aux" "main.bbl" "main" 1788683608.26272 0
+["bibtex main"] 1788685134.09234 "main.aux" "main.bbl" "main" 1788708900.88826 0
   "./refs.bib" 1787988973 21274 b309d1c578b69aba989eeda9806fa181 ""
   "d:/texlive/2026/texmf-dist/bibtex/bst/elsarticle/elsarticle-num.bst" 1787544964 29462 dde4ec39bf78fded04ea32048bba0a74 ""
-  "main.aux" 1788683605 29708 0487fdf45155459e7f91af5094249934 "pdflatex"
+  "main.aux" 1788708899 30277 f36fa9f737eed916a75ac5a2b0f8d72a "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1788683602.87024 "d:/我的材料/资料/论文/南航-谢乃明/mine/RUL_forecast/MultiScaleLinearAttentionNetwork/paper/main.tex" "main.pdf" "main" 1788683608.26412 0
+["pdflatex"] 1788708898.44543 "d:/我的材料/资料/论文/南航-谢乃明/mine/RUL_forecast/MultiScaleLinearAttentionNetwork/paper/main.tex" "main.pdf" "main" 1788708900.88901 0
   "d:/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1787543531 2971 def0b6c1f0b107b3b936def894055589 ""
   "d:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1787546280 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "d:/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecbx0800.tfm" 1787544818 3584 269b66e921ba58750c12f7f1c8ea3ebd ""
@@ -161,8 +161,8 @@
   "d:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1787557210 5619558 6707066d8d0da28ea61eec64ea986e31 ""
   "d:/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1787557274 3658232 e6ea0d99db284ff752c32aa8d98bca05 ""
   "d:/texlive/2026/texmf.cnf" 1787557190 713 e69b156964470283e0530f5060668171 ""
-  "d:/我的材料/资料/论文/南航-谢乃明/mine/RUL_forecast/MultiScaleLinearAttentionNetwork/paper/main.tex" 1788683594 4472 9310237e2baa0e98cd0a78eed1530651 ""
-  "figures/fig_compare.pdf" 1787988969 20831 728a8fcc5c49ca2f055f561c941892dd ""
+  "d:/我的材料/资料/论文/南航-谢乃明/mine/RUL_forecast/MultiScaleLinearAttentionNetwork/paper/main.tex" 1788685144 4483 250f8e63c63f61018c0e434e5c4de9a6 ""
+  "figures/fig_compare.pdf" 1788685126 23795 59ae75c3ca6e8427f1906864dcd10892 ""
   "figures/fig_deploy_photo.png" 1787988970 3062377 a96ea3130c399a7f1f0e039702a2652e ""
   "figures/fig_evidence_complexity.pdf" 1787988970 18580 315b6b0b0aa2029805b272cb2f232e4a ""
   "figures/fig_evidence_decay.pdf" 1787988970 14780 211ecea9b0cf081afc0bfb0d2f20e840 ""
@@ -172,20 +172,20 @@
   "figures/fig_regen.pdf" 1787988970 33752 62b2c7f0805860c95fa832fadd806d6d ""
   "figures/fig_robust.pdf" 1787988970 40000 5c8add59e8620fd514df61382bf05273 ""
   "figures/fig_stages.pdf" 1787988970 61362 49ed988a99b32ca26e9775b5875869af ""
-  "figures/fig_traj.pdf" 1787988970 53543 77ff1cba5236009561ac43da296b407e ""
+  "figures/fig_traj.pdf" 1788685126 80015 c607d56c6420eef4227d414af2fd4d9b ""
   "figures/fig_uq_band.pdf" 1788450581 44278 d63c92c2219ffc84bb0395c7b8ae6049 ""
   "figures/new_modelarch.png" 1788058811 5006996 a2c4e7bb37b68a3153ef6247df870974 ""
   "figures/new_overview.png" 1788058811 8015926 5b5a24256a7fc33dbb59a3cee924cfc7 ""
-  "main.aux" 1788683605 29708 0487fdf45155459e7f91af5094249934 "pdflatex"
-  "main.bbl" 1788683602 16066 b6876fdd69652270780046725d663462 "bibtex main"
-  "main.out" 1788683605 6605 53fc6de372d9351c90ebbeb61cf4284b "pdflatex"
-  "main.spl" 1788683604 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1788683594 4472 9310237e2baa0e98cd0a78eed1530651 ""
-  "sections/01_intro.tex" 1788541601 11846 62d69258a246b67b1a6f611531d76588 ""
-  "sections/02_related.tex" 1787988973 6595 477c26a23d8831d2de24c3a53995f255 ""
+  "main.aux" 1788708899 30277 f36fa9f737eed916a75ac5a2b0f8d72a "pdflatex"
+  "main.bbl" 1788685135 16066 b6876fdd69652270780046725d663462 "bibtex main"
+  "main.out" 1788708899 6862 edd6c6a60a675d290ca518fea65ff18e "pdflatex"
+  "main.spl" 1788708899 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1788685144 4483 250f8e63c63f61018c0e434e5c4de9a6 ""
+  "sections/01_intro.tex" 1788708897 11919 934bde4112e3df424fa054937a9b43a1 ""
+  "sections/02_related.tex" 1788685126 6896 6c73631ea30e2703d3043056a9450f99 ""
   "sections/03_method.tex" 1788450581 13881 ecc210fcc8574b749ffa59e4cc5710cc ""
-  "sections/04_experiments.tex" 1788682884 39309 99c33e044ae1afca720bd5104444b2a3 ""
-  "sections/05_conclusion.tex" 1787988973 2286 024eddc997744290812e84756ad01517 ""
+  "sections/04_experiments.tex" 1788685126 41822 f8eb26efcf645fdf09067c7c4afb201a ""
+  "sections/05_conclusion.tex" 1788685126 2289 32aa1f96ffd80c12a4783cf20dc7caa9 ""
   (generated)
   "main.aux"
   "main.log"

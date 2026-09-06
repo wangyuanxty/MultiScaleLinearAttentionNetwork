@@ -32,32 +32,27 @@ replacement decisions ultimately depend.
 
 That progression rests on a fundamental contradiction: the chemistry
 prized for its high energy density and long cycle life ages
-inevitably under use. Two microscopic mechanisms dominate the
-aging---\emph{loss of lithium inventory}, as the growing
-solid-electrolyte interface consumes cyclable lithium, and
-\emph{loss of active material}, as electrode particles crack and
-detach---and both manifest macroscopically as capacity fade and
-rising internal resistance \cite{ref_yang_review}. The resulting
-degradation is inherently nonlinear and heterogeneous: a long-term
-monotonic fade is intertwined with capacity regeneration events,
-stage-wise transitions, and measurement noise, making RUL prediction
-a challenging prognostics problem \cite{ref_rulmamba,ref_omnitie}.
-The battery's internal state is moreover a black box: health
-indicators must be inferred from external measurements rather than
-observed directly, which is why health prediction is inherently
-uncertain---and why an estimator that consumes only
-field-measurable quantities has direct operational value.
+inevitably under use. Two microscopic mechanisms dominate aging. 
+The first is loss of lithium inventory, as the growing solid–electrolyte interface consumes cyclable lithium. 
+The second is loss of active material, as electrode particles crack and detach. 
+Both processes manifest macroscopically as capacity fade and rising internal resistance
+\cite{ref_yang_review}. The resulting degradation is inherently nonlinear and heterogeneous: 
+a long-term monotonic fade is intertwined with capacity regeneration events, stage-wise transitions, 
+and measurement noise, which renders RUL prediction a challenging prognostics problem \cite{ref_rulmamba,ref_omnitie}.
+Moreover, the battery’s internal state is inherently opaque: 
+health indicators cannot be observed directly and must instead be inferred from external measurements. 
+This opacity makes health prediction intrinsically uncertain and highlights the operational value 
+of an estimator that relies solely on field-measurable quantities.
 
-For operators, RUL is far more than an academic metric. It converts
-maintenance from reactive repair to planned intervention; it informs
-retirement and second-life decisions that extend a battery's
-economic life; it bounds safety margins, since capacity fade and
-resistance rise are recognized precursors of thermal runaway; and it
-caps life-cycle cost, the dominant expense of large storage fleets
+For operators, RUL is considerably more than an academic metric: 
+it transforms maintenance from reactive repair to planned intervention, 
+informs retirement and second-life decisions that extend a battery’s economic life, 
+defines safety margins because capacity fade and resistance rise are recognized precursors of thermal runaway, 
+and constrains life-cycle cost—the dominant expense of large-scale storage fleets
 \cite{ref_yang_review,ref_qu_bess}.
 
 Existing RUL prediction methods fall into two broad families.
-Model-based approaches---equivalent-circuit models, extended and
+Model-based approaches---such as equivalent-circuit models, extended and
 unscented Kalman filters, and particle filters---encode degradation
 physics explicitly \cite{ref_ekf_yan,ref_upf_cong,ref_pf_echem,
 ref_pf_rbf,ref_pf_lui} but require accurate parameter identification
@@ -87,14 +82,12 @@ information lives at multiple time scales---fast regeneration
 events, intermediate stage transitions, and the slow monotonic
 fade---and models that treat the capacity sequence as a single scale
 either over-smooth the recoveries or lose the global trend
-\cite{ref_omnitie}. Third, purely data-driven models are evaluated on clean
-laboratory data and falter exactly where field operation deviates
-from the lab: the end-of-life acceleration tail---where maintenance
-decisions concentrate---is the regime with the least training data,
-so learned predictors flatten or drift there, and corrupted or noisy
-sensor streams sharply degrade their predictions. Fourth, point
-estimates of SOH and RUL do not convey uncertainty, which limits
-their use in risk-aware BMS decisions.
+\cite{ref_omnitie}. Third, purely data-driven models are assessed on clean laboratory data, 
+yet their performance deteriorates precisely when field operation departs from laboratory conditions. 
+The end-of-life acceleration tail, where maintenance decisions concentrate, 
+represents the regime with the least training data; consequently, 
+learned predictors tend to flatten or drift in this region. Moreover, 
+corrupted or noisy sensor streams markedly degrade prediction accuracy.
 
 Beneath these technical gaps lies a decision-layer gap: even an
 accurate SOH/RUL estimate is an intermediate product, and translating
@@ -102,14 +95,13 @@ it into maintenance actions today still relies on expert judgment.
 Field evidence from large-scale storage systems shows that
 explainable, decision-oriented operation and maintenance frameworks
 cut response time and operational cost by over 80\% compared with
-conventional expert-driven practice \cite{ref_qu_bess}. The extreme
-operating regime is space: the vast majority of new satellites run
-on lithium-ion batteries, in-orbit repair is impossible, and
-power-subsystem anomalies are a leading cause of satellite faults
-\cite{ref_sbarra_dt}---an environment where on-device, decision-grade
-prognostics is a requirement rather than a convenience.
+conventional expert-driven practice \cite{ref_qu_bess}. Space constitutes an extreme operating regime: 
+the vast majority of new satellites run on lithium-ion batteries, in-orbit repair is impossible, 
+and power-subsystem anomalies are a leading cause of satellite faults
+\cite{ref_sbarra_dt}---an environment in which on-device, 
+decision-grade prognostics is a requirement rather than a convenience.
 
-This paper proposes \emph{DeltaCycle}, a multi-scale linear-attention
+This paper proposes DeltaCycle, a multi-scale linear-attention
 network for battery prognostics designed from the outset for embedded
 deployment. Our contributions are:
 
@@ -120,19 +112,19 @@ attention layer with a fixed-size matrix state (8\,KB per layer in
 the deployed configuration), and ship a full C
 implementation that matches the PyTorch forward within
 floating-point rounding, with arithmetic and libm components
-verified bit-identical across x86 and ARM emulation. \emph{Operationally, the
+verified bit-identical across x86 and ARM emulation. Operationally, the
 accuracy machinery is no longer tied to the cloud: the model runs
 inside the BMS microcontroller itself---the prerequisite for
-per-device monitoring at fleet scale and near-zero marginal cost.}
+per-device monitoring at fleet scale and near-zero marginal cost.
 
 \item \textbf{Multi-scale branches with stage-query cross-scale
 exchange.} Three patch branches (sizes 2/4/8) read degradation at
 local, regional, and global scales; after every layer the coarse
 branch's GDN state---the compressed degradation history---projects to
 a single query that reads the fine and mid branch sequences.
-Ablations show the exchange is essential. \emph{Operationally, the
-coarse branch acts as an explicit degradation-stage indicator---the
-piece of information maintenance scheduling actually consumes.}
+Ablations show the exchange is essential. From an operational standpoint, 
+the coarse branch functions as an explicit degradation-stage indicator, 
+providing the type of information on which maintenance scheduling ultimately relies.
 
 \item \textbf{A physics-consistent degradation-rate head.} Why
 physics at all? The third limitation above is the motivation:
@@ -156,10 +148,10 @@ decorative constraint.
 \item \textbf{Decision-grade uncertainty at one forward pass.} A
 single pinball-trained model emits P2.5/P50/P97.5 intervals;
 conformal calibration on a held-out cell lifts coverage to $93.3\%$
-at nominal $95\%$, with two scalars and no ensemble. \emph{The
+at nominal $95\%$, with two scalars and no ensemble. The
 interval, not the point estimate, is what a replacement policy
 consumes: the calibrated band bounds the missed-EOL rate that a
-risk-averse scheduler actually cares about.}
+risk-averse scheduler actually cares about.
 \end{enumerate}
 
 \begin{figure}[htbp]
