@@ -145,10 +145,10 @@ def predict_series(ds, K=1, seeds=(42, 43, 44)):
     model.load_state_dict(ck["state_dict"])
     model.eval()
     with torch.no_grad():
-        p_norm = model(cin).squeeze(-1).cpu().numpy()
+        p_norm = model(cin).cpu().numpy()  # (N, 1)
     wmean = windows.mean(axis=1, keepdims=True)
     wstd = windows.std(axis=1, keepdims=True) + 1e-6
-    pv = (p_norm * wstd + wmean)[: len(tc) - W][:, None]
+    pv = (p_norm * wstd + wmean)[: len(tc) - W, :]  # (M, 1)
     tv = tc[W:]
     return pv, tv, lo, hi, W, sps, eol_ah
 
