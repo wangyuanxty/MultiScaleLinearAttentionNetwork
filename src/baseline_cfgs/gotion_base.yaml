@@ -6,7 +6,7 @@ dataset:
   real_data_path_template: Results/Capacity_{test_name}_Real_Data.pth
   rated_capacity: 27.0
   test_name: Cell01
-  start_points: [500, 800, 1100]
+  start_points: [450, 600, 750]
 features:
   time_varying_known_reals:
     - Capacity
