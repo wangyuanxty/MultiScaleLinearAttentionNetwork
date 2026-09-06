@@ -52,7 +52,8 @@ corrupts; and uncertainty statements that let operators trade risk
 against cost explicitly.
 
 We propose DeltaCycle, a capacity-only battery monitoring loop built
-for deployment. It consists of three components: a multi-scale linear-attention encoder, 
+for deployment. Our work makes the following innovations:
+a multi-scale linear-attention encoder, 
 deployment-verified through a minimal single-branch variant that runs in C on a microcontroller 
 with a fixed-size recurrent state and matches PyTorch to within floating-point rounding error; 
 a physics-consistent degradation-rate head driven by measured internal resistance—the 
@@ -63,12 +64,12 @@ Across five public datasets spanning four chemistries, DeltaCycle
 achieves first-tier accuracy among protocol-matched baselines---state
 of the art on PANASONIC, matched against the strongest published
 baseline on TJU, with $R^2 \geq 0.9995$ on MIT and explicit
-tracking of capacity regeneration. The physics term is
-validated where physics should matter: it doubles unseen-tail
-extrapolation fidelity and wins every corruption-robustness setting
-tested---direct evidence that the mechanism earns its place. Interval
-coverage is lifted to $93.3\%$ at nominal $95\%$. For battery
-operators this translates into a capability shift:
+tracking of capacity regeneration. The physics term is validated where 
+physics should matter: it doubles extrapolation fidelity on the unseen tail 
+and achieves the best performance in every corruption-robustness setting 
+tested—direct evidence that the mechanism earns its place. The conformal prediction 
+intervals achieve $93.3\%$ empirical coverage at a nominal $95\%$ level.
+For battery operators, this translates into a capability shift:
 continuous, risk-aware asset monitoring that runs on-device at
 near-zero marginal cost, without cloud connectivity, model
 retraining, or specialist hardware.
