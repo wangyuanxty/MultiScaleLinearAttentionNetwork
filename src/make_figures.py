@@ -161,7 +161,7 @@ def fig_traj():
         "mit": ("MIT (batch2-05)", "LFP · 1.07 Ah"),
         "panasonic": ("PANASONIC", "NCA · 3.03 Ah"),
         "tju": ("TJU (CY25-1)", "NCM+NCA · 2.5 Ah"),
-        "gotion": ("GOTION", "large-format · 27 Ah"),
+        "gotion": ("GOTION", "LFP · 27 Ah"),
     }
     fig, axes = plt.subplots(2, 3, figsize=(10.5, 5.6), sharex=False)
     for ax, (ds, (title, sub)) in zip(axes.ravel(), ds_meta.items()):

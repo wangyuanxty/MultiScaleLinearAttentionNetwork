@@ -9,7 +9,7 @@ different chemistries, capacities, and degradation behaviors
 (Table~\ref{tab:datasets}): CALCE (LCO, rated 1.1\,Ah), NASA
 \cite{ref_nasa_data} (LCO, 2.0\,Ah), MIT/Stanford \cite{ref_severson}
 (LFP, 124 cells), PANASONIC (NCA, 3.03\,Ah), TJU (NCM+NCA,
-2.5\,Ah), and GOTION (large-format, 27\,Ah). End-of-life (EOL) thresholds follow rated
+2.5\,Ah), and GOTION (LFP large-format, 27\,Ah). End-of-life (EOL) thresholds follow rated
 capacity times convention: 70\% for small cells and 80\% for
 large-format cells. For MIT we use a 10-cell subset (8 training, 2 test) for this study.
 All models use pure capacity input; internal resistance is used only
@@ -30,7 +30,7 @@ NASA & LCO & 2.0 Ah & 4 & 1.40 & short-history \\
 MIT & LFP & 1.07 Ah & 10* & 0.86 & cross-battery \\
 PANASONIC & NCA & 3.03 Ah & 3 & 2.12 & regeneration \\
 TJU & NCM+NCA & 2.5 Ah & 3 & 1.75 & long-cycle \\
-GOTION & large-format & 27 Ah & 3 & 21.60 & large-format fleet \\
+GOTION & LFP (large-format) & 27 Ah & 3 & 21.60 & large-format fleet \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -406,9 +406,10 @@ Ours & & \textbf{0.0013} & \textbf{0.0020} & \textbf{0.9999} & \textbf{0.2} & \t
 
 
 \subsubsection{GOTION: large-format fleet operation}
-GOTION (27\,Ah, three cells, 2 train / 1 test) is the large-format
-regime: 1400-cycle deep-discharge profiles with a wide dynamic
-range, the format of grid-storage and heavy-duty applications. Our
+GOTION (LFP, 27\,Ah, three cells, 2 train / 1 test) is the
+large-format regime: 1400-cycle deep-discharge profiles with a wide
+dynamic range, the format of grid-storage and heavy-duty
+applications. Our
 model beats every reported and reproduced baseline by 6--8$\times$
 in MAE on each SP (Table~\ref{tab:lit_gotion}: $0.0074$-$0.0086$
 vs.\ $0.053$-$0.061$), and also leads their R$^2$ ($0.9970$ vs.
@@ -450,8 +451,10 @@ PatchFormer & & 0.0536 & 0.0705 & 0.9964 & 9.6 & 0.0563 & 0.0738 & 0.9952 & 9.1 
 RUL-Mamba & & 0.0525 & 0.0745 & 0.9960 & 15.2 & 0.0552 & 0.0783 & 0.9946 & 15.9 & 0.0598 & 0.0849 & 0.9917 & 15.7 \\
 Ours & & \textbf{0.0074} & \textbf{0.0101} & \textbf{0.9970} & 18.2 & \textbf{0.0081} & \textbf{0.0109} & \textbf{0.9958} & 10.7 & \textbf{0.0086} & \textbf{0.0115} & \textbf{0.9938} & 15.1 \\
 \bottomrule
-\multicolumn{14}{l}{\footnotesize ModernTCN--PathFormer rows as reported in OmniTIEFormer's GOTION experiments (same test cell, SPs, EOL);}\\
-\multicolumn{14}{l}{\footnotesize PatchFormer and RUL-Mamba rows self-run with the official repositories (10 repeats; the RUL-Mamba AE is}\\
+\multicolumn{14}{l}{\footnotesize ModernTCN--PathFormer rows as reported in OmniTIEFormer's GOTION experiments \cite{ref_omnitie} (same}\\
+\multicolumn{14}{l}{\footnotesize test cell, SPs, EOL); OmniTIEFormer itself reports AE down to 0.9 cycles on the same cell, but under a}\\
+\multicolumn{14}{l}{\footnotesize recursive multi-step protocol, so its model is not included in this point-forecast table. PatchFormer and}\\
+\multicolumn{14}{l}{\footnotesize RUL-Mamba rows self-run with the official repositories (10 repeats; the RUL-Mamba AE is}\\
 \multicolumn{14}{l}{\footnotesize recomputed at the 0.8-rated threshold, since the official evaluate uses a 0.7 threshold that the 27 Ah}\\
 \multicolumn{14}{l}{\footnotesize sequence never reaches). AE in cycle units is scale-dependent -- see the case-study text.}\\
 \end{tabular}%

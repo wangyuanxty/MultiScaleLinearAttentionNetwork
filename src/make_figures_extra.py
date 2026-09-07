@@ -121,6 +121,8 @@ def fig_compare():
             "PatchFormer": 0.0008, "RUL-Mamba": 0.0016, "Ours": 0.0025,
         },
         "GOTION": {
+            "ModernTCN": 0.0581, "Autoformer": 0.0731, "FEDformer": 0.0749,
+            "iTransformer": 0.0597, "PathFormer": 0.1965,
             "PatchFormer": 0.0568, "RUL-Mamba": 0.0558, "Ours": 0.0080,
         },
     }
