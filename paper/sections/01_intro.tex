@@ -147,8 +147,9 @@ decorative constraint.
 
 \item \textbf{Decision-grade uncertainty at one forward pass.} A
 single pinball-trained model emits P2.5/P50/P97.5 intervals;
-conformal calibration on a held-out cell lifts coverage to $93.3\%$
-at nominal $95\%$, with two scalars and no ensemble. The
+conformal calibration on a held-out cell lifts coverage to
+$93.5\%\pm0.9\%$ (ten seeds) at nominal $95\%$, with two scalars and
+no ensemble. The
 interval, not the point estimate, is what a replacement policy
 consumes: the calibrated band bounds the missed-EOL rate that a
 risk-averse scheduler actually cares about.

@@ -71,9 +71,9 @@ SP (1--10), so each table cell aggregates ten independently trained
 models. The ablation studies (Section~\ref{sec:ablation}) use the
 same optimizer budget with ten seeds; the physics extension is
 reported over the same ten seeds for its head, extrapolation, and
-robustness studies, and the uncertainty study uses the single-seed,
-full-data training described above (variance quantified in
-Section~\ref{sec:limitations}).
+robustness studies, and the uncertainty study uses the ten-seed
+full-data training described above (coverage
+$93.5\%\pm0.9\%$).
 
 \subsection{Main results}
 \label{sec:main}
@@ -679,8 +679,9 @@ $0.0066$). Raw pinball quantiles are miscalibrated---the P2.5--P97.5
 interval covers only $85.6\%$ of observations against the nominal
 $95\%$---a known failure mode of quantile regression under
 distribution shift. Conformal calibration on a held-out cell
-($n = 869$ windows, $q_{\text{adj}} = 0.0052$) lifts coverage to
-$93.3\%$ overall and $92.7$--$94.0\%$ per start point, at a modest
+($n = 869$ windows) lifts coverage to
+$93.5\%\pm0.9\%$ overall (ten training seeds, range
+$91.9$--$95.1\%$), at a modest
 $+36\%$ interval-width cost; the small residual gap to $95\%$
 reflects finite-sample calibration ($n{=}869$) and cross-cell
 distribution drift, and is reported honestly.
@@ -690,7 +691,8 @@ Figure~\ref{fig:uq_band} shows the calibrated band on the test cell.
 translates into an operational policy directly: the simplest
 risk-aware rule is ``schedule replacement at the first cycle where
 the P2.5 trajectory crosses the EOL threshold.'' With CQR the
-$93.3\%$ coverage bounds the missed-EOL rate, and the $+36\%$
+the $93.5\%\pm0.9\%$ coverage bounds the missed-EOL rate, and the
+$+36\%$
 interval-width cost quantified above is the price paid for that
 bound. Quantifying the associated maintenance-cost trade-off under a
 concrete cost model is left to future work.
@@ -788,8 +790,8 @@ starting point (seeds 1--10, per-SP protocol,
 Table~\ref{tab:tableA}); the ablation studies span CALCE and NASA at
 ten seeds (dataset-level contrasts significant only on CALCE); the
 physics extension is also ten-seed, and the uncertainty study uses a
-single seed and a single calibration cell (CS2\_36), respectively,
-and their associated variance is not quantified. \emph{Epoch
+single calibration cell (CS2\_36), with its coverage verified over
+ten training seeds ($93.5\%\pm0.9\%$). \emph{Epoch
 sensitivity.} We continued every CALCE and NASA per-SP model from
 100 to 200 epochs: CALCE improved $1.5\%$/$2.2\%$/$7.9\%$ (SP
 300/400/500, MAE) and NASA $19.6\%$ at SP50 with a $2$--$4\%$ loss
