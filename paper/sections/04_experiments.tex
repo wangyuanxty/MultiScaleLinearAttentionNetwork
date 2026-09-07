@@ -167,9 +167,9 @@ CALCE (LCO, 1.1\,Ah, four cells) exhibits smooth, monotonic fade over
 $\sim$900 cycles---the canonical asset-monitoring regime. The model
 ranks second only to PatchFormer on every reported metric among all
 compared baselines (Table~\ref{tab:lit_calce}: MAE
-$0.0066$--$0.0092$ vs.\ $0.0057$--$0.0069$; R$^2$ within $0.004$; AE
-mean $2.4$--$3.2$ vs.\ $0.8$--$1.1$); the AE seed-to-seed spread
-($1$--$7$ cycles, per-SP means $3.2$/$2.5$/$2.4$), comes from seeds
+$0.0065$--$0.0085$ vs.\ $0.0057$--$0.0081$; R$^2$ within $0.004$; AE
+mean $2.9$--$5.0$ vs.\ $0.9$--$1.0$); the AE seed-to-seed spread
+($1$--$7$ cycles, per-SP means $2.9$/$4.4$/$5.0$), comes from seeds
 whose near-flat tail crossing
 amplifies a small trajectory bias into several cycles of RUL error,
 as quantified below. \emph{Operational
@@ -215,8 +215,8 @@ Ours & & 0.0065 & 0.0148 & 0.9950 & 2.9 & 0.0076 & 0.0166 & 0.9935 & 4.4 & 0.008
 
 \emph{On the CALCE AE spread.} The AE column deserves an
 explicit note: across the ten seeds per SP the AE values span
-1--7 at SP300 (mean 3.2), 1--7 at SP400 (mean 2.5) and 0--6 at
-SP500 (mean 2.4), and the maximum is not a training failure but a
+1--7 at SP300 (mean 2.9), 1--7 at SP400 (mean 4.4) and 1--7 at
+SP500 (mean 5.0), and the maximum is not a training failure but a
 geometric property of the test cell. Near the EOL threshold the
 CALCE trajectory is nearly flat (local slope $\approx 0.0022$\,/cycle
 in normalized capacity, $\approx 1.9$\,mAh/cycle), so a local
@@ -228,17 +228,17 @@ The same mechanism keeps PatchFormer's CALCE AE in a narrow band
 mean and flag the seed-to-seed spread explicitly. On CALCE, where we
 additionally run PatchFormer's official code under our identical
 protocol, the self-run baseline gives AE $=$ 0.9 at SP300 against our
-AE $=$ 3.2 (R$^2$ $0.9962$ vs.\ $0.9951$).
+AE $=$ 2.9 (R$^2$ $0.9962$ vs.\ $0.9950$).
 
 \subsubsection{NASA: short-history rapid assessment}
 NASA (LCO, 2.0\,Ah, $\sim$168-cycle cells) is the shortest-history
 scenario---new assets or limited telemetry. With only 168 cycles the
-model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
+model still reaches R$^2 \ge 0.9795$ and mean AE $0.7$ cycles
 (Table~\ref{tab:lit_nasa}); on R$^2$ we exceed the self-run
 PatchFormer result at SP90
-($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), while
-its MAE remains slightly ahead ($0.0080$ vs.\ $0.0072$ at SP90;
-AE $0.5$ vs.\ $2.5$).
+($0.9795$ vs.\ $0.9623$) and at SP70 ($0.9821$ vs.\ $0.9808$), while
+its MAE remains slightly ahead ($0.0083$ vs.\ $0.0072$ at SP90;
+AE $0.6$ vs.\ $2.5$).
 \emph{Operational implication:}
 short histories are the regime where rapid commissioning checks and
 second-life screening must run with limited data; the model's
@@ -439,7 +439,7 @@ repeats each.}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{ll rrrr rrrr rrrr}
 \toprule
-Method & & \multicolumn{4}{c}{SP500} & \multicolumn{4}{c}{SP800} & \multicolumn{4}{c}{SP1100} \\
+Method & & \multicolumn{4}{c}{SP450} & \multicolumn{4}{c}{SP600} & \multicolumn{4}{c}{SP750} \\
  & & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE & MAE & RMSE & R$^2$ & AE \\
 \midrule
 ModernTCN & & 0.0553 & 0.0750 & 0.9960 & \textbf{8.3} & 0.0570 & 0.0774 & 0.9947 & \textbf{8.0} & 0.0619 & 0.0829 & 0.9921 & \textbf{7.8} \\
@@ -674,9 +674,9 @@ linear classifier on the projection (accuracy $93.2\%$).}
 \label{sec:conf}
 
 Table~\ref{tab:quantile} reports the quantile and conformal results on
-CALCE. The P50 estimate matches the point model (MAE $0.0073$ vs
-$0.0066$). Raw pinball quantiles are miscalibrated---the P2.5--P97.5
-interval covers only $85.6\%$ of observations against the nominal
+CALCE. The P50 estimate matches the point model (MAE $0.0076\pm0.0007$ vs
+$\approx 0.0075$). Raw pinball quantiles are miscalibrated---the P2.5--P97.5
+interval covers only $89.1\%$ of observations against the nominal
 $95\%$---a known failure mode of quantile regression under
 distribution shift. Conformal calibration on a held-out cell
 ($n = 869$ windows) lifts coverage to
@@ -716,12 +716,12 @@ conformalized quantile regression (CQR), CALCE.}
 \toprule
 Metric & Raw pinball & CQR & Target \\
 \midrule
-P50 MAE & 0.0073 & --- & $\approx$ point model (0.0066) \\
-Coverage (overall) & 0.856 & 0.933 & 0.95 \\
-Coverage @ SP300 & 0.881 & 0.940 & 0.95 \\
-Coverage @ SP400 & 0.881 & 0.931 & 0.95 \\
-Coverage @ SP500 & 0.885 & 0.927 & 0.95 \\
-Interval width & 0.0286 & 0.0390 & --- \\
+P50 MAE & 0.0076 & --- & $\approx$ point model (0.0075) \\
+Coverage (overall) & 0.891 & 0.935 & 0.95 \\
+Interval width & 0.0286 & 0.0421 & --- \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize Ten seed-verified models (mean values; per-SP coverage is not broken out here -- the}\\
+\multicolumn{4}{l}{\footnotesize seed-to-seed spread 0.919--0.951 dominates the per-SP variation).}\\
 \bottomrule
 \end{tabular}
 \end{table}
