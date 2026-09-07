@@ -126,8 +126,8 @@ def fig_compare():
             "PatchFormer": 0.0568, "RUL-Mamba": 0.0558, "Ours": 0.0080,
         },
     }
-    fig, axes = plt.subplots(1, 6, figsize=(17.0, 3.1), sharey=True)
-    for ax, (ds, d) in zip(axes, data.items()):
+    fig, axes = plt.subplots(3, 2, figsize=(7.8, 8.6), sharey=True)
+    for ax, (ds, d) in zip(axes.ravel(), data.items()):
         names = list(d.keys())
         vals = [d[n] for n in names]
         colors = []
@@ -145,7 +145,7 @@ def fig_compare():
         ax.set_title(ds)
         if ds == "NASA":
             ax.set_ylabel("average MAE (log)")
-    axes[0].legend(
+    axes[0, 0].legend(
         handles=[plt.Rectangle((0, 0), 1, 1, fc="#2ca02c"),
                  plt.Rectangle((0, 0), 1, 1, fc="#1f77b4"),
                  plt.Rectangle((0, 0), 1, 1, fc="#b0b0b0")],
