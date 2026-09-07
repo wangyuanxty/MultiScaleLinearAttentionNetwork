@@ -751,35 +751,6 @@ pipeline: on-board capacity sensing, INT8 quantization of the
 weights, and the memory-deterministic on-board inference chain
 that produces calibrated RUL decisions.
 
-\emph{Model size.} Table~\ref{tab:size} compares parameter counts.
-Our multi-scale model is not the smallest of the compared methods
---- the self-run baselines sit at $0.02$--$0.11$\,M parameters ---
-but it remains well inside MCU-class flash at 484\,KB INT8, and its
-deployment advantages are the deterministic SRAM state
-(8\,KB/layer, zero allocation), incremental full-history inference,
-and bit-exactness, not parameter minimization. The two-layer
-single-branch variant (114\,K parameters, 114\,KB INT8) is what the
-QEMU-verified C implementation uses, while sharing the same
-per-layer state mechanism as the full model.
-
-\begin{table}[htbp]
-\centering
-\caption{Model sizes (parameters and weight memory).}
-\label{tab:size}
-\scriptsize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lccc}
-\toprule
-Method & Parameters & fp32 memory & INT8 memory \\
-\midrule
-Ours (single-branch, W64) & 114 K & 0.45 MB & 114 KB \\
-Ours (multi-scale, W64) & 484 K & 1.94 MB & 484 KB \\
-PatchFormer (NASA / TJU configs) & 23 K / 98 K & 0.09--0.39 MB & --- \\
-RUL-Mamba (TJU / NASA configs) & 19 K / 107 K & 0.08--0.43 MB & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_deploy_photo}
