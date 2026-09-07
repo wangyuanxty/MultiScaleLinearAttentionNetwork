@@ -173,7 +173,7 @@ def build_overview():
 
     # D: MCU photo + chips
     photo(ax, px[3] + 0.007, 0.38, 0.13, 0.26, "mcu_board")
-    for j, t in enumerate(["fixed 8 KB state", "INT8 340 KB", "no cloud"]):
+    for j, t in enumerate(["fixed 8 KB state", "INT8 484 KB", "no cloud"]):
         chip(ax, px[3] + 0.007, 0.30 - j * 0.052, t, fc=SAND, fs=7.5,
              w=0.13, h=0.042)
 

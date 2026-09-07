@@ -375,7 +375,7 @@ def fig_deploy():
 
     ax = axes[0]
     mems = ["fp32\nsingle-branch", "INT8\nsingle-branch", "fp32\nmulti-scale", "INT8\nmulti-scale"]
-    mem_vals = [1330, 337, 1330, 340]
+    mem_vals = [455, 114, 1940, 484]
     colors = ["#a6a6a6", COLORS[0], "#a6a6a6", COLORS[0]]
     bars = ax.bar(mems, mem_vals, color=colors, alpha=0.9, width=0.6)
     for b, v in zip(bars, mem_vals):

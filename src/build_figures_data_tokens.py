@@ -333,7 +333,7 @@ def build_deploy():
     txt(ax, 0.375, 0.630, "MCU INFERENCE", fs=8.8, bold=True)
     for j, (k, v) in enumerate([("Recurrent state", "fixed 8 KB"),
                                 ("Allocation", "zero dynamic"),
-                                ("Weights", "INT8 340 KB (−75%)"),
+                                ("Weights", "INT8 484 KB (−75%)"),
                                 ("Outputs", "P2.5 / P50 / P97.5")]):
         txt(ax, 0.375, 0.585 - j * 0.040, k, fs=7.2)
         txt(ax, 0.475, 0.585 - j * 0.040, v, fs=7.2, bold=True)

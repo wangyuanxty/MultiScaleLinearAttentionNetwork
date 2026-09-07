@@ -731,7 +731,7 @@ Interval width & 0.0286 & 0.0421 & --- \\
 
 Table~\ref{tab:deploy} summarizes INT8 quantization and MCU
 deployment results. Dynamic INT8 quantization is essentially lossless
-(AE unchanged), reducing weights from 1.3\,MB to 337--340\,KB
+(AE unchanged), reducing weights from 1.94\,MB to 484\,KB
 ($-75\%$). We validate the deterministic-deployment mechanism on the
 simplest representative variant---the two-layer single-branch
 encoder; the multi-scale model shares the identical per-layer state
@@ -751,6 +751,35 @@ pipeline: on-board capacity sensing, INT8 quantization of the
 weights, and the memory-deterministic on-board inference chain
 that produces calibrated RUL decisions.
 
+\emph{Model size.} Table~\ref{tab:size} compares parameter counts.
+Our multi-scale model is not the smallest of the compared methods
+--- the self-run baselines sit at $0.02$--$0.11$\,M parameters ---
+but it remains well inside MCU-class flash at 484\,KB INT8, and its
+deployment advantages are the deterministic SRAM state
+(8\,KB/layer, zero allocation), incremental full-history inference,
+and bit-exactness, not parameter minimization. The two-layer
+single-branch variant (114\,K parameters, 114\,KB INT8) is what the
+QEMU-verified C implementation uses, while sharing the same
+per-layer state mechanism as the full model.
+
+\begin{table}[htbp]
+\centering
+\caption{Model sizes (parameters and weight memory).}
+\label{tab:size}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccc}
+\toprule
+Method & Parameters & fp32 memory & INT8 memory \\
+\midrule
+Ours (single-branch, W64) & 114 K & 0.45 MB & 114 KB \\
+Ours (multi-scale, W64) & 484 K & 1.94 MB & 484 KB \\
+PatchFormer (NASA / TJU configs) & 23 K / 98 K & 0.09--0.39 MB & --- \\
+RUL-Mamba (TJU / NASA configs) & 19 K / 107 K & 0.08--0.43 MB & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_deploy_photo}
@@ -758,7 +787,7 @@ that produces calibrated RUL decisions.
 only capacity measurements ($c_t$, plus a cycle counter) from the
 battery. (2) The last $W{=}64$ cycles are patch-embedded to 32
 tokens at $d{=}64$ ($=d_{\text{model}}$). (3) Quantization: dynamic
-INT8 reduces weights from 1.3\,MB to 340\,KB ($-75\%$) with AE
+INT8 reduces weights from 1.94\,MB to 484\,KB ($-75\%$) with AE
 2.2$\to$2.3 (lossless). (4) On-board inference in C: two GDN-2
 layers with a fixed 8\,KB state per layer (16\,KB total, zero
 dynamic allocation) updated incrementally per cycle. (5) Fused
@@ -776,8 +805,8 @@ P2.5/P50/P97.5 outputs drive calibrated RUL decisions at
 \toprule
 Config & fp32 AE & INT8 AE & Memory \\
 \midrule
-Single-branch & 2.2 & 2.3 & 337 KB \\
-Multi-scale & 1.0 & 1.0 & 340 KB \\
+Single-branch & 2.2 & 2.3 & 114 KB \\
+Multi-scale & 1.0 & 1.0 & 484 KB \\
 \bottomrule
 \end{tabular}
 \end{table}
