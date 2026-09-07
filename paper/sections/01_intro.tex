@@ -130,7 +130,7 @@ providing the type of information on which maintenance scheduling ultimately rel
 physics at all? The third limitation above is the motivation:
 learned predictors flatten or drift exactly where the data is
 thinnest, and physics supplies an inductive bias that remains valid
-outside the observed distribution---capacity decay is monotone, and
+outside the observed distribution---capacity decay is monotonic, and
 internal resistance can only accelerate it. The challenge is
 injecting that bias without breaking the standard evaluation
 protocol. A systematic injection-route study shows why conventional
@@ -141,18 +141,15 @@ by measured internal resistance, constrained so that resistance can
 only accelerate decay, trained in absolute capacity space. The contribution is the
 physics itself, and its value is demonstrated where physics should
 matter: unseen-tail extrapolation fidelity doubles and the head wins
-every corruption-robustness setting tested---evidence that the
-mechanism is doing measurable work rather than acting as a
-decorative constraint.
+every corruption-robustness setting tested. This provides evidence that 
+the mechanism performs measurable work rather than acting as a decorative constraint.
 
-\item \textbf{Decision-grade uncertainty at one forward pass.} A
-single pinball-trained model emits P2.5/P50/P97.5 intervals;
-conformal calibration on a held-out cell lifts coverage to
-$93.5\%\pm0.9\%$ (ten seeds) at nominal $95\%$, with two scalars and
-no ensemble. The
-interval, not the point estimate, is what a replacement policy
-consumes: the calibrated band bounds the missed-EOL rate that a
-risk-averse scheduler actually cares about.
+\item \textbf{Decision-grade uncertainty at one forward pass.} A single pinball-trained model 
+directly produces P2.5/P50/P97.5 intervals. Conformal calibration on a held-out cell, 
+using only two scalar parameters and no ensembling, raises coverage to $93.5\%\pm0.9\%$ (ten seeds) 
+at a nominal $95\%$ level. Crucially, the interval—not the point estimate—is 
+what downstream replacement policies consume: the calibrated band bounds the missed-EOL rate 
+that risk-averse schedulers actually care about.
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -185,9 +182,7 @@ cabinets and power-battery packs, where the missed-EOL rate sets
 the maintenance window), and regeneration tracking for
 non-monotonic field histories. We stress that the experimental
 validation in this paper is conducted on public laboratory cycling
-data; the figure is an \emph{application outlook}, not a deployment
-report.
-
+data and the figure is an application outlook.
 
 
 The remainder of this paper is organized as follows.

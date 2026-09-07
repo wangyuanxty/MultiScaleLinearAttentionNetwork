@@ -9,7 +9,7 @@ forecasting problem. Let $c_t$ denote the measured capacity at cycle
 $t$. Given a fixed-length input window
 $\mathbf{X}_{t} = [c_{t-W+1}, \ldots, c_t]$ of historical capacity,
 the model predicts future capacity values. The main model
-deliberately consumes \emph{capacity only}, for a deployment-driven
+deliberately consumes capacity only, for a deployment-driven
 reason: at inference, the future values of voltage, current,
 temperature, and internal resistance are unavailable, so any model
 consuming them cannot be rolled out autoregressively to the end of
@@ -17,7 +17,7 @@ life without information leakage. Capacity is the only health
 indicator that is both measurable online and self-contained for
 rollout. The physics-consistent extension of
 Section~\ref{sec:physics} additionally consumes the per-cycle
-\emph{measured} internal resistance---a quantity the BMS records in
+measured internal resistance---a quantity the BMS records in
 situ, available at inference without future information---so the
 extension remains deployable under the same constraint.
 
@@ -152,7 +152,8 @@ Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
 long-term monotonic envelope. We encode these with three parallel
 branches using patch sizes $P \in \{2,4,8\}$
-(Figure~ef{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
+(Figure~
+ef{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
 patch scale). Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
 two GDN-2 layers. After every GDN layer, branches exchange
