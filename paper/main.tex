@@ -18,8 +18,13 @@
 
 \journal{Journal of Power Sources}
 
+% center the "Abstract" heading (elsarticle hardcodes \noindent)
 \makeatletter
-\renewcommand{\abstractname}{\begin{center}Abstract\end{center}}
+\renewenvironment{abstract}{\global\setbox\absbox=\vbox\bgroup
+  \hsize=\textwidth\def\baselinestretch{1}%
+  \noindent\centerline{\textbf{\@elsarticleabstitle}}%
+ \par\medskip\noindent\unskip\ignorespaces}
+ {\egroup}
 \makeatother
 
 \begin{document}
