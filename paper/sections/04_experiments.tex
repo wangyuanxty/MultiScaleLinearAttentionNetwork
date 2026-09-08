@@ -20,7 +20,7 @@ as an auxiliary input of the physics-extension rate head
 \centering
 \caption{Dataset overview.}
 \label{tab:datasets}
-\resizebox{\textwidth}{!}{%
+\tiny
 \begin{tabular}{lcccccl}
 \toprule
 Dataset & Chemistry & Rated & Cells & EOL (Ah) & Role \\
@@ -32,7 +32,7 @@ PANASONIC & NCA & 3.03 Ah & 3 & 2.12 & regeneration \\
 TJU & NCM+NCA & 2.5 Ah & 3 & 1.75 & long-cycle \\
 GOTION & LFP (large-format) & 27 Ah & 3 & 21.60 & large-format fleet \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \subsection{Evaluation protocol}
@@ -104,7 +104,7 @@ errors in normalized capacity; AE (a small bounded integer) is
 reported as mean over seeds.}
 \label{tab:tableA}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
+\setlength{\tabcolsep}{1pt}
 \begin{tabular}{lr rrrrr}
 \toprule
 Dataset & SP & TRUL & MAE & RMSE & R\textsuperscript{2} & AE \\
@@ -186,8 +186,8 @@ best value in each column; ties are both bold. Ours: means over ten
 seeds (per-SP protocol); AE reported as mean over seeds.}
 \label{tab:lit_calce}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{1pt}
+\tiny
 \begin{tabular}{ll rrrr rrrr rrrr}
 \toprule
 Method & & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} & \multicolumn{4}{c}{SP500} \\
@@ -210,7 +210,6 @@ Ours & & 0.0065 & 0.0148 & 0.9950 & 2.9 & 0.0076 & 0.0166 & 0.9935 & 4.4 & 0.008
 \multicolumn{14}{l}{\footnotesize at SP300); RUL-Mamba's published CALCE numbers exist only in OmniTIEFormer's baseline runs ($0.0164/0.9794$ here),}\\
 \multicolumn{14}{l}{\footnotesize against which the self-run tracks within 7-9\%; its AE is the mean over the 10 self-run repeats.}\\
 \end{tabular}%
-}
 \end{table}
 
 \emph{On the CALCE AE spread.} The AE column deserves an
@@ -253,8 +252,8 @@ in each column; ties are both bold. Ours: means over ten seeds
 (per-SP protocol); AE reported as mean over seeds.}
 \label{tab:lit_nasa}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{1pt}
+\tiny
 \begin{tabular}{ll rrrr rrrr rrrr}
 \toprule
 Method & & \multicolumn{4}{c}{SP50} & \multicolumn{4}{c}{SP70} & \multicolumn{4}{c}{SP90} \\
@@ -278,7 +277,6 @@ Ours & & 0.0078 & 0.0132 & \textbf{0.9923} & 0.5 & 0.0091 & 0.0148 & \textbf{0.9
 \multicolumn{14}{l}{\footnotesize $0.0056/0.9924$, $0.0061/0.9835$, $0.0068/0.9663$ (PatchFormer) and $0.0083/0.9901$, $0.0091/0.9770$, $0.0092/0.9556$ (RUL-Mamba).}\\
 \multicolumn{14}{l}{\footnotesize $^\dagger$RUL-Mamba AE is the mean over its 10 self-run repeats.}\\
 \end{tabular}%
-}
 \end{table}
 
 \subsubsection{MIT: cross-cell fleet screening}
@@ -321,8 +319,8 @@ are both bold. Ours: means over ten seeds (per-SP protocol); AE reported
 as mean over seeds.}
 \label{tab:lit_panasonic}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{1pt}
+\tiny
 \begin{tabular}{ll rrrr rrrr rrrr}
 \toprule
 Method & & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} & \multicolumn{4}{c}{SP500} \\
@@ -341,7 +339,6 @@ Ours & & 0.0037 & \textbf{0.0096} & 0.9976 & \textbf{0.8} & \textbf{0.0036} & \t
 \multicolumn{14}{l}{\footnotesize its published 6.0 -- the latter mixes protocols and overstates the RUL error. iTransformer's SP500 values are}\\
 \multicolumn{14}{l}{\footnotesize recovered from the source table's average row (the per-SP row is garbled in the published table).}\\
 \end{tabular}%
-}
 \end{table}
 
 \begin{figure}[htbp]
@@ -374,8 +371,8 @@ in each column; ties are both bold. Ours: means over ten seeds
 (per-SP protocol); AE reported as mean over seeds.}
 \label{tab:lit_tju}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{1pt}
+\tiny
 \begin{tabular}{ll rrrr rrrr rrrr}
 \toprule
 Method & & \multicolumn{4}{c}{SP200} & \multicolumn{4}{c}{SP300} & \multicolumn{4}{c}{SP400} \\
@@ -400,7 +397,6 @@ Ours & & \textbf{0.0013} & \textbf{0.0020} & \textbf{0.9999} & \textbf{0.2} & \t
 \multicolumn{14}{l}{\footnotesize $^{\ddagger}$RUL-Mamba self-run is univariate and reproduces the published TJU numbers (R\textsuperscript{2} $0.9998/0.9997/0.9995$),}\\
 \multicolumn{14}{l}{\footnotesize i.e.\ the published TJU rows stem from the same univariate pipeline; its AE is the mean over 3 repeats.}\\
 \end{tabular}%
-}
 \end{table}
 
 
@@ -435,8 +431,8 @@ are both bold. Ours: 10-seed means; the two self-run baselines: 10
 repeats each.}
 \label{tab:lit_gotion}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{1pt}
+\tiny
 \begin{tabular}{ll rrrr rrrr rrrr}
 \toprule
 Method & & \multicolumn{4}{c}{SP450} & \multicolumn{4}{c}{SP600} & \multicolumn{4}{c}{SP750} \\
@@ -458,7 +454,6 @@ Ours & & \textbf{0.0074} & \textbf{0.0101} & \textbf{0.9970} & 18.2 & \textbf{0.
 \multicolumn{14}{l}{\footnotesize recomputed at the 0.8-rated threshold, since the official evaluate uses a 0.7 threshold that the 27 Ah}\\
 \multicolumn{14}{l}{\footnotesize sequence never reaches). AE in cycle units is scale-dependent -- see the case-study text.}\\
 \end{tabular}%
-}
 \end{table}
 
 
