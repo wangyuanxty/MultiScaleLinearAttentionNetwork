@@ -710,7 +710,12 @@ mechanism and its INT8 quantization is equally lossless
 (Table~\ref{tab:deploy}). The single-branch model is implemented in
 C and matches the PyTorch forward within floating-point rounding
 (relative error $< 3\times10^{-6}$ on the reference window), with
-8\,KB state per layer and no dynamic memory allocation. Full
+8\,KB state per layer and no dynamic memory allocation. The
+deployment advantage is deliberately \emph{not} parameter
+minimization---the model is not the smallest among the compared
+baselines---but deterministic memory behavior (a state that does not
+grow with sequence length) and incremental inference that can absorb
+hundreds of cycles of history. Full
 inference is projected at 8--12\,ms on an STM32F4 at 168\,MHz
 (from QEMU full-scan cycle counts, no on-silicon measurement). Power
 consumption is not reported because the QEMU emulator provides
