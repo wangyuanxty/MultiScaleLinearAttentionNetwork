@@ -49,10 +49,7 @@ crossing of the predicted capacity sequence, AE $= |\text{TRUL} -
 AE/TRUL the relative RUL error.
 
 \emph{Training configuration.} All models use Adam (learning rate
-$1\times10^{-3}$, batch size 64); CALCE and NASA use 200 epochs,
-the remaining datasets 100 epochs (the 100 vs.\ 200 choice is
-decided by the continuation study of Section~\ref{sec:limitations}),
-with a window of
+$1\times10^{-3}$, batch size 64) for 100 epochs with a window of
 $W{=}64$ cycles ($W{=}30$ for NASA, PANASONIC and GOTION, matching the
 window convention of the baseline literature). These settings were
 fixed during the ablation stage and held constant across datasets,
@@ -109,12 +106,12 @@ reported as mean over seeds.}
 \toprule
 Dataset & SP & TRUL & MAE & RMSE & R\textsuperscript{2} & AE \\
 \midrule
-CALCE & 300 & 339 & 0.0065$\pm$0.0007 & 0.0148$\pm$0.0014 & 0.9950$\pm$0.0009 & 2.9 \\
-  & 400 & 239 & 0.0076$\pm$0.0009 & 0.0166$\pm$0.0020 & 0.9935$\pm$0.0015 & 4.4 \\
-  & 500 & 139 & 0.0085$\pm$0.0010 & 0.0180$\pm$0.0017 & 0.9915$\pm$0.0016 & 5.0 \\
-NASA & 50 & 73 & 0.0078$\pm$0.0009 & 0.0132$\pm$0.0005 & 0.9923$\pm$0.0005 & 0.5 \\
-  & 70 & 53 & 0.0091$\pm$0.0007 & 0.0148$\pm$0.0005 & 0.9821$\pm$0.0013 & 1.0 \\
-  & 90 & 33 & 0.0083$\pm$0.0010 & 0.0118$\pm$0.0008 & 0.9795$\pm$0.0028 & 0.6 \\
+CALCE & 300 & 339 & 0.0066$\pm$0.0007 & 0.0146$\pm$0.0013 & 0.9951$\pm$0.0008 & 3.2 \\
+  & 400 & 239 & 0.0078$\pm$0.0010 & 0.0170$\pm$0.0019 & 0.9933$\pm$0.0015 & 2.5 \\
+  & 500 & 139 & 0.0092$\pm$0.0016 & 0.0196$\pm$0.0028 & 0.9898$\pm$0.0030 & 2.4 \\
+NASA & 50 & 73 & 0.0098$\pm$0.0018 & 0.0145$\pm$0.0013 & 0.9908$\pm$0.0018 & 0.9 \\
+  & 70 & 53 & 0.0089$\pm$0.0009 & 0.0148$\pm$0.0005 & 0.9822$\pm$0.0011 & 0.4 \\
+  & 90 & 33 & 0.0080$\pm$0.0009 & 0.0115$\pm$0.0011 & 0.9804$\pm$0.0036 & 0.5 \\
 PANASONIC & 300 & 287 & 0.0037$\pm$0.0003 & 0.0096$\pm$0.0001 & 0.9976$\pm$0.0001 & 0.8 \\
   & 400 & 187 & 0.0036$\pm$0.0002 & 0.0101$\pm$0.0001 & 0.9965$\pm$0.0001 & 0.8 \\
   & 500 & 87 & 0.0040$\pm$0.0003 & 0.0111$\pm$0.0003 & 0.9936$\pm$0.0003 & 0.9 \\
@@ -128,7 +125,7 @@ GOTION & 450 & 921 & 0.0074$\pm$0.0001 & 0.0101$\pm$0.0002 & 0.9970$\pm$0.0001 &
   & 600 & 771 & 0.0081$\pm$0.0003 & 0.0109$\pm$0.0004 & 0.9958$\pm$0.0003 & 10.7 \\
   & 750 & 621 & 0.0086$\pm$0.0001 & 0.0115$\pm$0.0003 & 0.9938$\pm$0.0003 & 15.1 \\
 \midrule
-\multicolumn{7}{l}{\emph{Average across all SPs and seeds: AE = 3.7 cycles, R\textsuperscript{2} = 0.9948, MAE = 0.0053.}} \\
+\multicolumn{7}{l}{\emph{Average across all SPs and seeds: AE = 3.4 cycles, R\textsuperscript{2} = 0.9947, MAE = 0.0054.}} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -168,8 +165,8 @@ $\sim$900 cycles---the canonical asset-monitoring regime. The model
 ranks second only to PatchFormer on every reported metric among all
 compared baselines (Table~\ref{tab:lit_calce}: MAE
 $0.0065$--$0.0085$ vs.\ $0.0057$--$0.0081$; R\textsuperscript{2} within $0.004$; AE
-mean $2.9$--$5.0$ vs.\ $0.9$--$1.0$); the AE seed-to-seed spread
-($1$--$7$ cycles, per-SP means $2.9$/$4.4$/$5.0$), comes from seeds
+mean $2.4$--$3.2$ vs.\ $0.9$--$1.0$); the AE seed-to-seed spread
+($1$--$7$ cycles, per-SP means $3.2$/$2.5$/$2.4$), comes from seeds
 whose near-flat tail crossing
 amplifies a small trajectory bias into several cycles of RUL error,
 as quantified below. \emph{Operational
@@ -204,14 +201,15 @@ iTransformer & & 0.0141 & 0.0229 & 0.9880 & 6.9 & 0.0166 & 0.0254 & 0.9849 & 8.1
 PathFormer & & 0.0431 & 0.0640 & 0.9060 & 40.3 & 0.0532 & 0.0713 & 0.8814 & 41.9 & 0.0659 & 0.0825 & 0.8212 & 43.4 \\
 RUL-Mamba$^{\mathsection}$ & & 0.0175 & 0.0307 & 0.9782 & 11.5 & 0.0201 & 0.0337 & 0.9733 & 13.1 & 0.0245 & 0.0387 & 0.9605 & 15.7 \\
 PatchFormer & & \textbf{0.0057} & \textbf{0.0129} & \textbf{0.9962} & \textbf{0.9} & \textbf{0.0068} & \textbf{0.0145} & \textbf{0.9951} & \textbf{0.9} & \textbf{0.0081} & \textbf{0.0164} & \textbf{0.9930} & \textbf{1.0} \\
-Ours & & 0.0065 & 0.0148 & 0.9950 & 2.9 & 0.0076 & 0.0166 & 0.9935 & 4.4 & 0.0085 & 0.0180 & 0.9915 & 5.0 \\\bottomrule
+Ours & & 0.0066 & 0.0146 & 0.9951 & 3.2 & 0.0078 & 0.0170 & 0.9933 & 2.5 & 0.0092 & 0.0196 & 0.9898 & 2.4 \\
+\bottomrule
 \end{tabular}%\par\medskip{\footnotesize Baselines self-run with the official repositories (10 repeats per SP, seeds 1--10); published values are given in the source citations.}
 \end{table}
 
 \emph{On the CALCE AE spread.} The AE column deserves an
 explicit note: across the ten seeds per SP the AE values span
-1--7 at SP300 (mean 2.9), 1--7 at SP400 (mean 4.4) and 1--7 at
-SP500 (mean 5.0), and the maximum is not a training failure but a
+1--7 at SP300 (mean 3.2), 1--7 at SP400 (mean 2.5) and 0--6 at
+SP500 (mean 2.4), and the maximum is not a training failure but a
 geometric property of the test cell. Near the EOL threshold the
 CALCE trajectory is nearly flat (local slope $\approx 0.0022$\,/cycle
 in normalized capacity, $\approx 1.9$\,mAh/cycle), so a local
@@ -223,15 +221,15 @@ The same mechanism keeps PatchFormer's CALCE AE in a narrow band
 mean and flag the seed-to-seed spread explicitly. On CALCE, where we
 additionally run PatchFormer's official code under our identical
 protocol, the self-run baseline gives AE $=$ 0.9 at SP300 against our
-AE $=$ 2.9 (R\textsuperscript{2} $0.9962$ vs.\ $0.9950$).
+AE $=$ 3.2 (R\textsuperscript{2} $0.9962$ vs.\ $0.9951$).
 
 \subsubsection{NASA: short-history rapid assessment}
 NASA (LCO, 2.0\,Ah, $\sim$168-cycle cells) is the shortest-history
 scenario---new assets or limited telemetry. With only 168 cycles the
-model still reaches R$^2 \ge 0.9795$ and mean AE $0.7$ cycles
+model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
 (Table~\ref{tab:lit_nasa}); on R\textsuperscript{2} we exceed the self-run
 PatchFormer result at SP90
-($0.9795$ vs.\ $0.9623$) and at SP70 ($0.9821$ vs.\ $0.9808$), while
+($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), while
 its MAE remains slightly ahead ($0.0083$ vs.\ $0.0072$ at SP90;
 AE $0.6$ vs.\ $2.5$).
 \emph{Operational implication:}
@@ -264,9 +262,9 @@ Autoformer & & 0.0234 & 0.0336 & 0.9341 & 3.6 & 0.0230 & 0.0340 & 0.8721 & 4.1 &
 FEDformer & & 0.0215 & 0.0266 & 0.9569 & 4.7 & 0.0199 & 0.0262 & 0.9217 & 5.0 & 0.0172 & 0.0237 & 0.8961 & 5.8 \\
 iTransformer & & 0.0076 & 0.0141 & 0.9891 & 5.4 & 0.0078 & 0.0149 & 0.9772 & 4.3 & 0.0086 & 0.0165 & 0.9528 & 4.5 \\
 PathFormer & & 0.0274 & 0.0375 & 0.9228 & 5.1 & 0.0214 & 0.0292 & 0.9100 & 5.6 & 0.0186 & 0.0248 & 0.8941 & 7.9 \\
-PatchFormer & & \textbf{0.0061} & \textbf{0.0122} & 0.9919 & \textbf{0.2} & \textbf{0.0072} & \textbf{0.0137} & 0.9808 & 1.4 & \textbf{0.0072} & 0.0148 & 0.9623 & 2.5 \\
+PatchFormer & & \textbf{0.0061} & \textbf{0.0122} & \textbf{0.9919} & \textbf{0.2} & \textbf{0.0072} & \textbf{0.0137} & 0.9808 & 1.4 & \textbf{0.0072} & 0.0148 & 0.9623 & 2.5 \\
 RUL-Mamba$^\dagger$ & & 0.0089 & 0.0142 & 0.9889 & 1.7 & 0.0090 & 0.0150 & 0.9771 & 1.3 & 0.0091 & 0.0158 & 0.9568 & 1.8 \\
-Ours & & 0.0078 & 0.0132 & \textbf{0.9923} & 0.5 & 0.0091 & 0.0148 & \textbf{0.9821} & \textbf{1.0} & 0.0083 & \textbf{0.0118} & \textbf{0.9795} & \textbf{0.6} \\
+Ours & & 0.0098 & 0.0145 & 0.9908 & 0.9 & 0.0089 & 0.0148 & \textbf{0.9822} & \textbf{0.4} & 0.0080 & \textbf{0.0115} & \textbf{0.9804} & \textbf{0.5} \\
 \bottomrule
 \end{tabular}%\par\medskip{\footnotesize Baselines self-run with the official repositories (10 repeats per SP, seeds 1--10); published values are given in the source citations.}
 \end{table}
@@ -768,12 +766,14 @@ ten seeds (dataset-level contrasts significant only on CALCE); the
 physics extension is also ten-seed, and the uncertainty study uses a
 single calibration cell (CS2\_36), with its coverage verified over
 ten training seeds ($93.5\%\pm0.9\%$). \emph{Epoch
-sensitivity.} We continued every CALCE and NASA per-SP model from
-100 to 200 epochs: CALCE improved $1.5\%$/$2.2\%$/$7.9\%$ (SP
-300/400/500, MAE) and NASA $19.6\%$ at SP50 with a $2$--$4\%$ loss
-at SP70/90, so both datasets use 200 epochs. Continuation to 300
-epochs plateaued within noise on both (CALCE $-0.6\%$/$-0.5\%$ and
-mixed SP500 seeds at $+11\%$/$-15\%$), so 300 is not used. The
+sensitivity.} A continuation study on CALCE and NASA (ten seeds
+per SP) probed the budget: extending every model from 100 to 200
+epochs helps unevenly---NASA SP50 gains $19.6\%$ in MAE while SP70
+and SP90 lose $2$--$4\%$, and the CALCE AE spread widens while its
+MAE improves $1.5$--$7.9\%$---and extension to 300 epochs adds
+nothing beyond noise. We therefore keep a \emph{uniform}
+100-epoch budget for every dataset and variant, so all compared
+models share one optimizer budget rather than a per-dataset one. The
 official-style 0.8/0.2 row-tail early stopping was also tried; the
 small validation window made it terminate at 2--16 epochs with
 systematically worse test metrics, so the fixed schedule is kept.
