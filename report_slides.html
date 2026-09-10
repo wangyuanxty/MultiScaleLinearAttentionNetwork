@@ -1,0 +1,457 @@
+<title>DeltaCycle 汇报幻灯</title>
+<style>
+  :root {
+    --paper: #F6F6F3; --surface: #FFFFFF; --ink: #171A2B; --ink-soft: #4A4F63;
+    --muted: #767C90; --line: #DCDDE3; --accent: #A75A28; --accent-soft: #F3E7DC;
+    --teal: #2C5A78; --teal-soft: #E3EBF1; --good: #2E7D52; --good-soft: #E3EFE8;
+    --warn-soft: #F6EADF;
+    --serif: Georgia, "Songti SC", "SimSun", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+    --mono: ui-monospace, "SFMono-Regular", Consolas, "Courier New", monospace;
+    --pad-x: clamp(30px, 6vw, 110px);
+    --pad-y: clamp(26px, 5.2vh, 72px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #13151F; --surface: #1B1E2B; --ink: #E8E9EF; --ink-soft: #B9BDCC;
+      --muted: #8B90A3; --line: #2C3040; --accent: #D98A4E; --accent-soft: #33261C;
+      --teal: #7FAECB; --teal-soft: #1E2A33; --good: #6FBF8F; --good-soft: #1D2E24;
+      --warn-soft: #2E241C;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #13151F; --surface: #1B1E2B; --ink: #E8E9EF; --ink-soft: #B9BDCC;
+    --muted: #8B90A3; --line: #2C3040; --accent: #D98A4E; --accent-soft: #33261C;
+    --teal: #7FAECB; --teal-soft: #1E2A33; --good: #6FBF8F; --good-soft: #1D2E24;
+    --warn-soft: #2E241C;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--paper); color: var(--ink); font-family: var(--sans);
+    font-size: clamp(13px, 1.25vw, 18px); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .deck { position: relative; height: 100dvh; overflow: hidden; }
+  .slide {
+    position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center;
+    padding: var(--pad-y) var(--pad-x); overflow: auto;
+  }
+  .slide.active { display: flex; animation: fade .22s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+  .inner { width: 100%; max-width: 1150px; margin: 0 auto; }
+
+  .kicker {
+    font-family: var(--mono); font-size: clamp(11px, 1vw, 13.5px); letter-spacing: .15em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 14px;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: clamp(11px, 1vw, 13.5px); letter-spacing: .13em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 10px;
+  }
+  h1 { font-family: var(--serif); font-size: clamp(34px, 5vw, 62px); line-height: 1.12; margin: 0 0 16px; letter-spacing: -.01em; text-wrap: balance; }
+  h2 { font-family: var(--serif); font-size: clamp(22px, 2.8vw, 38px); line-height: 1.22; margin: 0 0 clamp(14px, 2.4vh, 26px); text-wrap: balance; }
+  .sub { font-size: clamp(15px, 1.5vw, 21px); color: var(--ink-soft); margin: 0 0 22px; max-width: 62ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 30px; font-family: var(--mono); font-size: clamp(11.5px, 1.05vw, 14px); color: var(--muted); }
+  .meta b { color: var(--ink-soft); font-weight: 600; }
+  .hint { margin-top: 30px; font-family: var(--mono); font-size: clamp(11px, 1vw, 13px); color: var(--muted); }
+
+  ul.pts { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: clamp(10px, 1.6vh, 18px); }
+  ul.pts li { padding-left: 26px; position: relative; max-width: 78ch; }
+  ul.pts li::before { content: ""; position: absolute; left: 0; top: .58em; width: 9px; height: 9px; background: var(--accent); border-radius: 2px; }
+  ul.pts li b { font-weight: 650; }
+  .note { margin-top: clamp(14px, 2.2vh, 24px); padding: 14px 18px; background: var(--warn-soft); border-left: 3px solid var(--accent); font-size: clamp(12.5px, 1.15vw, 16px); }
+  .note.teal { background: var(--teal-soft); border-left-color: var(--teal); }
+  .note.good { background: var(--good-soft); border-left-color: var(--good); }
+  .hl { color: var(--accent); font-weight: 650; }
+  code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 3px; }
+
+  .t-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: clamp(11px, 1.1vw, 15px); font-variant-numeric: tabular-nums; }
+  th, td { padding: clamp(6px, .9vh, 11px) clamp(9px, 1vw, 15px); text-align: left; border-bottom: 1px solid var(--line); }
+  th { font-family: var(--mono); font-size: .82em; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; background: var(--paper); }
+  tr:last-child td { border-bottom: none; }
+  .win { color: var(--good); font-weight: 700; }
+  .gap { color: var(--accent); font-weight: 600; }
+  .num { font-family: var(--mono); }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: clamp(12px, 1.4vw, 18px); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--teal); border-radius: 4px; padding: clamp(13px, 1.5vw, 19px); }
+  .card .tag { font-family: var(--mono); font-size: .72em; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 8px; }
+  .card h3 { margin: 0 0 7px; font-size: 1.04em; }
+  .card p { margin: 0; font-size: .9em; color: var(--ink-soft); line-height: 1.5; }
+  .big { font-family: var(--mono); font-size: clamp(20px, 2.4vw, 32px); color: var(--accent); font-weight: 700; }
+
+  .qa { display: flex; flex-direction: column; gap: clamp(10px, 1.6vh, 18px); }
+  .qa .item { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: clamp(11px, 1.3vh, 16px) clamp(14px, 1.4vw, 20px); }
+  .qa .q { font-weight: 650; margin: 0 0 5px; font-size: 1em; }
+  .qa .a { margin: 0; font-size: .9em; color: var(--ink-soft); }
+  .qa .a b { color: var(--ink); }
+
+  .chain { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+  .chain li { display: grid; grid-template-columns: 74px 1fr; gap: 18px; padding: clamp(9px, 1.4vh, 15px) 0; border-bottom: 1px solid var(--line); }
+  .chain li:first-child { border-top: 1px solid var(--line); }
+  .chain .n { font-family: var(--mono); font-size: .92em; color: var(--accent); font-weight: 700; padding-top: 2px; }
+  .chain .t { font-weight: 650; display: block; margin-bottom: 2px; }
+  .chain .d { color: var(--ink-soft); font-size: .92em; margin: 0; }
+
+  .hud { position: fixed; bottom: 14px; right: 20px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .navbtns { position: fixed; bottom: 10px; left: 20px; display: flex; gap: 8px; }
+  .navbtns button {
+    font-family: var(--mono); font-size: 12px; color: var(--ink-soft); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 4px; padding: 5px 11px; cursor: pointer;
+  }
+  .navbtns button:hover { border-color: var(--accent); color: var(--accent); }
+  .navbtns button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0; transition: width .2s ease; }
+
+  @media print {
+    .hud, .navbtns, .progress { display: none !important; }
+    .deck { height: auto; overflow: visible; }
+    .slide { display: flex !important; position: static; height: auto; min-height: 88vh; page-break-after: always; animation: none; overflow: visible; }
+  }
+</style>
+
+<div class="progress" id="prog"></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide active">
+    <div class="inner">
+      <p class="kicker">组会汇报</p>
+      <h1>DeltaCycle</h1>
+      <p class="sub">面向片上部署的多尺度线性注意力电池老化预测<br>多尺度线性注意力 + 物理速率头 + 带覆盖率保证的预测区间，跑在 BMS 单片机上</p>
+      <div class="meta">
+        <span><b>目标期刊</b> Journal of Power Sources</span>
+        <span><b>评测</b> 6 数据集 × 10 seeds × per-SP 协议</span>
+        <span><b>基线</b> PatchFormer / RUL-Mamba 官方代码复现</span>
+      </div>
+      <p class="hint">→ / 空格 翻页 · ← 返回 · F11 全屏 · Ctrl+P 可打印成讲义</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">01 · 出发点</p>
+      <h2>每个维护决策同时需要三样东西，而现有监测技术给不了</h2>
+      <ul class="pts">
+        <li><b>足够准</b>——决策级精度，RUL 误差以循环计；</li>
+        <li><b>能上机</b>——跑进 BMS 单片机（内存行为可预测、不依赖云），而不是只在服务器上验证；</li>
+        <li><b>可信</b>——长周期与传感器损坏下仍然可信，并且显式给出风险区间。</li>
+      </ul>
+      <div class="note">现有模型的算力与内存按 <b>服务器/GPU 预算</b>设计：二次注意力矩阵随序列增长、需要动态分配，压不进单片机的实时与内存约束；同时预测以点轨迹交付、评测只在干净实验室数据上做。</div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">02 · 研究现状</p>
+      <h2>六条技术路线，各自留下的空缺</h2>
+      <div class="t-wrap">
+        <table>
+          <thead><tr><th>路线</th><th>代表工作</th><th>空缺</th></tr></thead>
+          <tbody>
+            <tr><td>模型驱动 + 传统 ML</td><td>电化学模型 + EKF／粒子滤波；SVM／SVR／RVM</td><td>参数辨识难；再生与异质退化吃力</td></tr>
+            <tr><td>深度序列模型</td><td>LSTM／GRU、CNN-BiLSTM、Transformer、PatchFormer、Autoformer／FEDformer／iTransformer</td><td><b>二次注意力 → 嵌入式受限</b></td></tr>
+            <tr><td>状态空间模型（Mamba）</td><td>Mamba、MambaLithium、<b>RUL-Mamba</b></td><td>效率只报 GPU；无嵌入式验证</td></tr>
+            <tr><td>灰色系统模型</td><td>分数阶灰色、灰色 Kalman、灰色迭代</td><td>形式需按化学／工况手工重构</td></tr>
+            <tr><td>物理信息模型（PINN）</td><td>PINN、PiDDM（Arrhenius 进目标）</td><td>常规注入路线在标准协议下失效</td></tr>
+            <tr><td>线性注意力／递归混合</td><td>Gated DeltaNet、<b>GDN-2</b></td><td>主战场在语言模型；电池 + 嵌入式空白</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">02 · 研究现状</p>
+      <h2>三条共同空缺 —— 也就是本文的切入点</h2>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">Gap 1</span>
+          <h3>部署开销不匹配</h3>
+          <p>按服务器预算设计，压不进 BMS 单片机；且已有工作没有给出边缘部署的性能证据（延迟／占用／精度损失）。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Gap 2</span>
+          <h3>点轨迹 ≠ 决策</h3>
+          <p>运维真正消费的是"多久内可能失效、风险多大"，而文献几乎只交付单条预测曲线。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Gap 3</span>
+          <h3>最难的场景没人测</h3>
+          <p>EOL 加速段（数据最稀薄）与传感器损坏场景——恰恰是决策最密集的地方——极少被评测。</p>
+        </div>
+      </div>
+      <div class="note teal">与我们直接可比的两条基线：<b>PatchFormer</b>（Transformer 线）与 <b>RUL-Mamba</b>（Mamba 线），均在统一协议下用官方代码复现。</div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">03 · 方法</p>
+      <h2>DeltaCycle：一个只吃容量的监测闭环</h2>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">Backbone</span>
+          <h3>多尺度线性注意力</h3>
+          <p>GDN-2 递归线性注意力：状态固定 <code>8 KB/层</code>、O(N) 扫描、零动态分配；patch 2/4/8 三支读局部／中期／长期。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Physics</span>
+          <h3>物理速率头</h3>
+          <p><code>r = softplus(w·h) + softplus(γ)·IR</code>，内阻只能加速衰减——结构上不可能产生非物理的"再生"。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Trust</span>
+          <h3>带覆盖率保证的区间</h3>
+          <p>一次前向输出 P2.5／P50／P97.5，再用 CQR 校准；分布无关、有限样本生效，无集成、无采样。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Deploy</span>
+          <h3>位精确的部署链</h3>
+          <p>单分支 C 实现与 PyTorch 在浮点舍入内一致（<code>&lt;3e-6</code>）；INT8 <code>1.94 MB → 484 KB</code>，精度无损。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">03 · 方法</p>
+      <h2>数据流：输入 → 编码 → 交换 → 输出</h2>
+      <ul class="chain">
+        <li><span class="n">IN</span><div><span class="t">最近 W 个循环的容量序列</span><p class="d">W=64（NASA／PANASONIC／GOTION 为 30）。<b>只吃容量</b>——电压/电流/温度/内阻的未来值推理时不可得；归一化用训练电池的全局 min–max。</p></div></li>
+        <li><span class="n">PATCH</span><div><span class="t">三个尺度并行编码</span><p class="d">同一窗口按 patch 2/4/8 切分（32/16/8 tokens）→ d=64 → 各两层 GDN-2。</p></div></li>
+        <li><span class="n">XCHG</span><div><span class="t">跨尺度交换</span><p class="d">每层后，粗分支矩阵状态（2048 元素）→ 单个查询 → 读细／中分支键值，残差加回（无门控）。</p></div></li>
+        <li><span class="n">OUT</span><div><span class="t">融合读出：下一循环容量</span><p class="d">三分支 last-token 拼接（192 维）→ Linear 128 → GELU → Linear 1；训练目标为窗口 z-score（与基线同口径）。评估是<b>非递归单步</b>：每步喂真实历史窗口。</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">04 · 实验设计</p>
+      <h2>六个数据集、同一把尺子</h2>
+      <ul class="pts">
+        <li><b>数据</b>：CALCE（LCO 1.1 Ah）、NASA（LCO 2.0）、MIT（LFP，跨电池）、PANASONIC（NCA 3.03，再生丰富）、TJU（NCM+NCA 2.5，长循环）、GOTION（<b>LFP 27 Ah 大尺寸工业电芯</b>）。</li>
+        <li><b>协议</b>：per-SP —— 每个 (数据集, SP, seed) 从零训练；训练集 = 其它电池全序列 + 测试电池 SP 之前的循环；评估从 SP 起。<b>每个 SP 训练 10 个独立模型</b>。</li>
+        <li><b>基线</b>：PatchFormer 与 RUL-Mamba 用<b>官方代码、同协议自跑</b>（10 repeats）；GOTION 的 SP 对齐 OmniTIEFormer 的 450/600/750。</li>
+        <li><b>预算</b>：全部数据集与变体<b>统一 100 epoch</b>、Adam 1e-3——所有对比模型共享同一优化预算。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">04 · 实验设计</p>
+      <h2>每个 SP 怎么打分</h2>
+      <div class="t-wrap">
+        <table>
+          <thead><tr><th>指标</th><th>定义</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>MAE / RMSE</td><td>预测容量轨迹 vs 真实轨迹</td><td class="num">归一化容量域</td></tr>
+            <tr><td>R²</td><td>轨迹拟合优度</td><td class="num">≤1，越高越好</td></tr>
+            <tr><td>TRUL</td><td>SP → 真实 EOL 穿越的循环数</td><td class="num">循环</td></tr>
+            <tr><td>PRUL</td><td>SP → 预测序列首次穿越阈值</td><td class="num">循环</td></tr>
+            <tr><td><b>AE</b></td><td>|TRUL − PRUL|</td><td class="num">循环，主指标</td></tr>
+            <tr><td>RE</td><td>AE / TRUL</td><td class="num">相对误差</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note teal">EOL 阈值 = 额定容量 × <b>70%</b>（小电芯）／<b>80%</b>（大尺寸：MIT、GOTION）。RUL 不由网络直接回归，而是由<b>预测轨迹首次穿越阈值的位置</b>推出；表内每格 = 10 个独立模型的均值±标准差。</div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ①</p>
+      <h2>精度：第一梯队，但并非处处第一</h2>
+      <div class="t-wrap">
+        <table>
+          <thead><tr><th>数据集</th><th>位置</th><th>关键数字</th></tr></thead>
+          <tbody>
+            <tr><td>PANASONIC</td><td class="win">高于全部已发表基线</td><td class="num">MAE 0.0036–0.0040 vs 最强 0.0105</td></tr>
+            <tr><td>TJU</td><td class="win">同协议第一</td><td class="num">0.0013 vs 0.0014；R² 0.9999</td></tr>
+            <tr><td>GOTION</td><td class="win">MAE 领先 6–8×</td><td class="num">0.0074–0.0086 vs 0.053–0.061</td></tr>
+            <tr><td>MIT</td><td>饱和区达标</td><td class="num">R² ≥ 0.9995（三个 SP）</td></tr>
+            <tr><td>NASA</td><td class="gap">SP70/90 的 R² 领先，SP50 落后</td><td class="num">R² 0.9804 vs 0.9623（SP90）</td></tr>
+            <tr><td>CALCE</td><td class="gap">第二（落后 PatchFormer）</td><td class="num">0.0066–0.0092 vs 0.0057–0.0081</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">弱项写进正文，不回避：CALCE 被 PatchFormer 压制、NASA SP50 落后、MIT 在饱和区与基线打平。</div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ②</p>
+      <h2>架构消融：跨尺度交换是必需的，不是装饰</h2>
+      <ul class="pts">
+        <li>三配置对照（单分支／三分支无交换／三分支+交换 = 我们的模型），CALCE 与 NASA 各 10 seeds。</li>
+        <li><b>去掉交换一致变差</b>：CALCE MAE <code>0.0068</code> vs <code>0.0065</code>（Wilcoxon <code>p=0.037</code>）；NASA 最差且种子方差最大（±0.0014）。</li>
+        <li>加交换后回到单分支水平（CALCE <code>p=0.625</code>），NASA 取得最优均值（0.0084 vs 0.0087）。</li>
+      </ul>
+      <div class="note good">可解释性证据：<b>粗分支自发编码退化阶段</b>——其池化表示在 PANASONIC 上以 <b>93.2%</b> 的线性可分度区分早／中／晚三段（随机基线 2.9 倍）。</div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ③</p>
+      <h2>物理：不是装饰性约束，而是可测量地起作用</h2>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">机制归因</span>
+          <h3>MAE 改善 <span class="big">53%</span></h3>
+          <p><code>0.00427±0.00002</code> vs 自由头 0.0065（10 seeds）；控制实验证明增益来自物理机制，而不是"绝对空间训练"这个副产品。</p>
+        </div>
+        <div class="card">
+          <span class="tag">外推</span>
+          <h3>R² <span class="big">0.775</span> vs 0.374</h3>
+          <p>未见尾段外推精度翻倍——恰是数据最稀薄、决策最密集的区间。</p>
+        </div>
+        <div class="card">
+          <span class="tag">鲁棒性</span>
+          <h3>四类损坏<span class="big">全胜</span></h3>
+          <p>drop30／高斯／脉冲等传感器损坏场景全部取胜，且不牺牲干净数据精度。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ④</p>
+      <h2>可信：区间覆盖率经 10-seed 验证</h2>
+      <ul class="pts">
+        <li>原始分位数在分布漂移下失准：覆盖率仅 <b>89.1%</b>（名义 95%）。</li>
+        <li>CQR 校准后：<b>93.5% ± 0.9%</b>（10 个训练 seed，逐 seed 区间 91.9–95.1%），代价是区间加宽 36%。</li>
+        <li>该区间给出"EOL 被漏报的概率上界"，可直接支撑更换排程。</li>
+      </ul>
+      <div class="note teal">术语说明：交付的是<b>预测区间</b>（覆盖未来真实观测），报的是<b>覆盖率</b>，不是统计意义上针对参数的"置信区间"。</div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ⑤</p>
+      <h2>可部署：位精确 + 确定性内存（不是靠参数少）</h2>
+      <ul class="pts">
+        <li>C 实现与 PyTorch 逐位一致（相对误差 <code>&lt;3e-6</code>），零动态分配，每层状态固定 8 KB。</li>
+        <li>INT8 量化 <code>1.94 MB → 484 KB</code>（−75%），精度几乎无损（AE 2.2→2.3）。</li>
+        <li>完整推理投影 <b>8–12 ms</b>（STM32F4 @168 MHz，QEMU 周期级仿真，非流片实测——论文明确声明）。</li>
+      </ul>
+      <div class="note"><b>定位要准</b>：参数量并不比基线小（484 K vs PatchFormer 23–98 K）；卖点是线性注意力带来的<b>确定性内存</b>（状态不随序列增长）与<b>全历史增量推理</b>（可把数百循环喂进同一状态）。</div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">06 · 预备问答（上）</p>
+      <div class="qa">
+        <div class="item">
+          <p class="q">为什么用 GDN-2，而不是 Transformer 或 Mamba？</p>
+          <p class="a"><b>架构更强 + 能部署。</b>GDN-2 属 delta-rule 线性注意力：矩阵状态带擦除门，能定点遗忘（Mamba 类对角状态只能加、不能精确擦除），文献中长上下文检索更强；同时状态固定 8 KB、O(N)、零分配。我们表里 MambaSimple 差距很大，RUL-Mamba 互有胜负但 R² 我们全胜。</p>
+        </div>
+        <div class="item">
+          <p class="q">物理头为什么一定要用内阻（IR）？</p>
+          <p class="a">路线研究的结果：目标正则伤害外推、特征拼接被容量历史冗余掉，都不成立；唯一在标准协议下存活的是<b>内阻驱动的速率头</b>——而且内阻是锂库存损失的宏观表征，方向性明确。</p>
+        </div>
+        <div class="item">
+          <p class="q">CALCE 上为什么输给 PatchFormer？</p>
+          <p class="a">单调平滑场景是 patch 式注意力的主场；我们 MAE/RMSE 落后、R² 接近。AE 差异另有几何解释：CALCE 尾段近乎平坦（≈1.9 mAh/cycle），小容量偏差会放大成数个循环的越界误差。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">06 · 预备问答（下）</p>
+      <div class="qa">
+        <div class="item">
+          <p class="q">为什么没有在全部数据集上都最优？</p>
+          <p class="a">论文主张是<b>"与协议匹配基线相比处于第一梯队"</b>，不是处处第一。输点集中在<b>平滑单调</b>（CALCE）与<b>历史极短</b>（NASA SP50）两类场景。不要归因为"线性注意力牺牲精度"——我们在三个数据集赢过二次注意力基线，且未做注意力类型的受控消融。</p>
+        </div>
+        <div class="item">
+          <p class="q">六个数据集会不会有 cherry-pick 嫌疑？</p>
+          <p class="a">同一 per-SP 协议、10 seeds；两个电池专用基线是<b>官方代码自跑</b>而非引用别家数字；GOTION 的起始点对齐同领域论文设定。</p>
+        </div>
+        <div class="item">
+          <p class="q">训练预算与基线一致吗？／MCU 只验证了单分支？</p>
+          <p class="a">预算：<b>全部数据集统一 100 epoch</b>（敏感性实验已做：200 收益不均、300 无增益、早停因验证窗口过小而弃用，均写入 limitations）。部署：验证的是<b>逐层状态机制</b>，单分支与主模型共享该机制；完整三分支需 ≥512 KB flash（论文已声明）。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">07 · 当前状态</p>
+      <h2>状态与下一步</h2>
+      <ul class="pts">
+        <li><b>已完成</b>：正文（6 数据集、4 张对比表、5 张图）与全部实验数据一致性核对；编译零错误；两条基线升级为官方代码统一复现（10 seeds）；不确定性层覆盖率补到 10 seeds。</li>
+        <li><b>主张边界</b>：第一梯队精度 + 三个独有的能力支柱（物理机制、风险区间、位精确部署）——不是"处处 SOTA"。</li>
+        <li><b>下一步</b>：全量 MIT 数据集、第二个校准电池、速率头在线自适应、片上功率实测（已列入 future work）。</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<div class="navbtns">
+  <button type="button" id="prev" aria-label="上一页">← 上页</button>
+  <button type="button" id="next" aria-label="下一页">下页 →</button>
+</div>
+<div class="hud" id="hud">1 / 16</div>
+
+<script>
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var i = 0, n = slides.length;
+    var hud = document.getElementById('hud');
+    var prog = document.getElementById('prog');
+
+    function show(k) {
+      i = Math.max(0, Math.min(n - 1, k));
+      slides.forEach(function (s, idx) { s.classList.toggle('active', idx === i); });
+      hud.textContent = (i + 1) + ' / ' + n;
+      prog.style.width = ((i + 1) / n * 100) + '%';
+      slides[i].scrollTop = 0;
+    }
+
+    function next() { show(i + 1); }
+    function prev() { show(i - 1); }
+
+    document.addEventListener('keydown', function (e) {
+      var k = e.key;
+      if (k === 'ArrowRight' || k === 'ArrowDown' || k === ' ' || k === 'PageDown' || k === 'Enter') { e.preventDefault(); next(); }
+      else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); prev(); }
+      else if (k === 'Home') { e.preventDefault(); show(0); }
+      else if (k === 'End') { e.preventDefault(); show(n - 1); }
+    });
+
+    document.getElementById('next').addEventListener('click', next);
+    document.getElementById('prev').addEventListener('click', prev);
+    show(0);
+  })();
+</script>
