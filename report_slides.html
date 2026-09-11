@@ -95,6 +95,18 @@
   .chain .t { font-weight: 650; display: block; margin-bottom: 2px; }
   .chain .d { color: var(--ink-soft); font-size: .92em; margin: 0; }
 
+  figure.fig { margin: clamp(12px, 2vh, 24px) 0 0; }
+  figure.fig img {
+    display: block; width: auto; height: auto; max-width: 100%; max-height: 62vh;
+    margin-inline: auto; border: 1px solid var(--line); border-radius: 4px; background: #fff;
+  }
+  figure.fig.mid img { max-width: 800px; }
+  figure.fig.mid figcaption { max-width: 800px; }
+  figure.fig figcaption {
+    font-family: var(--mono); font-size: clamp(10.5px, .95vw, 13px); color: var(--muted);
+    margin: 9px auto 0; line-height: 1.5; max-width: 96ch;
+  }
+
   .hud { position: fixed; bottom: 14px; right: 20px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
   .navbtns { position: fixed; bottom: 10px; left: 20px; display: flex; gap: 8px; }
   .navbtns button {
@@ -109,6 +121,7 @@
     .hud, .navbtns, .progress { display: none !important; }
     .deck { height: auto; overflow: visible; }
     .slide { display: flex !important; position: static; height: auto; min-height: 88vh; page-break-after: always; animation: none; overflow: visible; }
+    figure.fig img { max-height: none; }
   }
 </style>
 
@@ -222,6 +235,18 @@
     </div>
   </section>
 
+  <!-- 6a · 架构图 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">03 · 方法</p>
+      <h2>整体架构：三尺度并行编码 + 逐层跨尺度交换</h2>
+      <figure class="fig">
+        <img src="slides_assets/arch.png" alt="DeltaCycle 架构图：patch 2/4/8 三分支、每层 GDN-2 与 8 KB 状态、跨尺度交换、last-token 读出">
+        <figcaption>左上：同一窗口按 patch 2/4/8 切成 32/16/8 tokens，各接两层 GDN-2（每层状态 8 KB），分支间在<b>每一层之后</b>交换；右上：融合读出为 last-token → Linear 128 → GELU → Linear 1，右侧为四个数据集的拟合示例。下方：跨尺度交换细节（粗分支 2048 元素矩阵状态 → W<sub>q</sub> → 单查询注意力 → 残差加回）与硬件背景。</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- 6 -->
   <section class="slide">
     <div class="inner">
@@ -294,6 +319,42 @@
     </div>
   </section>
 
+  <!-- 9a · 轨迹拟合 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ① 附</p>
+      <h2>六个数据集的单步容量轨迹</h2>
+      <figure class="fig">
+        <img src="slides_assets/fig_traj.png" alt="六个数据集的真实容量轨迹与单步预测对比">
+        <figcaption>灰实线 = 真实容量；蓝虚线 = 单步预测（每步喂真实历史窗口，非递归）；绿虚线 = 各 SP；红点线 = EOL 阈值。从 CALCE 的尾段加速到 PANASONIC 的再生尖峰，预测都贴在真实轨迹上——这正是 AE 能压到个位数的原因。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 9b · 横向对比 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ① 附</p>
+      <h2>横向对比：同一协议下的平均轨迹 MAE</h2>
+      <figure class="fig">
+        <img src="slides_assets/fig_compare.png" alt="六个数据集上各方法的平均 MAE 对比（对数纵轴）">
+        <figcaption>纵轴对数，三个 SP 取平均。绿 = 本文；蓝 = PatchFormer／RUL-Mamba（官方代码、同协议自跑）；灰 = 文献汇报值。六格里四格领先（PANASONIC、TJU、GOTION、MIT 达标），CALCE 与 NASA 有输有赢。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 9c · 再生跟踪 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ① 附</p>
+      <h2>再生事件：非单调段也跟得住</h2>
+      <figure class="fig">
+        <img src="slides_assets/fig_regen.png" alt="PANASONIC 测试电池的容量再生跟踪：全局轨迹与局部放大">
+        <figcaption>左：PANASONIC 全轨迹（绿带标出再生段）；右：最强再生区放大（约第 430–437 循环）。模型跟随局部容量回升而不产生过冲；结构上单调的预测器无法表达这一模式。</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- 10 -->
   <section class="slide">
     <div class="inner">
@@ -305,6 +366,18 @@
         <li>加交换后回到单分支水平（CALCE <code>p=0.625</code>），NASA 取得最优均值（0.0084 vs 0.0087）。</li>
       </ul>
       <div class="note good">可解释性证据：<b>粗分支自发编码退化阶段</b>——其池化表示在 PANASONIC 上以 <b>93.2%</b> 的线性可分度区分早／中／晚三段（随机基线 2.9 倍）。</div>
+    </div>
+  </section>
+
+  <!-- 10a · 阶段可分性 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">05 · 结果 ② 附</p>
+      <h2>粗分支自发编码退化阶段</h2>
+      <figure class="fig">
+        <img src="slides_assets/fig_stages.png" alt="粗分支特征的 PCA 投影与阶段分类混淆矩阵">
+        <figcaption>PANASONIC 测试电池，粗分支（patch 8）池化表示的 PCA 投影按早／中／晚三段自然分层；线性分类器准确率 <b>93.2%</b>（随机基线 33%），混淆矩阵几乎只在相邻段之间出错。这正是跨尺度交换能把"阶段"信息递给细分支的原因——也说明多尺度不是把同一信号算三遍。</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -330,6 +403,10 @@
           <p>drop30／高斯／脉冲等传感器损坏场景全部取胜，且不牺牲干净数据精度。</p>
         </div>
       </div>
+      <figure class="fig mid">
+        <img src="slides_assets/fig_extrap.png" alt="CALCE 未见尾段外推：自由头 vs 速率头+内阻">
+        <figcaption>CALCE 未见尾段外推（训练 90%，评估虚线右侧 10%）。黑 = 真实容量；灰点线 = 末值延续；红 = 自由头读出（R²=0.374）；绿 = 速率头 + 内阻（R²=0.775）。自由头在未见区锚定并漂移，速率头继续跟随衰减包络。</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -344,6 +421,10 @@
         <li>该区间给出"EOL 被漏报的概率上界"，可直接支撑更换排程。</li>
       </ul>
       <div class="note teal">术语说明：交付的是<b>预测区间</b>（覆盖未来真实观测），报的是<b>覆盖率</b>，不是统计意义上针对参数的"置信区间"。</div>
+      <figure class="fig mid">
+        <img src="slides_assets/fig_uq_band.png" alt="CALCE 测试电池的 CQR 校准预测区间">
+        <figcaption>CALCE 测试电池：浅蓝 = 95% 预测区间（CQR 校准），红线 = P50 中位预测，黑线 = 真实容量。区间宽度就是"EOL 被漏报"的概率上界的直接来源。</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -358,6 +439,10 @@
         <li>完整推理投影 <b>8–12 ms</b>（STM32F4 @168 MHz，QEMU 周期级仿真，非流片实测——论文明确声明）。</li>
       </ul>
       <div class="note"><b>定位要准</b>：参数量并不比基线小（484 K vs PatchFormer 23–98 K）；卖点是线性注意力带来的<b>确定性内存</b>（状态不随序列增长）与<b>全历史增量推理</b>（可把数百循环喂进同一状态）。</div>
+      <figure class="fig mid">
+        <img src="slides_assets/fig_deploy.png" alt="INT8 量化后的权重内存与 MCU 推理延迟">
+        <figcaption>左：INT8 量化把权重内存从 1.94 MB 压到 484 KB（−75%），AE 2.2→2.3 基本无损；右：整段推理延迟，QEMU 周期级仿真投影（非流片实测，论文中明确声明）。</figcaption>
+      </figure>
     </div>
   </section>
 
