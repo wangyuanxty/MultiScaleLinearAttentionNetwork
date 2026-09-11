@@ -216,7 +216,7 @@
         </div>
         <div class="card">
           <span class="tag">Physics</span>
-          <h3>物理速率头</h3>
+          <h3>物理约束</h3>
           <p><code>r = softplus(w·h) + softplus(γ)·IR</code>，内阻只能加速衰减。</p>
         </div>
         <div class="card">
@@ -251,10 +251,10 @@
       <p class="eyebrow">03 · 方法</p>
       <h2>数据流：输入 → 编码 → 交换 → 输出</h2>
       <ul class="chain">
-        <li><span class="n">IN</span><div><span class="t">最近 W 个循环的容量序列</span><p class="d">W=64（NASA／PANASONIC／GOTION 为 30）。<b>仅以容量为输入</b>——电压/电流/温度/内阻的未来值推理时不可得；归一化用训练电池的全局 min–max。</p></div></li>
+        <li><span class="n">IN</span><div><span class="t">最近 W 个循环的容量序列</span><p class="d">W=64（NASA／PANASONIC／GOTION 为 30）。<b>仅以容量为输入</b>——电压/电流/温度/内阻的未来值推理时不可得。</p></div></li>
         <li><span class="n">PATCH</span><div><span class="t">三个尺度并行编码</span><p class="d">同一窗口按 patch 2/4/8 切分（32/16/8 tokens）→ d=64 → 各两层 GDN-2。</p></div></li>
-        <li><span class="n">XCHG</span><div><span class="t">跨尺度交换</span><p class="d">每层后，粗分支矩阵状态（2048 元素）→ 单个查询 → 读细／中分支键值，残差加回（无门控）。</p></div></li>
-        <li><span class="n">OUT</span><div><span class="t">融合读出：下一循环容量</span><p class="d">三分支 last-token 拼接（192 维）→ Linear 128 → GELU → Linear 1；训练目标为窗口 z-score（与基线同口径）。评估是<b>非递归单步</b>：每步输入真实历史窗口。</p></div></li>
+        <li><span class="n">XCHG</span><div><span class="t">跨尺度交换</span><p class="d">粗分支的退化阶段状态作为单查询，融合细、中分支信息，残差连接</p></div></li>
+        <li><span class="n">OUT</span><div><span class="t">融合读出：下一循环容量</span><p class="d">三分支 last-token 拼接（192 维）→ Linear 128 → GELU → Linear 1。</p></div></li>
       </ul>
     </div>
   </section>
@@ -267,7 +267,7 @@
       <ul class="pts">
         <li><b>数据</b>：CALCE（LCO 1.1 Ah）、NASA（LCO 2.0）、MIT（LFP，跨电池）、PANASONIC（NCA 3.03，再生丰富）、TJU（NCM+NCA 2.5，长循环）、GOTION（<b>LFP 27 Ah 大尺寸工业电芯</b>）。</li>
         <li><b>协议</b>：per-SP —— 每个 (数据集, SP, seed) 从零训练；训练集 = 其它电池全序列 + 测试电池 SP 之前的循环；评估从 SP 起。<b>每个 SP 训练 10 个独立模型</b>。</li>
-        <li><b>基线</b>：PatchFormer 与 RUL-Mamba 用<b>官方代码、同协议自行运行</b>（10 repeats）；GOTION 的 SP 对齐 OmniTIEFormer 的 450/600/750。</li>
+        <li><b>基线</b>：PatchFormer 与 RUL-Mamba 用<b>官方代码、同协议自行运行</b>（10 repeats）。</li>
         <li><b>预算</b>：全部数据集与变体<b>统一 100 epoch</b>、Adam 1e-3——所有对比模型共享同一优化预算。</li>
       </ul>
     </div>
