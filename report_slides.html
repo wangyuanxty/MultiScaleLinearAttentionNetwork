@@ -134,7 +134,7 @@
     <div class="inner">
       <p class="kicker">组会汇报</p>
       <h1>DeltaCycle</h1>
-      <p class="sub">面向片上部署的多尺度线性注意力电池老化预测<br>多尺度线性注意力 + 物理速率头 + 带覆盖率保证的预测区间，运行在 BMS 单片机上</p>
+      <p class="sub">面向边缘部署的多尺度线性注意力电池老化预测<br>多尺度线性注意力 + 物理速率头 + 带覆盖率保证的预测区间，运行在 BMS 单片机上</p>
       <div class="meta">
         <span><b>目标期刊</b> Journal of Power Sources</span>
         <span><b>评测</b> 6 数据集 × 10 seeds × per-SP 协议</span>
@@ -167,7 +167,7 @@
         <table>
           <thead><tr><th>路线</th><th>代表工作</th><th>空缺</th></tr></thead>
           <tbody>
-            <tr><td>模型驱动 + 传统 ML</td><td>电化学模型 + EKF／粒子滤波；SVM／SVR／RVM</td><td>参数辨识难；再生与异质退化吃力</td></tr>
+            <tr><td>模型驱动 + 传统 ML</td><td>电化学模型 + EKF／粒子滤波；SVM／SVR／RVM</td><td>参数辨识难；再生与异质退化难以处理</td></tr>
             <tr><td>深度序列模型</td><td>LSTM／GRU、CNN-BiLSTM、Transformer、PatchFormer、Autoformer／FEDformer／iTransformer</td><td><b>二次注意力 → 嵌入式受限</b></td></tr>
             <tr><td>状态空间模型（Mamba）</td><td>Mamba、MambaLithium、<b>RUL-Mamba</b></td><td>效率只报 GPU；无嵌入式验证</td></tr>
             <tr><td>灰色系统模型</td><td>分数阶灰色、灰色 Kalman、灰色迭代</td><td>形式需按化学／工况手工重构</td></tr>
@@ -209,7 +209,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">03 · 方法</p>
-      <h2>DeltaCycle：一个只吃容量的监测闭环</h2>
+      <h2>DeltaCycle：一个仅以容量为输入的监测闭环</h2>
       <div class="cards">
         <div class="card">
           <span class="tag">Backbone</span>
@@ -253,10 +253,10 @@
       <p class="eyebrow">03 · 方法</p>
       <h2>数据流：输入 → 编码 → 交换 → 输出</h2>
       <ul class="chain">
-        <li><span class="n">IN</span><div><span class="t">最近 W 个循环的容量序列</span><p class="d">W=64（NASA／PANASONIC／GOTION 为 30）。<b>只吃容量</b>——电压/电流/温度/内阻的未来值推理时不可得；归一化用训练电池的全局 min–max。</p></div></li>
+        <li><span class="n">IN</span><div><span class="t">最近 W 个循环的容量序列</span><p class="d">W=64（NASA／PANASONIC／GOTION 为 30）。<b>仅以容量为输入</b>——电压/电流/温度/内阻的未来值推理时不可得；归一化用训练电池的全局 min–max。</p></div></li>
         <li><span class="n">PATCH</span><div><span class="t">三个尺度并行编码</span><p class="d">同一窗口按 patch 2/4/8 切分（32/16/8 tokens）→ d=64 → 各两层 GDN-2。</p></div></li>
         <li><span class="n">XCHG</span><div><span class="t">跨尺度交换</span><p class="d">每层后，粗分支矩阵状态（2048 元素）→ 单个查询 → 读细／中分支键值，残差加回（无门控）。</p></div></li>
-        <li><span class="n">OUT</span><div><span class="t">融合读出：下一循环容量</span><p class="d">三分支 last-token 拼接（192 维）→ Linear 128 → GELU → Linear 1；训练目标为窗口 z-score（与基线同口径）。评估是<b>非递归单步</b>：每步喂真实历史窗口。</p></div></li>
+        <li><span class="n">OUT</span><div><span class="t">融合读出：下一循环容量</span><p class="d">三分支 last-token 拼接（192 维）→ Linear 128 → GELU → Linear 1；训练目标为窗口 z-score（与基线同口径）。评估是<b>非递归单步</b>：每步输入真实历史窗口。</p></div></li>
       </ul>
     </div>
   </section>
@@ -269,7 +269,7 @@
       <ul class="pts">
         <li><b>数据</b>：CALCE（LCO 1.1 Ah）、NASA（LCO 2.0）、MIT（LFP，跨电池）、PANASONIC（NCA 3.03，再生丰富）、TJU（NCM+NCA 2.5，长循环）、GOTION（<b>LFP 27 Ah 大尺寸工业电芯</b>）。</li>
         <li><b>协议</b>：per-SP —— 每个 (数据集, SP, seed) 从零训练；训练集 = 其它电池全序列 + 测试电池 SP 之前的循环；评估从 SP 起。<b>每个 SP 训练 10 个独立模型</b>。</li>
-        <li><b>基线</b>：PatchFormer 与 RUL-Mamba 用<b>官方代码、同协议自跑</b>（10 repeats）；GOTION 的 SP 对齐 OmniTIEFormer 的 450/600/750。</li>
+        <li><b>基线</b>：PatchFormer 与 RUL-Mamba 用<b>官方代码、同协议自行运行</b>（10 repeats）；GOTION 的 SP 对齐 OmniTIEFormer 的 450/600/750。</li>
         <li><b>预算</b>：全部数据集与变体<b>统一 100 epoch</b>、Adam 1e-3——所有对比模型共享同一优化预算。</li>
       </ul>
     </div>
@@ -326,7 +326,7 @@
       <h2>六个数据集的单步容量轨迹</h2>
       <figure class="fig">
         <img src="slides_assets/fig_traj.png" alt="六个数据集的真实容量轨迹与单步预测对比">
-        <figcaption>灰实线 = 真实容量；蓝虚线 = 单步预测（每步喂真实历史窗口，非递归）；绿虚线 = 各 SP；红点线 = EOL 阈值。从 CALCE 的尾段加速到 PANASONIC 的再生尖峰，预测都贴在真实轨迹上——这正是 AE 能压到个位数的原因。</figcaption>
+        <figcaption>灰实线 = 真实容量；蓝虚线 = 单步预测（每步输入真实历史窗口，非递归）；绿虚线 = 各 SP；红点线 = EOL 阈值。从 CALCE 的尾段加速到 PANASONIC 的再生尖峰，预测都贴在真实轨迹上——这正是 AE 能降到个位数的原因。</figcaption>
       </figure>
     </div>
   </section>
@@ -338,7 +338,7 @@
       <h2>横向对比：同一协议下的平均轨迹 MAE</h2>
       <figure class="fig">
         <img src="slides_assets/fig_compare.png" alt="六个数据集上各方法的平均 MAE 对比（对数纵轴）">
-        <figcaption>纵轴对数，三个 SP 取平均。绿 = 本文；蓝 = PatchFormer／RUL-Mamba（官方代码、同协议自跑）；灰 = 文献汇报值。六格里四格领先（PANASONIC、TJU、GOTION、MIT 达标），CALCE 与 NASA 有输有赢。</figcaption>
+        <figcaption>纵轴对数，三个 SP 取平均。绿 = 本文；蓝 = PatchFormer／RUL-Mamba（官方代码、同协议自跑）；灰 = 文献汇报值。六格里四格领先（PANASONIC、TJU、GOTION、MIT 达标），CALCE 与 NASA 互有胜负。</figcaption>
       </figure>
     </div>
   </section>
@@ -438,7 +438,7 @@
         <li>INT8 量化 <code>1.94 MB → 484 KB</code>（−75%），精度几乎无损（AE 2.2→2.3）。</li>
         <li>完整推理投影 <b>8–12 ms</b>（STM32F4 @168 MHz，QEMU 周期级仿真，非流片实测——论文明确声明）。</li>
       </ul>
-      <div class="note"><b>定位要准</b>：参数量并不比基线小（484 K vs PatchFormer 23–98 K）；卖点是线性注意力带来的<b>确定性内存</b>（状态不随序列增长）与<b>全历史增量推理</b>（可把数百循环喂进同一状态）。</div>
+      <div class="note"><b>定位要准</b>：参数量并不比基线小（484 K vs PatchFormer 23–98 K）；卖点是线性注意力带来的<b>确定性内存</b>（状态不随序列增长）与<b>全历史增量推理</b>（可把数百循环送入同一状态）。</div>
       <figure class="fig mid">
         <img src="slides_assets/fig_deploy.png" alt="INT8 量化后的权重内存与 MCU 推理延迟">
         <figcaption>左：INT8 量化把权重内存从 1.94 MB 压到 484 KB（−75%），AE 2.2→2.3 基本无损；右：整段推理延迟，QEMU 周期级仿真投影（非流片实测，论文中明确声明）。</figcaption>
@@ -475,7 +475,7 @@
       <div class="qa">
         <div class="item">
           <p class="q">既然每次输入都是固定窗口，线性注意力在这里起什么作用？</p>
-          <p class="a"><b>在固定窗口下没有内存或速度上的优势</b>——L=32 时注意力矩阵只有 4 KB，常数内存对任何固定窗口模型都成立。真正起作用的地方是<b>内存预算与上下文长度解耦</b>：注意力缓冲 ∝ L²，给定 SRAM 就存在一个能跑的最大上下文；我们的状态 O(1)，没有这个上限。</p>
+          <p class="a"><b>在固定窗口下没有内存或速度上的优势</b>——L=32 时注意力矩阵只有 4 KB，常数内存对任何固定窗口模型都成立。真正起作用的地方是<b>内存预算与上下文长度解耦</b>：注意力缓冲 ∝ L²，给定 SRAM 就存在一个可容纳的最大上下文；我们的状态 O(1)，没有这个上限。</p>
         </div>
         <div class="item">
           <p class="q">RUL-Mamba 同样基于线性时间架构，两者的区别在哪里？</p>
@@ -483,7 +483,7 @@
         </div>
         <div class="item">
           <p class="q">线性注意力在计算效率上有优势吗？</p>
-          <p class="a"><b>在上下文变长时是必然的</b>：单步代价 O(1)、总代价 O(L)，而注意力是 O(L²)。<b>在当前工作点上体现不出来</b>——L=32 时注意力 ≈4.1k／token，我们 ≈10.2k（每 token 五趟 d<sub>k</sub>×d<sub>v</sub> 读写 ×4 头），交叉点约 <b>L≈80</b>；且递归沿时间是串行的、注意力是稠密矩阵乘，GPU 上更有优势。<b>但超过 L≈80 之后差距只会拉大，而受 SRAM 限制，注意力最终根本跑不到那么长的上下文。</b></p>
+          <p class="a"><b>在上下文变长时是必然的</b>：单步代价 O(1)、总代价 O(L)，而注意力是 O(L²)。<b>在当前工作点上体现不出来</b>——L=32 时注意力 ≈4.1k／token，我们 ≈10.2k（每 token 五趟 d<sub>k</sub>×d<sub>v</sub> 读写 ×4 头），交叉点约 <b>L≈80</b>；且递归沿时间是串行的、注意力是稠密矩阵乘，GPU 上更有优势。<b>但超过 L≈80 之后差距只会拉大，而受 SRAM 限制，注意力最终根本无法达到那么长的上下文。</b></p>
         </div>
       </div>
     </div>
@@ -500,7 +500,7 @@
         </div>
         <div class="item">
           <p class="q">六个数据集会不会有 cherry-pick 嫌疑？</p>
-          <p class="a">同一 per-SP 协议、10 seeds；两个电池专用基线是<b>官方代码自跑</b>而非引用别家数字；GOTION 的起始点对齐同领域论文设定。</p>
+          <p class="a">同一 per-SP 协议、10 seeds；两个电池专用基线是<b>官方代码自行运行</b>而非引用别家数字；GOTION 的起始点对齐同领域论文设定。</p>
         </div>
         <div class="item">
           <p class="q">训练预算与基线一致吗？／MCU 只验证了单分支？</p>
