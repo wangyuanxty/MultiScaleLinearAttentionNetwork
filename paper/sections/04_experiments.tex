@@ -711,9 +711,12 @@ C and matches the PyTorch forward within floating-point rounding
 8\,KB state per layer and no dynamic memory allocation. The
 deployment advantage is deliberately \emph{not} parameter
 minimization---the model is not the smallest among the compared
-baselines---but deterministic memory behavior (a state that does not
-grow with sequence length) and incremental inference that can absorb
-hundreds of cycles of history. Full
+baselines---but a memory budget decoupled from context length: the
+per-layer state is a fixed $d_k\times d_v$ matrix and the per-cycle
+cost is constant, so the window is a free design parameter that can be
+lengthened to meet application requirements without re-planning SRAM,
+whereas a quadratic attention buffer forces a resolution/memory
+trade-off as the window grows. Full
 inference is projected at 8--12\,ms on an STM32F4 at 168\,MHz
 (from QEMU full-scan cycle counts, no on-silicon measurement). Power
 consumption is not reported because the QEMU emulator provides
@@ -735,7 +738,7 @@ tokens at $d{=}64$ ($=d_{\text{model}}$). (3) Quantization: dynamic
 INT8 reduces weights from 1.94\,MB to 484\,KB ($-75\%$) with AE
 2.2$\to$2.3 (lossless). (4) On-board inference in C: two GDN-2
 layers with a fixed 8\,KB state per layer (16\,KB total, zero
-dynamic allocation) updated incrementally per cycle. (5) Fused
+dynamic allocation) updated over the window scan. (5) Fused
 last-token readout predicts $\hat{c}_{t+1}$ in one step. (6) The
 P2.5/P50/P97.5 outputs drive calibrated RUL decisions at
 8--12\,ms per inference on STM32F4 (168\,MHz).}

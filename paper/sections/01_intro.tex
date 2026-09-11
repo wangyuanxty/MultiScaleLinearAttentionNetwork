@@ -75,7 +75,8 @@ feasibility is not addressed.
 
 Despite these advances, four limitations remain. First, quadratic
 self-attention makes Transformer-based models difficult to deploy on
-microcontrollers (MCUs) used in BMS: the attention score matrix grows
+microcontrollers (MCUs) used in BMS once the required context
+outgrows a fixed attention buffer: the attention score matrix grows
 with sequence length, requiring dynamic memory allocation that is
 undesirable in safety-critical firmware. Second, degradation
 information lives at multiple time scales---fast regeneration
@@ -163,9 +164,11 @@ cabinets, and power-battery packs. The pipeline starts from public
 cycling datasets (CALCE, NASA, MIT, PANASONIC, TJU, GOTION), performs data
 preprocessing and trains a fresh model per (dataset, starting point,
 seed) under the PatchFormer-consistent protocol, and exports an
-INT8-quantized model whose fixed 8\,KB state and linear-time
-scan make it deployable on resource-constrained embedded
-devices, laying the foundation for on-device online monitoring.
+INT8-quantized model whose fixed 8\,KB recurrent state does not grow
+with the context window, so the window can be lengthened to meet
+accuracy requirements without the quadratic attention buffer that
+would otherwise dominate SRAM---laying the foundation for on-device
+online monitoring.
 Application images are illustrative; the experimental validation is
 conducted on public laboratory data.}
 \label{fig:overview}
