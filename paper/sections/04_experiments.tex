@@ -715,8 +715,9 @@ baselines---but a memory budget decoupled from context length: the
 per-layer state is a fixed $d_k\times d_v$ matrix and the per-cycle
 cost is constant, so the window is a free design parameter that can be
 lengthened to meet application requirements without re-planning SRAM,
-whereas a quadratic attention buffer forces a resolution/memory
-trade-off as the window grows. Full
+whereas a quadratic attention buffer grows with the square of the
+context: the window cannot be lengthened without either a larger
+buffer or a coarser representation of the same history. Full
 inference is projected at 8--12\,ms on an STM32F4 at 168\,MHz
 (from QEMU full-scan cycle counts, no on-silicon measurement). Power
 consumption is not reported because the QEMU emulator provides
@@ -780,10 +781,7 @@ models share one optimizer budget rather than a per-dataset one. The
 official-style 0.8/0.2 row-tail early stopping was also tried; the
 small validation window made it terminate at 2--16 epochs with
 systematically worse test metrics, so the fixed schedule is kept.
-The remaining
-planned evaluations (full 124-cell MIT set, additional seeds, a
-second calibration cell, and a quantitative replacement-policy cost
-example) are left to the final version. MCU latency
+MCU latency
 is projected from cycle-accurate emulation rather than measured on
 silicon, and no on-device power figure is reported. All validation
 is on public laboratory cycling data; field conditions such as

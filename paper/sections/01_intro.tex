@@ -113,10 +113,14 @@ attention layer with a fixed-size matrix state (8\,KB per layer in
 the deployed configuration), and ship a full C
 implementation that matches the PyTorch forward within
 floating-point rounding, with arithmetic and libm components
-verified bit-identical across x86 and ARM emulation. Operationally, the
-accuracy machinery is no longer tied to the cloud: the model runs
-inside the BMS microcontroller itself---the prerequisite for
-per-device monitoring at fleet scale and near-zero marginal cost.
+verified bit-identical across x86 and ARM emulation. Because the state
+does not grow with the window, the deployed model can represent a
+longer history at full resolution where a quadratic attention buffer
+would force either more SRAM or a coarser representation.
+Operationally, the accuracy machinery is no longer tied to the
+cloud: the model runs inside the BMS microcontroller itself---the
+prerequisite for per-device monitoring at fleet scale and near-zero
+marginal cost.
 
 \item \textbf{Multi-scale branches with stage-query cross-scale
 exchange.} Three patch branches (sizes 2/4/8) read degradation at
