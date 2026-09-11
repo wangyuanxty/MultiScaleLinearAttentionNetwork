@@ -181,20 +181,25 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">02 · 研究现状</p>
-      <h2>三大指标存在共性欠缺，即本文的切入点</h2>
+      <h2>三项指标存在以下共性欠缺，即本文的切入点</h2>
       <div class="cards">
         <div class="card">
           <span class="tag">Gap 1</span>
+          <h3>退化信息的多尺度性</h3>
+          <p>容量衰退同时包含快速再生、阶段转换与长期单调下滑；按单一时间尺度处理，会抹平再生回升或丢失全局趋势。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Gap 2</span>
           <h3>部署开销不匹配</h3>
           <p>按服务器预算设计，无法运行在 BMS 单片机上；且已有工作没有给出边缘部署的性能证据（延迟／占用／精度损失）。</p>
         </div>
         <div class="card">
-          <span class="tag">Gap 2</span>
+          <span class="tag">Gap 3</span>
           <h3>点轨迹 ≠ 决策</h3>
           <p>运维决策依赖的是失效时间范围与风险水平，而文献普遍只输出单点预测，未提供置信区间。</p>
         </div>
         <div class="card">
-          <span class="tag">Gap 3</span>
+          <span class="tag">Gap 4</span>
           <h3>复杂工况下预测难题</h3>
           <p>目前已有的工作都是在实验室数据上预测的，缺少应对实际带噪声数据的验证。</p>
         </div>
@@ -207,7 +212,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">03 · 方法</p>
-      <h2>DeltaCycle：一个仅以容量为输入的监测闭环</h2>
+      <h2>DeltaCycle：仅以容量为输入的多尺度预测模型</h2>
       <div class="cards">
         <div class="card">
           <span class="tag">Backbone</span>
@@ -263,7 +268,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">04 · 实验设计</p>
-      <h2>六个数据集、同一把尺子</h2>
+      <h2>六个数据集、统一评测协议</h2>
       <ul class="pts">
         <li><b>数据</b>：CALCE（LCO 1.1 Ah）、NASA（LCO 2.0）、MIT（LFP，跨电池）、PANASONIC（NCA 3.03，再生丰富）、TJU（NCM+NCA 2.5，长循环）、GOTION（<b>LFP 27 Ah 大尺寸工业电芯</b>）。</li>
         <li><b>协议</b>：per-SP —— 每个 (数据集, SP, seed) 从零训练；训练集 = 其它电池全序列 + 测试电池 SP 之前的循环；评估从 SP 起。<b>每个 SP 训练 10 个独立模型</b>。</li>
@@ -277,7 +282,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">04 · 实验设计</p>
-      <h2>每个 SP 怎么打分</h2>
+      <h2>评测指标与打分方式</h2>
       <div class="t-wrap">
         <table>
           <thead><tr><th>指标</th><th>定义</th><th>说明</th></tr></thead>
@@ -299,7 +304,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">05 · 结果 ①</p>
-      <h2>精度：第一梯队，但并非处处第一</h2>
+      <h2>各数据集的精度对比</h2>
       <div class="t-wrap">
         <table>
           <thead><tr><th>数据集</th><th>位置</th><th>关键数字</th></tr></thead>
@@ -313,7 +318,7 @@
           </tbody>
         </table>
       </div>
-      <div class="note">弱项写进正文，不回避：CALCE 被 PatchFormer 压制、NASA SP50 落后、MIT 在饱和区与基线打平。</div>
+      <div class="note"><b>已知弱项</b>：CALCE 被 PatchFormer 压制、NASA SP50 落后、MIT 在饱和区与基线打平。</div>
     </div>
   </section>
 
@@ -357,13 +362,12 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">05 · 结果 ②</p>
-      <h2>架构消融：跨尺度交换是必需的，不是装饰</h2>
+      <h2>架构消融：跨尺度交换提升精度与稳定性</h2>
       <ul class="pts">
-        <li>三配置对照（单分支／三分支无交换／三分支+交换 = 我们的模型），CALCE 与 NASA 各 10 seeds。</li>
-        <li><b>去掉交换一致变差</b>：CALCE MAE <code>0.0068</code> vs <code>0.0065</code>（Wilcoxon <code>p=0.037</code>）；NASA 最差且种子方差最大（±0.0014）。</li>
-        <li>加交换后回到单分支水平（CALCE <code>p=0.625</code>），NASA 取得最优均值（0.0084 vs 0.0087）。</li>
+        <li>三配置对照（单分支／三分支无交换／三分支+交换 = 我们的模型），NASA，10 seeds。</li>
+        <li><b>去掉交换：不只是变差，是变不稳。</b>MAE <code>0.0087 → 0.0098</code>，种子标准差同时从 <code>±0.0002</code> 放大到 <code>±0.0014</code>（7 倍）。</li>
+        <li><b>加回交换：三项指标全面最优。</b>MAE <code>0.0084</code>（优于单分支 <code>0.0087</code>）、R² <code>0.9934</code>、<b>AE 由 1.8 降到 0.5</b>。</li>
       </ul>
-      <div class="note good">可解释性证据：<b>粗分支自发编码退化阶段</b>——其池化表示在 PANASONIC 上以 <b>93.2%</b> 的线性可分度区分早／中／晚三段（随机基线 2.9 倍）。</div>
     </div>
   </section>
 
@@ -372,9 +376,10 @@
     <div class="inner">
       <p class="eyebrow">05 · 结果 ② 附</p>
       <h2>粗分支自发编码退化阶段</h2>
+      <div class="note good">可解释性证据：粗分支的池化表示在 PANASONIC 上以 <b>93.2%</b> 的线性可分度区分早／中／晚三段——随机基线 33%，即 <b>2.8 倍</b>。</div>
       <figure class="fig">
         <img src="slides_assets/fig_stages.png" alt="粗分支特征的 PCA 投影与阶段分类混淆矩阵">
-        <figcaption>PANASONIC 测试电池，粗分支（patch 8）池化表示的 PCA 投影按早／中／晚三段自然分层；线性分类器准确率 <b>93.2%</b>（随机基线 33%），混淆矩阵几乎只在相邻段之间出错。这正是跨尺度交换能把"阶段"信息递给细分支的原因——也说明多尺度不是把同一信号算三遍。</figcaption>
+        <figcaption>粗分支（patch 8）池化表示的 PCA 投影按早／中／晚三段自然分层，混淆矩阵几乎只在相邻段之间出错。这正是跨尺度交换能把"阶段"信息递给细分支的原因——也说明多尺度不是把同一信号算三遍。</figcaption>
       </figure>
     </div>
   </section>
@@ -383,7 +388,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">05 · 结果 ③</p>
-      <h2>物理：不是装饰性约束，而是可测量地起作用</h2>
+      <h2>物理约束的效果：外推与鲁棒性</h2>
       <div class="cards">
         <div class="card">
           <span class="tag">机制归因</span>
@@ -412,7 +417,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">05 · 结果 ④</p>
-      <h2>可信：区间覆盖率经 10-seed 验证</h2>
+      <h2>预测区间与覆盖率</h2>
       <ul class="pts">
         <li>原始分位数在分布漂移下失准：覆盖率仅 <b>89.1%</b>（名义 95%）。</li>
         <li>CQR 校准后：<b>93.5% ± 0.9%</b>（10 个训练 seed，逐 seed 区间 91.9–95.1%），代价是区间加宽 36%。</li>
@@ -430,16 +435,15 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">05 · 结果 ⑤</p>
-      <h2>可部署：位精确 + 确定性内存（不是靠参数少）</h2>
+      <h2>部署验证：位精确与内存占用</h2>
       <ul class="pts">
         <li>C 实现与 PyTorch 逐位一致（相对误差 <code>&lt;3e-6</code>），零动态分配，每层状态固定 8 KB。</li>
         <li>INT8 量化 <code>1.94 MB → 484 KB</code>（−75%），精度几乎无损（AE 2.2→2.3）。</li>
-        <li>完整推理投影 <b>8–12 ms</b>（STM32F4 @168 MHz，QEMU 周期级仿真，非流片实测——论文明确声明）。</li>
+        <li>完整推理 <b>8–12 ms</b>（STM32F4 @168 MHz）——由 <b>QEMU</b>（ARM 全系统模拟器，可逐条统计 CPU 周期数）推算，非真机实测。</li>
       </ul>
-      <div class="note"><b>定位要准</b>：参数量并不比基线小（484 K vs PatchFormer 23–98 K）；卖点是线性注意力带来的<b>确定性内存</b>（状态不随序列增长）与<b>全历史增量推理</b>（可把数百循环送入同一状态）。</div>
       <figure class="fig mid">
         <img src="slides_assets/fig_deploy.png" alt="INT8 量化后的权重内存与 MCU 推理延迟">
-        <figcaption>左：INT8 量化把权重内存从 1.94 MB 压到 484 KB（−75%），AE 2.2→2.3 基本无损；右：整段推理延迟，QEMU 周期级仿真投影（非流片实测，论文中明确声明）。</figcaption>
+        <figcaption>左：INT8 量化把权重内存从 1.94 MB 压到 484 KB（−75%），AE 2.2→2.3 基本无损；右：整段推理延迟，由 QEMU 逐条统计 CPU 周期数推算，非真机实测。</figcaption>
       </figure>
     </div>
   </section>
@@ -512,11 +516,10 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">07 · 当前状态</p>
-      <h2>状态与下一步</h2>
+      <h2>当前状态</h2>
       <ul class="pts">
         <li><b>已完成</b>：正文（6 数据集、4 张对比表、5 张图）与全部实验数据一致性核对；编译零错误；两条基线升级为官方代码统一复现（10 seeds）；不确定性层覆盖率补到 10 seeds。</li>
-        <li><b>主张边界</b>：第一梯队精度 + 三个独有的能力支柱（物理机制、风险区间、位精确部署）——不是"处处 SOTA"。</li>
-        <li><b>下一步</b>：全量 MIT 数据集、第二个校准电池、速率头在线自适应、片上功率实测（已列入 future work）。</li>
+        <li><b>主张边界</b>：第一梯队精度，加上物理机制、风险区间与位精确部署三项能力。</li>
       </ul>
     </div>
   </section>
