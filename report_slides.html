@@ -132,11 +132,9 @@
   <!-- 1 -->
   <section class="slide active">
     <div class="inner">
-      <p class="kicker">组会汇报</p>
       <h1>DeltaCycle</h1>
-      <p class="sub">面向边缘部署的多尺度线性注意力电池老化预测<br>多尺度线性注意力 + 物理速率头 + 带覆盖率保证的预测区间，运行在 BMS 单片机上</p>
+      <p class="sub">面向边缘部署的多尺度线性注意力电池容量退化预测<br>多尺度线性注意力 + 物理速率头 + 带覆盖率保证的预测区间，运行在 BMS 单片机上</p>
       <div class="meta">
-        <span><b>目标期刊</b> Journal of Power Sources</span>
         <span><b>评测</b> 6 数据集 × 10 seeds × per-SP 协议</span>
         <span><b>基线</b> PatchFormer / RUL-Mamba 官方代码复现</span>
       </div>
@@ -148,11 +146,11 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">01 · 出发点</p>
-      <h2>每个维护决策同时需要三样东西，而现有监测技术给不了</h2>
+      <h2>电池设备运维决策聚焦三项核心指标</h2>
       <ul class="pts">
-        <li><b>足够准</b>——决策级精度（RUL 误差以循环计），且能跟踪<b>容量再生</b>的非单调回升，在<b>寿命尾段</b>这种数值超出训练范围的地方靠物理先验保持有效；</li>
-        <li><b>可部署</b>——能运行在 BMS 的单片机上（内存占用可预测、不依赖云），而不是只在服务器上验证；</li>
-        <li><b>可信</b>——长周期与传感器损坏下仍然可信，并且显式给出风险区间。</li>
+        <li><b>决策级精度</b>——RUL 误差以循环计，且能跟踪<b>容量再生</b>的非单调回升，在<b>寿命尾段</b>这种数值超出训练范围的地方靠物理先验保持有效；</li>
+        <li><b>边缘可部署</b>——能运行在 BMS 的单片机上（内存占用可预测、不依赖云），而不是只在服务器上验证；</li>
+        <li><b>全周期可信</b>——长周期与传感器损坏下仍然可信，并且显式给出风险区间。</li>
       </ul>
       <div class="note">现有模型的算力与内存按 <b>服务器/GPU 预算</b>设计：二次注意力矩阵随序列增长、需要动态分配，无法满足单片机的实时与内存约束；同时预测以点轨迹交付、评测只在干净实验室数据上做。</div>
     </div>
@@ -183,7 +181,7 @@
   <section class="slide">
     <div class="inner">
       <p class="eyebrow">02 · 研究现状</p>
-      <h2>三条共同空缺 —— 也就是本文的切入点</h2>
+      <h2>三大指标存在共性欠缺，即本文的切入点</h2>
       <div class="cards">
         <div class="card">
           <span class="tag">Gap 1</span>
@@ -193,12 +191,12 @@
         <div class="card">
           <span class="tag">Gap 2</span>
           <h3>点轨迹 ≠ 决策</h3>
-          <p>运维真正消费的是"多久内可能失效、风险多大"，而文献几乎只交付单条预测曲线。</p>
+          <p>运维决策依赖的是失效时间范围与风险水平，而文献普遍只输出单点预测，未提供置信区间。</p>
         </div>
         <div class="card">
           <span class="tag">Gap 3</span>
-          <h3>最难的场景没人测</h3>
-          <p>EOL 加速段（数据最稀薄）与传感器损坏场景——恰恰是决策最密集的地方——极少被评测。</p>
+          <h3>复杂工况下预测难题</h3>
+          <p>目前已有的工作都是在实验室数据上预测的，缺少应对实际带噪声数据的验证。</p>
         </div>
       </div>
       <div class="note teal">与我们直接可比的两条基线：<b>PatchFormer</b>（Transformer 线）与 <b>RUL-Mamba</b>（Mamba 线），均在统一协议下用官方代码复现。</div>
@@ -214,7 +212,7 @@
         <div class="card">
           <span class="tag">Backbone</span>
           <h3>多尺度线性注意力</h3>
-          <p>GDN-2 递归线性注意力：状态固定 <code>8 KB/层</code>、O(N) 扫描、零动态分配；patch 2/4/8 三支读局部／中期／长期。</p>
+          <p>GDN-2 递归线性注意力：计算复杂度 O(N)、无需动态分配内存；按 patch 2/4/8 分别提取局部／中期／长期特征进行多尺度融合，解决容量再生问题。</p>
         </div>
         <div class="card">
           <span class="tag">Physics</span>
