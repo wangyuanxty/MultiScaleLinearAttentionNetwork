@@ -613,8 +613,9 @@ impulse (5\%) & $0.0088\pm0.0003$ & \textbf{$0.0060\pm0.0001$} & \textbf{3.2} & 
 
 \subsubsection{Interpretability of the rate head}
 
-The rate head's physics-feature coefficient $\gamma$ is constrained
-positive by construction (softplus), so the measured internal
+The rate head's physics-feature coefficient
+$\operatorname{softplus}(\gamma)$ is non-negative by construction,
+so the measured internal
 resistance can only accelerate the predicted decay---the SEI-growth
 direction---and the structural monotonicity removes nonphysical
 regeneration artifacts (regen fraction $0.163$ vs $0.232$ for the

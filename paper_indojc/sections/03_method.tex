@@ -209,9 +209,10 @@ r \;=\; \operatorname{softplus}(\mathbf{w}^{\top}\mathbf{h})
 \hat{c}_{t+1} \;=\; c_t - r,
 \end{equation}
 where $\mathbf{h}$ is the last-token GDN state, $c_t$ the current
-capacity, and $\mathrm{IR}_{\text{last}}$ the measured internal
-resistance at the current cycle. The softplus constraint makes
-$\gamma \ge 0$: internal-resistance growth can only \emph{accelerate}
+capacity, $\mathrm{IR}_{\text{last}}$ the measured internal
+resistance at the current cycle, and $\gamma$ a learned scalar. The
+softplus makes the coefficient $\operatorname{softplus}(\gamma)$
+non-negative, so internal-resistance growth can only \emph{accelerate}
 decay, never decelerate it---the physical direction of SEI-driven
 aging. The formulation is structurally monotonic
 ($\hat{c}_{t+1} \le c_t$) and therefore cannot emit nonphysical
