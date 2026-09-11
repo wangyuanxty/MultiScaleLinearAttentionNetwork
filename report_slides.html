@@ -467,6 +467,28 @@
     </div>
   </section>
 
+  <!-- 15 · 线性注意力的作用与边界 -->
+  <section class="slide">
+    <div class="inner">
+      <p class="eyebrow">06 · 预备问答（中）</p>
+      <h2>线性注意力的作用与边界</h2>
+      <div class="qa">
+        <div class="item">
+          <p class="q">既然每次输入都是固定窗口，线性注意力在这里起什么作用？</p>
+          <p class="a"><b>在固定窗口下没有内存或速度上的优势</b>——L=32 时注意力矩阵只有 4 KB，常数内存对任何固定窗口模型都成立。真正起作用的地方是<b>内存预算与上下文长度解耦</b>：注意力缓冲 ∝ L²，给定 SRAM 就存在一个能跑的最大上下文；我们的状态 O(1)，没有这个上限。</p>
+        </div>
+        <div class="item">
+          <p class="q">RUL-Mamba 同样基于线性时间架构，两者的区别在哪里？</p>
+          <p class="a"><b>Mamba 与我们同属因果、固定状态递推</b>，"支持长上下文"并非我们独有。区别在<b>组合</b>：长上下文支持 <b>+</b> 已验证的 MCU 部署链（位精确 C 实现、INT8、QEMU 周期数）；RUL-Mamba 只报告 GPU 侧效率，没有部署路径。此外，delta 规则的矩阵状态带擦除门、可定点覆盖旧记忆，Mamba 对角状态只能衰减累加——这也是我们选择 GDN-2 的依据之一。</p>
+        </div>
+        <div class="item">
+          <p class="q">线性注意力在计算效率上有优势吗？</p>
+          <p class="a"><b>在上下文变长时是必然的</b>：单步代价 O(1)、总代价 O(L)，而注意力是 O(L²)。<b>在当前工作点上体现不出来</b>——L=32 时注意力 ≈4.1k／token，我们 ≈10.2k（每 token 五趟 d<sub>k</sub>×d<sub>v</sub> 读写 ×4 头），交叉点约 <b>L≈80</b>；且递归沿时间是串行的、注意力是稠密矩阵乘，GPU 上更有优势。<b>但超过 L≈80 之后差距只会拉大，而受 SRAM 限制，注意力最终根本跑不到那么长的上下文。</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 15 -->
   <section class="slide">
     <div class="inner">
