@@ -86,8 +86,8 @@ either over-smooth the recoveries or lose the global trend
 \cite{ref_omnitie}. Third, purely data-driven models are assessed on clean laboratory data, 
 yet their performance deteriorates precisely when field operation departs from laboratory conditions. 
 The end-of-life acceleration tail, where maintenance decisions concentrate, 
-represents the regime with the least training data; consequently, 
-learned predictors tend to flatten or drift in this region. Moreover, 
+is the region whose values fall outside the trained range; consequently, 
+learned predictors tend to flatten or drift there. Moreover, 
 corrupted or noisy sensor streams markedly degrade prediction accuracy.
 
 Beneath these technical gaps lies a decision-layer gap: even an
@@ -133,8 +133,8 @@ providing the type of information on which maintenance scheduling ultimately rel
 
 \item \textbf{A physics-consistent degradation-rate head.} Why
 physics at all? The third limitation above is the motivation:
-learned predictors flatten or drift exactly where the data is
-thinnest, and physics supplies an inductive bias that remains valid
+learned predictors flatten or drift exactly where the target values
+leave the trained range, and physics supplies an inductive bias that remains valid
 outside the observed distribution---capacity decay is monotonic, and
 internal resistance can only accelerate it. The challenge is
 injecting that bias without breaking the standard evaluation
