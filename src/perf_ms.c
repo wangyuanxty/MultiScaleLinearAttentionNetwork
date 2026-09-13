@@ -28,8 +28,46 @@ extern uint32_t _estack;
 extern void _start(void);
 extern unsigned char __bss_start__, __bss_end__;
 
+static volatile uint32_t syst_wraps;
+
+/* SysTick is level-asserted on COUNTFLAG, and COUNTFLAG is cleared only by
+ * reading SYST_CSR -- without that read the handler re-enters forever and the
+ * guest never gets back to main(). */
+void systick_handler(void) {
+    (void)*(volatile uint32_t *)0xE000E010; /* read CSR: clears COUNTFLAG */
+    syst_wraps++;
+}
+
+/* SysTick is a 24-bit DOWN counter, so a span longer than RVR reads as a
+ * wrapped value and the raw t0-t1 delta aliases modulo 2^24. Counting reloads
+ * in the exception handler removes the ambiguity:
+ *     elapsed = wraps * (RVR + 1) + (t0 - t1)
+ * One of RVR+1 or 2^24 is wrong if the two disagree, which they cannot here
+ * since RVR is 0xFFFFFF. Without this the harness cannot tell 15.09M from
+ * 31.87M, and an inference that long will wrap. */
+#define SYST_RVR_V 0x00FFFFFFu
+
+/* A fault with a zero vector sends the PC to address 0, which faults again and
+ * the core reports "can't escalate to HardFault" -- a lockup that says nothing
+ * about the original cause. Parking every fault vector here makes the failure
+ * land somewhere inspectable instead. */
+void fault_hang(void) { for (;;) {} }
+
 __attribute__((section(".vectors"), used))
-const uint32_t vectors[2] = { (uint32_t)&_estack, (uint32_t)&_start };
+const uint32_t vectors[16] = {
+    (uint32_t)&_estack,             /*  0: initial stack pointer */
+    (uint32_t)&_start,              /*  1: reset */
+    (uint32_t)&fault_hang,          /*  2: NMI */
+    (uint32_t)&fault_hang,          /*  3: HardFault */
+    (uint32_t)&fault_hang,          /*  4: MemManage */
+    (uint32_t)&fault_hang,          /*  5: BusFault */
+    (uint32_t)&fault_hang,          /*  6: UsageFault */
+    0, 0, 0, 0,                     /*  7-10: reserved */
+    (uint32_t)&fault_hang,          /* 11: SVCall */
+    0, 0,                           /* 12-13: reserved */
+    (uint32_t)&fault_hang,          /* 14: PendSV */
+    (uint32_t)&systick_handler,     /* 15: SysTick */
+};
 
 __attribute__((noreturn, section(".text.start")))
 void _start(void) {
@@ -87,6 +125,23 @@ int __errno;
 static uint32_t rd_syst(void) {
     return *(volatile uint32_t *)0xE000E018 & 0x00FFFFFF;
 }
+
+/* Monotonic tick count: epoch x (RVR+1) + ticks since the last reload.
+ *
+ * Reading epoch and the counter non-atomically can straddle a reload, which
+ * would be off by a whole RVR period -- exactly the 16.78M ambiguity this is
+ * meant to remove. Re-reading when the epoch moved between the two samples
+ * closes that window (a seqlock, cheap because a reload is rare relative to
+ * the read). */
+static uint32_t now_ticks(void) {
+    for (;;) {
+        uint32_t e1 = syst_wraps;
+        uint32_t c  = rd_syst();
+        uint32_t e2 = syst_wraps;
+        if (e1 == e2)
+            return e1 * (SYST_RVR_V + 1u) + (SYST_RVR_V - c);
+    }
+}
 static void put_uint(uint32_t x, char *b) {
     char tmp[11]; int i = 0;
     do { tmp[i++] = (char)('0' + x % 10); x /= 10; } while (x);
@@ -110,8 +165,9 @@ static void busy(uint32_t n) {
 int main(void) {
     volatile uint32_t *syst_csr = (volatile uint32_t *)0xE000E010;
     volatile uint32_t *syst_rvr = (volatile uint32_t *)0xE000E014;
-    *syst_rvr = 0x00FFFFFF;
-    *syst_csr = 5; /* core clock source, enable, auto-reload */
+    *syst_rvr = SYST_RVR_V;
+    *syst_csr = 7; /* CLKSOURCE | TICKINT | ENABLE -- TICKINT counts reloads */
+    __asm volatile("cpsie i" ::: "memory"); /* the handler must actually run */
 
     GDN2MS_Variables m;
     float in[MS_L];
@@ -143,14 +199,19 @@ int main(void) {
          * third run would walk past the pool. */
         heap_off = 0;
         for (int i = 0; i < MS_L; i++) in[i] = gain[run] * base_in[i];
-        uint32_t t0 = rd_syst();
+        uint32_t w0 = syst_wraps;
+        uint32_t t0 = now_ticks();
         GDN2MS_Infer(&m, in, &out);
-        uint32_t t1 = rd_syst();
-        uint32_t cyc = t0 - t1; /* counts down, so t0 > t1 */
+        uint32_t t1 = now_ticks();
+        uint32_t w1 = syst_wraps;
+        uint32_t cyc = t1 - t0;      /* monotonic: no 2^24 aliasing */
+        uint32_t wraps = w1 - w0;
 
         int p = 0;
         const char *s;
-        s = "CYC t0="; while (*s) msg[p++] = *s++;
+        s = "CYC wraps="; while (*s) msg[p++] = *s++;
+        put_uint(wraps, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
+        s = " t0="; while (*s) msg[p++] = *s++;
         put_uint(t0, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
         s = " t1="; while (*s) msg[p++] = *s++;
         put_uint(t1, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
