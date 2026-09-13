@@ -19,44 +19,94 @@ W, BATCH, EPOCHS, SEED = 64, 64, 100, 42
 EPS = 1e-6
 
 
-def write_array(f, name, arr):
+def _emit_floats(f, values) -> None:
+    """Write floats eight per line, each with an `f` suffix."""
+    for i, v in enumerate(values):
+        f.write(f" {v}f," if i % 8 else f"\n    {v}f,")
+    f.write("\n")
+
+
+def _emit_int8(f, values, per_line: int = 16) -> None:
+    for i, v in enumerate(values):
+        f.write(f" {v}," if i % per_line else f"\n    {v},")
+    f.write("\n")
+
+
+def write_array(f, name, arr, quant: str = "fp32") -> None:
+    """Emit one tensor as C arrays.
+
+    2-D weights follow PyTorch's dynamic-quantization convention: in int8
+    mode the matrix is stored as signed bytes plus one fp32 scale per
+    output channel (symmetric, s_i = max_j|W_ij| / 127). 1-D tensors
+    (biases, RMSNorm weights, A_log, dt) stay fp32 in both modes -- they
+    amount to a few KB, and PyTorch keeps biases fp32 as well.
+    """
     arr = np.asarray(arr, dtype=np.float32)
     if arr.ndim == 3:  # depthwise conv weight (C,1,K) -> (C,K)
         arr = arr.squeeze(1)
     if arr.ndim == 1:
         f.write(f"#define {name}_size {len(arr)}\n")
-        f.write(f"const float {name}[{len(arr)}] = {{\n")
-    elif arr.ndim == 2:
-        f.write(f"#define {name}_rows {arr.shape[0]}\n")
-        f.write(f"#define {name}_cols {arr.shape[1]}\n")
-        f.write(f"const float {name}[{arr.shape[0] * arr.shape[1]}] = {{\n")
-    flat = arr.flatten()
-    for i, v in enumerate(flat):
-        f.write(f" {v:.7f}f," if i % 8 else f"    {v:.7f}f,")
-        if (i + 1) % 8 == 0:
-            f.write("\n")
-    f.write("\n};\n\n")
+        f.write(f"const float {name}[{len(arr)}] = {{")
+        _emit_floats(f, [f"{v:.7f}" for v in arr])
+        f.write("};\n\n")
+        return
+
+    rows, cols = arr.shape
+    f.write(f"#define {name}_rows {rows}\n")
+    f.write(f"#define {name}_cols {cols}\n")
+    if quant == "int8":
+        scale = np.abs(arr).max(axis=1) / 127.0
+        scale = np.where(scale == 0.0, 1.0, scale)  # all-zero row guard
+        q = np.clip(np.round(arr / scale[:, None]), -127, 127).astype(np.int8)
+        f.write(f"const signed char {name}_q[{rows * cols}] = {{")
+        _emit_int8(f, q.flatten().tolist())
+        f.write("};\n")
+        f.write(f"const float {name}_s[{rows}] = {{")
+        _emit_floats(f, [f"{v:.9g}" for v in scale])
+        f.write("};\n\n")
+        return
+
+    f.write(f"const float {name}[{rows * cols}] = {{")
+    _emit_floats(f, [f"{v:.7f}" for v in arr.flatten()])
+    f.write("};\n\n")
+
+
+def write_header(out_path, state, quant: str, banner: str) -> int:
+    """Write every tensor in `state` to `out_path`; returns the array count."""
+    with open(out_path, "w") as f:
+        f.write("// Auto-generated GDN-2 weights for MCU deployment (v3)\n")
+        f.write(f"// {banner}\n")
+        f.write(f"// quantization: {quant}\n")
+        f.write("#ifndef GDN_WEIGHTS_H\n#define GDN_WEIGHTS_H\n\n")
+        for name, tensor in sorted(state.items()):
+            write_array(f, name.replace(".", "_"), tensor.numpy(), quant)
+        f.write("#endif // GDN_WEIGHTS_H\n")
+    return len(state)
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default="gdn_weights.h")
+    ap.add_argument("--out", default=None,
+                    help="output header (default: gdn_weights.h for fp32, "
+                         "gdn_weights_q8.h for int8)")
+    ap.add_argument("--quant", choices=("fp32", "int8"), default="fp32",
+                    help="weight storage; int8 keeps 1-D tensors in fp32")
     ap.add_argument("--from-ckpt", default=None,
                     help="re-export the header from a saved state_dict "
                          "(skips training)")
     args = ap.parse_args()
+    # Distinct defaults keep the committed fp32 header from being clobbered
+    # by an int8 run (and vice versa).
+    if args.out is None:
+        args.out = "gdn_weights_q8.h" if args.quant == "int8" else "gdn_weights.h"
 
     if args.from_ckpt:
         state = torch.load(args.from_ckpt, map_location="cpu",
                            weights_only=False)
-        with open(args.out, "w") as f:
-            f.write("// Auto-generated GDN-2 weights for MCU deployment (v3)\n")
-            f.write("// single-branch, patch=2, d_model=64, 2 layers\n")
-            f.write("#ifndef GDN_WEIGHTS_H\n#define GDN_WEIGHTS_H\n\n")
-            for name, tensor in sorted(state.items()):
-                write_array(f, name.replace(".", "_"), tensor.numpy())
-            f.write("#endif // GDN_WEIGHTS_H\n")
-        print(f"re-exported {len(state)} arrays to {args.out}", flush=True)
+        n = write_header(args.out, state, args.quant,
+                         "single-branch, patch=2, d_model=64, 2 layers")
+        print(f"re-exported {n} arrays to {args.out} ({args.quant})",
+              flush=True)
         return
 
     torch.manual_seed(SEED)
@@ -98,16 +148,12 @@ def main():
             print(f"    ep{ep} loss={loss.item():.4f}", flush=True)
 
     state = model.cpu().state_dict()
-    with open(args.out, "w") as f:
-        f.write("// Auto-generated GDN-2 weights for MCU deployment (v3)\n")
-        f.write(f"// single-branch, patch=2, d_model=64, 2 layers, "
-                f"params={sum(p.numel() for p in model.parameters()):,}\n")
-        f.write("#ifndef GDN_WEIGHTS_H\n#define GDN_WEIGHTS_H\n\n")
-        for name, tensor in sorted(state.items()):
-            cname = name.replace(".", "_")
-            write_array(f, cname, tensor.numpy())
-        f.write("#endif // GDN_WEIGHTS_H\n")
-    print(f"exported to {args.out}: {len(state)} weight arrays", flush=True)
+    n = write_header(
+        args.out, state, args.quant,
+        f"single-branch, patch=2, d_model=64, 2 layers, "
+        f"params={sum(p.numel() for p in model.parameters()):,}")
+    print(f"exported to {args.out}: {n} weight arrays ({args.quant})",
+          flush=True)
 
     # checkpoint for verification
     ckpt = Path(args.out).with_suffix(".pt")

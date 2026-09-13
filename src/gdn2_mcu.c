@@ -24,11 +24,11 @@ static float g_gelu(float x) {
     return 0.5f * x * (1.0f + erff(x / 1.41421356237f));
 }
 
-static void g_linear(const float *w, const float *x, float *y, int m, int n,
+static void g_linear(const gdn_mat_t *w, const float *x, float *y, int m, int n,
                      const float *b) {
     for (int i = 0; i < m; i++) {
         float s = b ? b[i] : 0.0f;
-        for (int j = 0; j < n; j++) s += w[i * n + j] * x[j];
+        for (int j = 0; j < n; j++) s += GDN_W(w, i, n, j) * x[j];
         y[i] = s;
     }
 }
@@ -43,14 +43,14 @@ static void g_rmsnorm(float *x, int d, const float *w) {
 
 /* depthwise causal conv: PyTorch Conv1d(pad=K-1)[..., :-(K-1)] + SiLU
  * => y[t] = sum_j cw[j] * x[t-(K-1)+j]  (zero-padded on the left) */
-static void g_causal_conv(const float *x, const float *cw, float *y,
+static void g_causal_conv(const float *x, const gdn_mat_t *cw, float *y,
                           int T, int C, int K) {
     for (int t = 0; t < T; t++) {
         for (int c = 0; c < C; c++) {
             float s = 0.0f;
             for (int j = 0; j < K; j++) {
                 int tt = t - (K - 1) + j;
-                if (tt >= 0) s += cw[c * K + j] * x[tt * C + c];
+                if (tt >= 0) s += GDN_W(cw, c, K, j) * x[tt * C + c];
             }
             y[t * C + c] = g_silu(s);
         }
@@ -105,10 +105,11 @@ static void gdn2_scan(const float *q, const float *k, const float *v,
 /* one full GDN2Block + residual + RMSNorm(D) */
 static void gdn2_layer(
     const float *in, int L, int D, int H, int DK, int DV,
-    const float *q_w, const float *q_c, const float *k_w, const float *k_c,
-    const float *v_w, const float *v_c, const float *out_w,
-    const float *f0_w, const float *f1_w, const float *b_w, const float *w_w,
-    const float *g0_w, const float *g1_w,
+    const gdn_mat_t *q_w, const gdn_mat_t *q_c, const gdn_mat_t *k_w,
+    const gdn_mat_t *k_c, const gdn_mat_t *v_w, const gdn_mat_t *v_c,
+    const gdn_mat_t *out_w, const gdn_mat_t *f0_w, const gdn_mat_t *f1_w,
+    const gdn_mat_t *b_w, const gdn_mat_t *w_w,
+    const gdn_mat_t *g0_w, const gdn_mat_t *g1_w,
     const float *A_log, const float *dt_b, const float *on_w, const float *n_w,
     float *S, float *out)
 {
@@ -212,7 +213,7 @@ GDN2Error GDN2_Infer(const GDN2_Variables *m, const float *input, float *out) {
     for (int t = 0; t < LP; t++) {
         float px[4];
         for (int j = 0; j < ps; j++) px[j] = input[t * ps + j];
-        g_linear(m->inp_w, px, h0 + t * D, D, ps, m->inp_b);
+        g_linear(&m->inp_w, px, h0 + t * D, D, ps, m->inp_b);
     }
 
     float S0[H * DK * DV], S1[H * DK * DV];
@@ -221,16 +222,16 @@ GDN2Error GDN2_Infer(const GDN2_Variables *m, const float *input, float *out) {
 #ifdef DEBUG_MCU
     printf("emb    = %.6f %.6f %.6f %.6f\n", h0[0], h0[1], h0[2], h0[3]);
 #endif
-    gdn2_layer(h0, LP, D, H, DK, DV, m->l0_q_w, m->l0_q_c, m->l0_k_w,
-               m->l0_k_c, m->l0_v_w, m->l0_v_c, m->l0_out_w, m->l0_f0_w,
-               m->l0_f1_w, m->l0_b_w, m->l0_w_w, m->l0_g0_w, m->l0_g1_w,
+    gdn2_layer(h0, LP, D, H, DK, DV, &m->l0_q_w, &m->l0_q_c, &m->l0_k_w,
+               &m->l0_k_c, &m->l0_v_w, &m->l0_v_c, &m->l0_out_w, &m->l0_f0_w,
+               &m->l0_f1_w, &m->l0_b_w, &m->l0_w_w, &m->l0_g0_w, &m->l0_g1_w,
                m->l0_A_log, m->l0_dt, m->l0_onorm, m->l0_norm, S0, h1);
 #ifdef DEBUG_MCU
     printf("l0norm = %.6f %.6f %.6f %.6f\n", h1[0], h1[1], h1[2], h1[3]);
 #endif
-    gdn2_layer(h1, LP, D, H, DK, DV, m->l1_q_w, m->l1_q_c, m->l1_k_w,
-               m->l1_k_c, m->l1_v_w, m->l1_v_c, m->l1_out_w, m->l1_f0_w,
-               m->l1_f1_w, m->l1_b_w, m->l1_w_w, m->l1_g0_w, m->l1_g1_w,
+    gdn2_layer(h1, LP, D, H, DK, DV, &m->l1_q_w, &m->l1_q_c, &m->l1_k_w,
+               &m->l1_k_c, &m->l1_v_w, &m->l1_v_c, &m->l1_out_w, &m->l1_f0_w,
+               &m->l1_f1_w, &m->l1_b_w, &m->l1_w_w, &m->l1_g0_w, &m->l1_g1_w,
                m->l1_A_log, m->l1_dt, m->l1_onorm, m->l1_norm, S1, h0);
 #ifdef DEBUG_MCU
     printf("l1norm = %.6f %.6f %.6f %.6f\n", h0[0], h0[1], h0[2], h0[3]);
@@ -239,9 +240,9 @@ GDN2Error GDN2_Infer(const GDN2_Variables *m, const float *input, float *out) {
     /* restore_len: last token = last patch; GELU head */
     float *hl = h0 + (LP - 1) * D;
     float h128[128];
-    g_linear(m->h1_w, hl, h128, 128, D, m->h1_b);
+    g_linear(&m->h1_w, hl, h128, 128, D, m->h1_b);
     for (int i = 0; i < 128; i++) h128[i] = g_gelu(h128[i]);
-    g_linear(m->h2_w, h128, out, 1, 128, m->h2_b);
+    g_linear(&m->h2_w, h128, out, 1, 128, m->h2_b);
 
     free(h0);
     free(h1);
