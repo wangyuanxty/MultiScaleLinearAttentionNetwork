@@ -14,7 +14,19 @@ typedef enum { GDN2_OK, GDN2_ERR_MEMORY } GDN2Error;
  *
  * 1-D tensors (biases, RMSNorm weights, A_log, dt) stay fp32 in both
  * modes: they amount to a few KB, and PyTorch keeps biases fp32 too. */
-#ifdef GDN_Q8
+#if defined(GDN_Q4)
+typedef struct { const unsigned char *w; const float *s; } gdn_mat_t;
+#define GDN_MAT(name) ((gdn_mat_t){ (name##_q4), (name##_s) })
+/* two signed nibbles per byte, low nibble first; the pair index is the flat
+ * row-major index, so a pair may straddle a row boundary (the exporter packs
+ * the same flat order) */
+static inline float gdn_w_at(const gdn_mat_t *p, int idx, int row) {
+    int b = p->w[idx >> 1];
+    int v = (idx & 1) ? (b >> 4) : (b & 0xF);
+    return (float)(v > 7 ? v - 16 : v) * p->s[row];
+}
+#define GDN_W(p, i, n, j) gdn_w_at((p), (i) * (n) + (j), (i))
+#elif defined(GDN_Q8)
 typedef struct { const signed char *w; const float *s; } gdn_mat_t;
 #define GDN_MAT(name) ((gdn_mat_t){ (name##_q), (name##_s) })
 #define GDN_W(p, i, n, j) ((float)((p)->w[(i) * (n) + (j)]) * (p)->s[i])

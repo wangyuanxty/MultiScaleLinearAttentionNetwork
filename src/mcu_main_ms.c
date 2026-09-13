@@ -21,7 +21,13 @@
 #include <stdint.h>
 #include <string.h>
 #include "gdn2_multiscale.c"
+#if defined(GDN_Q4)
+#include "gdn_ms_weights_q4.h"
+#elif defined(GDN_Q8)
+#include "gdn_ms_weights_q8.h"
+#else
 #include "gdn_ms_weights.h"
+#endif
 #include "ms_init.h"
 #include "test_input_ms.h"
 

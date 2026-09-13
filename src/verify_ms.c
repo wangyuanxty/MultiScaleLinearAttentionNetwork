@@ -10,7 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "gdn2_multiscale.c"
-#ifdef GDN_Q8
+#if defined(GDN_Q4)
+#include "gdn_ms_weights_q4.h"
+#elif defined(GDN_Q8)
 #include "gdn_ms_weights_q8.h"
 #else
 #include "gdn_ms_weights.h"

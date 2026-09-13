@@ -29,13 +29,14 @@ from make_figures import load_series  # noqa: E402
 HERE = Path(__file__).parent
 
 
-def quantize_like_export(state):
-    """Apply the int8 round trip of export_gdn_weights.write_array.
+def quantize_like_export(state, bits=8):
+    """Apply the symmetric low-bit round trip of export_gdn_weights.
 
     2-D tensors (Linear weights, and 3-D depthwise-conv weights squeezed to
     2-D) get one symmetric scale per output channel; everything 1-D stays
     fp32. Returns a new state dict.
     """
+    qmax = (1 << (bits - 1)) - 1
     out = {}
     for name, tensor in state.items():
         w = tensor.float()
@@ -43,9 +44,9 @@ def quantize_like_export(state):
         if squeezed.dim() != 2:
             out[name] = w  # biases, RMSNorm weights, A_log, dt
             continue
-        scale = squeezed.abs().amax(dim=1, keepdim=True) / 127.0
+        scale = squeezed.abs().amax(dim=1, keepdim=True) / qmax
         scale = torch.where(scale == 0, torch.ones_like(scale), scale)
-        q = torch.clamp(torch.round(squeezed / scale), -127, 127)
+        q = torch.clamp(torch.round(squeezed / scale), -qmax, qmax)
         deq = q * scale
         out[name] = deq.unsqueeze(1) if w.dim() == 3 else deq
     return out
@@ -106,6 +107,9 @@ def main():
     ap.add_argument("--ckpt", default=None,
                     help="default: src/gdn_weights.pt for single")
     ap.add_argument("--dataset", default="calce")
+    ap.add_argument("--bits", type=int, default=8,
+                    help="symmetric weight width to round-trip; 4 is the "
+                         "int4 candidate")
     args = ap.parse_args()
     ckpt = Path(args.ckpt) if args.ckpt else HERE / "gdn_weights.pt"
 
@@ -131,7 +135,8 @@ def main():
           f"EOL threshold {eol_ah} Ah)  SP={sps[0]}")
     print()
 
-    for label, st in (("fp32", state), ("int8", quantize_like_export(state))):
+    for label, st in (("fp32", state),
+                      (f"int{args.bits}", quantize_like_export(state, args.bits))):
         model = build_and_load(st, args.arch, W)
         pv = trajectory_predictions(model, tc, W)
         r2 = 1 - np.sum((tv - pv) ** 2) / np.sum((tv - tv.mean()) ** 2)

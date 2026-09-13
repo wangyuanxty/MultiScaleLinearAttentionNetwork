@@ -54,15 +54,28 @@ def write_array(f, name, arr, quant: str = "fp32") -> None:
     rows, cols = arr.shape
     f.write(f"#define {name}_rows {rows}\n")
     f.write(f"#define {name}_cols {cols}\n")
-    if quant == "int8":
-        scale = np.abs(arr).max(axis=1) / 127.0
+    if quant in ("int8", "int4"):
+        qmax = 127 if quant == "int8" else 7
+        scale = np.abs(arr).max(axis=1) / float(qmax)
         scale = np.where(scale == 0.0, 1.0, scale)  # all-zero row guard
-        q = np.clip(np.round(arr / scale[:, None]), -127, 127).astype(np.int8)
-        f.write(f"const signed char {name}_q[{rows * cols}] = {{")
-        _emit_int8(f, q.flatten().tolist())
-        f.write("};\n")
+        q = np.clip(np.round(arr / scale[:, None]), -qmax, qmax).astype(np.int32)
         f.write(f"const float {name}_s[{rows}] = {{")
         _emit_floats(f, [f"{v:.9g}" for v in scale])
+        f.write("};\n")
+        if quant == "int8":
+            q8 = q.astype(np.int8)
+            f.write(f"const signed char {name}_q[{rows * cols}] = {{")
+            _emit_int8(f, q8.flatten().tolist())
+        else:
+            # two signed nibbles per byte, low nibble first; a row-major pair
+            # may straddle the row boundary, which the C reader handles by
+            # indexing the flat array the same way
+            flat = q.flatten()
+            if flat.size % 2:
+                flat = np.append(flat, 0)
+            packed = ((flat[0::2] & 0xF) | ((flat[1::2] & 0xF) << 4))
+            f.write(f"const unsigned char {name}_q4[{packed.size}] = {{")
+            _emit_int8(f, packed.astype(np.uint8).tolist())
         f.write("};\n\n")
         return
 
@@ -190,9 +203,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=None,
                     help="output header (default: gdn_weights.h for fp32, "
-                         "gdn_weights_q8.h for int8)")
-    ap.add_argument("--quant", choices=("fp32", "int8"), default="fp32",
-                    help="weight storage; int8 keeps 1-D tensors in fp32")
+                         "gdn_weights_q8.h for int8, gdn_weights_q4.h for "
+                         "int4)")
+    ap.add_argument("--quant", choices=("fp32", "int8", "int4"),
+                    default="fp32",
+                    help="weight storage; the low-bit modes keep 1-D tensors "
+                         "in fp32")
     ap.add_argument("--from-ckpt", default=None,
                     help="re-export from a saved checkpoint (skips training); "
                          "accepts a bare state_dict or a per-SP checkpoint "
@@ -210,7 +226,7 @@ def main():
     # Distinct defaults keep the committed fp32 header from being clobbered
     # by an int8 run (and vice versa).
     if args.out is None:
-        args.out = "gdn_weights_q8.h" if args.quant == "int8" else "gdn_weights.h"
+        args.out = f"gdn_weights{'' if args.quant == 'fp32' else '_q' + args.quant[-1]}.h"
 
     if args.from_ckpt:
         obj = torch.load(args.from_ckpt, map_location="cpu",
