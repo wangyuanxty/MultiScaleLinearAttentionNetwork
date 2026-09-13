@@ -4,7 +4,7 @@
 Lithium-ion batteries power electric vehicles, grid-scale energy storage,
  spacecraft and portable electronics. The market they serve is projected 
  to grow several-fold over the coming decade
-\cite{ref_yang_review,ref_sbarra_dt}---making battery health
+\cite{ref_yang_review}---making battery health
 management a first-order economic concern rather than a technical
 nicety. Each application stresses battery management differently:
 electric-vehicle packs must track health under rapidly varying
@@ -16,7 +16,7 @@ accumulates into fleet-level inconsistency that dominates life-cycle
 operating cost \cite{ref_qu_bess}; spacecraft batteries must operate
 for years without on-site repair under radiation, vacuum, and
 extreme temperatures, where power-subsystem anomalies are a leading
-cause of mission loss \cite{ref_sbarra_dt}; and portable electronics
+cause of mission loss; and portable electronics
 make battery health the most ubiquitous---and least
 supervised---monitoring problem of all.
 
@@ -54,7 +54,7 @@ and constrains life-cycle cost—the dominant expense of large-scale storage fle
 Existing RUL prediction methods fall into two broad families.
 Model-based approaches---such as equivalent-circuit models, extended and
 unscented Kalman filters, and particle filters---encode degradation
-physics explicitly \cite{ref_ekf_yan,ref_upf_cong,ref_pf_echem,
+physics explicitly \cite{ref_ekf_yan,ref_pf_echem,
 ref_pf_rbf,ref_pf_lui} but require accurate parameter identification
 and often lack the flexibility to capture regeneration dynamics.
 Data-driven approaches learn degradation patterns directly from
@@ -99,7 +99,7 @@ cut response time and operational cost by over 80\% compared with
 conventional expert-driven practice \cite{ref_qu_bess}. Space constitutes an extreme operating regime: 
 the vast majority of new satellites run on lithium-ion batteries, in-orbit repair is impossible, 
 and power-subsystem anomalies are a leading cause of satellite faults
-\cite{ref_sbarra_dt}---an environment in which on-device, 
+---an environment in which on-device, 
 decision-grade prognostics is a requirement rather than a convenience.
 
 This paper proposes DeltaCycle, a multi-scale linear-attention
