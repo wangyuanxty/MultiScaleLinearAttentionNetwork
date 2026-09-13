@@ -148,43 +148,48 @@ seeds (single-branch encoder: one checkpoint).}
 \end{tabular}
 \end{table}
 
-\subsection{Memory, latency and energy}
+\subsection{Memory and stack budget}
 
 The deployed model's static stack budget is 3.1\,KB, measured with the
 compiler's stack-usage report over the whole call chain; nothing is
 recursive and nothing is sized at runtime. Combined with the fixed state
-this means the SRAM requirement is known at compile time, which is the
-property a safety-related firmware review actually needs.
+of Table~\ref{tab:deploy} this means the SRAM requirement is known at
+compile time --- the property a safety-related firmware review actually
+needs --- and it is why the memory argument can be made without appealing
+to any timing measurement.
 
-Latency is projected from cycle counts under QEMU rather than measured on
-silicon. The encoder's full inference corresponds to 8--12\,ms on an
-STM32F4 at 168\,MHz; the multi-scale model's cycle count is reported in
-the accompanying code release. Two caveats belong with these numbers: the
-emulator models the core but not flash wait states or bus contention, so
-the figures are optimistic; and the cycle count is not perfectly constant
-across inputs, because the \texttt{libm} routines branch on their
-arguments.
+\subsection{On latency and energy}
 
-Energy follows from the cycle count without needing a power measurement
-on the device. Writing the core's current as $c$ in
-$\mu\mathrm{A}/\mathrm{MHz}$ and its supply as $V$, one inference of $N$
-cycles costs
+We do not report a latency. The natural source would be the SysTick cycle
+counter under emulation, and an earlier version of this work did report
+such a figure. Re-measuring it, however, showed the counter to be
+non-reproducible: three runs of the same model with inputs differing by
+one percent gave counts spanning a factor of three, and repeating the
+experiment under QEMU's instruction-count timing did not remove the
+spread. The SysTick peripheral is driven by the emulator's virtual clock,
+and without instruction-count timing that clock tracks the host rather
+than the guest, so what is being measured is the host's scheduling rather
+than the model's work. A number that moves with the host cannot be
+reported as a property of the model.
+
+Energy depends on the cycle count and inherits the same problem, so it is
+not reported either. It is worth recording how it would be obtained,
+because the expression is clock-invariant: writing the core current as
+$c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and the supply as $V$, an inference
+of $N$ cycles costs
 \begin{equation}
 E \;=\; c \, V \, N \times 10^{-12}~\mathrm{J},
 \end{equation}
-independent of clock frequency: raising the clock shortens the inference
-in proportion, so it buys latency and not energy. What matters
-operationally is the duty cycle, and a battery management system runs
-this inference once per charge--discharge cycle --- hours apart. At
-millijoule scale per inference the daily total is negligible against the
-BMS's own quiescent draw, so the deployment argument does not rest on
-energy at all; it rests on the memory bound above.
+independent of clock frequency. Raising the clock shortens the inference
+in proportion, so it buys latency and not energy. Operationally the duty
+cycle is what matters, and a battery management system runs this
+inference once per charge--discharge cycle, hours apart; at millijoule
+scale the daily total would be negligible against the BMS's own
+quiescent draw. None of this changes the deployment argument, which rests
+on the memory bound rather than on timing.
 
-Power is not reported as a measured quantity: QEMU provides
-cycle-accurate timing but no power model, and on-device measurement
-requires hardware validation that this work does not include. The
-expression above uses a datasheet figure for $c$ and is an estimate, not
-a measurement.
+Latency and energy therefore remain unmeasured. On-silicon measurement is
+the natural next step and is left to future work.
 
 \subsection{Comparison with an attention model at equal context}
 
@@ -224,9 +229,10 @@ that the KV cache, unlike the state, keeps growing as inference proceeds.
 
 \subsection{Limitations}
 
-Everything above was measured on emulated hardware. The cycle counts come
-from a cycle-accurate model of the core that does not include flash wait
-states or bus contention, so latencies are optimistic; energy is an
-estimate from a datasheet current rather than a measurement; and no
-on-device power or thermal figure is reported. On-silicon validation is
-the natural next step and is left to future work.
+Everything above was measured on emulated hardware, and the emulator
+models the core but not flash wait states or bus contention. Latency and
+energy are not reported at all, for the reason given in
+Section~\ref{sec:deploy}: the emulated cycle counter was found to track
+the host rather than the guest, so it cannot support a timing claim. No
+on-device power or thermal figure is reported either. On-silicon
+validation is the natural next step and is left to future work.

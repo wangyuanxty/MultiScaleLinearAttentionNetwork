@@ -87,6 +87,17 @@ static void put_uint(uint32_t x, char *b) {
 
 static const float base_in[MS_L] = { TEST_INPUT };
 
+/* A fixed amount of work, used to test what the timer is actually counting:
+ * if SysTick tracks executed instructions this is stable run to run, and if
+ * it tracks the host's wall clock it is not. The store to a volatile keeps
+ * the loop from being optimised away. */
+static volatile uint32_t sink;
+static void busy(uint32_t n) {
+    uint32_t a = 1u;
+    for (uint32_t i = 0; i < n; i++) a = a * 1103515245u + 12345u;
+    sink = a;
+}
+
 int main(void) {
     volatile uint32_t *syst_csr = (volatile uint32_t *)0xE000E010;
     volatile uint32_t *syst_rvr = (volatile uint32_t *)0xE000E014;
@@ -101,9 +112,27 @@ int main(void) {
     /* three inputs: the reference window, then slightly rescaled copies --
      * different arguments reach different libm branches */
     static const float gain[3] = { 1.0f, 0.99f, 1.01f };
-    char msg[64], nb[12];
+    char msg[96], nb[12];
+
+    for (int k = 0; k < 2; k++) {
+        uint32_t b0 = rd_syst();
+        busy(500000u);
+        uint32_t b1 = rd_syst();
+        int p = 0;
+        const char *s = "CAL t0=";
+        while (*s) msg[p++] = *s++;
+        put_uint(b0, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
+        s = " t1="; while (*s) msg[p++] = *s++;
+        put_uint(b1, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
+        msg[p++] = '\n'; msg[p] = 0;
+        sh_write0(msg);
+    }
 
     for (int run = 0; run < 3; run++) {
+        /* One inference per power cycle: the bump allocator never frees, and
+         * an inference costs ~820 KB of scratch, so without this reset the
+         * third run would walk past the pool. */
+        heap_off = 0;
         for (int i = 0; i < MS_L; i++) in[i] = gain[run] * base_in[i];
         uint32_t t0 = rd_syst();
         GDN2MS_Infer(&m, in, &out);
@@ -112,7 +141,11 @@ int main(void) {
 
         int p = 0;
         const char *s;
-        s = "CYC="; while (*s) msg[p++] = *s++;
+        s = "CYC t0="; while (*s) msg[p++] = *s++;
+        put_uint(t0, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
+        s = " t1="; while (*s) msg[p++] = *s++;
+        put_uint(t1, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
+        s = " d="; while (*s) msg[p++] = *s++;
         put_uint(cyc, nb); for (int i = 0; nb[i]; i++) msg[p++] = nb[i];
         s = " gain="; while (*s) msg[p++] = *s++;
         put_uint((uint32_t)(gain[run] * 1000.0f), nb);
