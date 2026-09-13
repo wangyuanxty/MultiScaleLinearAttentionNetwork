@@ -1,0 +1,232 @@
+\section{On-Device Deployment}
+\label{sec:deploy}
+
+Section~\ref{sec:exp} answered the accuracy question. This section answers
+the one an operator asks next: can the model run where the battery is?
+
+\subsection{Constraints and design goals}
+
+The target is the microcontroller inside a battery management system:
+no cloud link, no retraining on device, no application processor. Two
+constraints follow, and they shape every choice below.
+
+The first is \emph{fixed memory}. Firmware that runs alongside protection
+and balancing logic must not allocate dynamically; a predictor whose
+working set depends on runtime state is a liability rather than a
+feature. The second is that \emph{the cost of a prediction must not grow
+with how much history the operator wants to use}. A battery is monitored
+for its whole life, so a design in which longer context means more SRAM
+will eventually force a choice between context and the hardware.
+
+We deliberately do \emph{not} claim that the model is smaller than the
+baselines, or faster, at the window length used in Section~\ref{sec:exp}.
+What is claimed is narrower and, we think, more useful: the memory budget
+is decoupled from the context length. The state is a fixed
+$d_k\times d_v$ matrix per layer, so lengthening the window costs
+activation scratch --- linear in the number of tokens --- but never grows
+the state. A quadratic attention buffer does not have that property: at
+the evaluated window it is small, but it grows with the square of the
+context, so the window cannot be lengthened without either a larger buffer
+or a coarser representation of the same history.
+
+\subsection{Implementation}
+
+The inference path is C99 with no runtime library beyond \texttt{libm},
+built with \texttt{-nostdlib -nostartfiles} against a static pool
+allocator that refuses to over-allocate rather than running off the end
+of its array. Weights are \texttt{const} arrays read directly from flash;
+there is no load step and no start-up model transfer.
+
+The full model --- three patch branches of two GDN-2 layers each, the
+per-layer stage-query exchange, and the fused last-token readout --- is
+implemented, not just the single-branch encoder. Both variants share one
+implementation of the per-layer GDN-2 kernel, so the bit-exactness
+established for the encoder carries over to the model reported in
+Section~\ref{sec:exp} without a second validation argument.
+
+Two details of the port are worth recording because they are easy to get
+wrong. Each branch runs its GDN-2 layer at its own token count
+(32/16/8 for patches 2/4/8) and only then are the branches tiled up to
+the longest before the exchange; aligning first would scan the wrong
+sequence length. And the two length operations are different: aligning
+tiles the whole sequence
+($[a,b,c]\mapsto[a,b,c,a,b,c]$), while restoring the original length
+repeats each token
+($[a,b,c]\mapsto[a,a,b,b,c,c]$).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_deploy_photo}
+\caption{Edge deployment pipeline. (1) Sensing: the model consumes only
+capacity measurements ($c_t$, plus a cycle counter) from the battery.
+(2) The last $W{=}64$ cycles are patch-embedded and read at three scales.
+(3) Quantization: per-channel INT8 reduces the multi-scale weights from
+1.85\,MB to 504\,KB ($-72.5\%$) with no measurable accuracy cost
+(Table~\ref{tab:deploy}). (4) On-board inference in C: six GDN-2 layers
+with a fixed 8\,KB state each, zero dynamic allocation, advanced over the
+window scan. (5) Fused last-token readout predicts $\hat{c}_{t+1}$ in one
+step. (6) The P2.5/P50/P97.5 outputs drive calibrated RUL decisions.}
+\label{fig:deploy}
+\end{figure}
+
+\subsection{Numerical fidelity across architectures}
+
+Deployment claims usually stop at ``it runs''. We can do better, because
+the same C source is compiled for the host and for a Cortex-M3, and the
+two are compared on identical inputs:
+
+\begin{itemize}
+\item host C against the PyTorch forward: relative error
+  $1.07\times10^{-6}$ for the multi-scale model
+  ($2.5\times10^{-6}$ for the single-branch encoder);
+\item the Cortex-M3 binary (QEMU \texttt{mps2-an385}, Arm GNU Toolchain
+  13.2.rel1) against the host binary on the same window:
+  $5.96\times10^{-8}$, about half a float32 ULP, for the multi-scale
+  model ($1.19\times10^{-7}$ for the encoder).
+\end{itemize}
+
+The second number is the interesting one: it means the deployed model is
+not merely accurate on average but reproducible across instruction sets,
+including the \texttt{expf}/\texttt{logf}/\texttt{sqrtf}/\texttt{erff}
+calls the recurrence depends on. ARM soft-float and x86 arithmetic agree
+to the last bit but one.
+
+\subsection{Quantization}
+
+Weights are rounded per output channel with a symmetric scale, and the
+scales stay fp32; one-dimensional tensors (biases, RMSNorm weights,
+$A_{\log}$, $\mathbf{dt}$) are left in fp32 as well, which is what
+PyTorch's dynamic quantization does for biases and costs only a few
+kilobytes.
+
+Table~\ref{tab:deploy} gives the resulting footprints. At INT8 the
+multi-scale model costs 504\,KB, a $72.5\%$ reduction rather than the
+$75\%$ that dividing the parameter count by four would suggest: the
+scales and the fp32 one-dimensional tensors do not shrink. INT8 is
+free in accuracy terms. Ten seeds on the CALCE starting point 500 give
+$R^2=0.9955$ and MAE $0.00581$ for both fp32 and INT8, with AE moving
+from $2.16$ to $2.17$ cycles --- a difference well inside the
+seed-to-seed spread, which is $\pm1.5$ cycles.
+
+INT4 packs two signed nibbles per byte and halves the footprint again,
+to 268\,KB. Unlike INT8 it is not free: across the same ten seeds MAE
+rises $16.4\%$ (to $0.00676$) and $R^2$ falls to $0.9946$, while AE moves
+to $2.40$ cycles. The trade is worth stating precisely, because it is a
+deployment decision rather than a modelling one: INT4 brings the
+single-branch encoder to 67\,KB of weights, which fits a 128\,KB flash
+part, at a cost that is measurable but modest. Note also that AE is a
+poor metric for comparing quantizations --- its seed-to-seed spread
+dwarfs the effect, so MAE is what should be read here.
+
+\begin{table}[htbp]
+\centering
+\caption{Deployed footprints. Weights are the exported header's own byte
+count at each precision; state is the recurrent matrix state, fixed and
+independent of the window. INT8 and INT4 round per output channel with
+fp32 scales. Accuracy is the CALCE SP500 multi-scale model over ten
+seeds (single-branch encoder: one checkpoint).}
+\label{tab:deploy}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrr}
+\toprule
+ & & fp32 & INT8 & INT4 \\
+\midrule
+\multirow{5}{*}{Multi-scale}
+ & weights & 1.85\,MB & 504\,KB & 268\,KB \\
+ & state (SRAM) & \multicolumn{3}{c}{48\,KB, independent of window} \\
+ & $R^2$ & 0.9955 & 0.9955 & 0.9946 \\
+ & MAE & 0.00581 & 0.00581 & 0.00676 \\
+ & AE (cycles) & 2.16 & 2.17 & 2.40 \\
+\midrule
+\multirow{4}{*}{Single-branch}
+ & weights & 444\,KB & 122\,KB & 67\,KB \\
+ & state (SRAM) & \multicolumn{3}{c}{16\,KB} \\
+ & AE (cycles) & 1.0 & 0.9 & --- \\
+ & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Memory, latency and energy}
+
+The deployed model's static stack budget is 3.1\,KB, measured with the
+compiler's stack-usage report over the whole call chain; nothing is
+recursive and nothing is sized at runtime. Combined with the fixed state
+this means the SRAM requirement is known at compile time, which is the
+property a safety-related firmware review actually needs.
+
+Latency is projected from cycle counts under QEMU rather than measured on
+silicon. The encoder's full inference corresponds to 8--12\,ms on an
+STM32F4 at 168\,MHz; the multi-scale model's cycle count is reported in
+the accompanying code release. Two caveats belong with these numbers: the
+emulator models the core but not flash wait states or bus contention, so
+the figures are optimistic; and the cycle count is not perfectly constant
+across inputs, because the \texttt{libm} routines branch on their
+arguments.
+
+Energy follows from the cycle count without needing a power measurement
+on the device. Writing the core's current as $c$ in
+$\mu\mathrm{A}/\mathrm{MHz}$ and its supply as $V$, one inference of $N$
+cycles costs
+\begin{equation}
+E \;=\; c \, V \, N \times 10^{-12}~\mathrm{J},
+\end{equation}
+independent of clock frequency: raising the clock shortens the inference
+in proportion, so it buys latency and not energy. What matters
+operationally is the duty cycle, and a battery management system runs
+this inference once per charge--discharge cycle --- hours apart. At
+millijoule scale per inference the daily total is negligible against the
+BMS's own quiescent draw, so the deployment argument does not rest on
+energy at all; it rests on the memory bound above.
+
+Power is not reported as a measured quantity: QEMU provides
+cycle-accurate timing but no power model, and on-device measurement
+requires hardware validation that this work does not include. The
+expression above uses a datasheet figure for $c$ and is an estimate, not
+a measurement.
+
+\subsection{Comparison with an attention model at equal context}
+
+Table~\ref{tab:attn} makes the trade explicit for a model with
+$H{=}4$ heads and $d_{\text{model}}{=}64$ attending over $L$ tokens,
+against our fixed 48\,KB state.
+
+\begin{table}[htbp]
+\centering
+\caption{Working memory against context length. Attention figures are the
+score matrix ($H L^2 \times 4$ bytes) and the key/value cache
+($2 L d_{\text{model}} \times 4$ bytes) for the configuration above;
+ours is the six-layer recurrent state, unchanged by $L$.}
+\label{tab:attn}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrr}
+\toprule
+tokens & attention scores & KV cache & ours & ratio \\
+\midrule
+32   & 16\,KB   & 16\,KB   & 48\,KB & $0.3\times$ \\
+64   & 64\,KB   & 32\,KB   & 48\,KB & $1.3\times$ \\
+128  & 256\,KB  & 64\,KB   & 48\,KB & $5.3\times$ \\
+256  & 1.0\,MB  & 128\,KB  & 48\,KB & $21\times$ \\
+512  & 4.0\,MB  & 256\,KB  & 48\,KB & $85\times$ \\
+1024 & 16\,MB   & 512\,KB  & 48\,KB & $341\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The first row is the one to read: at the token count our experiments
+actually use, the attention score matrix (16\,KB) is \emph{smaller} than
+our state. The crossover is near $L\approx55$ tokens. The argument is
+therefore not that a linear-attention model is cheaper today, but that
+its cost does not move when the application needs more context --- and
+that the KV cache, unlike the state, keeps growing as inference proceeds.
+
+\subsection{Limitations}
+
+Everything above was measured on emulated hardware. The cycle counts come
+from a cycle-accurate model of the core that does not include flash wait
+states or bus contention, so latencies are optimistic; energy is an
+estimate from a datasheet current rather than a measurement; and no
+on-device power or thermal figure is reported. On-silicon validation is
+the natural next step and is left to future work.

@@ -650,71 +650,6 @@ Interval width & 0.0286 & 0.0421 & --- \\
 \end{tabular}
 \end{table}
 
-\subsection{Deployment}
-\label{sec:deploy}
-
-Table~\ref{tab:deploy} summarizes INT8 quantization and MCU
-deployment results. Dynamic INT8 quantization is essentially lossless
-(AE unchanged), reducing weights from 1.94\,MB to 484\,KB
-($-75\%$). We validate the deterministic-deployment mechanism on the
-simplest representative variant---the two-layer single-branch
-encoder; the multi-scale model shares the identical per-layer state
-mechanism and its INT8 quantization is equally lossless
-(Table~\ref{tab:deploy}). The single-branch model is implemented in
-C and matches the PyTorch forward within floating-point rounding
-(relative error $< 3\times10^{-6}$ on the reference window), with
-8\,KB state per layer and no dynamic memory allocation. The
-deployment advantage is deliberately \emph{not} parameter
-minimization---the model is not the smallest among the compared
-baselines---but a memory budget decoupled from context length: the
-per-layer state is a fixed $d_k\times d_v$ matrix and the per-cycle
-cost is constant, so the window is a free design parameter that can be
-lengthened to meet application requirements without re-planning SRAM,
-whereas a quadratic attention buffer grows with the square of the
-context: the window cannot be lengthened without either a larger
-buffer or a coarser representation of the same history. Full
-inference is projected at 8--12\,ms on an STM32F4 at 168\,MHz
-(from QEMU full-scan cycle counts, no on-silicon measurement). Power
-consumption is not reported because the QEMU emulator provides
-cycle-accurate timing but no power model; on-device power measurement
-is left to future hardware validation.
-
-Figure~\ref{fig:deploy} shows the complete edge-deployment
-pipeline: on-board capacity sensing, INT8 quantization of the
-weights, and the memory-deterministic on-board inference chain
-that produces calibrated RUL decisions.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\textwidth]{figures/fig_deploy_photo}
-\caption{Edge deployment pipeline. (1) Sensing: the model consumes
-only capacity measurements ($c_t$, plus a cycle counter) from the
-battery. (2) The last $W{=}64$ cycles are patch-embedded to 32
-tokens at $d{=}64$ ($=d_{\text{model}}$). (3) Quantization: dynamic
-INT8 reduces weights from 1.94\,MB to 484\,KB ($-75\%$) with AE
-2.2$\to$2.3 (lossless). (4) On-board inference in C: two GDN-2
-layers with a fixed 8\,KB state per layer (16\,KB total, zero
-dynamic allocation) updated over the window scan. (5) Fused
-last-token readout predicts $\hat{c}_{t+1}$ in one step. (6) The
-P2.5/P50/P97.5 outputs drive calibrated RUL decisions at
-8--12\,ms per inference on STM32F4 (168\,MHz).}
-\label{fig:deploy}
-\end{figure}
-
-\begin{table}[htbp]
-\centering
-\caption{INT8 and MCU deployment results.}
-\label{tab:deploy}
-\begin{tabular}{lccc}
-\toprule
-Config & fp32 AE & INT8 AE & Memory \\
-\midrule
-Single-branch & 2.2 & 2.3 & 114 KB \\
-Multi-scale & 1.0 & 1.0 & 484 KB \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \subsection{Limitations}
 \label{sec:limitations}
 
@@ -741,8 +676,8 @@ is projected from cycle-accurate emulation rather than measured on
 silicon, and no on-device power figure is reported. All validation
 is on public laboratory cycling data; field conditions such as
 partial cycling, pack-level effects, and non-stationary loads remain
-open. The full three-branch deployment would need MCU-class flash of
-at least 512\,KB (INT8 340\,KB weights plus firmware), hence the
-deployment validation uses the two-layer single-branch variant,
-which shares the identical per-layer state mechanism.
+open. Both the single-branch encoder and the full multi-scale model are
+implemented in C and verified on emulated hardware; the deployed
+footprints, the cross-architecture agreement and the caveats that come
+with emulation are given in Section~\ref{sec:deploy}.
 
