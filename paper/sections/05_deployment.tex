@@ -54,21 +54,6 @@ whole sequence ($[a,b,c]\mapsto[a,b,c,a,b,c]$), while restoring the
 length expands a patch-level sequence back to the full input length by
 repeating each token ($[a,b,c]\mapsto[a,a,b,b,c,c]$).
 
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\textwidth]{figures/fig_deploy_photo}
-\caption{Edge deployment pipeline. (1) Sensing: the model consumes only
-capacity measurements ($c_t$, plus a cycle counter) from the battery.
-(2) The last $W{=}64$ cycles are patch-embedded and read at three scales.
-(3) Quantization: per-channel INT8 reduces the multi-scale weights from
-1.85\,MB to 504\,KB ($-72.5\%$) with no measurable accuracy cost
-(Table~\ref{tab:deploy}). (4) On-board inference in C: six GDN-2 layers
-with a fixed 8\,KB state each, zero dynamic allocation, advanced over the
-window scan. (5) Fused last-token readout predicts $\hat{c}_{t+1}$ in one
-step. (6) The P2.5/P50/P97.5 outputs drive calibrated RUL decisions.}
-\label{fig:deploy}
-\end{figure}
-
 \subsection{Numerical fidelity across architectures}
 
 Deployment claims usually stop at ``it runs''. We can do better, because
@@ -148,6 +133,32 @@ seeds (single-branch encoder: one checkpoint).}
 \end{tabular}
 \end{table}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/fig_dep_pareto}
+\caption{Quantization footprint against trajectory accuracy for the
+multi-scale model (CALCE SP500, ten seeds; Table~\ref{tab:deploy}). The
+fp32 and INT8 points sit at the same MAE and the same $R^2$, which is the
+sense in which INT8 is free; INT4 halves the footprint again and pays
+$16.4\%$ MAE for it. Dashed guides mark the single-branch encoder's
+footprints, whose values are in Table~\ref{tab:deploy}; that variant has
+no trajectory MAE reported, so no accuracy curve is drawn for it.}
+\label{fig:dep_pareto}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_dep_flash}
+\caption{Which precision fits which flash class. Weight footprint at each
+(architecture, precision) pair of Table~\ref{tab:deploy}, against the
+flash sizes common on Cortex-M parts. The single-branch encoder fits a
+$128$\,KB part at INT8 ($122$\,KB) and at INT4 ($67$\,KB); the multi-scale
+model needs $512$\,KB at INT4 or INT8 and $2$\,MB at fp32. In every case
+the footprint is a property of the exported header, so the choice can be
+made before the part is chosen.}
+\label{fig:dep_flash}
+\end{figure}
+
 \subsection{Memory and stack budget}
 
 The deployed model's static stack budget is 3.1\,KB, measured with the
@@ -157,6 +168,20 @@ of Table~\ref{tab:deploy} this means the SRAM requirement is known at
 compile time --- the property a safety-related firmware review actually
 needs --- and it is why the memory argument can be made without appealing
 to any timing measurement.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_dep_budget}
+\caption{SRAM budget of the deployed model. The recurrent state is the
+only large item, and it is fixed at $8$\,KB per layer: $48$\,KB for the
+six-layer multi-scale model and $16$\,KB for the two-layer encoder. The
+static stack budget is $3.1$\,KB. Weights are \texttt{const} arrays
+executed from flash and are not part of this budget. Both components are
+known at compile time and neither depends on the window length; the
+reference implementation's transient activation buffers are carved from a
+statically sized pool and are excluded here.}
+\label{fig:dep_budget}
+\end{figure}
 
 \subsection{On latency and energy}
 \label{sec:latency}
@@ -247,6 +272,22 @@ our state. The crossover is near $L\approx55$ tokens. The argument is
 therefore not that a linear-attention model is cheaper today, but that
 its cost does not move when the application needs more context --- and
 that the KV cache, unlike the state, keeps growing as inference proceeds.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_dep_memctx}
+\caption{Working memory against context length, recomputed from the
+formulas in Table~\ref{tab:attn}'s caption ($HL^2\times4$ bytes for the
+score matrix, $2Ld_{\text{model}}\times4$ bytes for the KV cache, with
+$H{=}4$ and $d_{\text{model}}{=}64$) and against the fixed $48$\,KB
+recurrent state. At the $32$-token window the experiments use, the score
+matrix ($16$\,KB) is still \emph{smaller} than the state; the crossover is
+near $L\approx55$. The two rising curves are therefore not an argument
+about the cost of a prediction today but about what happens when the
+application asks for more context: the attention buffers grow without
+bound while the state does not move.}
+\label{fig:dep_memctx}
+\end{figure}
 
 \subsection{Limitations}
 

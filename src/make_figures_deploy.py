@@ -1,0 +1,377 @@
+"""Edge-deployment figures for the DeltaCycle paper (sec:deploy).
+
+Four figures, all numbers traceable to paper/sections/05_deployment.tex:
+
+  - fig_dep_memctx: working memory vs context length. Attention score
+                    matrix (H*L^2*4 B) and KV cache (2*L*d_model*4 B) for
+                    H=4, d_model=64, against the fixed six-layer recurrent
+                    state (48 KB). Crossover at L ~ 55 tokens; the evaluated
+                    window is 32 tokens, where attention is still smaller.
+                    Source: tab:attn in 05_deployment.tex.
+  - fig_dep_pareto: quantization footprint vs trajectory MAE (multi-scale,
+                    CALCE SP500, ten seeds). Source: tab:deploy.
+                    The single-branch encoder has no trajectory MAE in that
+                    table, so it appears as footprint guides only.
+  - fig_dep_flash:  which precision fits which flash tier (vertical
+                    threshold lines at common part sizes). Source: tab:deploy.
+  - fig_dep_budget: compile-time SRAM budget: recurrent state + static
+                    stack. Weights are const arrays executed from flash
+                    (05_deployment.tex, "Implementation"), so they are NOT
+                    part of the SRAM bar; fig_dep_flash covers them.
+
+Usage: python src/make_figures_deploy.py
+"""
+import os
+
+import numpy as np
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
+
+FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures")
+os.makedirs(FIG, exist_ok=True)
+
+COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
+GREY = "#b0b0b0"
+EDGE = "#2b2b2b"
+
+# rcParams mirror make_figures.py / make_figures_insight.py. NOTE: this dict is
+# set directly (make_figures is NOT imported) and sets "savefig.bbox": None --
+# with matplotlib 3.11 a 'tight' bbox plus mathtext yields a broken portrait
+# canvas.
+plt.rcParams.update(
+    {
+        "font.size": 8.5, "axes.titlesize": 9.5, "axes.labelsize": 8.5,
+        "legend.fontsize": 7, "xtick.labelsize": 8, "ytick.labelsize": 8,
+        "figure.dpi": 300, "savefig.dpi": 300,
+        "font.family": "serif", "mathtext.fontset": "dejavuserif",
+        # Grid uses an opaque light grey rather than an alpha: any alpha forces
+        # matplotlib's PDF backend to emit an /ExtGState, and viewers that
+        # mishandle transparency have been seen to drop filled artists
+        # wholesale, rendering these figures as bare labels.
+        "axes.grid": True, "grid.color": "#d9d9d9", "grid.linewidth": 0.4,
+        "axes.spines.top": False, "axes.spines.right": False,
+        "savefig.bbox": None,
+    }
+)
+
+# ---------------------------------------------------------------------------
+# Shared constants (paper/sections/05_deployment.tex)
+# ---------------------------------------------------------------------------
+ATTN_H = 4                    # heads, tab:attn
+MODEL_D = 64                  # d_model, tab:attn
+STATE_MULTI_KB = 48.0         # six-layer recurrent state, tab:deploy
+STATE_SINGLE_KB = 16.0        # two-layer recurrent state, tab:deploy
+STATE_PER_LAYER_KB = 8.0      # H*Dk*Dv*4 = 4*16*32*4 bytes
+STACK_KB = 3.1                # static stack budget, "Memory and stack budget"
+
+TOKENS = np.array([32, 64, 128, 256, 512, 1024])
+# attention score matrix: H * L^2 * 4 bytes -> KB
+ATTN_KB = ATTN_H * TOKENS.astype(float) ** 2 * 4.0 / 1024.0
+# KV cache: 2 * L * d_model * 4 bytes -> KB
+KV_KB = 2.0 * TOKENS * MODEL_D * 4.0 / 1024.0
+# crossover: H*L^2*4 / 1024 == STATE_MULTI_KB
+CROSSOVER_L = float(np.sqrt(STATE_MULTI_KB * 1024.0 / (ATTN_H * 4.0)))
+
+# Weights, tab:deploy. 1 MB is read as 1024 KB, the convention used by the
+# same section's attention table (256 tokens -> 1.0 MB for 1048576 bytes).
+W_MULTI = {"fp32": 1.85 * 1024.0, "int8": 504.0, "int4": 268.0}
+W_SINGLE = {"fp32": 444.0, "int8": 122.0, "int4": 67.0}
+# Trajectory MAE, multi-scale, ten seeds, CALCE SP500, tab:deploy.
+MAE_MULTI = {"fp32": 0.00581, "int8": 0.00581, "int4": 0.00676}
+
+
+def _kb_fmt(v: float) -> str:
+    """Format a KB value as KB or MB using the paper's 1 MB = 1024 KB."""
+    if v >= 1024.0:
+        return f"{v / 1024.0:g} MB"
+    return f"{v:g} KB"
+
+
+def _edged(container, lw: float = 0.6):
+    """Print-safe bar edges (fig_compare.pdf look)."""
+    for patch in container:
+        patch.set_edgecolor(EDGE)
+        patch.set_linewidth(lw)
+    return container
+
+
+def _save(fig, name: str) -> None:
+    for ext in ("pdf", "png"):
+        fig.savefig(os.path.join(FIG, f"{name}.{ext}"), dpi=300)
+    plt.close(fig)
+    print(f"{name}.pdf/png done")
+
+
+# ---------------------------------------------------------------------------
+# A -- working memory vs context length
+# ---------------------------------------------------------------------------
+def fig_dep_memctx():
+    fig, ax = plt.subplots(figsize=(6.9, 4.0))
+
+    ax.plot(TOKENS, ATTN_KB, "o-", color=COLORS[3], lw=1.3, ms=4.2,
+            label=r"attention scores ($H L^2 \times 4$ B)")
+    ax.plot(TOKENS, KV_KB, "s-", color=COLORS[1], lw=1.3, ms=4.0,
+            label=r"KV cache ($2 L d_{\mathrm{model}} \times 4$ B)")
+    ax.plot(TOKENS, np.full_like(TOKENS, STATE_MULTI_KB, dtype=float), "^--",
+            color=COLORS[0], lw=1.4, ms=4.6,
+            label="ours: 6-layer recurrent state")
+
+    # crossover: attention scores reach the 48 KB state line
+    ax.axvline(CROSSOVER_L, color="0.45", ls=":", lw=1.0, zorder=0)
+    ax.plot([CROSSOVER_L], [STATE_MULTI_KB], "o", ms=5.4, mfc="white",
+            mec="0.2", mew=1.1, zorder=5)
+    ax.annotate(
+        f"crossover $L \\approx {CROSSOVER_L:.0f}$ tokens",
+        xy=(CROSSOVER_L, STATE_MULTI_KB), xytext=(80.0, 200.0),
+        fontsize=7.5, color="0.15",
+        arrowprops=dict(arrowstyle="->", lw=0.8, color="0.35",
+                        shrinkA=1, shrinkB=4),
+    )
+
+    # evaluated operating point: 32 tokens on the finest (patch-2) branch
+    ax.axvline(32.0, color="0.55", ls="--", lw=0.9, zorder=0)
+    ax.plot([32.0], [ATTN_KB[0]], "o", ms=6.2, mfc="white", mec=COLORS[3],
+            mew=1.4, zorder=6)
+    ax.annotate(
+        "evaluated window: 32 tokens\n"
+        "($W{=}64$ cycles, patch 2)\n"
+        "attention 16 KB $<$ our 48 KB state",
+        xy=(32.0, ATTN_KB[0] * 0.90), xytext=(35.0, 4.6),
+        fontsize=6.8, color="0.12", ha="left", va="bottom",
+        bbox=dict(boxstyle="round,pad=0.30", fc="white", ec="0.65", lw=0.6),
+        arrowprops=dict(arrowstyle="->", lw=0.8, color="0.35",
+                        shrinkA=2, shrinkB=3),
+    )
+
+    ax.text(1150.0, STATE_MULTI_KB * 1.16, "48 KB, flat in $L$",
+            fontsize=7.5, color=COLORS[0], ha="right", va="bottom")
+    ax.text(
+        0.985, 0.035,
+        "the claim is the slope, not today's value",
+        transform=ax.transAxes, fontsize=7.2, color="0.3",
+        ha="right", va="bottom", style="italic",
+    )
+
+    ax.set_xscale("log", base=2)
+    ax.set_yscale("log")
+    ax.set_xticks(TOKENS)
+    ax.set_xticklabels([str(t) for t in TOKENS])
+    ax.set_yticks([16, 64, 256, 1024, 4096, 16384])
+    ax.set_yticklabels([_kb_fmt(v) for v in [16, 64, 256, 1024, 4096, 16384]])
+    for axis in (ax.xaxis, ax.yaxis):
+        axis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+        axis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_xlim(24.0, 2600.0)
+    ax.set_ylim(4.2, 1.4e5)
+
+    ax.set_xlabel("context length $L$ (tokens)")
+    ax.set_ylabel("working memory (KB)")
+    leg = ax.legend(frameon=True, loc="upper left", fontsize=7.0,
+                    handlelength=2.0, borderaxespad=0.4)
+    leg.get_frame().set_facecolor("white")
+    leg.get_frame().set_edgecolor("none")
+    leg.get_frame().set_alpha(1.0)
+    leg.set_zorder(10)
+
+    fig.tight_layout()
+    _save(fig, "fig_dep_memctx")
+    print(f"  crossover L = {CROSSOVER_L:.1f} tokens; "
+          f"attention at 32 tokens = {ATTN_KB[0]:g} KB")
+
+
+# ---------------------------------------------------------------------------
+# B -- quantization: footprint vs accuracy
+# ---------------------------------------------------------------------------
+def fig_dep_pareto():
+    fig, ax = plt.subplots(figsize=(5.7, 3.6))
+
+    keys = ["fp32", "int8", "int4"]
+    xs = np.array([W_MULTI[k] for k in keys])
+    ys = np.array([MAE_MULTI[k] for k in keys])
+
+    ax.plot(xs, ys, "-", color="0.55", lw=1.0, zorder=1)
+    ax.plot(xs[:2], ys[:2], "o", ms=6.0, color=COLORS[0], zorder=3)
+    ax.plot(xs[2:], ys[2:], "o", ms=6.0, color=COLORS[3], zorder=3)
+
+    # INT8 sits exactly on fp32: draw the tie explicitly
+    ax.axhline(MAE_MULTI["fp32"], color=COLORS[0], ls=":", lw=0.9, zorder=0)
+
+    ax.annotate(
+        "INT4: $+16.4\\%$ MAE\n($0.00676$)",
+        xy=(W_MULTI["int4"], MAE_MULTI["int4"]),
+        xytext=(420.0, 0.00688), fontsize=7.0, color="0.15", ha="center",
+        arrowprops=dict(arrowstyle="->", lw=0.8, color="0.45",
+                        shrinkA=2, shrinkB=4),
+    )
+    ax.text(760.0, MAE_MULTI["fp32"] * 1.016,
+            "INT8 $=$ fp32:\nsame MAE, same $R^2$",
+            fontsize=7.0, color=COLORS[0], ha="center", va="bottom")
+
+    # single-branch encoder: footprint reported, trajectory MAE not (tab:deploy)
+    for k in keys:
+        ax.axvline(W_SINGLE[k], color="0.72", ls="--", lw=0.8, zorder=0)
+        ax.text(W_SINGLE[k], 0.005535,
+                f"{['fp32', 'INT8', 'INT4'][keys.index(k)]}\n"
+                f"{W_SINGLE[k]:g} KB",
+                fontsize=6.3, color="0.35", ha="center", va="bottom",
+                linespacing=1.3)
+
+    ax.set_xscale("log", base=2)
+    ax.set_xlim(56.0, 2700.0)
+    ax.set_ylim(0.00548, 0.00716)
+    ax.set_xticks([64, 128, 256, 512, 1024, 2048])
+    ax.set_xticklabels([_kb_fmt(v) for v in [64, 128, 256, 512, 1024, 2048]])
+    ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    yt = [0.0058, 0.0060, 0.0062, 0.0064, 0.0066, 0.0068, 0.0070]
+    ax.set_yticks(yt)
+    ax.set_yticklabels([f"{v:.4f}" for v in yt])
+
+    ax.set_xlabel("weight footprint (KB)")
+    ax.set_ylabel("trajectory MAE (normalized)")
+
+    handles = [
+        Line2D([], [], marker="o", ls="none", color=COLORS[0], ms=5.5,
+               label="multi-scale fp32 / INT8"),
+        Line2D([], [], marker="o", ls="none", color=COLORS[3], ms=5.5,
+               label="multi-scale INT4"),
+        Line2D([], [], color="0.72", ls="--", lw=0.9,
+               label="single-branch (footprint only)"),
+    ]
+    ax.legend(handles=handles, frameon=False, loc="center right", fontsize=7.0)
+    ax.text(0.0, -0.245, "dashed guides: single-branch encoder (67 / 122 / "
+            "444 KB) -- AE only in Table 1, no trajectory MAE",
+            transform=ax.transAxes, fontsize=6.6, color="0.35",
+            style="italic", ha="left", va="top")
+
+    fig.tight_layout()
+    _save(fig, "fig_dep_pareto")
+
+
+# ---------------------------------------------------------------------------
+# C -- which precision fits which flash tier
+# ---------------------------------------------------------------------------
+def fig_dep_flash():
+    fig, ax = plt.subplots(figsize=(6.8, 3.5))
+
+    # (label, KB, is_multi) -- ascending by size
+    rows = [
+        ("single-branch INT4", W_SINGLE["int4"], False),
+        ("single-branch INT8", W_SINGLE["int8"], False),
+        ("multi-scale INT4", W_MULTI["int4"], True),
+        ("single-branch fp32", W_SINGLE["fp32"], False),
+        ("multi-scale INT8", W_MULTI["int8"], True),
+        ("multi-scale fp32", W_MULTI["fp32"], True),
+    ]
+    y = np.arange(len(rows))
+    vals = [r[1] for r in rows]
+    cols = [COLORS[0] if r[2] else GREY for r in rows]
+
+    # Bars are anchored at the axis minimum rather than 0. On a log axis
+    # matplotlib clips a zero left edge to the axis minimum anyway, so this is
+    # not a correctness fix -- it just makes the intent explicit and keeps the
+    # widths independent of where the limit happens to be set.
+    X_MIN = 52.0
+    ax.set_xscale("log", base=2)
+    # Deliberately opaque: an alpha here writes an ExtGState into the PDF, and
+    # some viewers drop translucent fills, rendering the figure as bare labels.
+    _edged(ax.barh(y, [v - X_MIN for v in vals], left=X_MIN, color=cols,
+                   height=0.62))
+    for yy, v in zip(y, vals):
+        ax.text(v * 1.07, yy, _kb_fmt(v), va="center", ha="left", fontsize=7.2)
+
+    for tier in (128.0, 256.0, 512.0, 1024.0, 2048.0):
+        ax.axvline(tier, color="0.35", ls="--", lw=0.9, zorder=0)
+        ax.text(tier, -0.50, _kb_fmt(tier), fontsize=6.8, color="0.3",
+                ha="center", va="bottom")
+
+    ax.set_xlim(X_MIN, 3600.0)
+    ax.set_xticks([64, 128, 256, 512, 1024, 2048])
+    ax.set_xticklabels([_kb_fmt(v) for v in [64, 128, 256, 512, 1024, 2048]])
+    ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_yticks(y)
+    ax.set_yticklabels([r[0] for r in rows], fontsize=7.5)
+    ax.set_ylim(-0.62, len(rows) - 0.35)
+    ax.invert_yaxis()
+    ax.grid(axis="y", visible=False)
+    ax.set_xlabel("weight footprint (KB)")
+
+    handles = [
+        Patch(fc=COLORS[0], ec=EDGE, lw=0.6,
+              label="multi-scale (paper model)"),
+        Patch(fc=GREY, ec=EDGE, lw=0.6,
+              label="single-branch encoder"),
+    ]
+    ax.legend(handles=handles, frameon=False, loc="center right", fontsize=7.0)
+    ax.text(0.0, -0.27, "dashed lines: common MCU flash sizes",
+            transform=ax.transAxes, fontsize=6.8, color="0.35",
+            style="italic", ha="left", va="top")
+
+    fig.tight_layout()
+    _save(fig, "fig_dep_flash")
+
+
+# ---------------------------------------------------------------------------
+# D -- SRAM budget breakdown
+# ---------------------------------------------------------------------------
+def fig_dep_budget():
+    fig, ax = plt.subplots(figsize=(6.5, 2.6))
+
+    cfgs = [
+        ("multi-scale\n(6 GDN-2 layers)", 6, STATE_MULTI_KB),
+        ("single-branch\n(2 GDN-2 layers)", 2, STATE_SINGLE_KB),
+    ]
+    state_c = "#1f5fa8"
+    stack_c = "#7fae7f"
+
+    for yy, (_, nlayers, state) in zip(np.arange(len(cfgs)), cfgs):
+        x0 = 0.0
+        # Opaque fills: see fig_dep_flash -- alpha puts an ExtGState in the PDF
+        # and some viewers then drop the bars entirely.
+        for _ in range(nlayers):
+            ax.barh(yy, STATE_PER_LAYER_KB, left=x0, height=0.50,
+                    color=state_c, edgecolor=EDGE, linewidth=0.5)
+            x0 += STATE_PER_LAYER_KB
+        ax.barh(yy, STACK_KB, left=x0, height=0.50, color=stack_c,
+                edgecolor=EDGE, linewidth=0.5)
+        ax.text(state / 2.0, yy, f"{state:g} KB", va="center", ha="center",
+                fontsize=7.4, color="white", fontweight="bold")
+        ax.text(state + STACK_KB + 1.8, yy, f"{state + STACK_KB:.1f} KB",
+                va="center", ha="left", fontsize=7.6, color="0.12")
+
+    ax.set_yticks(np.arange(len(cfgs)))
+    ax.set_yticklabels([c[0] for c in cfgs], fontsize=7.5)
+    ax.set_ylim(len(cfgs) - 0.40, -0.62)
+    ax.set_xlim(0.0, 68.0)
+    ax.set_xlabel("SRAM working set (KB)")
+    ax.grid(axis="y", visible=False)
+
+    handles = [
+        Patch(fc=state_c, ec=EDGE, lw=0.5, label="recurrent state"),
+        Patch(fc=stack_c, ec=EDGE, lw=0.5,
+              label=f"static stack ({STACK_KB:g} KB, no recursion)"),
+    ]
+    ax.legend(handles=handles, frameon=False, loc="lower left",
+              bbox_to_anchor=(0.30, 1.00), ncol=2, fontsize=7.0,
+              borderaxespad=0.0)
+    ax.text(0.0, -0.33, "state is $8$ KB per layer and independent of window "
+            "length; weights are $\\tt{const}$ flash arrays, not SRAM.\n"
+            "Stack measured for the full model; the encoder is a subset of "
+            "that call chain.",
+            transform=ax.transAxes, fontsize=6.8, color="0.35",
+            style="italic", ha="left", va="top", linespacing=1.5)
+
+    fig.tight_layout()
+    _save(fig, "fig_dep_budget")
+
+
+if __name__ == "__main__":
+    fig_dep_memctx()
+    fig_dep_pareto()
+    fig_dep_flash()
+    fig_dep_budget()
