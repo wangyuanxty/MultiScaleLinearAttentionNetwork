@@ -671,13 +671,14 @@ models share one optimizer budget rather than a per-dataset one. The
 official-style 0.8/0.2 row-tail early stopping was also tried; the
 small validation window made it terminate at 2--16 epochs with
 systematically worse test metrics, so the fixed schedule is kept.
-MCU latency
-is projected from cycle-accurate emulation rather than measured on
-silicon, and no on-device power figure is reported. All validation
-is on public laboratory cycling data; field conditions such as
-partial cycling, pack-level effects, and non-stationary loads remain
-open. Both the single-branch encoder and the full multi-scale model are
-implemented in C and verified on emulated hardware; the deployed
-footprints, the cross-architecture agreement and the caveats that come
-with emulation are given in Section~\ref{sec:deploy}.
+Neither latency nor energy is reported: as
+Section~\ref{sec:latency} explains, the emulator's cycle counter does not
+track guest work faithfully enough to support one, and no on-device power
+figure is available. All validation is on public laboratory cycling data;
+field conditions such as partial cycling, pack-level effects, and
+non-stationary loads remain open. Both the single-branch encoder and the
+full multi-scale model are implemented in C and verified on emulated
+hardware; the deployed footprints, the cross-architecture agreement and
+the caveats that come with emulation are given in
+Section~\ref{sec:deploy}.
 

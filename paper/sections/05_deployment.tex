@@ -159,37 +159,52 @@ needs --- and it is why the memory argument can be made without appealing
 to any timing measurement.
 
 \subsection{On latency and energy}
+\label{sec:latency}
 
-We do not report a latency. The natural source would be the SysTick cycle
-counter under emulation, and an earlier version of this work did report
-such a figure. Re-measuring it, however, showed the counter to be
-non-reproducible: three runs of the same model with inputs differing by
-one percent gave counts spanning a factor of three, and repeating the
-experiment under QEMU's instruction-count timing did not remove the
-spread. The SysTick peripheral is driven by the emulator's virtual clock,
-and without instruction-count timing that clock tracks the host rather
-than the guest, so what is being measured is the host's scheduling rather
-than the model's work. A number that moves with the host cannot be
-reported as a property of the model.
+We do not report a latency, and the reason is worth setting down because it
+is not the obvious one.
 
-Energy depends on the cycle count and inherits the same problem, so it is
-not reported either. It is worth recording how it would be obtained,
-because the expression is clock-invariant: writing the core current as
-$c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and the supply as $V$, an inference
-of $N$ cycles costs
+The obvious source is the SysTick cycle counter under emulation, which an
+earlier version of this work did report. Re-measuring it first showed the
+count to be irreproducible --- three runs of the same model gave counts
+spanning a factor of three --- but that turned out to be a fixable artefact
+of the emulator rather than a property of the counter. QEMU's
+instruction-count mode (\texttt{-icount}) is what makes the virtual clock
+advance with the guest instead of with the host, and its default
+\texttt{sleep=on} re-couples virtual time to real time; adding
+\texttt{sleep=off} with \texttt{shift=0} makes the count repeatable to
+$0.02\%$.
+
+What still disqualifies it is a cross-build check. Compiling the same C
+source at two optimisation levels --- outputs bit-identical, code size within
+$0.3\%$ --- gives $15.09$ million ticks at \texttt{-O2} and $6.79$ million at
+\texttt{-O0}: the \emph{less} optimised build reports \emph{fewer} ticks,
+while wall-clock time in the same runs says it does slightly \emph{more}
+work. A control loop of known instruction count (three per iteration by
+construction) is read correctly in both runs, so the fault is
+workload-dependent rather than a misconfiguration. A counter whose reading
+moves opposite to the work cannot be converted into a cycle figure, and a
+latency published from it would describe the emulator's accounting rather
+than the model.
+
+Energy inherits the same block, being computed from the cycle count. The
+expression is worth recording because it is clock-invariant: writing the core
+current as $c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and the supply as $V$, an
+inference of $N$ cycles costs
 \begin{equation}
 E \;=\; c \, V \, N \times 10^{-12}~\mathrm{J},
 \end{equation}
-independent of clock frequency. Raising the clock shortens the inference
-in proportion, so it buys latency and not energy. Operationally the duty
-cycle is what matters, and a battery management system runs this
-inference once per charge--discharge cycle, hours apart; at millijoule
-scale the daily total would be negligible against the BMS's own
-quiescent draw. None of this changes the deployment argument, which rests
-on the memory bound rather than on timing.
-
-Latency and energy therefore remain unmeasured. On-silicon measurement is
-the natural next step and is left to future work.
+independent of clock frequency. Raising the clock shortens the inference in
+proportion, so it buys latency and not energy. Operationally the duty cycle is
+what matters, and a battery management system runs this inference once per
+charge--discharge cycle, hours apart. To put the scale in view without
+claiming a measurement: at $c = 300\,\mu\mathrm{A}/\mathrm{MHz}$,
+$V = 3.3\,\mathrm{V}$ and a deliberately generous $N = 10^{9}$ cycles, one
+inference costs about $1\,\mu\mathrm{J}$, and the daily total is a rounding
+error against the BMS's own quiescent draw. None of this changes the
+deployment argument, which rests on the memory bound rather than on timing.
+Cycle-accurate measurement on silicon is the natural next step and is left to
+future work.
 
 \subsection{Comparison with an attention model at equal context}
 
@@ -229,10 +244,10 @@ that the KV cache, unlike the state, keeps growing as inference proceeds.
 
 \subsection{Limitations}
 
-Everything above was measured on emulated hardware, and the emulator
-models the core but not flash wait states or bus contention. Latency and
-energy are not reported at all, for the reason given in
-Section~\ref{sec:deploy}: the emulated cycle counter was found to track
-the host rather than the guest, so it cannot support a timing claim. No
-on-device power or thermal figure is reported either. On-silicon
-validation is the natural next step and is left to future work.
+Everything above was measured on emulated hardware. The emulator models the
+core but not flash wait states or bus contention, and --- as
+Section~\ref{sec:latency} sets out --- its cycle counter does not track guest
+work faithfully enough to support a timing or energy claim, so none is made
+here or elsewhere in this work. No on-device power or thermal figure is
+reported either. On-silicon validation is the natural next step and is left to
+future work.

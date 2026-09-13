@@ -48,6 +48,15 @@ static void sh_write0(const char *s) {
     register const char *r1 __asm("r1") = s;
     __asm volatile("bkpt 0xab" : : "r"(r0), "r"(r1));
 }
+
+/* Halt the emulator from inside the guest. Without it the trailing spin loop
+ * keeps QEMU alive forever and a run can only be killed, never timed. */
+static void __attribute__((noreturn)) sh_exit(void) {
+    register uint32_t r0 __asm("r0") = 0x18;      /* SYS_EXIT */
+    register uint32_t r1 __asm("r1") = 0x20026;   /* ADP_Stopped_ApplicationExit */
+    __asm volatile("bkpt 0xab" : : "r"(r0), "r"(r1));
+    for (;;) {}
+}
 void *malloc(size_t n) {
     n = (n + 7u) & ~7u;
     if (heap_off + n > HEAP_SIZE) { heap_overflow = 1; return 0; }
@@ -158,5 +167,5 @@ int main(void) {
         sh_write0(msg);
     }
     if (heap_overflow) sh_write0("HEAP_OVERFLOW\n");
-    return 0;
+    sh_exit();
 }

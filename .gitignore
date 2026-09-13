@@ -6,16 +6,18 @@ data/
 literature/
 reference_repos/
 
-# LaTeX build artifacts (paper/ only)
-paper/**/*.aux
-paper/**/*.log
-paper/**/*.toc
-paper/**/*.fls
-paper/**/*.bbl
-paper/**/*.blg
-paper/**/*.out
-paper/**/*.synctex.gz
-paper/**/texput.log
+# LaTeX build artifacts (paper/ and paper_indojc/)
+paper*/**/*.aux
+paper*/**/*.log
+paper*/**/*.toc
+paper*/**/*.fls
+paper*/**/*.bbl
+paper*/**/*.blg
+paper*/**/*.out
+paper*/**/*.synctex.gz
+paper*/**/*.fdb_latexmk
+paper*/**/texput.log
+texput.log
 
 # Python caches (all dirs)
 __pycache__/
@@ -29,4 +31,4 @@ __pycache__/
 .vscode/
 
 # compiled paper (build artifact; regenerate with pdflatex)
-paper/main.pdf
+paper*/main.pdf
