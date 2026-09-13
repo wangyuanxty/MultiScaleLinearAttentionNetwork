@@ -152,8 +152,7 @@ Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
 long-term monotonic envelope. We encode these with three parallel
 branches using patch sizes $P \in \{2,4,8\}$
-(Figure~
-ef{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
+(Figure~\ref{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
 patch scale). Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
 two GDN-2 layers. After every GDN layer, branches exchange
@@ -224,9 +223,10 @@ per-window z-score protocol: z-score targets include positive values
 mean) that a monotone predictor can never produce, so the constraint
 is unsatisfiable in that space; the absolute-space objective removes
 the sign conflict. A control experiment confirms the mechanism, not
-the objective, is responsible for the gain: a free head trained in
-absolute space reaches MAE $0.0097$ (worse than the z-score free head
-at $0.0070$), while the rate head reaches $0.0042$. The extension
+the objective, is responsible for the gain: over ten seeds a free head
+trained in absolute space reaches MAE $0.0090\pm0.0058$ (worse than
+the z-score free head at $0.0065\pm0.0003$), while the rate head
+reaches $0.00427\pm0.00002$. The extension
 further improves the unseen-tail extrapolation ($R^2$ $0.775$ vs
 $0.374$) and robustness to corrupted inputs (Section
 \ref{sec:ablation}).

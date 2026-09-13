@@ -409,9 +409,9 @@ statistically resolvable at $n{=}10$; there the no-interaction
 multi-scale config again carries the largest seed-to-seed variance
 ($\pm0.0014$). The single-seed version of this table (seed 42,
 $0.0070$/$0.0076$/$0.0066$) is not reproduced here---it is one draw
-from the seed distribution, which explains the earlier
-``exchange outperforms single-branch'' reading of
-Table~\ref{tab:ablation}.
+from the seed distribution, and the advantage it shows for the
+exchanged model over the single branch does not reproduce across
+seeds.
 \begin{table}[htbp]
 \centering
 \caption{Architecture ablation, ten seeds, full-sequence MAE / R\textsuperscript{2} /
@@ -615,7 +615,7 @@ Figure~\ref{fig:uq_band} shows the calibrated band on the test cell.
 translates into an operational policy directly: the simplest
 risk-aware rule is ``schedule replacement at the first cycle where
 the P2.5 trajectory crosses the EOL threshold.'' With CQR the
-the $93.5\%\pm0.9\%$ coverage bounds the missed-EOL rate, and the
+$93.5\%\pm0.9\%$ coverage bounds the missed-EOL rate, and the
 $+36\%$
 interval-width cost quantified above is the price paid for that
 bound. Quantifying the associated maintenance-cost trade-off under a

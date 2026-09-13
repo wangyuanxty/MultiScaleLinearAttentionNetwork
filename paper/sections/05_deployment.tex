@@ -49,10 +49,10 @@ wrong. Each branch runs its GDN-2 layer at its own token count
 (32/16/8 for patches 2/4/8) and only then are the branches tiled up to
 the longest before the exchange; aligning first would scan the wrong
 sequence length. And the two length operations are different: aligning
-tiles the whole sequence
-($[a,b,c]\mapsto[a,b,c,a,b,c]$), while restoring the original length
-repeats each token
-($[a,b,c]\mapsto[a,a,b,b,c,c]$).
+brings a short branch up to the longest token count by tiling the
+whole sequence ($[a,b,c]\mapsto[a,b,c,a,b,c]$), while restoring the
+length expands a patch-level sequence back to the full input length by
+repeating each token ($[a,b,c]\mapsto[a,a,b,b,c,c]$).
 
 \begin{figure}[!ht]
 \centering
@@ -204,10 +204,13 @@ E \;=\; c \, V \, N \times 10^{-12}~\mathrm{J},
 independent of clock frequency. Raising the clock shortens the inference in
 proportion, so it buys latency and not energy. Operationally the duty cycle is
 what matters: a battery management system runs this inference once per
-charge--discharge cycle, hours apart, so at $c = 300\,\mu\mathrm{A}/\mathrm{MHz}$
-and $V = 3.3\,\mathrm{V}$ the $2.5\,\mathrm{mJ}$ an inference costs is a
-rounding error against the BMS's own quiescent draw. Neither figure changes the
-deployment argument, which rests on the memory bound rather than on timing.
+charge--discharge cycle, hours apart. At $c = 300\,\mu\mathrm{A}/\mathrm{MHz}$
+and $V = 3.3\,\mathrm{V}$ an inference costs $2.5\,\mathrm{J}$; spread over a
+cycle of several hours that is an average draw below a milliwatt, which is
+small against the BMS's own quiescent load but not negligible by default, and
+it is the quantity a duty-cycle budget should be built from. Neither figure
+changes the deployment argument, which rests on the memory bound rather than on
+timing.
 
 \subsection{Comparison with an attention model at equal context}
 
