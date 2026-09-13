@@ -2,22 +2,22 @@
 
 A single-window comparison cannot see AE: AE is a property of the whole
 predicted trajectory (where it first crosses the EOL threshold). This
-script loads the exact checkpoint that export_gdn_weights.py hands to the
-C code -- single-branch, patch=2, per-window z-score targets -- and
-evaluates the CALCE per-SP trajectory twice:
-
-    fp32  : the exported weights as they are
-    q8    : the same weights put through the int8 round trip that
-            export_gdn_weights.py --quant int8 applies (per-output-channel
-            symmetric int8, then dequantized back to fp32)
+script loads a checkpoint, evaluates the CALCE test cell twice -- once with
+the fp32 weights, once with the int8 round trip that
+export_gdn_weights.py --quant int8 applies (per-output-channel symmetric
+int8, dequantized back to fp32) -- and reports AE, R2 and MAE for both.
 
 The q8 variant mirrors the C path (int8 weights, fp32 arithmetic), so the
-delta between the two rows is what the C deployment actually costs. The
-absolute values are NOT comparable to tab:deploy, which was measured on a
-different model (absolute-space targets, multiscale backbone).
+delta between the two rows is what the C deployment costs.
+
+Works for either architecture:
+    --arch single   src/gdn_weights.pt                (bare state_dict)
+    --arch ms       checkpoints/per_sp/<ds>/<sp>.pt   (per-SP checkpoint,
+                    which carries its own lo/hi/sp)
 """
-import sys
+import argparse
 from pathlib import Path
+import sys
 
 import numpy as np
 import torch
@@ -26,8 +26,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from gdn_model import build_gdn_model  # noqa: E402
 from make_figures import load_series  # noqa: E402
 
-CKPT = Path(__file__).parent / "gdn_weights.pt"
-SPS = (300, 400, 500)
+HERE = Path(__file__).parent
 
 
 def quantize_like_export(state):
@@ -52,9 +51,10 @@ def quantize_like_export(state):
     return out
 
 
-def build_and_load(state):
-    model = build_gdn_model(multiscale=False, input_dim=1, window_size=64,
-                            output_len=1, readout="last")
+def build_and_load(state, arch, window):
+    model = build_gdn_model(
+        multiscale=(arch == "ms"), stage_query=(arch == "ms"),
+        input_dim=1, window_size=window, output_len=1, readout="last")
     model.load_state_dict(state)
     model.eval()
     return model
@@ -86,7 +86,7 @@ def eval_ae(pv, tv, eol_n, sps, W):
     true_eol = int(np.argmax(tv < eol_n)) + W
     aes = []
     for sp in sps:
-        seg = pv[sp - 64:]
+        seg = pv[sp - W:]
         pred_eol = -1
         for j in range(len(seg) - 1):
             if seg[j] >= eol_n > seg[j + 1]:
@@ -101,24 +101,41 @@ def eval_ae(pv, tv, eol_n, sps, W):
 
 
 def main():
-    state = torch.load(CKPT, map_location="cpu", weights_only=False)
-    caps, train_cells, test_cell, W, _sps, eol_ah = load_series("calce")
-    all_tr = np.concatenate([caps[c] for c in train_cells])
-    lo, hi = all_tr.min(), all_tr.max()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--arch", choices=("single", "ms"), default="single")
+    ap.add_argument("--ckpt", default=None,
+                    help="default: src/gdn_weights.pt for single")
+    ap.add_argument("--dataset", default="calce")
+    args = ap.parse_args()
+    ckpt = Path(args.ckpt) if args.ckpt else HERE / "gdn_weights.pt"
+
+    obj = torch.load(ckpt, map_location="cpu", weights_only=False)
+    wrapped = isinstance(obj, dict) and "state_dict" in obj
+    state = obj["state_dict"] if wrapped else obj
+    W = int(obj.get("W", 64)) if wrapped else 64
+    sps = (int(obj["sp"]),) if wrapped else (300, 400, 500)
+
+    caps, train_cells, test_cell, _W, _sps, eol_ah = load_series(args.dataset)
+    if wrapped:
+        lo, hi = obj["lo"], obj["hi"]
+    else:
+        all_tr = np.concatenate([caps[c] for c in train_cells])
+        lo, hi = all_tr.min(), all_tr.max()
     tc = (caps[test_cell] - lo) / (hi - lo + 1e-8)
     eol_n = (eol_ah - lo) / (hi - lo + 1e-8)
     tv = tc[W:]
 
-    print(f"checkpoint : {CKPT.name}  ({len(state)} tensors)")
+    print(f"checkpoint : {ckpt.name}  arch={args.arch}  "
+          f"({len(state)} tensors)")
     print(f"test cell  : {test_cell}  ({len(tc)} cycles, "
-          f"EOL threshold {eol_ah} Ah)")
+          f"EOL threshold {eol_ah} Ah)  SP={sps[0]}")
     print()
 
     for label, st in (("fp32", state), ("int8", quantize_like_export(state))):
-        model = build_and_load(st)
+        model = build_and_load(st, args.arch, W)
         pv = trajectory_predictions(model, tc, W)
         r2 = 1 - np.sum((tv - pv) ** 2) / np.sum((tv - tv.mean()) ** 2)
-        true_eol, aes = eval_ae(pv, tv, eol_n, SPS, W)
+        true_eol, aes = eval_ae(pv, tv, eol_n, sps, W)
         print(f"{label:5s}  R2={r2:.4f}  "
               f"AE={'/'.join(f'{a:.1f}' for a in aes)}  "
               f"MAE={np.abs(tv - pv).mean():.4f}")

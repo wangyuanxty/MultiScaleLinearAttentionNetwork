@@ -10,7 +10,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "gdn2_multiscale.c"
+#ifdef GDN_Q8
+#include "gdn_ms_weights_q8.h"
+#else
 #include "gdn_ms_weights.h"
+#endif
 #include "ms_init.h"
 
 static int read_csv(const char *path, float *out, int n) {
