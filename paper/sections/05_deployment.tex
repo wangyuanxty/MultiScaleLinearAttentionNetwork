@@ -85,7 +85,7 @@ PyTorch's dynamic quantization does for biases and costs only a few
 kilobytes.
 
 Table~\ref{tab:deploy} gives the resulting footprints. At INT8 the
-multi-scale model costs 504\,KB, a $72.5\%$ reduction rather than the
+multi-scale model costs 504\,KB, a $73.4\%$ reduction rather than the
 $75\%$ that dividing the parameter count by four would suggest: the
 scales and the fp32 one-dimensional tensors do not shrink. INT8 is
 free in accuracy terms. Ten seeds on the CALCE starting point 500 give
@@ -105,8 +105,10 @@ dwarfs the effect, so MAE is what should be read here.
 
 \begin{table}[htbp]
 \centering
-\caption{Deployed footprints. Weights are the exported header's own byte
-count at each precision; state is the recurrent matrix state, fixed and
+\caption{Deployed footprints. Weights are the binary payload of the exported
+weight arrays; the generated header files are about $3.3\times$ larger,
+since the values are written as ASCII text. State is the recurrent matrix
+state, fixed and
 independent of the window. INT8 and INT4 round per output channel with
 fp32 scales. Accuracy is the CALCE SP500 multi-scale model over ten
 seeds (single-branch encoder: one checkpoint).}
@@ -154,7 +156,7 @@ no trajectory MAE reported, so no accuracy curve is drawn for it.}
 flash sizes common on Cortex-M parts. The single-branch encoder fits a
 $128$\,KB part at INT8 ($122$\,KB) and at INT4 ($67$\,KB); the multi-scale
 model needs $512$\,KB at INT4 or INT8 and $2$\,MB at fp32. In every case
-the footprint is a property of the exported header, so the choice can be
+the footprint is fixed by the exported weight payload, so the choice can be
 made before the part is chosen.}
 \label{fig:dep_flash}
 \end{figure}
