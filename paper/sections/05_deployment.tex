@@ -191,25 +191,17 @@ $4.86\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3. Three runs on
 the same window give $48{,}643{,}579$, $48{,}644{,}799$ and $48{,}641{,}330$
 ticks --- a spread of $0.007\%$.
 
-Two things had to be established before that number meant anything. The first
-is that the emulated clock follows the guest rather than the host: QEMU's
-instruction-count mode (\texttt{-icount}) is what advances the virtual clock
-with execution, and its default \texttt{sleep=on} re-couples virtual time to
-real time, so a count taken under it tracks host scheduling. With
-\texttt{sleep=off} and \texttt{shift=0} --- one nanosecond of virtual time per
-executed instruction --- the count is reproducible, and the SysTick reference
-works out to exactly $25\,\mathrm{MHz}$, the MPS2 board's own SYSCLK, giving
-one tick per forty instructions. The second is treatable arithmetic: SysTick is
-a 24-bit down-counter, so a span longer than its reload value aliases. Both
-figures here exceed $16.8\times10^{6}$ ticks and were initially read as
-$15.1\times10^{6}$; counting reloads in the exception handler and reading the
-counter through a seqlock resolves them. The correction matters, because the
-aliased readings from two optimisation levels appeared to run in the wrong
-order and very nearly produced the opposite conclusion --- that the emulated
-counter was untrustworthy. With reloads counted, \texttt{-O0} reports
-$57.12\times10^{6}$ ticks against \texttt{-O2}'s $48.64\times10^{6}$, the
-correct ordering, and a cross-build check that would otherwise have
-discredited the method instead corroborates it.
+The figure is an emulated SysTick count, and two properties of that counter
+have to be fixed before it means anything. It advances with the guest rather
+than with the host only under instruction-count timing: with
+\texttt{-icount shift=0,sleep=off}, one executed instruction is one nanosecond
+of virtual time, which places the SysTick reference at exactly
+$25\,\mathrm{MHz}$ --- the MPS2 board's own SYSCLK --- so one tick is forty
+instructions. And it is a 24-bit down-counter, while a single inference spans
+more than its $16.8\times10^{6}$-tick reload period, so the reloads are counted
+in the exception handler and the counter is read through a seqlock. A
+\texttt{-O0} build of the same source reports $57.12\times10^{6}$ ticks against
+\texttt{-O2}'s $48.64\times10^{6}$.
 
 In instructions that is $1.95\times10^{9}$. The count is what the emulator
 measures directly; converting to cycles needs a cycles-per-instruction figure
