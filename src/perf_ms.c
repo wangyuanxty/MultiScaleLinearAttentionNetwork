@@ -71,6 +71,12 @@ const uint32_t vectors[16] = {
 
 __attribute__((noreturn, section(".text.start")))
 void _start(void) {
+    /* Enable the FPU before ANY compiled code runs. With -mfloat-abi=hard the
+     * compiler may use VFP registers in any function prologue, including
+     * main's, so enabling CP10/CP11 inside main() is already too late. */
+    *(volatile uint32_t *)0xE000ED88 |= (0xFu << 20);
+    __asm volatile("dsb" ::: "memory");
+    __asm volatile("isb" ::: "memory");
     for (unsigned char *p = &__bss_start__; p < &__bss_end__; p++) *p = 0;
     main();
     for (;;) {}
