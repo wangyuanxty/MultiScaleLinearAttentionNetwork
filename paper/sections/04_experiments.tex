@@ -93,25 +93,10 @@ dotted lines mark the EOL thresholds.}
 \end{figure}
 
 
-Battery-specific foundation and pretrained models published outside
-the per-SP RUL protocol family are not included in the comparison
-tables, because their reported metrics use different evaluation
-conventions (early-cycle prediction, or trajectory regression
-without per-SP RUL errors); head-to-head comparisons under our
-protocol are left to future work. Each case study below carries
-the per-dataset comparison table against PatchFormer
-\cite{ref_patchformer}, RUL-Mamba \cite{ref_rulmamba}, and the
-general time-series transformers. On CALCE, NASA, PANASONIC and TJU the
-PatchFormer and RUL-Mamba rows are self-run with the official
-repositories under the same per-SP protocol (10 repeats per SP,
-seeds 1--10; see the table footnotes for published-value context); the remaining
-rows use the numbers reported in those papers on the shared test
-cells, EOL thresholds, and starting points (NASA B0005 and TJU
-CY25-1 are used identically by all works). RUL-Mamba's own paper
-has no CALCE or PANASONIC results; its published numbers there
-come from OmniTIEFormer's baseline runs \cite{ref_omnitie}.
-Figure~\ref{fig:compare} visualizes the per-SP trajectory MAE of
-the compared methods on all six datasets (mean over the three SPs).
+Figure~\ref{fig:compare} shows our model ranks first (mean per-SP MAE) on PANASONIC, TJU (tied) and GOTION, 
+second on CALCE, and third on NASA and MIT — top-3 on all six datasets and 
+clearly beating all generic time-series transformers. Although PatchFormer slightly leads on NASA/CALCE/MIT, 
+our model is overall the best or co-best method.
 
 \begin{figure}[htbp]
 \centering

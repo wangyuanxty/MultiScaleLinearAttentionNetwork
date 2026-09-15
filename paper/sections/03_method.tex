@@ -155,7 +155,14 @@ branches using patch sizes $P \in \{2,4,8\}$
 (Figure~\ref{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
 patch scale). Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
-two GDN-2 layers. After every GDN layer, branches exchange
+two GDN-2 layers. Each branch scans at its own token count---32, 16 and
+8 for patch sizes 2, 4 and 8---and the branches are aligned to the
+longest only before an exchange, since aligning first would scan the
+wrong sequence length. The two length operations differ: aligning tiles
+the whole sequence to the longest token count
+($[a,b,c]\mapsto[a,b,c,a,b,c]$), whereas restoring a branch to the full
+input length repeats each token ($[a,b,c]\mapsto[a,a,b,b,c,c]$).
+After every GDN layer, branches exchange
 information through a stage-query mechanism: the coarse branch's
 GDN-2 state---the compressed degradation history, which acts as a
 stage indicator---is projected to a single query, and the fine and

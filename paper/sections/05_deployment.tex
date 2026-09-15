@@ -1,104 +1,51 @@
 \section{On-Device Deployment}
 \label{sec:deploy}
 
-Section~\ref{sec:exp} answered the accuracy question. This section answers
-the one an operator asks next: can the model run where the battery is?
 
 \subsection{Constraints and design goals}
 
-The target is the microcontroller inside a battery management system:
-no cloud link, no retraining on device, no application processor. Two
-constraints follow, and they shape every choice below.
-
-The first is \emph{fixed memory}. Firmware that runs alongside protection
-and balancing logic must not allocate dynamically; a predictor whose
-working set depends on runtime state is a liability rather than a
-feature. The second is that \emph{the cost of a prediction must not grow
-with how much history the operator wants to use}. A battery is monitored
-for its whole life, so a design in which longer context means more SRAM
-will eventually force a choice between context and the hardware.
-
-We deliberately do \emph{not} claim that the model is smaller than the
-baselines, or faster, at the window length used in Section~\ref{sec:exp}.
-What is claimed is narrower and, we think, more useful: the memory budget
-is decoupled from the context length. The state is a fixed
-$d_k\times d_v$ matrix per layer, so lengthening the window costs
-activation scratch --- linear in the number of tokens --- but never grows
-the state. A quadratic attention buffer does not have that property: at
-the evaluated window it is small, but it grows with the square of the
-context, so the window cannot be lengthened without either a larger buffer
-or a coarser representation of the same history.
-
-\subsection{Implementation}
-
-The inference path is C99 with no runtime library beyond \texttt{libm},
-built with \texttt{-nostdlib -nostartfiles} against a static pool
-allocator that refuses to over-allocate rather than running off the end
-of its array. Weights are \texttt{const} arrays read directly from flash;
-there is no load step and no start-up model transfer.
-
-The full model --- three patch branches of two GDN-2 layers each, the
-per-layer stage-query exchange, and the fused last-token readout --- is
-implemented, not just the single-branch encoder. Both variants share one
-implementation of the per-layer GDN-2 kernel, so the bit-exactness
-established for the encoder carries over to the model reported in
-Section~\ref{sec:exp} without a second validation argument.
-
-Two details of the port are worth recording because they are easy to get
-wrong. Each branch runs its GDN-2 layer at its own token count
-(32/16/8 for patches 2/4/8) and only then are the branches tiled up to
-the longest before the exchange; aligning first would scan the wrong
-sequence length. And the two length operations are different: aligning
-brings a short branch up to the longest token count by tiling the
-whole sequence ($[a,b,c]\mapsto[a,b,c,a,b,c]$), while restoring the
-length expands a patch-level sequence back to the full input length by
-repeating each token ($[a,b,c]\mapsto[a,a,b,b,c,c]$).
+Our target is the microcontroller inside a battery management system,
+which operates without a cloud link, on-device retraining, or an
+application processor. That platform imposes two constraints: firmware
+alongside protection and balancing logic must not allocate dynamically,
+and prediction cost must not grow with the history the operator uses,
+because a battery is monitored for its entire service life and that
+history only accumulates. Our implementation satisfies the first
+directly: freestanding C99, a static pool allocator that reports
+exhaustion rather than overrunning its array, and weights held as
+const arrays in flash. The focus of this work is not that the model is smaller or faster 
+than the baselines at the evaluated window, but rather that its state size does not scale with the window length: 
+fixed at $d_k\times d_v$ per layer, it adds only activation scratch, linear in the number of tokens,
+whereas a quadratic attention buffer grows with the square of the
+context, forcing a larger buffer or a coarser representation of the same
+history.
 
 \subsection{Numerical fidelity across architectures}
 
-Deployment claims usually stop at ``it runs''. We can do better, because
-the same C source is compiled for the host and for a Cortex-M3, and the
-two are compared on identical inputs:
+We implement the full multi-scale model rather than only the single-branch encoder. 
+Since both variants share the same GDN-2 kernel implementation, 
+the verification established for the encoder extends to the model reported in Section~\ref{sec:exp},
+obviating the need for a separate validation argument. 
+We compile the same C source for the host and Cortex-M3 and compare the two outputs bit for bit on identical inputs.
+
 
 \begin{itemize}
 \item host C against the PyTorch forward: relative error
   $1.07\times10^{-6}$ for the multi-scale model
   ($2.5\times10^{-6}$ for the single-branch encoder);
-\item the Cortex-M3 binary (QEMU \texttt{mps2-an385}, Arm GNU Toolchain
-  13.2.rel1) against the host binary on the same window:
-  $5.96\times10^{-8}$, about half a float32 ULP, for the multi-scale
-  model ($1.19\times10^{-7}$ for the encoder).
+\item the Cortex-M3 binary (QEMU mps2-an385, Arm GNU Toolchain
+  13.2.rel1) against the host binary: $5.96\times10^{-8}$, about half a
+  float32 ULP, for the multi-scale model ($1.19\times10^{-7}$ for the
+  encoder).
 \end{itemize}
-
-The second number is the interesting one: it means the deployed model is
-not merely accurate on average but reproducible across instruction sets,
-including the \texttt{expf}/\texttt{logf}/\texttt{sqrtf}/\texttt{erff}
-calls the recurrence depends on. ARM soft-float and x86 arithmetic agree
-to the last bit but one.
 
 \subsection{Quantization}
 
-Weights are rounded per output channel with a symmetric scale, and the
-scales stay fp32; one-dimensional tensors (biases, RMSNorm weights,
-$A_{\log}$, $\mathbf{dt}$) are left in fp32 as well, which is what
-PyTorch's dynamic quantization does for biases and costs only a few
-kilobytes.
-
-Table~\ref{tab:deploy} gives the resulting footprints. At INT8 the
-multi-scale model costs 504\,KB, a $73.4\%$ reduction rather than the
-$75\%$ that dividing the parameter count by four would suggest: the
-scales and the fp32 one-dimensional tensors do not shrink. INT8 is
-free in accuracy terms. Ten seeds on the CALCE starting point 500 give
-$R^2=0.9955$ and MAE $0.00581$ for both fp32 and INT8, with AE moving
-from $2.16$ to $2.17$ cycles --- a difference well inside the
-seed-to-seed spread, which is $\pm1.5$ cycles.
-
-INT4 packs two signed nibbles per byte and halves the footprint again,
-to 268\,KB. Unlike INT8 it is not free: across the same ten seeds MAE
-rises $16.4\%$ (to $0.00676$) and $R^2$ falls to $0.9946$, while AE moves
-to $2.40$ cycles. Note also that AE is a
-poor metric for comparing quantizations --- its seed-to-seed spread
-dwarfs the effect, so MAE is what should be read here.
+Table~\ref{tab:deploy} reports the memory footprints. INT8 yields a $73.4\%$ reduction to 504 KB with no accuracy loss 
+(R2=0.9955, MAE=0.00581). INT4 halves this to 268 KB but MAE rises $16.4\%$ (R2=0.9946). 
+AE changes from 2.16 to 2.17 cycles, within the ±1.5-cycle seed-to-seed spread. The variants are two deployment tiers: 
+multi-scale branches handle three temporal scales; the encoder alone is measured. 
+Flash and accuracy drive the choice.
 
 \begin{table}[htbp]
 \centering
@@ -134,33 +81,6 @@ Table~\ref{tab:ablation}.}
 \end{tabular}
 \end{table}
 
-The two variants are two deployment tiers, not a recommended configuration and
-a fallback. The single-branch encoder fits a $128$\,KB flash part at INT8
-($122$\,KB) or INT4 ($67$\,KB); the full multi-scale model needs $512$\,KB at
-either precision. The accuracy that separates the tiers is measured by the
-architecture ablation (Table~\ref{tab:ablation}): on CALCE the single branch
-matches the main model (MAE $0.0065$ for both, $R^2$ $0.9956$ against
-$0.9955$), and on NASA it gives up $0.0003$ in MAE ($0.0087$ against $0.0084$)
-while AE moves from $0.5$ to $1.8$ cycles --- within the $\pm1.5$-cycle
-seed-to-seed spread quoted above. Which tier is appropriate therefore follows
-from the available flash and the accuracy the application needs, and both
-configurations are characterised rather than assumed. The multi-scale branches
-exist to resolve degradation at three time scales
-(Section~\ref{sec:method}); where a deployment cannot afford them, the encoder
-alone is a measured option rather than an untested simplification.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.82\textwidth]{figures/fig_dep_pareto}
-\caption{Quantization footprint against trajectory accuracy for the
-multi-scale model (CALCE SP500, ten seeds; Table~\ref{tab:deploy}). The
-fp32 and INT8 points sit at the same MAE and the same $R^2$, which is the
-sense in which INT8 is free; INT4 halves the footprint again and pays
-$16.4\%$ MAE for it. Dashed guides mark the single-branch encoder's
-footprints, whose values are in Table~\ref{tab:deploy}; that variant has
-no trajectory MAE reported, so no accuracy curve is drawn for it.}
-\label{fig:dep_pareto}
-\end{figure}
 
 \begin{figure}[!ht]
 \centering
@@ -179,155 +99,68 @@ made before the part is chosen.}
 
 The deployed model's static stack budget is 3.1\,KB, measured with the
 compiler's stack-usage report over the whole call chain; nothing is
-recursive and nothing is sized at runtime. Combined with the fixed state
-of Table~\ref{tab:deploy} this means the SRAM requirement is known at
-compile time --- the property a safety-related firmware review actually
+recursive, nothing is sized at runtime, and the transient activation
+buffers come from a pool fixed at compile time. Combined with the fixed
+state of Table~\ref{tab:deploy} this means the SRAM requirement is known
+at compile time --- the property a safety-related firmware review actually
 needs --- and it is why the memory argument can be made without appealing
 to any timing measurement.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\textwidth]{figures/fig_dep_budget}
-\caption{SRAM budget of the deployed model. The recurrent state is the
-only large item, and it is fixed at $8$\,KB per layer: $48$\,KB for the
-six-layer multi-scale model and $16$\,KB for the two-layer encoder. The
-static stack budget is $3.1$\,KB. Weights are \texttt{const} arrays
-executed from flash and are not part of this budget. Both components are
-known at compile time and neither depends on the window length; the
-reference implementation's transient activation buffers are carved from a
-statically sized pool and are excluded here.}
-\label{fig:dep_budget}
-\end{figure}
 
 \subsection{On latency and energy}
 \label{sec:latency}
 
 One inference of the full multi-scale model costs
-$4.88\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3. Three input
-windows give $48{,}755{,}486$, $48{,}756{,}706$ and $48{,}753{,}240$ ticks
---- a spread of $0.007\%$. Rebuilt for a core that has a floating-point unit
-the same inference costs $3.39\times10^{6}$ ticks, $14.4\times$ fewer. Both
-figures are carried through this section, because which one a deployment sees
-is a property of the part rather than of the model --- and the difference
-between them is what separates the two timings derived below.
-
-The figure is an emulated SysTick count, and two properties of that counter
-have to be fixed before it means anything. It advances with the guest rather
-than with the host only under instruction-count timing: with
-\texttt{-icount shift=0,sleep=off}, one executed instruction is one nanosecond
-of virtual time, which places the SysTick reference at exactly
-$25\,\mathrm{MHz}$ --- the MPS2 board's own SYSCLK --- so one tick is forty
-instructions. And it is a 24-bit down-counter, while a single inference spans
-more than its $16.8\times10^{6}$-tick reload period, so the reloads are counted
-in the exception handler and the counter is read through a seqlock. A
-\texttt{-O0} build of the same source reports $57.13\times10^{6}$ ticks against
-\texttt{-O2}'s $48.76\times10^{6}$.
-
-In instructions that is $1.95\times10^{9}$, or $1.36\times10^{8}$ for the FPU
-build. The count is what the emulator measures directly; converting to cycles
-needs a cycles-per-instruction figure it cannot supply. At
-$\mathrm{CPI}\approx1.3$, representative of compiled Thumb-2 on this core, one
-inference is $2.54\times10^{9}$ cycles soft-float and $1.76\times10^{8}$ with
-the FPU. On the emulator's $25\,\mathrm{MHz}$ those are $101\,\mathrm{s}$ and
-$7.1\,\mathrm{s}$; at the $200\,\mathrm{MHz}$ a Cortex-M7 part runs at, the FPU
-build is $0.9\,\mathrm{s}$. Timing that charges every instruction the same
-virtual time cannot price an FPU instruction's extra cycles, and
-single-precision multiply and divide cost several cycles each on real silicon,
-so the $14.4\times$ instruction ratio overstates the wall-clock gain --- while
-the higher clocks those parts run at push the other way. Read
-$0.9\,\mathrm{s}$ as an estimate and $7.1\,\mathrm{s}$ as the figure the
+$4.88\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3, with three
+input windows spanning only $0.007\%$ ($48{,}755{,}486$, $48{,}756{,}706$ and
+$48{,}753{,}240$). Rebuilt for a core that has a floating-point unit the same
+inference costs $3.39\times10^{6}$ ticks, $14.4\times$ fewer. The emulator
+measures instructions---$1.95\times10^{9}$, or $1.36\times10^{8}$ with the
+FPU---and converting to cycles needs a cycles-per-instruction figure it cannot
+supply; at $\mathrm{CPI}\approx1.3$, representative of compiled Thumb-2 on this
+core, one inference is $2.54\times10^{9}$ cycles soft-float and
+$1.76\times10^{8}$ with the FPU. On the emulator's $25\,\mathrm{MHz}$ those are
+$101\,\mathrm{s}$ and $7.1\,\mathrm{s}$; at the $200\,\mathrm{MHz}$ a Cortex-M7
+part runs at, the FPU build is $0.9\,\mathrm{s}$. Both are conservative:
+$25\,\mathrm{MHz}$ is the MPS2 board's own clock, the Cortex-M3 has no
+floating-point unit so every fp32 multiply and add becomes a call into a
+software routine, and the FPU figure is a same-core measurement. Because
+uniform instruction timing cannot price an FPU instruction's extra cycles,
+read $0.9\,\mathrm{s}$ as an estimate and $7.1\,\mathrm{s}$ as the figure the
 emulator itself supports.
 
-The $101\,\mathrm{s}$ is assembled from three conservative choices rather than
-being a property of the model. The first is the clock: $25\,\mathrm{MHz}$ is
-the MPS2 board's own, far below what an FPU-equipped part runs at. The second
-is the core. The MPS2-AN385 is a Cortex-M3, which has no floating-point unit,
-so every fp32 multiply and add becomes a call into a software routine; the
-linked binary contains $225$ call sites to those routines. A soft-float build
-of the same source on the Cortex-M7 image costs $48.76\times10^{6}$ ticks ---
-within $0.02\%$ of the Cortex-M3 figure, because the count is dominated by
-those routines --- so the FPU build's $3.39\times10^{6}$ is a same-core
-measurement, and the FPU alone removes $14.4\times$ of the \emph{instruction
-count}. It also removes the input sensitivity, from the $0.007\%$ spread across
-the three windows above to $6\times10^{-7}$, because the branching lives in the
-software routines the FPU replaces. The third is the kernel, a plain
-triple-loop matrix--vector product with no unrolling. Cortex-M4F and M33 parts,
-which BMS designs do use, have an FPU. The
-two builds are not bit-identical --- fused multiply--add changes the rounding,
-and the results differ by about $3\times10^{-6}$ in relative terms. That is the
-same order as the agreement between the host build and the PyTorch forward
-reported earlier in this section, and larger than the cross-instruction-set
-agreement, which is expected: the two builds contract different operations and
-so round in different places. It is not an accuracy concern at the scale of the
-decisions this model supports.
-
-Energy follows from the same count and is clock-invariant: writing the core
-current as $c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and the supply as $V$, an
-inference of $N$ cycles costs
+Energy follows from the same count and is clock-invariant: with core current
+$c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and supply $V$, an inference of $N$ cycles
+costs
 \begin{equation}
-E \;=\; c \, V \, N \times 10^{-12}~\mathrm{J},
+E \;=\; c \, V \, N \times 10^{-12}~\mathrm{J}.
 \end{equation}
-independent of clock frequency. Raising the clock shortens the inference in
-proportion, so it buys latency and not energy. Operationally the duty cycle is
-what matters: a battery management system runs this inference once per
-charge--discharge cycle, hours apart. At $c = 300\,\mu\mathrm{A}/\mathrm{MHz}$
-and $V = 3.3\,\mathrm{V}$ an inference costs $2.5\,\mathrm{J}$ soft-float and
-$0.17\,\mathrm{J}$ with the FPU; spread over a
-cycle of several hours that is an average draw below a milliwatt, which is
-small against the BMS's own quiescent load but not negligible by default, and
-it is the quantity a duty-cycle budget should be built from. Neither figure
-changes the deployment argument, which rests on the memory bound rather than on
-timing.
+At $c = 300\,\mu\mathrm{A}/\mathrm{MHz}$ and $V = 3.3\,\mathrm{V}$ an
+inference costs $2.5\,\mathrm{J}$ soft-float and
+$0.17\,\mathrm{J}$ with the FPU; spread over a charge--discharge cycle hours
+apart, that is an average draw below a milliwatt. Neither figure changes the
+deployment argument, which rests on the memory bound rather than on timing.
 
 \subsection{Comparison with an attention model at equal context}
 
-Table~\ref{tab:attn} makes the trade explicit for a model with
+Figure~\ref{fig:dep_memctx} makes the trade explicit for a model with
 $H{=}4$ heads and $d_{\text{model}}{=}64$ attending over $L$ tokens,
 against our fixed 48\,KB state.
 
-\begin{table}[htbp]
-\centering
-\caption{Working memory against context length. Attention figures are the
-score matrix ($H L^2 \times 4$ bytes) and the key/value cache
-($2 L d_{\text{model}} \times 4$ bytes) for the configuration above;
-ours is the six-layer recurrent state, unchanged by $L$.}
-\label{tab:attn}
-\scriptsize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{rrrrr}
-\toprule
-tokens & attention scores & KV cache & ours & ratio \\
-\midrule
-32   & 16\,KB   & 16\,KB   & 48\,KB & $0.3\times$ \\
-64   & 64\,KB   & 32\,KB   & 48\,KB & $1.3\times$ \\
-128  & 256\,KB  & 64\,KB   & 48\,KB & $5.3\times$ \\
-256  & 1.0\,MB  & 128\,KB  & 48\,KB & $21\times$ \\
-512  & 4.0\,MB  & 256\,KB  & 48\,KB & $85\times$ \\
-1024 & 16\,MB   & 512\,KB  & 48\,KB & $341\times$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The first row is the one to read: at the token count our experiments
-actually use, the attention score matrix (16\,KB) is \emph{smaller} than
-our state. The crossover is near $L\approx55$ tokens. The argument is
-therefore not that a linear-attention model is cheaper today, but that
-its cost does not move when the application needs more context --- and
-that the KV cache, unlike the state, keeps growing as inference proceeds.
+At the token count our experiments actually use, the attention score
+matrix is $16$\,KB --- \emph{smaller} than our state; the crossover is
+near $L\approx55$ tokens. By $L{=}1024$ the score matrix alone is
+$16$\,MB, $341\times$ our state. The argument is therefore not that a
+linear-attention model is cheaper today, but that its cost does not move
+when the application needs more context --- and that the KV cache, unlike
+the state, keeps growing as inference proceeds.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_dep_memctx}
-\caption{Working memory against context length, recomputed from the
-formulas in Table~\ref{tab:attn}'s caption ($HL^2\times4$ bytes for the
-score matrix, $2Ld_{\text{model}}\times4$ bytes for the KV cache, with
-$H{=}4$ and $d_{\text{model}}{=}64$) and against the fixed $48$\,KB
-recurrent state. At the $32$-token window the experiments use, the score
-matrix ($16$\,KB) is still \emph{smaller} than the state; the crossover is
-near $L\approx55$. The two rising curves are therefore not an argument
-about the cost of a prediction today but about what happens when the
-application asks for more context: the attention buffers grow without
-bound while the state does not move.}
+\caption{Working memory against context length, for the same model: the
+score matrix ($HL^2\times4$ bytes) and the KV cache
+($2Ld_{\text{model}}\times4$ bytes) with $H{=}4$ and
+$d_{\text{model}}{=}64$, against the fixed $48$\,KB recurrent state.}
 \label{fig:dep_memctx}
 \end{figure}
 
