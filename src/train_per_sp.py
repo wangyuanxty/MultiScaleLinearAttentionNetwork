@@ -32,6 +32,20 @@ DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 BATCH, EPOCHS = 64, 100
 EPS = 1e-6
 
+# ABS_TARGET=1 switches the training target from the window-relative
+# z-score to the normalised capacity itself (see the note at the loss).
+#
+# Everything an absolute-target run touches is namespaced so the z-score runs
+# stay byte-identical: checkpoints get an `_abs` suffix and the metrics go to
+# results/per_sp_train_abs.json instead of results/per_sp_train.json.
+#
+# CAVEAT: eval_sp() decodes with the z-score rule (pred * wstd + wmean), which
+# is WRONG for an absolute-target model -- its rows are not ABS metrics.  The
+# correct decode is y_hat = model(x) (see src/ar_abs_rollout.py and
+# docs/ar_freeze_findings.md section 7); recompute before quoting anything.
+import os as _os
+ABS_TARGET = _os.environ.get("ABS_TARGET", "") == "1"
+
 
 def build_windows(caps, cells, lo, hi, W, max_cycle=None):
     """Windows from the given cells' sequences (or up to max_cycle).
@@ -68,7 +82,13 @@ def train_one(seed, X, Y, W):
             pred = model(x).squeeze(-1)
             wmean = x[:, :, 0].mean(dim=1)
             wstd = x[:, :, 0].std(dim=1) + EPS
-            tgt = (y - wmean) / wstd
+            # ABS_TARGET=1 trains on the normalised capacity itself instead of
+            # the window-relative z-score.  The z-score target is what forces
+            # the decode `y = z * std(window) + mean(window)` at inference, and
+            # that decode freezes under autoregressive rollout: the window
+            # fills with the model's own (smooth) output, its std collapses,
+            # and the prediction sticks at the window mean.
+            tgt = y if ABS_TARGET else (y - wmean) / wstd
             loss = masked_mae(pred, tgt, torch.ones_like(y))
             loss.backward()
             opt.step()
@@ -104,7 +124,7 @@ def train_one_earlystop(seed, X, Y, W, val_frac=0.2, patience=10,
             pred = model(x).squeeze(-1)
             wmean = x[:, :, 0].mean(dim=1)
             wstd = x[:, :, 0].std(dim=1) + EPS
-            return float(masked_mae(pred, (y - wmean) / wstd,
+            return float(masked_mae(pred, y if ABS_TARGET else (y - wmean) / wstd,
                                     torch.ones_like(y)))
 
     best_loss, best_epoch, best_state = float("inf"), 0, None
@@ -120,7 +140,7 @@ def train_one_earlystop(seed, X, Y, W, val_frac=0.2, patience=10,
             pred = model(x).squeeze(-1)
             wmean = x[:, :, 0].mean(dim=1)
             wstd = x[:, :, 0].std(dim=1) + EPS
-            loss = masked_mae(pred, (y - wmean) / wstd,
+            loss = masked_mae(pred, y if ABS_TARGET else (y - wmean) / wstd,
                               torch.ones_like(y))
             loss.backward()
             opt.step()
@@ -193,7 +213,8 @@ def main():
 
     os.makedirs(f"../checkpoints/per_sp/{ds}", exist_ok=True)
     os.makedirs("results", exist_ok=True)
-    out_path = "results/per_sp_train.json"
+    out_path = ("results/per_sp_train_abs.json" if ABS_TARGET
+                else "results/per_sp_train.json")
     out = {}
     if os.path.exists(out_path):
         out = json.load(open(out_path))
@@ -212,17 +233,20 @@ def main():
 
         for seed in range(args.start_seed, args.start_seed + args.seeds):
             skey = str(seed)
-            if skey in out.setdefault(ds, {}).get(str(sp), {}):
+            # With ABS_TARGET the absolute-target run is a SEPARATE
+            # model that must not collide with the z-score checkpoints,
+            # so the resume-from-JSON dedup is disabled for it.
+            if not ABS_TARGET and skey in out.setdefault(ds, {}).get(str(sp), {}):
                 print(f"{ds} SP{sp} seed{seed}: SKIP (already in JSON)", flush=True)
                 continue
             if args.early_stop:
                 model, best_ep = train_one_earlystop(
                     seed, X_all, Y_all, W, patience=args.patience)
-                suffix = "_es"
+                suffix = "_es_abs" if ABS_TARGET else "_es"
                 tag = f"best_ep={best_ep}"
             else:
                 model = train_one(seed, X_all, Y_all, W)
-                suffix = ""
+                suffix = "_abs" if ABS_TARGET else ""
                 tag = f"epochs={EPOCHS}"
             torch.save(
                 {"state_dict": model.state_dict(), "seed": seed,
