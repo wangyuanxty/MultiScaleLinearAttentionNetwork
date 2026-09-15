@@ -96,10 +96,7 @@ seed-to-seed spread, which is $\pm1.5$ cycles.
 INT4 packs two signed nibbles per byte and halves the footprint again,
 to 268\,KB. Unlike INT8 it is not free: across the same ten seeds MAE
 rises $16.4\%$ (to $0.00676$) and $R^2$ falls to $0.9946$, while AE moves
-to $2.40$ cycles. The trade is worth stating precisely, because it is a
-deployment decision rather than a modelling one: INT4 brings the
-single-branch encoder to 67\,KB of weights, which fits a 128\,KB flash
-part, at a cost that is measurable but modest. Note also that AE is a
+to $2.40$ cycles. Note also that AE is a
 poor metric for comparing quantizations --- its seed-to-seed spread
 dwarfs the effect, so MAE is what should be read here.
 
@@ -111,7 +108,9 @@ since the values are written as ASCII text. State is the recurrent matrix
 state, fixed and
 independent of the window. INT8 and INT4 round per output channel with
 fp32 scales. Accuracy is the CALCE SP500 multi-scale model over ten
-seeds (single-branch encoder: one checkpoint).}
+seeds; the single-branch row is one checkpoint at the same starting
+point, and the ten-seed comparison of the two architectures is given in
+Table~\ref{tab:ablation}.}
 \label{tab:deploy}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -134,6 +133,21 @@ seeds (single-branch encoder: one checkpoint).}
 \bottomrule
 \end{tabular}
 \end{table}
+
+The two variants are two deployment tiers, not a recommended configuration and
+a fallback. The single-branch encoder fits a $128$\,KB flash part at INT8
+($122$\,KB) or INT4 ($67$\,KB); the full multi-scale model needs $512$\,KB at
+either precision. The accuracy that separates the tiers is measured by the
+architecture ablation (Table~\ref{tab:ablation}): on CALCE the single branch
+matches the main model (MAE $0.0065$ for both, $R^2$ $0.9956$ against
+$0.9955$), and on NASA it gives up $0.0003$ in MAE ($0.0087$ against $0.0084$)
+while AE moves from $0.5$ to $1.8$ cycles --- within the $\pm1.5$-cycle
+seed-to-seed spread quoted above. Which tier is appropriate therefore follows
+from the available flash and the accuracy the application needs, and both
+configurations are characterised rather than assumed. The multi-scale branches
+exist to resolve degradation at three time scales
+(Section~\ref{sec:method}); where a deployment cannot afford them, the encoder
+alone is a measured option rather than an untested simplification.
 
 \begin{figure}[!ht]
 \centering
@@ -209,10 +223,31 @@ In instructions that is $1.95\times10^{9}$. The count is what the emulator
 measures directly; converting to cycles needs a cycles-per-instruction figure
 it cannot supply, and at $\mathrm{CPI}\approx1.3$, representative of compiled
 Thumb-2 on this core, one inference is $2.5\times10^{9}$ cycles, or
-$101\,\mathrm{s}$ at $25\,\mathrm{MHz}$. That is the cost of a straight
-reference implementation --- dominated by matrix--vector products in a generic
-triple loop, with no unrolling and no fixed-shape kernels --- and an optimised
-build would be substantially faster.
+$101\,\mathrm{s}$ at $25\,\mathrm{MHz}$. That figure has two separable factors, and only one is a property of the
+model. The first is the core. The MPS2-AN385 is a Cortex-M3, which has no
+floating-point unit, so every fp32 multiply and add becomes a call into a
+software routine; the linked binary contains $225$ call sites to those
+routines. Rebuilding the
+same source for a core with an FPU
+(\texttt{-mcpu=cortex-m7 -mfloat-abi=hard}) and re-measuring under the same
+instruction-count timing gives $3.24\times10^{6}$ ticks against
+$48.64\times10^{6}$ for the soft-float build \emph{on the same core}, so the
+FPU removes about $15\times$ of the \emph{instruction count}. Timing that
+charges every instruction the same virtual time cannot price an FPU
+instruction's extra cycles, and single-precision multiply and divide cost
+several cycles each on real silicon, so the wall-clock gain would be smaller
+than the instruction ratio --- while the higher clocks those cores run at would
+push the other way. The second factor is the kernel, a plain triple-loop
+matrix--vector product with no unrolling. Cortex-M4F and M33 parts, which BMS
+designs do use, have an FPU; the $101\,\mathrm{s}$ above is therefore assembled
+from two conservative choices rather than being a property of the model. The
+two builds are not bit-identical --- fused multiply--add changes the rounding,
+and the results differ by about $3\times10^{-6}$ in relative terms. That is the
+same order as the agreement between the host build and the PyTorch forward
+reported earlier in this section, and larger than the cross-instruction-set
+agreement, which is expected: the two builds contract different operations and
+so round in different places. It is not an accuracy concern at the scale of the
+decisions this model supports.
 
 Energy follows from the same count and is clock-invariant: writing the core
 current as $c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and the supply as $V$, an
