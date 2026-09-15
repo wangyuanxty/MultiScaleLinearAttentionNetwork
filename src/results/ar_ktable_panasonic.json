@@ -1,0 +1,4782 @@
+{
+  "models": {
+    "ours": {
+      "verification": {
+        "sp": 300,
+        "space": "common (train-cell min-max)",
+        "mae": {
+          "mean": 0.0037241436541080473,
+          "std": 0.0002609428001986199,
+          "n": 10
+        },
+        "r2": {
+          "mean": 0.9976313948631287,
+          "std": 5.107892941010551e-05,
+          "n": 10
+        },
+        "reference": {
+          "mae": 0.0037,
+          "r2": 0.9976,
+          "space": "common (train-cell min-max)"
+        },
+        "pass": true,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.0035754991695284843,
+            "r2": 0.9976142048835754,
+            "ae": 1
+          },
+          {
+            "run": 2,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.003320523537695408,
+            "r2": 0.9977043867111206,
+            "ae": 0
+          },
+          {
+            "run": 3,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.003927244804799557,
+            "r2": 0.997627854347229,
+            "ae": 1
+          },
+          {
+            "run": 4,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.003692696103826165,
+            "r2": 0.9975484609603882,
+            "ae": 1
+          },
+          {
+            "run": 5,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.003934519365429878,
+            "r2": 0.9976133704185486,
+            "ae": 1
+          },
+          {
+            "run": 6,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.003955565392971039,
+            "r2": 0.9976345896720886,
+            "ae": 1
+          },
+          {
+            "run": 7,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.0034919781610369682,
+            "r2": 0.9976317286491394,
+            "ae": 1
+          },
+          {
+            "run": 8,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.0036565607879310846,
+            "r2": 0.9976463913917542,
+            "ae": 0
+          },
+          {
+            "run": 9,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.0041603147983551025,
+            "r2": 0.9975759387016296,
+            "ae": 1
+          },
+          {
+            "run": 10,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.0035265344195067883,
+            "r2": 0.997717022895813,
+            "ae": 1
+          }
+        ]
+      },
+      "points": {
+        "10": {
+          "k": 10,
+          "T": 578,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.005987536002213684,
+              "std": 0.003300682451569642,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.006103130442106525,
+              "std": 0.003364502774322007,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 6.103130442106527,
+              "std": 3.3645027743220064,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 9,
+              "n_never_cross": 1,
+              "pred_crossing_per_run": [
+                594,
+                592,
+                593,
+                591,
+                590,
+                null,
+                598,
+                605,
+                589,
+                595
+              ],
+              "ae_values_sorted": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                9,
+                16
+              ],
+              "ae_signed": {
+                "mean": 5.111111111111111,
+                "std": 4.910306620885412,
+                "n": 9
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.02222222222222222,
+              "std": 0.07027283689263066,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.22222222222222224,
+              "std": 2.925694557147251e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 2.1293770107380094,
+              "std": 0.005554731376820815,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP400_seed1.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3771912926752776,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.005661950680600658,
+                  "mae_ah": 0.005771187524581167,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1435855980341008,
+                  "last_step_ah": 2.1294454315771465,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 594,
+                  "crossed": true,
+                  "ae": 5
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP400_seed2.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.37554327294409906,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.003660955448212605,
+                  "mae_ah": 0.003731532801230708,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1419056813737134,
+                  "last_step_ah": 2.126788682487435,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 592,
+                  "crossed": true,
+                  "ae": 3
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP400_seed3.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3773136114818416,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.0057183261522317065,
+                  "mae_ah": 0.005828654126611798,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1437102842845976,
+                  "last_step_ah": 2.1285620800102727,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 593,
+                  "crossed": true,
+                  "ae": 4
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP400_seed4.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3771492584631388,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.0035123604276879328,
+                  "mae_ah": 0.0035800617685074255,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1435427502623523,
+                  "last_step_ah": 2.1247450623907365,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 591,
+                  "crossed": true,
+                  "ae": 2
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP400_seed5.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.37507473871110786,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.002686131295915001,
+                  "mae_ah": 0.002737984191319498,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1414280788007147,
+                  "last_step_ah": 2.124069149993761,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 590,
+                  "crossed": true,
+                  "ae": 1
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP400_seed6.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3786960490672789,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.01152127797658396,
+                  "mae_ah": 0.011743920348686477,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.2222222222222222,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1451194785362104,
+                  "last_step_ah": 2.138656566347162,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP400_seed7.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3772966426399419,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.008459961986263819,
+                  "mae_ah": 0.008623353502578101,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.143692987015836,
+                  "last_step_ah": 2.133472257720193,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 598,
+                  "crossed": true,
+                  "ae": 9
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP400_seed8.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.37825555821876244,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.010697816322520204,
+                  "mae_ah": 0.010904520840488674,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.144670462119009,
+                  "last_step_ah": 2.136729077335821,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 605,
+                  "crossed": true,
+                  "ae": 16
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP400_seed9.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3750085150152699,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.0019243611205228995,
+                  "mae_ah": 0.0019614674363728213,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.141360573365042,
+                  "last_step_ah": 2.1214084412295504,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 589,
+                  "crossed": true,
+                  "ae": 0
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP400_seed10.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.37752889605157336,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.006032218611598061,
+                  "mae_ah": 0.006148621880688587,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1439297356228155,
+                  "last_step_ah": 2.129893358288015,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 595,
+                  "crossed": true,
+                  "ae": 6
+                }
+              }
+            ]
+          }
+        },
+        "20": {
+          "k": 20,
+          "T": 568,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.005760093524311091,
+              "std": 0.0028002845949422067,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.005871472152875658,
+              "std": 0.002854371399889415,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 5.871472152875659,
+              "std": 2.854371399889415,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 8,
+              "n_never_cross": 2,
+              "pred_crossing_per_run": [
+                599,
+                592,
+                591,
+                590,
+                588,
+                null,
+                604,
+                null,
+                588,
+                610
+              ],
+              "ae_values_sorted": [
+                -1,
+                -1,
+                1,
+                2,
+                3,
+                10,
+                15,
+                21
+              ],
+              "ae_signed": {
+                "mean": 6.25,
+                "std": 8.18971480403491,
+                "n": 8
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 2,
+              "n_never_cross": 8,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                588,
+                null,
+                null,
+                null,
+                588,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.21052631578947367,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 2.1311439675234185,
+              "std": 0.009659708250689859,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP400_seed1.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3969690002725953,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.006269833560159879,
+                  "mae_ah": 0.006391011955892534,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.163746097249264,
+                  "last_step_ah": 2.134712709300222,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 599,
+                  "crossed": true,
+                  "ae": 10
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP400_seed2.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3968269707746578,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.003633348121899663,
+                  "mae_ah": 0.003703534491263971,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.1636013188128547,
+                  "last_step_ah": 2.127804483288387,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 592,
+                  "crossed": true,
+                  "ae": 3
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP400_seed3.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3954954394980411,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.0034448110975164674,
+                  "mae_ah": 0.003511382975912025,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.1622440161464507,
+                  "last_step_ah": 2.125754903170412,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 591,
+                  "crossed": true,
+                  "ae": 2
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP400_seed4.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.39588934051179103,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.0029549209837043595,
+                  "mae_ah": 0.003012047978637278,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.162645540996562,
+                  "last_step_ah": 2.123299433288624,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 590,
+                  "crossed": true,
+                  "ae": 1
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP400_seed5.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3954355568338952,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.003229017137597881,
+                  "mae_ah": 0.0032916593311678845,
+                  "pred_crossing_within_horizon": 588,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.162182974471243,
+                  "last_step_ah": 2.118768075717499,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 588,
+                  "crossed": true,
+                  "ae": -1
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP400_seed6.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.39583751169327563,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.009797090419648005,
+                  "mae_ah": 0.009986537817395048,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.1625927090467587,
+                  "last_step_ah": 2.1442062854186577,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP400_seed7.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3972073968935036,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.0076683420065887745,
+                  "mae_ah": 0.007816513762044086,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.1639891079654996,
+                  "last_step_ah": 2.1379183446435883,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 604,
+                  "crossed": true,
+                  "ae": 15
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP400_seed8.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.39656566623450257,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.009820888292071814,
+                  "mae_ah": 0.010010721937362122,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.1633349568014437,
+                  "last_step_ah": 2.1424158121162327,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP400_seed9.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3958478914082085,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.0032170805546878874,
+                  "mae_ah": 0.003279524935807987,
+                  "pred_crossing_within_horizon": 588,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.162603289657971,
+                  "last_step_ah": 2.11797975092259,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 588,
+                  "crossed": true,
+                  "ae": -1
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP400_seed10.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.3971674246272415,
+                "rollout": {
+                  "n_steps": 20,
+                  "mae_common": 0.007565603069236174,
+                  "mae_ah": 0.0077117863432736525,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.21052631578947367,
+                  "first_step_ah": 2.163948362047974,
+                  "last_step_ah": 2.1385798773679703,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 610,
+                  "crossed": true,
+                  "ae": 21
+                }
+              }
+            ]
+          }
+        },
+        "40": {
+          "k": 40,
+          "T": 548,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.018340878775918994,
+              "std": 0.01431908374985528,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.018696024012643357,
+              "std": 0.014596356737008598,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 18.69602401264336,
+              "std": 14.596356737008598,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                597,
+                591,
+                572,
+                579,
+                573,
+                584,
+                617,
+                569,
+                580,
+                580
+              ],
+              "ae_values_sorted": [
+                -20,
+                -17,
+                -16,
+                -10,
+                -9,
+                -9,
+                -5,
+                2,
+                8,
+                28
+              ],
+              "ae_signed": {
+                "mean": -4.8,
+                "std": 14.351151715299912,
+                "n": 10
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 7,
+              "n_never_cross": 3,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                572,
+                579,
+                573,
+                584,
+                null,
+                569,
+                580,
+                580
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.02564102564102564,
+              "std": 0.031979977664734545,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.1794871794871795,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.022582389970088292,
+              "std": 0.007374383077692639,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.095984962113376,
+              "std": 0.034810106428036294,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP400_seed1.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4320427199108564,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.00439793814579463,
+                  "mae_ah": 0.004482871787595965,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.1994986582455605,
+                  "last_step_ah": 2.1323316052205814,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.014589963838311173,
+                  "pred_crossing_cycle": 597,
+                  "crossed": true,
+                  "ae": 8
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP400_seed2.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4292362958040379,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.002454226833230404,
+                  "mae_ah": 0.0025018252363620984,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.196637916639157,
+                  "last_step_ah": 2.1241006178287316,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.016306518632168653,
+                  "pred_crossing_cycle": 591,
+                  "crossed": true,
+                  "ae": 2
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP400_seed3.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4243937443610274,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.03645533954520288,
+                  "mae_ah": 0.03716129825810456,
+                  "pred_crossing_within_horizon": 572,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.07692307692307693,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.191701639060686,
+                  "last_step_ah": 2.049040168012202,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.03300996576948049,
+                  "pred_crossing_cycle": 572,
+                  "crossed": true,
+                  "ae": -17
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP400_seed4.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.43147287045506394,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.01559145789405091,
+                  "mae_ah": 0.015893443344240678,
+                  "pred_crossing_within_horizon": 579,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02564102564102564,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.1989177795239123,
+                  "last_step_ah": 2.0849801738720206,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.026693796642015894,
+                  "pred_crossing_cycle": 579,
+                  "crossed": true,
+                  "ae": -10
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP400_seed5.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4296111388049441,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.02827394219632786,
+                  "mae_ah": 0.02882149065620896,
+                  "pred_crossing_within_horizon": 573,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.1970200146142838,
+                  "last_step_ah": 2.0640417227055283,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0299874491644449,
+                  "pred_crossing_cycle": 573,
+                  "crossed": true,
+                  "ae": -16
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP400_seed6.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.42818262625593684,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.007832409242534245,
+                  "mae_ah": 0.007984240988237013,
+                  "pred_crossing_within_horizon": 584,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02564102564102564,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.1955638536319553,
+                  "last_step_ah": 2.1070304652783514,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.020443369688061687,
+                  "pred_crossing_cycle": 584,
+                  "crossed": true,
+                  "ae": -5
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP400_seed7.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4356084280830677,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.015167113064612483,
+                  "mae_ah": 0.015460291489037681,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.203133379633449,
+                  "last_step_ah": 2.1502134354722777,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.011304717566585454,
+                  "pred_crossing_cycle": 617,
+                  "crossed": true,
+                  "ae": 28
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP400_seed8.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4274997319364782,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.04651394566253218,
+                  "mae_ah": 0.0474145856897357,
+                  "pred_crossing_within_horizon": 569,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.1948677420971,
+                  "last_step_ah": 2.047700641622373,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.030622744779025074,
+                  "pred_crossing_cycle": 569,
+                  "crossed": true,
+                  "ae": -20
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP400_seed9.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4333426644785913,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.012937704528923972,
+                  "mae_ah": 0.013188306562811513,
+                  "pred_crossing_within_horizon": 580,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.07692307692307693,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.2008237628517753,
+                  "last_step_ah": 2.097114826215515,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.023255205555013512,
+                  "pred_crossing_cycle": 580,
+                  "crossed": true,
+                  "ae": -9
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP400_seed10.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.42764022048688066,
+                "rollout": {
+                  "n_steps": 40,
+                  "mae_common": 0.013784710645980325,
+                  "mae_ah": 0.01405188611409942,
+                  "pred_crossing_within_horizon": 580,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.05128205128205128,
+                  "true_rise_frac": 0.1794871794871795,
+                  "first_step_ah": 2.1950109497613957,
+                  "last_step_ah": 2.1032959649061804,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.01961016806577608,
+                  "pred_crossing_cycle": 580,
+                  "crossed": true,
+                  "ae": -9
+                }
+              }
+            ]
+          }
+        },
+        "80": {
+          "k": 80,
+          "T": 508,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.04047355255284503,
+              "std": 0.03783403618257292,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.04125682426645619,
+              "std": 0.038566517287749014,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 41.256824266456185,
+              "std": 38.56651728774901,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 2,
+              "n_never_cross": 8,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                539,
+                551,
+                null,
+                null
+              ],
+              "ae_values_sorted": [
+                38,
+                50
+              ],
+              "ae": {
+                "mean": 44.0,
+                "std": 8.48528137423857,
+                "n": 2
+              }
+            },
+            "crossing_full_span_diagnostic": {
+              "n_cross": 2,
+              "n_never_cross": 8,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                539,
+                551,
+                null,
+                null
+              ],
+              "ae": {
+                "mean": 44.0,
+                "std": 8.48528137423857,
+                "n": 2
+              }
+            },
+            "pred_rise_frac": {
+              "mean": 0.18860759493670884,
+              "std": 0.12103896047333222,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20253164556962028,
+              "std": 2.925694557147251e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.008750374829658514,
+              "std": 0.021837599255828018,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1403892874400223,
+              "std": 0.14201414373850274,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP500_seed1.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4592738532792069,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.026822754569282042,
+                  "mae_ah": 0.027341673432410403,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.17721518987341772,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2272568420592953,
+                  "last_step_ah": 2.204377996580164,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 3.072857392938259e-05,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP500_seed2.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4576409482098217,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.02653052786185518,
+                  "mae_ah": 0.027043812060103617,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.3291139240506329,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2255923326004616,
+                  "last_step_ah": 2.2044387943585795,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1.148298912757886e-05,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP500_seed3.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4571013607807476,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.0300506135045858,
+                  "mae_ah": 0.030631986167021723,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.3291139240506329,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2250423016180116,
+                  "last_step_ah": 2.212017982991651,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1.2327531085134167e-05,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP500_seed4.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4585014450815093,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.02110911549037069,
+                  "mae_ah": 0.02151753304880082,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10126582278481013,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2264694841318486,
+                  "last_step_ah": 2.1902623289358782,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 5.880847069378242e-05,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP500_seed5.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4574271102603935,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.023495780987957064,
+                  "mae_ah": 0.023950349573695823,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.189873417721519,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.225374355881451,
+                  "last_step_ah": 2.196175818308134,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 7.424694550860494e-05,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP500_seed6.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45934935433047397,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.023547710173882044,
+                  "mae_ah": 0.024003272742899057,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.26582278481012656,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2273338044108377,
+                  "last_step_ah": 2.1963345774012923,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00010206238911413502,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP500_seed7.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45562201271869074,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.14343307645836179,
+                  "mae_ah": 0.14620958148427995,
+                  "pred_crossing_cycle": 539,
+                  "crossed": true,
+                  "ae": 50,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2235343212164764,
+                  "last_step_ah": 1.76411246611622,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.06872992236748181,
+                  "pred_crossing_full": 539,
+                  "crossed_full": true,
+                  "ae_full": 50
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP500_seed8.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45691418094421304,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.05960293608624127,
+                  "mae_ah": 0.06075693380693344,
+                  "pred_crossing_cycle": 551,
+                  "crossed": true,
+                  "ae": 38,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2248514989717,
+                  "last_step_ah": 2.03653708672814,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.018269272697095114,
+                  "pred_crossing_full": 551,
+                  "crossed_full": true,
+                  "ae_full": 38
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP500_seed9.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4582064232249468,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.026208490311403265,
+                  "mae_ah": 0.026715541309796653,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.22784810126582278,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2261687522154516,
+                  "last_step_ah": 2.2031501480702036,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 5.74065237618328e-05,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP500_seed10.pt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45812960328562863,
+                "rollout": {
+                  "n_steps": 80,
+                  "mae_common": 0.02393452008451115,
+                  "mae_ah": 0.024397559038620387,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.26582278481012656,
+                  "true_rise_frac": 0.20253164556962025,
+                  "first_step_ah": 2.2260904454491737,
+                  "last_step_ah": 2.1964856749099617,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00015748980878775237,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              }
+            ]
+          }
+        },
+        "160": {
+          "k": 160,
+          "T": 428,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.07489887639929507,
+              "std": 0.046315530667606936,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.07634874484707423,
+              "std": 0.04721207448689891,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 76.34874484707424,
+              "std": 47.212074486898906,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 5,
+              "n_never_cross": 5,
+              "pred_crossing_per_run": [
+                null,
+                548,
+                507,
+                508,
+                523,
+                null,
+                null,
+                null,
+                517,
+                null
+              ],
+              "ae_values_sorted": [
+                41,
+                66,
+                72,
+                81,
+                82
+              ],
+              "ae": {
+                "mean": 68.4,
+                "std": 16.68232597691341,
+                "n": 5
+              }
+            },
+            "crossing_full_span_diagnostic": {
+              "n_cross": 5,
+              "n_never_cross": 5,
+              "pred_crossing_per_run": [
+                null,
+                548,
+                507,
+                508,
+                523,
+                null,
+                null,
+                null,
+                517,
+                null
+              ],
+              "ae": {
+                "mean": 68.4,
+                "std": 16.68232597691341,
+                "n": 5
+              }
+            },
+            "pred_rise_frac": {
+              "mean": 0.05408805031446541,
+              "std": 0.08433824428737398,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.28301886792452835,
+              "std": 5.851389114294502e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.013393754429204355,
+              "std": 0.014803958156358798,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.064729962319676,
+              "std": 0.20178680081287936,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP400_seed1.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5421677414246464,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.03701640947507574,
+                  "mae_ah": 0.03773285868004618,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.1761006289308176,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.3117551166280133,
+                  "last_step_ah": 2.243393972877094,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 4.92218323087162e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP400_seed2.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5427336875975534,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.05088280122786455,
+                  "mae_ah": 0.05186806960439825,
+                  "pred_crossing_cycle": 548,
+                  "crossed": true,
+                  "ae": 41,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.312332016519903,
+                  "last_step_ah": 2.0373253729115026,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.01740972401040312,
+                  "pred_crossing_full": 548,
+                  "crossed_full": true,
+                  "ae_full": 41
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP400_seed3.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5422947749912042,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.14862700274120616,
+                  "mae_ah": 0.15150408091663672,
+                  "pred_crossing_cycle": 507,
+                  "crossed": true,
+                  "ae": 82,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.311884608891274,
+                  "last_step_ah": 1.7752673521644944,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.03437621369487595,
+                  "pred_crossing_full": 507,
+                  "crossed_full": true,
+                  "ae_full": 82
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP400_seed4.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5422480179506481,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.14607643869258607,
+                  "mae_ah": 0.14890415146336672,
+                  "pred_crossing_cycle": 508,
+                  "crossed": true,
+                  "ae": 81,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.3118369468821762,
+                  "last_step_ah": 1.7769696586582133,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.035724094048345645,
+                  "pred_crossing_full": 508,
+                  "crossed_full": true,
+                  "ae_full": 81
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP400_seed5.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5422799711299358,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.09114334198495548,
+                  "mae_ah": 0.092907841091639,
+                  "pred_crossing_cycle": 523,
+                  "crossed": true,
+                  "ae": 66,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.3118695185056963,
+                  "last_step_ah": 1.9383223175706434,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.02189585988917941,
+                  "pred_crossing_full": 523,
+                  "crossed_full": true,
+                  "ae_full": 66
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP400_seed6.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5440821104293319,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.07119160489470151,
+                  "mae_ah": 0.07256919581777202,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.18238993710691823,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.3137065376724686,
+                  "last_step_ah": 2.3055562308916184,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 3.6508144420771226e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP400_seed7.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.543220902204025,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.017285759650439252,
+                  "mae_ah": 0.017620484595055375,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.012578616352201259,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.312828661019426,
+                  "last_step_ah": 2.183719777996935,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0012894705017692314,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP400_seed8.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5433528081301133,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.0601018860647002,
+                  "mae_ah": 0.061264913294917525,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.16981132075471697,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.3129631199452794,
+                  "last_step_ah": 2.29056941298168,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 2.9103053109920995e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP400_seed9.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5414954078417362,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.10013376518110081,
+                  "mae_ah": 0.10207227124098836,
+                  "pred_crossing_cycle": 517,
+                  "crossed": true,
+                  "ae": 72,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.3110697702296052,
+                  "last_step_ah": 1.93082174535604,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.02289312698564549,
+                  "pred_crossing_full": 517,
+                  "crossed_full": true,
+                  "ae_full": 72
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP400_seed10.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.5419250600298209,
+                "rollout": {
+                  "n_steps": 160,
+                  "mae_common": 0.026529754080320895,
+                  "mae_ah": 0.027043581765922066,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2830188679245283,
+                  "first_step_ah": 2.311507738207342,
+                  "last_step_ah": 2.1653537817885433,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0003479068315262939,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              }
+            ]
+          }
+        },
+        "320": {
+          "k": 320,
+          "T": 268,
+          "sp": 300,
+          "sp_exact": false,
+          "sp_fallback": true,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.15476560496324743,
+              "std": 0.09520118795388288,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.1577609964638716,
+              "std": 0.09704404993807124,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 157.76099646387155,
+              "std": 97.04404993807124,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                409,
+                null,
+                null,
+                365,
+                null,
+                null,
+                442,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [
+                147,
+                180,
+                224
+              ],
+              "ae": {
+                "mean": 183.66666666666666,
+                "std": 38.63073042712671,
+                "n": 3
+              }
+            },
+            "crossing_full_span_diagnostic": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                409,
+                null,
+                null,
+                365,
+                null,
+                null,
+                442,
+                null,
+                null,
+                null
+              ],
+              "ae": {
+                "mean": 183.66666666666666,
+                "std": 38.63073042712671,
+                "n": 3
+              }
+            },
+            "pred_rise_frac": {
+              "mean": 0.1109717868338558,
+              "std": 0.12987627234694532,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.29153605015673983,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.002137980662028004,
+              "std": 0.005851706905257688,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1888659588659936,
+              "std": 0.3447028175830644,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6767259607875246,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.2797074358093661,
+                  "mae_ah": 0.2851216095155868,
+                  "pred_crossing_cycle": 409,
+                  "crossed": true,
+                  "ae": 180,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4489176700994273,
+                  "last_step_ah": 1.6268577753773978,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0027674622643351016,
+                  "pred_crossing_full": 409,
+                  "crossed_full": true,
+                  "ae_full": 180
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6783383804272769,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.11241734447328455,
+                  "mae_ah": 0.11459272962119904,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0877742946708464,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4505612976392617,
+                  "last_step_ah": 2.4264434756263022,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 5.590558258768568e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6790371541451916,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.12607172735196343,
+                  "mae_ah": 0.12851132898464326,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10344827586206896,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4512735959135825,
+                  "last_step_ah": 2.4418141187434177,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 6.656919258070223e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6748526848844455,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.36268175186819895,
+                  "mae_ah": 0.36970186865591737,
+                  "pred_crossing_cycle": 365,
+                  "crossed": true,
+                  "ae": 224,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4470081375012747,
+                  "last_step_ah": 1.6868025111229572,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1.7722073746408296e-06,
+                  "pred_crossing_full": 365,
+                  "crossed_full": true,
+                  "ae_full": 224
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6785995328786117,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.1188585396410969,
+                  "mae_ah": 0.12115855652749766,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.09090909090909091,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4508275046182186,
+                  "last_step_ah": 2.4337941164611876,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 7.588942885937764e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6782688128332963,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.12768445690749147,
+                  "mae_ah": 0.1301552686366703,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.2727272727272727,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.450490383585297,
+                  "last_step_ah": 2.443599006718065,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 2.220446049250313e-16,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6774661921151657,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.17107178459304834,
+                  "mae_ah": 0.17438334774745518,
+                  "pred_crossing_cycle": 442,
+                  "crossed": true,
+                  "ae": 147,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.449672228383117,
+                  "last_step_ah": 1.7862723118113315,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.018607337903739554,
+                  "pred_crossing_full": 442,
+                  "crossed_full": true,
+                  "ae_full": 147
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.676154349292913,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.07263211622194805,
+                  "mae_ah": 0.07403784690326565,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.4012539184952978,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4483349952352254,
+                  "last_step_ah": 2.35981204661929,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 5.731298739177191e-08,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6792621455252983,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.1216873486568977,
+                  "mae_ah": 0.1240420918453488,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10031347962382445,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4515029419345886,
+                  "last_step_ah": 2.4369620841208564,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 7.000285082505446e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": true,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.6764817607439493,
+                "rollout": {
+                  "n_steps": 320,
+                  "mae_common": 0.0548435441091788,
+                  "mae_ah": 0.055905316201131705,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.05329153605015674,
+                  "true_rise_frac": 0.29153605015673983,
+                  "first_step_ah": 2.4486687436370143,
+                  "last_step_ah": 2.246302142059129,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 4.932612945985524e-07,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null
+                }
+              }
+            ]
+          }
+        },
+        "25": {
+          "k": 25,
+          "T": 563,
+          "sp": 300,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.01091450403365341,
+              "std": 0.005338325531103278,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.011125708804175804,
+              "std": 0.005441613023319804,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 11.125708804175805,
+              "std": 5.441613023319804,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 5,
+              "n_never_cross": 5,
+              "pred_crossing_per_run": [
+                583,
+                597,
+                null,
+                581,
+                null,
+                null,
+                584,
+                595,
+                null,
+                null
+              ],
+              "ae_values_sorted": [
+                -8,
+                -6,
+                -5,
+                6,
+                8
+              ],
+              "ae_signed": {
+                "mean": -1.0,
+                "std": 7.416198487095663,
+                "n": 5
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                583,
+                null,
+                null,
+                581,
+                null,
+                null,
+                584,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.06666666666666668,
+              "std": 0.14191155304938669,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20833333333333334,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 2.1337642685093092,
+              "std": 0.02510429124225465,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.40276034464429705,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.011126271780856074,
+                  "mae_ah": 0.011341981774156178,
+                  "pred_crossing_within_horizon": 583,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1696495313599122,
+                  "last_step_ah": 2.104267569436475,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 583,
+                  "crossed": true,
+                  "ae": -6
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.40581842488572545,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.004894285286039253,
+                  "mae_ah": 0.0049888912848810914,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1727667998301765,
+                  "last_step_ah": 2.133867702853438,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 597,
+                  "crossed": true,
+                  "ae": 8
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4062576291773354,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.018035863503139852,
+                  "mae_ah": 0.018384640316443192,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.375,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.173214504789547,
+                  "last_step_ah": 2.1665674762387868,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4015791530290706,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.016103995124368418,
+                  "mae_ah": 0.016416047464852854,
+                  "pred_crossing_within_horizon": 581,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1684454781340996,
+                  "last_step_ah": 2.093815633911002,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 581,
+                  "crossed": true,
+                  "ae": -8
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4056430879386228,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.006968341546422334,
+                  "mae_ah": 0.007103060345202028,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.172588069288881,
+                  "last_step_ah": 2.1402735243789084,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.40699935594637277,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.018735168807504077,
+                  "mae_ah": 0.01909744937407826,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.2916666666666667,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.173970587458454,
+                  "last_step_ah": 2.1659898467191545,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4035982974763445,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.00893085535749328,
+                  "mae_ah": 0.009104073722256096,
+                  "pred_crossing_within_horizon": 584,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1705037025185114,
+                  "last_step_ah": 2.108589723978657,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 584,
+                  "crossed": true,
+                  "ae": -5
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4054534321215681,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.004154884089643989,
+                  "mae_ah": 0.004235237831856154,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1723947427401864,
+                  "last_step_ah": 2.130646442035546,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 595,
+                  "crossed": true,
+                  "ae": 6
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4067593084084356,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.012822602003114771,
+                  "mae_ah": 0.013070446606798142,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1737258938721844,
+                  "last_step_ah": 2.1525209614808807,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.40598228812582504,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.0073727728379520616,
+                  "mae_ah": 0.007515259321234033,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1729338345943,
+                  "last_step_ah": 2.1411038040602435,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              }
+            ]
+          }
+        },
+        "50": {
+          "k": 50,
+          "T": 538,
+          "sp": 300,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.021081546100819526,
+              "std": 0.019447620259775096,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.021489595533582297,
+              "std": 0.019824074712262375,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 21.489595533582296,
+              "std": 19.824074712262373,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 6,
+              "n_never_cross": 4,
+              "pred_crossing_per_run": [
+                585,
+                600,
+                null,
+                577,
+                null,
+                null,
+                576,
+                null,
+                564,
+                591
+              ],
+              "ae_values_sorted": [
+                -25,
+                -13,
+                -12,
+                -4,
+                2,
+                11
+              ],
+              "ae_signed": {
+                "mean": -6.833333333333333,
+                "std": 12.639883965712132,
+                "n": 6
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 4,
+              "n_never_cross": 6,
+              "pred_crossing_per_run": [
+                585,
+                null,
+                null,
+                577,
+                null,
+                null,
+                576,
+                null,
+                564,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.09183673469387754,
+              "std": 0.10283140447504063,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.1836734693877551,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.018246999345500746,
+              "std": 0.016767488377326764,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1153352783519197,
+              "std": 0.07447590310302941,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45471588924338446,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.004831395651864654,
+                  "mae_ah": 0.0049249546311544365,
+                  "pred_crossing_within_horizon": 585,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.08163265306122448,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.222610659992198,
+                  "last_step_ah": 2.109956156230046,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.02211030156569733,
+                  "pred_crossing_cycle": 585,
+                  "crossed": true,
+                  "ae": -4
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45723048537396754,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.008524689431724988,
+                  "mae_ah": 0.008689296511168898,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2251739253791305,
+                  "last_step_ah": 2.137797918737184,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0143714947061527,
+                  "pred_crossing_cycle": 600,
+                  "crossed": true,
+                  "ae": 11
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4554377662585165,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.011839584070744235,
+                  "mae_ah": 0.01206841596313617,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.16326530612244897,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2233465087211477,
+                  "last_step_ah": 2.1694861840122304,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0041824641541945064,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4527052219754794,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.015809227207685118,
+                  "mae_ah": 0.016115386175810622,
+                  "pred_crossing_within_horizon": 577,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.04081632653061224,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.220561076860428,
+                  "last_step_ah": 2.076518960508211,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.028570316916545144,
+                  "pred_crossing_cycle": 577,
+                  "crossed": true,
+                  "ae": -12
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45681443870671923,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.030705778885915493,
+                  "mae_ah": 0.03129969432053501,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.12244897959183673,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.224749826253018,
+                  "last_step_ah": 2.1909309113991684,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0035242160097983728,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4517311920085978,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.01279605555254346,
+                  "mae_ah": 0.013044064956843533,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.061224489795918366,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2195681948347312,
+                  "last_step_ah": 2.124119979702218,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.012376044836364217,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.454036824240339,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.019241713002870142,
+                  "mae_ah": 0.019614516341564567,
+                  "pred_crossing_within_horizon": 576,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2219184518890307,
+                  "last_step_ah": 2.0867659415988364,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.022013644068684744,
+                  "pred_crossing_cycle": 576,
+                  "crossed": true,
+                  "ae": -13
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45682084070596807,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.030224491416674965,
+                  "mae_ah": 0.030809091676211972,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.3469387755102041,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2247563521610485,
+                  "last_step_ah": 2.197524723494737,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0021238374864787427,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4528513934144942,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.07019665395440133,
+                  "mae_ah": 0.07155567494183435,
+                  "pred_crossing_within_horizon": 564,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.04081632653061224,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2207100774039454,
+                  "last_step_ah": 1.9377599238444434,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.058926611324671606,
+                  "pred_crossing_cycle": 564,
+                  "crossed": true,
+                  "ae": -25
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4531996143758997,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.0066458718337708686,
+                  "mae_ah": 0.0067748598175634365,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.061224489795918366,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2210650380779557,
+                  "last_step_ah": 2.1224920839921237,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.014271062386420065,
+                  "pred_crossing_cycle": 591,
+                  "crossed": true,
+                  "ae": 2
+                }
+              }
+            ]
+          }
+        },
+        "75": {
+          "k": 75,
+          "T": 513,
+          "sp": 300,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.039762941197453196,
+              "std": 0.026888331417194742,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.04053268467700356,
+              "std": 0.027408893147279942,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 40.53268467700356,
+              "std": 27.40889314727994,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                549,
+                null,
+                null,
+                545,
+                null,
+                null,
+                554,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [
+                -44,
+                -40,
+                -35
+              ],
+              "ae_signed": {
+                "mean": -39.666666666666664,
+                "std": 4.509249752822894,
+                "n": 3
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                549,
+                null,
+                null,
+                545,
+                null,
+                null,
+                554,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.12297297297297298,
+              "std": 0.12921726861342225,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20270270270270271,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.00988652659097934,
+              "std": 0.013615229968579218,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1168826301105206,
+              "std": 0.0960355452324695,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.44780576690375706,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.07583187628590342,
+                  "mae_ah": 0.07729997855309158,
+                  "pred_crossing_within_horizon": 549,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2155667943005226,
+                  "last_step_ah": 1.983885176364133,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.030142379800625466,
+                  "pred_crossing_cycle": 549,
+                  "crossed": true,
+                  "ae": -40
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.44944949245336435,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.021837799657631964,
+                  "mae_ah": 0.02226080099737049,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.217242333666738,
+                  "last_step_ah": 2.1246216534143727,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.007583336005982577,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4499391977342715,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.027071024644275462,
+                  "mae_ah": 0.02759478520195798,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.3108108108108108,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2177415170469557,
+                  "last_step_ah": 2.2039651227662995,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 8.711471806056078e-05,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.44718645776018207,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.0937389704863425,
+                  "mae_ah": 0.09555365920831425,
+                  "pred_crossing_within_horizon": 545,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.214935498613621,
+                  "last_step_ah": 1.9468321585708501,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0342508215214896,
+                  "pred_crossing_cycle": 545,
+                  "crossed": true,
+                  "ae": -44
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4489747388543276,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.01890575660023275,
+                  "mae_ah": 0.019271697667723433,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.14864864864864866,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.216758391353723,
+                  "last_step_ah": 2.1765886640883094,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00022854988360703323,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45094577089514687,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.031271005848767054,
+                  "mae_ah": 0.03187599925631778,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.32432432432432434,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.218767572130437,
+                  "last_step_ah": 2.211276796934224,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 2.527876935236686e-05,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.44838306355546015,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.0601547118195012,
+                  "mae_ah": 0.06131938725525315,
+                  "pred_crossing_within_horizon": 554,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.216155264356332,
+                  "last_step_ah": 2.029689508096798,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.022311719435191266,
+                  "pred_crossing_cycle": 554,
+                  "crossed": true,
+                  "ae": -35
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4488747197933436,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.024270407038019148,
+                  "mae_ah": 0.024740459544283732,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2166564364537154,
+                  "last_step_ah": 2.1394043346247242,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0017686933065444023,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.45127582946093414,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.026478508121519674,
+                  "mae_ah": 0.02699078841549151,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.22972972972972974,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2191040188810915,
+                  "last_step_ah": 2.199896269516403,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00010008188588869722,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4495649759114821,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.018069351472338735,
+                  "mae_ah": 0.01841929067023166,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.08108108108108109,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.217360052272663,
+                  "last_step_ah": 2.1526666167290927,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.002367290583051414,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              }
+            ]
+          }
+        },
+        "100": {
+          "k": 100,
+          "T": 488,
+          "sp": 300,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.05602964966822316,
+              "std": 0.020027190259402198,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.05711394611376356,
+              "std": 0.020414856350776844,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 57.113946113763554,
+              "std": 20.414856350776844,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                546,
+                null,
+                null,
+                538,
+                null,
+                null,
+                556,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [
+                -51,
+                -43,
+                -33
+              ],
+              "ae_signed": {
+                "mean": -42.333333333333336,
+                "std": 9.018499505645789,
+                "n": 3
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 3,
+              "n_never_cross": 7,
+              "pred_crossing_per_run": [
+                546,
+                null,
+                null,
+                538,
+                null,
+                null,
+                556,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.22222222222222224,
+              "std": 0.1874668135633004,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.23232323232323232,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.008998262108116748,
+              "std": 0.014265713260820802,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1629500159452744,
+              "std": 0.1368845896447175,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4940838141468434,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.06523000265382078,
+                  "mae_ah": 0.06649291267153562,
+                  "pred_crossing_within_horizon": 546,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.262740539312815,
+                  "last_step_ah": 1.970043888295371,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.030824072170040177,
+                  "pred_crossing_cycle": 546,
+                  "crossed": true,
+                  "ae": -43
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4959609815465134,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.0493598886153062,
+                  "mae_ah": 0.050314832242759226,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.3333333333333333,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.264654038726311,
+                  "last_step_ah": 2.248091424083584,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 2.4324912420161654e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.49759272628363677,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.06244507301774478,
+                  "mae_ah": 0.06365326716306569,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.2828282828282828,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2663173653949986,
+                  "last_step_ah": 2.2628633228679007,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 8.372882981572866e-07,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.49308045402659706,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.09067898714826768,
+                  "mae_ah": 0.09243446340982399,
+                  "pred_crossing_within_horizon": 538,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.261717759457403,
+                  "last_step_ah": 1.917058767551214,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.03426149915235207,
+                  "pred_crossing_cycle": 538,
+                  "crossed": true,
+                  "ae": -51
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.49672277341101884,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.05429685022133911,
+                  "mae_ah": 0.05534734726473358,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.31313131313131315,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2654305748446104,
+                  "last_step_ah": 2.2535772370219633,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 6.868611000323051e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.49793561341263165,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.06586582647915944,
+                  "mae_ah": 0.06714022828506502,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.3838383838383838,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2666668890018666,
+                  "last_step_ah": 2.266511136072233,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 3.6352001858140555e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4953744613903187,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.040811379472450005,
+                  "mae_ah": 0.041601460553981624,
+                  "pred_crossing_within_horizon": 556,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2640561666478383,
+                  "last_step_ah": 2.035812977354545,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.022634040893148973,
+                  "pred_crossing_cycle": 556,
+                  "crossed": true,
+                  "ae": -33
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4963163435969513,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.06409281507900239,
+                  "mae_ah": 0.06533291009363656,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.494949494949495,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2650162787029973,
+                  "last_step_ah": 2.2648489438553643,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 7.304689821750484e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.49582723788245714,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.054379404147146024,
+                  "mae_ah": 0.055431498997094375,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.35353535353535354,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.264517706493621,
+                  "last_step_ah": 2.2535604122511175,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 3.920079285573391e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4941501444609783,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.013136269847995208,
+                  "mae_ah": 0.013390540455939855,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.06060606060606061,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.26280815343035,
+                  "last_step_ah": 2.157132050099448,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0022380105057926373,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null
+                }
+              }
+            ]
+          }
+        },
+        "30": {
+          "k": 30,
+          "T": 558,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.014860612445555421,
+              "std": 0.00863487380605869,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.01514855703961011,
+              "std": 0.008802056761827772,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 15.148557039610115,
+              "std": 8.802056761827771,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                589,
+                590,
+                577,
+                576,
+                578,
+                582,
+                598,
+                582,
+                578,
+                586
+              ],
+              "ae_values_sorted": [
+                -13,
+                -12,
+                -11,
+                -11,
+                -7,
+                -7,
+                -3,
+                0,
+                1,
+                9
+              ],
+              "ae_signed": {
+                "mean": -5.4,
+                "std": 7.0898989179442236,
+                "n": 10
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 7,
+              "n_never_cross": 3,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                577,
+                576,
+                578,
+                582,
+                null,
+                582,
+                578,
+                586
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.017241379310344827,
+              "std": 0.01817400954119758,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20689655172413796,
+              "std": 2.925694557147251e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.020914379749562607,
+              "std": 0.005550252840124623,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1024701881395096,
+              "std": 0.020274168892342122,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP400_seed1.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.410228689812257,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.00549727086132844,
+                  "mae_ah": 0.005603991466728623,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.177262424115878,
+                  "last_step_ah": 2.1215113714957496,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.016217162187489562,
+                  "pred_crossing_cycle": 589,
+                  "crossed": true,
+                  "ae": 0
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP400_seed2.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4102646394036751,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.0037248350750699838,
+                  "mae_ah": 0.003797181571708519,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.1772990695008905,
+                  "last_step_ah": 2.122074682588295,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.016345336962720964,
+                  "pred_crossing_cycle": 590,
+                  "crossed": true,
+                  "ae": 1
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP400_seed3.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4105452448978331,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.023596137840384893,
+                  "mae_ah": 0.02405320281697351,
+                  "pred_crossing_within_horizon": 577,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.1775851060304987,
+                  "last_step_ah": 2.0792306145882056,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.02782285372973467,
+                  "pred_crossing_cycle": 577,
+                  "crossed": true,
+                  "ae": -12
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP400_seed4.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.40854079338471166,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.02711265813742649,
+                  "mae_ah": 0.027637784313073156,
+                  "pred_crossing_within_horizon": 576,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.1755418589575872,
+                  "last_step_ah": 2.0734811599082974,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.028946267148471726,
+                  "pred_crossing_cycle": 576,
+                  "crossed": true,
+                  "ae": -13
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP400_seed5.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4072988939460942,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.021962714890941024,
+                  "mae_ah": 0.022388165454667774,
+                  "pred_crossing_within_horizon": 578,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.174275922926611,
+                  "last_step_ah": 2.0857664967876604,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.025394677664730032,
+                  "pred_crossing_cycle": 578,
+                  "crossed": true,
+                  "ae": -11
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP400_seed6.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.41279718059754467,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.014021110071608079,
+                  "mae_ah": 0.014292826168365884,
+                  "pred_crossing_within_horizon": 582,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.034482758620689655,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.1798806272724445,
+                  "last_step_ah": 2.098094610035204,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.022741492434401496,
+                  "pred_crossing_cycle": 582,
+                  "crossed": true,
+                  "ae": -7
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP400_seed7.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4099258086609979,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.005113010597982913,
+                  "mae_ah": 0.005212059818874515,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.034482758620689655,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.176953680790485,
+                  "last_step_ah": 2.131408950823806,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.013283445296776867,
+                  "pred_crossing_cycle": 598,
+                  "crossed": true,
+                  "ae": 9
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP400_seed8.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.40335576371262855,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.01600665808534608,
+                  "mae_ah": 0.01631683095021037,
+                  "pred_crossing_within_horizon": 582,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.034482758620689655,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.170256474586306,
+                  "last_step_ah": 2.1095304875621403,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.016913756491690454,
+                  "pred_crossing_cycle": 582,
+                  "crossed": true,
+                  "ae": -7
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP400_seed9.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.4052649160845467,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.022257483707575475,
+                  "mae_ah": 0.02268863943362477,
+                  "pred_crossing_within_horizon": 578,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.034482758620689655,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.1722025780316265,
+                  "last_step_ah": 2.0879150604499284,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.024229441145476326,
+                  "pred_crossing_cycle": 578,
+                  "crossed": true,
+                  "ae": -11
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP400_seed10.pt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.41092004159390105,
+                "rollout": {
+                  "n_steps": 30,
+                  "mae_common": 0.009314245187890839,
+                  "mae_ah": 0.009494888401874003,
+                  "pred_crossing_within_horizon": 586,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.034482758620689655,
+                  "true_rise_frac": 0.20689655172413793,
+                  "first_step_ah": 2.1779671568045704,
+                  "last_step_ah": 2.1156884471558124,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.017249364434133996,
+                  "pred_crossing_cycle": 586,
+                  "crossed": true,
+                  "ae": -3
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pf": {
+      "verification": {
+        "sp": 300,
+        "space": "Ah",
+        "mae": {
+          "mean": 0.003316876411437991,
+          "std": 0.0,
+          "n": 1
+        },
+        "r2": {
+          "mean": 0.9976749843028769,
+          "std": 0.0,
+          "n": 1
+        },
+        "reference": {
+          "mae": 0.0033,
+          "r2": 0.9977,
+          "space": "Ah"
+        },
+        "pass": true,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.003316876411437991,
+            "r2": 0.9976749843028769,
+            "decode_err": 2.980232238769531e-07,
+            "x_is_true_capacity": true
+          }
+        ]
+      },
+      "points": {
+        "10": {
+          "k": 10,
+          "T": 578,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 1,
+            "n_runs_ok": 1,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.027327852042932903,
+              "std": 0.0,
+              "n": 1
+            },
+            "mae_ah": {
+              "mean": 0.027856774449348663,
+              "std": 0.0,
+              "n": 1
+            },
+            "mae_mah": {
+              "mean": 27.856774449348663,
+              "std": 0.0,
+              "n": 1
+            },
+            "crossing": {
+              "n_cross": 1,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                583
+              ],
+              "ae_values_sorted": [
+                6
+              ],
+              "ae": {
+                "mean": 6.0,
+                "std": 0.0,
+                "n": 1
+              }
+            },
+            "crossing_full_span_diagnostic": {
+              "n_cross": 1,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                600
+              ],
+              "ae": {
+                "mean": 11.0,
+                "std": 0.0,
+                "n": 1
+              }
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 1
+            },
+            "true_rise_frac": {
+              "mean": 0.2222222222222222,
+              "std": 0.0,
+              "n": 1
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 2.045492765307426,
+              "std": 0.0,
+              "n": 1
+            },
+            "first_step_dev_max": 2.562999679156519e-08,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run1\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.562999679156519e-08,
+                "first_step_dev_ah": 2.562999679156519e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1371331214904785,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.027327852042932903,
+                  "mae_ah": 0.027856774449348663,
+                  "pred_crossing_cycle": 583,
+                  "crossed": true,
+                  "ae": 6,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1371331471204753,
+                  "last_step_ah": 2.045492765307426,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_full": 600,
+                  "crossed_full": true,
+                  "ae_full": 11,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "rm": {
+      "verification": {
+        "sp": 300,
+        "space": "Ah",
+        "mae": {
+          "mean": 0.01715072040557862,
+          "std": 0.0,
+          "n": 1
+        },
+        "r2": {
+          "mean": 0.971501296166238,
+          "std": 0.0,
+          "n": 1
+        },
+        "reference": {
+          "mae": 0.0174,
+          "r2": 0.9725,
+          "space": "Ah"
+        },
+        "pass": true,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01715072040557862,
+            "r2": 0.971501296166238,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          }
+        ]
+      },
+      "points": {
+        "10": {
+          "k": 10,
+          "T": 578,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 1,
+            "n_runs_ok": 1,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.01418148327551701,
+              "std": 0.0,
+              "n": 1
+            },
+            "mae_ah": {
+              "mean": 0.014455961644649263,
+              "std": 0.0,
+              "n": 1
+            },
+            "mae_mah": {
+              "mean": 14.455961644649262,
+              "std": 0.0,
+              "n": 1
+            },
+            "crossing": {
+              "n_cross": 0,
+              "n_never_cross": 1,
+              "pred_crossing_per_run": [
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              }
+            },
+            "crossing_full_span_diagnostic": {
+              "n_cross": 0,
+              "n_never_cross": 1,
+              "pred_crossing_per_run": [
+                null
+              ],
+              "ae": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              }
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 1
+            },
+            "true_rise_frac": {
+              "mean": 0.2222222222222222,
+              "std": 0.0,
+              "n": 1
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 2.1402237904071804,
+              "std": 0.0,
+              "n": 1
+            },
+            "first_step_dev_max": 5.602836639084785e-08,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_1\\Start_Point_500\\Checkpoints\\epoch=22.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.602836639084785e-08,
+                "first_step_dev_ah": 5.602836639084785e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1505918502807617,
+                "rollout": {
+                  "n_steps": 10,
+                  "mae_common": 0.01418148327551701,
+                  "mae_ah": 0.014455961644649263,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2222222222222222,
+                  "first_step_ah": 2.1505917942523953,
+                  "last_step_ah": 2.1402237904071804,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_full": null,
+                  "crossed_full": false,
+                  "ae_full": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "protocol": {
+    "dataset": "PANASONIC",
+    "test_cell": "Cell03",
+    "train_cells": [
+      "Cell01",
+      "Cell02"
+    ],
+    "checkpoints": {
+      "ours": "checkpoints/per_sp/panasonic/SP{sp}_seed{s}.pt, s=1..10",
+      "pf": "reference_repos/ref_patchformer/results_PANASONIC_RUL_prediction_sl_30/Cell03/PatchFormer/SP{sp}/run{r}/checkpoints/*.ckpt, r=1..10",
+      "rm": "reference_repos/ref_rul_mamba/Outputs/PANASONIC/Univariable/RULMamba/Repeat_{r}/Start_Point_{sp}/Checkpoints/*.ckpt, r=1..10"
+    },
+    "warmup_W": 30,
+    "rated_ah": 3.03,
+    "eol_ah": 2.12,
+    "eol_ah_trainer_threshold": 2.1209999999999996,
+    "true_eol_cycle": 588,
+    "true_first_below_cycle": 589,
+    "second_crossing_cycle": 646,
+    "series_len_test_cell": 924,
+    "ks": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "ks_protocol_internal": [
+      88,
+      188,
+      288
+    ],
+    "ks_protocol_internal_note": "true_EOL - SP for SP in 300/400/500: the launch offsets whose checkpoint is the one trained for exactly that point (strict comparison, not table rows).",
+    "ks_computed": [
+      10,
+      20,
+      25,
+      30,
+      40,
+      50,
+      75,
+      80,
+      100,
+      160,
+      320
+    ],
+    "n_runs": 10,
+    "launch_vs_training_cutoff": {
+      "all_launches_after_their_checkpoints_SP": true,
+      "detail": "launch T = 563/538/513 for k = 25/50/75 all fall after 500, so those rows use SP500 (the nearest SP <= T); k = 100 launches at T = 488 < 500 and therefore uses SP400, not SP500.  Every T is still strictly greater than the SP of the checkpoint it uses (563/538/513 > 500, 488 > 400), so no rollout is evaluated on data its model saw in training."
+    },
+    "start": "T = true_EOL - k; warm-up = the W true cycles before T (cycles T-W+1..T); the first predicted cycle is T+1, so the horizon covers T+1..T+k and ends on the true EOL cycle.",
+    "model_selection": "nearest per-SP checkpoint with SP <= T; only SP 300/400/500 exist.  For T < 300 (k = 320, T = 268) no SP <= T exists and the nearest available one (SP300) is used, flagged sp_fallback.",
+    "metric_space": "MAE reported in mAh (= Ah x 1000); the same numbers are stored in Ah and in the common (our train-cell min-max) space, common = (Ah - LO)/(HI - LO).",
+    "ae_convention": "AE = predicted crossing cycle - true EOL (588), signed cycles: negative = the model calls EOL early, positive = late.  A crossing is the first cycle at/under 2.12 Ah; Cell03's first sub-threshold cycle is 589 (the 1-cycle offset between 'first below' and 'last at/above' the threshold cancels because true and predicted are read the same way).  The rollout is NOT stopped at k: it continues until the prediction goes under the threshold or the true series ends.  A run that never crosses is excluded from the AE mean and counted in the footnote, never imputed.",
+    "std_ddof": 1,
+    "first_step_tol": 1e-05,
+    "points": {
+      "10": {
+        "k": 10,
+        "T": 578,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "20": {
+        "k": 20,
+        "T": 568,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "25": {
+        "k": 25,
+        "T": 563,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "30": {
+        "k": 30,
+        "T": 558,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "40": {
+        "k": 40,
+        "T": 548,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "50": {
+        "k": 50,
+        "T": 538,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "75": {
+        "k": 75,
+        "T": 513,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "80": {
+        "k": 80,
+        "T": 508,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "100": {
+        "k": 100,
+        "T": 488,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "160": {
+        "k": 160,
+        "T": 428,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "320": {
+        "k": 320,
+        "T": 268,
+        "sp": 300,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      }
+    }
+  },
+  "reference_teacher_forced": {
+    "ours": {
+      "mae": 0.0037,
+      "r2": 0.9976,
+      "space": "common (train-cell min-max)"
+    },
+    "pf": {
+      "mae": 0.0033,
+      "r2": 0.9977,
+      "space": "Ah"
+    },
+    "rm": {
+      "mae": 0.0174,
+      "r2": 0.9725,
+      "space": "Ah"
+    }
+  },
+  "notes": [
+    "CELL03 REGENERATES: it crosses 2.12 Ah at 588, climbs back to 2.167 Ah over the next ~35 cycles, and crosses down again at 646.  true_EOL is the first crossing, as everywhere else in this repo; a model that only ever predicts a smooth decline cannot represent the recovery, and one that freezes above the threshold never reports a crossing at all.",
+    "MAE at k comes from ONE rollout per run, not from a run of its own: the rollout runs on until the prediction crosses, and its first k steps are the MAE window.  Each k launches from its own T with its own checkpoint.",
+    "crossing_within_horizon is a DIAGNOSTIC (does the prediction cross inside the k-step launch window, i.e. by the true EOL?); the reported AE comes from the continued rollout.",
+    "end_window_std_common diagnoses how the rollout ends: ~1e-7 means the per-window normaliser has collapsed and the trajectory is frozen, huge means the decode feedback diverged.",
+    "The teacher-forced first step of the rollout is compared with the rollout's own first step (same warm-up window) as the protocol check; max deviation is reported per k.",
+    "RAW TRAJECTORIES: src/results/ar_traj_panasonic.npz holds cycles (1-based integer cycle index, shared 1..924 axis), true (Cell03 capacity in Ah) and pred_{model}_k{k}_s{seed} (the model's self-fed rollout in Ah, from its first predicted cycle to the end of the true series, NaN-padded before the launch's first predicted cycle).  Capacities are in Ah, not normalised."
+  ]
+}

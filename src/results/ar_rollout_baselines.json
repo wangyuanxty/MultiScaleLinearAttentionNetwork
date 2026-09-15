@@ -1,0 +1,247 @@
+{
+  "series_len": {
+    "pf": {
+      "CS2_35": 882,
+      "CS2_36": 936,
+      "CS2_37": 972,
+      "CS2_38": 996
+    },
+    "rm": {
+      "CS2_35": 881,
+      "CS2_36": 933,
+      "CS2_37": 972,
+      "CS2_38": 1002
+    }
+  },
+  "ours_lo": 0.1421641707420349,
+  "ours_hi": 1.134451150894165,
+  "run": 1,
+  "results": {
+    "pf": {
+      "SP300": {
+        "checkpoint": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run1\\checkpoints\\epoch=85-step=1548.ckpt",
+        "n_cycles_official": 882,
+        "cycles_after_sp": 583,
+        "minv": 0.1250435995775796,
+        "maxv": 1.0307332827746165,
+        "eol_mm": 0.63482715005967,
+        "teacher_forced": {
+          "mae_ah": 0.005779637593013169,
+          "r2": 0.996219465682186,
+          "rul_real": 341,
+          "rul_pred": 340,
+          "ae": 1,
+          "re": 0.002932551319648094,
+          "true_crossing": 341,
+          "pred_crossing": 340,
+          "ae_first_crossing_rule": 1,
+          "max_err_vs_stored_predictions": null
+        },
+        "rollout": {
+          "mae_mm": 0.20490851208474015,
+          "r2": -0.9477605152893325,
+          "mae_common": 0.20572845989986444,
+          "mae_ah": 0.20414187793384492,
+          "true_crossing": 341,
+          "pred_crossing": null,
+          "ae": null,
+          "first_pred_ah": 0.9786272466182709,
+          "mae_at_k": {
+            "25": 0.005828138090211748,
+            "50": 0.009019737303587665,
+            "100": 0.006424815727596722
+          }
+        },
+        "first_step_vs_teacher_forced": 7.748603814139443e-08,
+        "end_window_std_mm": 2.220446049250313e-16
+      },
+      "SP400": {
+        "checkpoint": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP400\\run1\\checkpoints\\epoch=62-step=1134.ckpt",
+        "n_cycles_official": 882,
+        "cycles_after_sp": 483,
+        "minv": 0.1250435995775796,
+        "maxv": 1.0307332827746165,
+        "eol_mm": 0.63482715005967,
+        "teacher_forced": {
+          "mae_ah": 0.00701843937259244,
+          "r2": 0.9952107779559299,
+          "rul_real": 241,
+          "rul_pred": 242,
+          "ae": 1,
+          "re": 0.004149377593360996,
+          "true_crossing": 241,
+          "pred_crossing": 242,
+          "ae_first_crossing_rule": -1,
+          "max_err_vs_stored_predictions": null
+        },
+        "rollout": {
+          "mae_mm": 0.24560043771225543,
+          "r2": -1.3878361614809154,
+          "mae_common": 0.24658321553952522,
+          "mae_ah": 0.2446815608871329,
+          "true_crossing": 241,
+          "pred_crossing": null,
+          "ae": null,
+          "first_pred_ah": 0.9716180086135865,
+          "mae_at_k": {
+            "25": 0.007550533892164033,
+            "50": 0.010684197280771175,
+            "100": 0.027554852513783198
+          }
+        },
+        "first_step_vs_teacher_forced": 2.26497650079871e-07,
+        "end_window_std_mm": 1.1102230246251565e-16
+      },
+      "SP500": {
+        "checkpoint": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP500\\run1\\checkpoints\\epoch=65-step=1254.ckpt",
+        "n_cycles_official": 882,
+        "cycles_after_sp": 383,
+        "minv": 0.1250435995775796,
+        "maxv": 1.0307332827746165,
+        "eol_mm": 0.63482715005967,
+        "teacher_forced": {
+          "mae_ah": 0.00756575494326803,
+          "r2": 0.99345062173938,
+          "rul_real": 141,
+          "rul_pred": 142,
+          "ae": 1,
+          "re": 0.0070921985815602835,
+          "true_crossing": 141,
+          "pred_crossing": 142,
+          "ae_first_crossing_rule": -1,
+          "max_err_vs_stored_predictions": null
+        },
+        "rollout": {
+          "mae_mm": 0.2533502582042194,
+          "r2": -1.6709018192379368,
+          "mae_common": 0.2543640471803934,
+          "mae_ah": 0.2524023865999537,
+          "true_crossing": 141,
+          "pred_crossing": null,
+          "ae": null,
+          "first_pred_ah": 0.9236474931240083,
+          "mae_at_k": {
+            "25": 0.013480812632869967,
+            "50": 0.02202897853927281,
+            "100": 0.03709147109410849
+          }
+        },
+        "first_step_vs_teacher_forced": 8.940696727410824e-08,
+        "end_window_std_mm": 2.9589380853466248e-08
+      }
+    },
+    "rm": {
+      "SP300": {
+        "checkpoint": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_300\\Checkpoints\\epoch=10.ckpt",
+        "n_cycles_official": 881,
+        "cycles_after_sp": 582,
+        "minv": 0.12924015522003174,
+        "maxv": 1.0313192280856045,
+        "eol_mm": 0.6327159801710891,
+        "teacher_forced": {
+          "mae_ah": 0.01748394141696983,
+          "r2": 0.979884651404131,
+          "rul_real": 341,
+          "rul_pred": 352,
+          "ae": 11,
+          "re": 0.03225806451612903,
+          "true_crossing": 341,
+          "pred_crossing": 352,
+          "ae_first_crossing_rule": -11,
+          "max_err_vs_stored_predictions": 5.960464477539063e-08
+        },
+        "rollout": {
+          "mae_mm": 0.1701895684209087,
+          "r2": -0.4803255904654937,
+          "mae_common": 0.17018939690863424,
+          "mae_ah": 0.16887689290177782,
+          "true_crossing": 341,
+          "pred_crossing": null,
+          "ae": null,
+          "first_pred_ah": 0.9660403847694398,
+          "mae_at_k": {
+            "25": 0.01321280651098128,
+            "50": 0.013726658510640328,
+            "100": 0.025648828828146907
+          }
+        },
+        "first_step_vs_teacher_forced": 4.768371575369912e-08,
+        "end_window_std_mm": 4.817924191284768e-06
+      },
+      "SP400": {
+        "checkpoint": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_400\\Checkpoints\\epoch=35.ckpt",
+        "n_cycles_official": 881,
+        "cycles_after_sp": 482,
+        "minv": 0.12924015522003174,
+        "maxv": 1.0313192280856045,
+        "eol_mm": 0.6327159801710891,
+        "teacher_forced": {
+          "mae_ah": 0.020371705788299756,
+          "r2": 0.9719921732246226,
+          "rul_real": 241,
+          "rul_pred": 255,
+          "ae": 14,
+          "re": 0.058091286307053944,
+          "true_crossing": 241,
+          "pred_crossing": 255,
+          "ae_first_crossing_rule": -14,
+          "max_err_vs_stored_predictions": 5.960464477539063e-08
+        },
+        "rollout": {
+          "mae_mm": 0.24021821086856524,
+          "r2": -1.3208846225073398,
+          "mae_common": 0.24021796878338866,
+          "mae_ah": 0.23836540304031614,
+          "true_crossing": 241,
+          "pred_crossing": null,
+          "ae": null,
+          "first_pred_ah": 0.9691038489341737,
+          "mae_at_k": {
+            "25": 0.010882889422172099,
+            "50": 0.01052324050011853,
+            "100": 0.024714096440175092
+          }
+        },
+        "first_step_vs_teacher_forced": 2.3841857821338408e-08,
+        "end_window_std_mm": 2.220446049250313e-16
+      },
+      "SP500": {
+        "checkpoint": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_500\\Checkpoints\\epoch=74.ckpt",
+        "n_cycles_official": 881,
+        "cycles_after_sp": 382,
+        "minv": 0.12924015522003174,
+        "maxv": 1.0313192280856045,
+        "eol_mm": 0.6327159801710891,
+        "teacher_forced": {
+          "mae_ah": 0.02465080551764104,
+          "r2": 0.961113538085396,
+          "rul_real": 141,
+          "rul_pred": 156,
+          "ae": 15,
+          "re": 0.10638297872340426,
+          "true_crossing": 141,
+          "pred_crossing": 156,
+          "ae_first_crossing_rule": -15,
+          "max_err_vs_stored_predictions": 5.960464477539063e-08
+        },
+        "rollout": {
+          "mae_mm": 0.258440722649354,
+          "r2": -1.7336814460272323,
+          "mae_common": 0.2584404622000411,
+          "mae_ah": 0.25644736422606174,
+          "true_crossing": 141,
+          "pred_crossing": null,
+          "ae": null,
+          "first_pred_ah": 0.9385596215724946,
+          "mae_at_k": {
+            "25": 0.0213023125620165,
+            "50": 0.028245993152373913,
+            "100": 0.04298821076378029
+          }
+        },
+        "first_step_vs_teacher_forced": 2.980232227667301e-08,
+        "end_window_std_mm": 6.384317310187578e-08
+      }
+    }
+  }
+}

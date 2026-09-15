@@ -1,0 +1,4635 @@
+{
+  "protocol": {
+    "dataset": "CALCE",
+    "test_cell": "CS2_35",
+    "train_cells": [
+      "CS2_36",
+      "CS2_37",
+      "CS2_38"
+    ],
+    "W": 64,
+    "eol_ah": 0.77,
+    "rated_ah": 1.1,
+    "warmup": "the W true cycles before the launch cycle",
+    "launch": "T = true_EOL - k; first predicted cycle = T + 1",
+    "horizon": "k steps, ending on the true EOL cycle",
+    "mae_space": "common = our checkpoint's train-cell min--max (Ah = common*(HI-LO) + LO)",
+    "ae": "predicted_crossing_cycle - true_EOL, signed; the rollout runs to the end of the true series, not just k steps",
+    "crossing_convention": "last cycle at/above the threshold (first sub-threshold cycle is +1)",
+    "reported_ks": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "protocol_internal_ks_available": [
+      140,
+      240,
+      340
+    ],
+    "runs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "std_ddof": 1,
+    "first_step_tol": 1e-05,
+    "baseline_phase": "baselines launched at T+1 (their rollout predicts the value AT the start cycle)",
+    "numerics": "the AR rollout is chaotic: a float64-built input window instead of the canonical float32 one moves the long-horizon crossing by ~10 cycles.  These numbers use the float32 path of ar_ae_horizon / ar_ktable_panasonic and reproduce exactly."
+  },
+  "common_space": {
+    "lo": 0.1421641707420349,
+    "hi": 1.134451150894165,
+    "src": "checkpoints/per_sp/calce/SP300_seed1.pt"
+  },
+  "reference_teacher_forced": {
+    "ours": {
+      "mae": 0.0066,
+      "r2": 0.9951,
+      "space": "common (checkpoint min-max)",
+      "stat": "10-seed mean",
+      "seed1_mae": 0.0073
+    },
+    "pf": {
+      "mae": 0.0058,
+      "r2": 0.9962,
+      "space": "Ah",
+      "stat": "run 1"
+    },
+    "rm": {
+      "mae": 0.0175,
+      "r2": 0.9799,
+      "space": "Ah",
+      "stat": "run 1"
+    }
+  },
+  "notes": [
+    "k = 140/240/340 (T == SP500/400/300) are the protocol-internal launch points -- the only k where the checkpoint is the one trained for that launch.  k = 140 rides along here as an end-to-end check against src/results/ar_rollout_10seed.json (its SP500 rows are the same rollout); the reported table is k = 25/50/75/100.",
+    "Launch points 614/589/564/539 all lie after SP500's training cutoff (cycle 500), and the nearest SP <= launch is SP500 for every k, so the whole table is one model per method.  No EVALUATED cycle was seen in training; the W = 64 warm-up window can still reach back past the cutoff (k = 100 covers cycles 476-539), exactly as the teacher-forced protocol does.",
+    "MAE@k is a prefix of ONE full-length rollout per run, not a separate k-step run.",
+    "A run whose rollout never crosses 0.77 Ah by the end of the series contributes no AE; it is counted separately, never imputed.",
+    "AE is signed (predicted crossing cycle - true EOL cycle, 640): negative = called it early.",
+    "Raw rollouts: src/results/ar_traj_calce.npz holds `cycles` (1..881), `true` (the paper's CS2_35 series in Ah) and one `pred_<model>_k<k>_s<seed>` array per rollout -- the FULL rollout in Ah, aligned to `cycles`, NaN outside its range.  PatchFormer's rollout is produced on the upstream official CALCE series, which differs slightly from the series in `true` (see notes in src/ar_rollout_baselines.py)."
+  ],
+  "models": {
+    "ours": {
+      "verification": {
+        "sp": 300,
+        "space": "common (checkpoint min-max)",
+        "stat": "10-seed mean",
+        "mae": {
+          "mean": 0.006638050265610218,
+          "seed1": 0.007344990968704224
+        },
+        "r2": {
+          "mean": 0.9951356589794159,
+          "seed1": 0.9940803647041321
+        },
+        "reference": {
+          "mae": 0.0066,
+          "r2": 0.9951,
+          "space": "common (checkpoint min-max)",
+          "stat": "10-seed mean",
+          "seed1_mae": 0.0073
+        },
+        "pass": true,
+        "n_runs": 10,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.007344990968704224,
+            "r2": 0.9940803647041321,
+            "ae": 2,
+            "trul": 339,
+            "prul": 341
+          },
+          {
+            "run": 2,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.006076483521610498,
+            "r2": 0.9955255389213562,
+            "ae": 2,
+            "trul": 339,
+            "prul": 341
+          },
+          {
+            "run": 3,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.00585850840434432,
+            "r2": 0.9952113628387451,
+            "ae": 7,
+            "trul": 339,
+            "prul": 346
+          },
+          {
+            "run": 4,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.007560211233794689,
+            "r2": 0.994171142578125,
+            "ae": 3,
+            "trul": 339,
+            "prul": 342
+          },
+          {
+            "run": 5,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.005846607964485884,
+            "r2": 0.9958816766738892,
+            "ae": 2,
+            "trul": 339,
+            "prul": 341
+          },
+          {
+            "run": 6,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.00742765050381422,
+            "r2": 0.9939431548118591,
+            "ae": 3,
+            "trul": 339,
+            "prul": 342
+          },
+          {
+            "run": 7,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.007052652072161436,
+            "r2": 0.9949957728385925,
+            "ae": 2,
+            "trul": 339,
+            "prul": 341
+          },
+          {
+            "run": 8,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.006901110522449017,
+            "r2": 0.9951838850975037,
+            "ae": 1,
+            "trul": 339,
+            "prul": 338
+          },
+          {
+            "run": 9,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.005966469645500183,
+            "r2": 0.9964055418968201,
+            "ae": 7,
+            "trul": 339,
+            "prul": 346
+          },
+          {
+            "run": 10,
+            "ok": true,
+            "sp": 300,
+            "mae_common": 0.006345817819237709,
+            "r2": 0.995958149433136,
+            "ae": 3,
+            "trul": 339,
+            "prul": 342
+          }
+        ]
+      },
+      "points": {
+        "25": {
+          "k": 25,
+          "T": 615,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 616,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.0317860159216591,
+              "std": 0.0026111318474571865,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.031540847712764254,
+              "std": 0.0025909922093087074,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 31.540847712764254,
+              "std": 2.5909922093087068,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 6,
+              "n_never_cross": 4,
+              "pred_crossing_per_run": [
+                697,
+                null,
+                null,
+                868,
+                null,
+                848,
+                717,
+                761,
+                753,
+                null
+              ],
+              "ae_signed_per_run": [
+                57,
+                null,
+                null,
+                228,
+                null,
+                208,
+                77,
+                121,
+                113,
+                null
+              ],
+              "ae_values_sorted": [
+                57,
+                77,
+                113,
+                121,
+                208,
+                228
+              ],
+              "ae_signed": {
+                "mean": 134.0,
+                "std": 69.42621983083913,
+                "n": 6
+              },
+              "ae_abs": {
+                "mean": 134.0,
+                "std": 69.42621983083913,
+                "n": 6
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.5291666666666667,
+              "std": 0.11955744009254081,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.29166666666666663,
+              "std": 5.851389114294502e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 0.8535318433321073,
+              "std": 0.007048728671171093,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7151813050918795,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.027959241386267496,
+                  "mae_ah": 0.02774358980767614,
+                  "pred_crossing_cycle": 697,
+                  "crossed": true,
+                  "ae": 57,
+                  "pred_rise_frac": 0.3333333333333333,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8435561197901543
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7177326497014912,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.034854577203468844,
+                  "mae_ah": 0.03458574207749001,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5833333333333334,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8588959217274572
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7182504909447793,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.031224039064951768,
+                  "mae_ah": 0.03098320635169378,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.375,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8427552367030219
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.716701621319307,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03428275073356946,
+                  "mae_ah": 0.03401832423012095,
+                  "pred_crossing_cycle": 868,
+                  "crossed": true,
+                  "ae": 228,
+                  "pred_rise_frac": 0.5416666666666666,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8595184136081467
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7149610002051383,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.034225347352222615,
+                  "mae_ah": 0.03396136440811636,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.625,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8564018518881337
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.717586084213924,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03216345793394824,
+                  "mae_ah": 0.03191537757792667,
+                  "pred_crossing_cycle": 848,
+                  "crossed": true,
+                  "ae": 208,
+                  "pred_rise_frac": 0.5833333333333334,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8562027773764518
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7174752015198856,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.029670202424329543,
+                  "mae_ah": 0.029441353363370105,
+                  "pred_crossing_cycle": 717,
+                  "crossed": true,
+                  "ae": 77,
+                  "pred_rise_frac": 0.625,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8578662992545308
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7167279839653485,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.027602040709090808,
+                  "mae_ah": 0.02738914265465898,
+                  "pred_crossing_cycle": 761,
+                  "crossed": true,
+                  "ae": 121,
+                  "pred_rise_frac": 0.375,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8439850597008431
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7163277469058964,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03284626609912255,
+                  "mae_ah": 0.032592920801923914,
+                  "pred_crossing_cycle": 753,
+                  "crossed": true,
+                  "ae": 113,
+                  "pred_rise_frac": 0.625,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8575999648894267
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7163779352235888,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03303223630961959,
+                  "mae_ah": 0.03277745585466565,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.625,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8585367883829074
+                }
+              }
+            ]
+          }
+        },
+        "50": {
+          "k": 50,
+          "T": 590,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 591,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.018562321604708453,
+              "std": 0.003662348559147604,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.01841914939843666,
+              "std": 0.0036341005881473714,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 18.419149398436666,
+              "std": 3.6341005881473714,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 7,
+              "n_never_cross": 3,
+              "pred_crossing_per_run": [
+                670,
+                null,
+                null,
+                859,
+                null,
+                844,
+                706,
+                734,
+                708,
+                880
+              ],
+              "ae_signed_per_run": [
+                30,
+                null,
+                null,
+                219,
+                null,
+                204,
+                66,
+                94,
+                68,
+                240
+              ],
+              "ae_values_sorted": [
+                30,
+                66,
+                68,
+                94,
+                204,
+                219,
+                240
+              ],
+              "ae_signed": {
+                "mean": 131.57142857142858,
+                "std": 86.32855291048871,
+                "n": 7
+              },
+              "ae_abs": {
+                "mean": 131.57142857142858,
+                "std": 86.32855291048871,
+                "n": 7
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.35918367346938773,
+              "std": 0.06679149773406029,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.2653061224489796,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 0.8490780967148067,
+              "std": 0.013983117592584127,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7393842922771008,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.017498791826858973,
+                  "mae_ah": 0.01736382443184807,
+                  "pred_crossing_cycle": 670,
+                  "crossed": true,
+                  "ae": 30,
+                  "pred_rise_frac": 0.3469387755102041,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.826442348443791
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7407512890460031,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.027430364790297316,
+                  "mae_ah": 0.027218792261331295,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.32653061224489793,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8660530338907234
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7373679192642425,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.015530876926308074,
+                  "mae_ah": 0.01541108941276834,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.30612244897959184,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8354996470106703
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7387472099251362,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.020116410224469607,
+                  "mae_ah": 0.019961253767462942,
+                  "pred_crossing_cycle": 859,
+                  "crossed": true,
+                  "ae": 219,
+                  "pred_rise_frac": 0.4489795918367347,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.861196788860711
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7394905007772333,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.02014561586104806,
+                  "mae_ah": 0.019990232084492493,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.3469387755102041,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8594173775874756
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7403820210366874,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.01977260198908749,
+                  "mae_ah": 0.019620091318047973,
+                  "pred_crossing_cycle": 844,
+                  "crossed": true,
+                  "ae": 204,
+                  "pred_rise_frac": 0.5102040816326531,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8640458717089051
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7406945083274025,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.01631076216573395,
+                  "mae_ah": 0.016184953171355442,
+                  "pred_crossing_cycle": 706,
+                  "crossed": true,
+                  "ae": 66,
+                  "pred_rise_frac": 0.32653061224489793,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8469085067067064
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7408687939790536,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.01453644861553273,
+                  "mae_ah": 0.014424326175829394,
+                  "pred_crossing_cycle": 734,
+                  "crossed": true,
+                  "ae": 94,
+                  "pred_rise_frac": 0.3469387755102041,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8332828248339882
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7398223446994716,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.016988865746546462,
+                  "mae_ah": 0.016857828806198134,
+                  "pred_crossing_cycle": 708,
+                  "crossed": true,
+                  "ae": 68,
+                  "pred_rise_frac": 0.30612244897959184,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8443397415006155
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7395651301637162,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.017292477901201905,
+                  "mae_ah": 0.017159102555032547,
+                  "pred_crossing_cycle": 880,
+                  "crossed": true,
+                  "ae": 240,
+                  "pred_rise_frac": 0.32653061224489793,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": null,
+                  "last_step_ah": 0.8535948266044807
+                }
+              }
+            ]
+          }
+        },
+        "75": {
+          "k": 75,
+          "T": 565,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 566,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.01776839943203623,
+              "std": 0.004239643912998218,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.01763135076789154,
+              "std": 0.004206943549078901,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 17.631350767891533,
+              "std": 4.206943549078901,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 5,
+              "n_never_cross": 5,
+              "pred_crossing_per_run": [
+                663,
+                null,
+                null,
+                864,
+                null,
+                null,
+                673,
+                707,
+                704,
+                null
+              ],
+              "ae_signed_per_run": [
+                23,
+                null,
+                null,
+                224,
+                null,
+                null,
+                33,
+                67,
+                64,
+                null
+              ],
+              "ae_values_sorted": [
+                23,
+                33,
+                64,
+                67,
+                224
+              ],
+              "ae_signed": {
+                "mean": 82.2,
+                "std": 81.53956095049814,
+                "n": 5
+              },
+              "ae_abs": {
+                "mean": 82.2,
+                "std": 81.53956095049814,
+                "n": 5
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.43108108108108106,
+              "std": 0.08883129576458582,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.40540540540540543,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.013507281630032588,
+              "std": 0.007063421307197317,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8439354603700778,
+              "std": 0.030755948633897884,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7331449849076137,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.019990070163548812,
+                  "mae_ah": 0.019835886956796837,
+                  "pred_crossing_cycle": 663,
+                  "crossed": true,
+                  "ae": 23,
+                  "pred_rise_frac": 0.4189189189189189,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.026573808570791696,
+                  "last_step_ah": 0.7723944768264532
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7377127711535558,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.02887381086023768,
+                  "mae_ah": 0.028651105936075148,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.581081081081081,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.003117169856814859,
+                  "last_step_ah": 0.8834821002993628
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7355569373260592,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.016811179805232036,
+                  "mae_ah": 0.016681514624785166,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.32432432432432434,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.015051072076967363,
+                  "last_step_ah": 0.8191183771923615
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.737376978973153,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.017645258673818703,
+                  "mae_ah": 0.017509158585977954,
+                  "pred_crossing_cycle": 864,
+                  "crossed": true,
+                  "ae": 224,
+                  "pred_rise_frac": 0.4594594594594595,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.007637827995788473,
+                  "last_step_ah": 0.8682026012817478
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.73354539639496,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.016548319603725676,
+                  "mae_ah": 0.01642068328375399,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.4189189189189189,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.00998911191658194,
+                  "last_step_ah": 0.8469642058323879
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.737761617267932,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.01503249193926532,
+                  "mae_ah": 0.014916545187139753,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.2702702702702703,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.008874086244324756,
+                  "last_step_ah": 0.8469761011206779
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7353076254367128,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.016186211880531893,
+                  "mae_ah": 0.01606136532394012,
+                  "pred_crossing_cycle": 673,
+                  "crossed": true,
+                  "ae": 33,
+                  "pred_rise_frac": 0.4594594594594595,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.02075562469790804,
+                  "last_step_ah": 0.8500837154488521
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7352932655907254,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.01574926136998274,
+                  "mae_ah": 0.015627786331350587,
+                  "pred_crossing_cycle": 707,
+                  "crossed": true,
+                  "ae": 67,
+                  "pred_rise_frac": 0.4189189189189189,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.015867179525039722,
+                  "last_step_ah": 0.8497552330871176
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7341784563542916,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.013688110168326962,
+                  "mae_ah": 0.013582532808067616,
+                  "pred_crossing_cycle": 704,
+                  "crossed": true,
+                  "ae": 64,
+                  "pred_rise_frac": 0.43243243243243246,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.018160596451140362,
+                  "last_step_ah": 0.83650539655645
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7378388465631924,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.017159279855692475,
+                  "mae_ah": 0.01702692864102819,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.527027027027027,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.009046338964968679,
+                  "last_step_ah": 0.8658723960553676
+                }
+              }
+            ]
+          }
+        },
+        "100": {
+          "k": 100,
+          "T": 540,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 541,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.01995343392224733,
+              "std": 0.007589440514828026,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.01979953259611652,
+              "std": 0.00753090298812659,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 19.799532596116524,
+              "std": 7.53090298812659,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 4,
+              "n_never_cross": 6,
+              "pred_crossing_per_run": [
+                629,
+                null,
+                null,
+                null,
+                null,
+                null,
+                673,
+                737,
+                671,
+                null
+              ],
+              "ae_signed_per_run": [
+                -11,
+                null,
+                null,
+                null,
+                null,
+                null,
+                33,
+                97,
+                31,
+                null
+              ],
+              "ae_values_sorted": [
+                -11,
+                31,
+                33,
+                97
+              ],
+              "ae_signed": {
+                "mean": 37.5,
+                "std": 44.553338819890925,
+                "n": 4
+              },
+              "ae_abs": {
+                "mean": 43.0,
+                "std": 37.345236197762446,
+                "n": 4
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.3373737373737374,
+              "std": 0.11108049777229859,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.43434343434343436,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.014686153408377242,
+              "std": 0.00939131966499227,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8360499360101732,
+              "std": 0.043940394844321336,
+              "n": 10
+            },
+            "first_step_dev_max": 0.0,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "SP300_seed1.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7644837677331555,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.027647389334085757,
+                  "mae_ah": 0.027434144177495266,
+                  "pred_crossing_cycle": 629,
+                  "crossed": true,
+                  "ae": -11,
+                  "pred_rise_frac": 0.30303030303030304,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.03363866928072387,
+                  "last_step_ah": 0.7356395859432596
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "SP300_seed2.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7627712823513638,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.0375297096876505,
+                  "mae_ah": 0.03724024231972838,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.40404040404040403,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.0033136311410591696,
+                  "last_step_ah": 0.8972051240108601
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "SP300_seed3.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7587947187728779,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.02066056148087079,
+                  "mae_ah": 0.020501205187415966,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.35353535353535354,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.013919518708044483,
+                  "last_step_ah": 0.8184337748519144
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "SP300_seed4.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7636649873162187,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.02140961306465745,
+                  "mae_ah": 0.02124448014512094,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.46464646464646464,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.008547658044714771,
+                  "last_step_ah": 0.8759523485735505
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "SP300_seed5.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7625762700516601,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.01572802134806601,
+                  "mae_ah": 0.015606712211271506,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.29292929292929293,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.007699348108588546,
+                  "last_step_ah": 0.8454656703251574
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "SP300_seed6.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7623762268086623,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.016378623185484543,
+                  "mae_ah": 0.016252295282781947,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.06060606060606061,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.010302082185265392,
+                  "last_step_ah": 0.8316483465385749
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "SP300_seed7.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7674665470823983,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.012984447749993175,
+                  "mae_ah": 0.012884296593836862,
+                  "pred_crossing_cycle": 673,
+                  "crossed": true,
+                  "ae": 33,
+                  "pred_rise_frac": 0.3333333333333333,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.024667613326924503,
+                  "last_step_ah": 0.8159630856876304
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "SP300_seed8.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7639668631281581,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.017591474572235165,
+                  "mae_ah": 0.017455791015268042,
+                  "pred_crossing_cycle": 737,
+                  "crossed": true,
+                  "ae": 97,
+                  "pred_rise_frac": 0.40404040404040403,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.015646779397730168,
+                  "last_step_ah": 0.8466986339588737
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "SP300_seed9.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7646658023767807,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.012588073280144916,
+                  "mae_ah": 0.012490981800996509,
+                  "pred_crossing_cycle": 671,
+                  "crossed": true,
+                  "ae": 31,
+                  "pred_rise_frac": 0.3434343434343434,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.021575707109453356,
+                  "last_step_ah": 0.8267668709805255
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "SP300_seed10.pt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 0.0,
+                "first_step_dev_ah": 0.0,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.7625219031997804,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.017016425519285013,
+                  "mae_ah": 0.016885177227249807,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.41414141414141414,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.007550526781268158,
+                  "last_step_ah": 0.866725919231386
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "rm": {
+      "verification": {
+        "sp": 300,
+        "space": "Ah",
+        "stat": "run 1",
+        "mae": {
+          "mean": 0.017538423493146084,
+          "seed1": 0.01748394141696983
+        },
+        "r2": {
+          "mean": 0.9781838544925142,
+          "seed1": 0.979884651404131
+        },
+        "reference": {
+          "mae": 0.0175,
+          "r2": 0.9799,
+          "space": "Ah",
+          "stat": "run 1"
+        },
+        "pass": true,
+        "n_runs": 10,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01748394141696983,
+            "r2": 0.979884651404131,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 2,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017534551751572654,
+            "r2": 0.977730674951302,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 3,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0174730448788384,
+            "r2": 0.9781411758454377,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 4,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017477529411463397,
+            "r2": 0.9777386889819134,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 5,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017556523692976573,
+            "r2": 0.9799846599064937,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 6,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017668990079070288,
+            "r2": 0.9770031429686427,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 7,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0176935645005957,
+            "r2": 0.9776544103360422,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 8,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017613015428851155,
+            "r2": 0.977640668981326,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 9,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017404645220520574,
+            "r2": 0.9778485218149929,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 10,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017478428550602238,
+            "r2": 0.9782119497348594,
+            "decode_err": 1.7881393432617188e-07,
+            "x_is_true_capacity": true
+          }
+        ]
+      },
+      "points": {
+        "25": {
+          "k": 25,
+          "T": 615,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 616,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.03743070516229375,
+              "std": 0.0018613251645337638,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.037142001390457216,
+              "std": 0.0018469687265963693,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 37.14200139045721,
+              "std": 1.8469687265963695,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.029166666666666664,
+              "std": 0.02012691214748533,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.29166666666666663,
+              "std": 5.851389114294502e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": NaN,
+              "std": NaN,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8582582360506059,
+              "std": 0.0034900520638234817,
+              "n": 10
+            },
+            "first_step_dev_max": 3.5762786843029915e-08,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_300\\Checkpoints\\epoch=10.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8598594069480896,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03381325006473826,
+                  "mae_ah": 0.03355244779586796,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8512897074222565
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_2\\Start_Point_300\\Checkpoints\\epoch=41.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.9604645663569045e-09,
+                "first_step_dev_ah": 5.9604645663569045e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.865322470664978,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03960086168675737,
+                  "mae_ah": 0.03929541945457465,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8617462933063508
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_3\\Start_Point_300\\Checkpoints\\epoch=47.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.863616406917572,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03797136765051369,
+                  "mae_ah": 0.0376784937381745,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8594311237335206
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_4\\Start_Point_300\\Checkpoints\\epoch=33.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.863805890083313,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.038097964219083985,
+                  "mae_ah": 0.03780411386489875,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8596291959285737
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_5\\Start_Point_300\\Checkpoints\\epoch=11.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8602764010429382,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03429662911278501,
+                  "mae_ah": 0.034032098531723065,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8523406505584717
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_6\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.980232227667301e-08,
+                "first_step_dev_ah": 2.980232227667301e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8641583323478699,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03854556775715832,
+                  "mae_ah": 0.038248265027999946,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8602835357189179
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_7\\Start_Point_300\\Checkpoints\\epoch=54.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.980232227667301e-08,
+                "first_step_dev_ah": 2.980232227667301e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8638855814933777,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.03827324465982415,
+                  "mae_ah": 0.037978042364120536,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8598793268203736
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_8\\Start_Point_300\\Checkpoints\\epoch=50.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.960464455334602e-09,
+                "first_step_dev_ah": 5.960464455334602e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8637855052947998,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.038127581562815566,
+                  "mae_ah": 0.03783350276947028,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8596675515174866
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_9\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8637127876281738,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.0380434763413069,
+                  "mae_ah": 0.03775004625320442,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8595389127731324
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_10\\Start_Point_300\\Checkpoints\\epoch=65.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.5762786843029915e-08,
+                "first_step_dev_ah": 3.5762786843029915e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8632115125656128,
+                "tf_row_index": 316,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 266,
+                  "mae_common": 0.037537108567954294,
+                  "mae_ah": 0.03724758410453802,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.041666666666666664,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8587760627269746
+                }
+              }
+            ]
+          }
+        },
+        "50": {
+          "k": 50,
+          "T": 590,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 591,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.022395645265837642,
+              "std": 0.0013166071272873157,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.022222907209396382,
+              "std": 0.0013064521103826998,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 22.22290720939639,
+              "std": 1.3064521103826994,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.08571428571428572,
+              "std": 0.04058893575558176,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.2653061224489796,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": NaN,
+              "std": NaN,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8596464723348619,
+              "std": 0.008244423472953295,
+              "n": 10
+            },
+            "first_step_dev_max": 4.1723251298364517e-08,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_300\\Checkpoints\\epoch=10.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8647735118865967,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.020020569909092546,
+                  "mae_ah": 0.019866150856018047,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8426924824714661
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_2\\Start_Point_300\\Checkpoints\\epoch=41.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.960464455334602e-09,
+                "first_step_dev_ah": 5.960464455334602e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.873839259147644,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.02399243624372767,
+                  "mae_ah": 0.023807382106781034,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.12244897959183673,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8661766588687897
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_3\\Start_Point_300\\Checkpoints\\epoch=47.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.960464455334602e-09,
+                "first_step_dev_ah": 5.960464455334602e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8720342516899109,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.022746591759530244,
+                  "mae_ah": 0.022571146845817597,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.86288640499115
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_4\\Start_Point_300\\Checkpoints\\epoch=33.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8720125555992126,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.022830376458457372,
+                  "mae_ah": 0.022654285311698948,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8630958855152131
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_5\\Start_Point_300\\Checkpoints\\epoch=11.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.7881393366003806e-08,
+                "first_step_dev_ah": 1.7881393366003806e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8654159903526306,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.02002774670763058,
+                  "mae_ah": 0.01987327229976652,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8457300484180451
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_6\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.980232227667301e-08,
+                "first_step_dev_ah": 2.980232227667301e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.872688353061676,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.023235112023423175,
+                  "mae_ah": 0.023055899143219028,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8642055749893189
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_7\\Start_Point_300\\Checkpoints\\epoch=54.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.1723251298364517e-08,
+                "first_step_dev_ah": 4.1723251298364517e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8724128603935242,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.023013244922921734,
+                  "mae_ah": 0.022835743308067355,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8636138498783112
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_8\\Start_Point_300\\Checkpoints\\epoch=50.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.5762786843029915e-08,
+                "first_step_dev_ah": 3.5762786843029915e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8721939325332642,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.022882083910961786,
+                  "mae_ah": 0.022705593943595916,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8632557332515717
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_9\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8720841407775879,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.022806092668148103,
+                  "mae_ah": 0.022630188822746318,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.863048416376114
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_10\\Start_Point_300\\Checkpoints\\epoch=65.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.5762786843029915e-08,
+                "first_step_dev_ah": 3.5762786843029915e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8715291023254395,
+                "tf_row_index": 291,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 291,
+                  "mae_common": 0.022402198054483215,
+                  "mae_ah": 0.022229409456253072,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.10204081632653061,
+                  "true_rise_frac": 0.2653061224489796,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8617596685886384
+                }
+              }
+            ]
+          }
+        },
+        "75": {
+          "k": 75,
+          "T": 565,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 566,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.026308242337897542,
+              "std": 0.005247474324398413,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.02610532634258277,
+              "std": 0.0052070004507831355,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 26.105326342582764,
+              "std": 5.207000450783135,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.11486486486486487,
+              "std": 0.043322937075836364,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.40540540540540543,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.002621080483153558,
+              "std": 0.0018054573966421704,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8760312324762346,
+              "std": 0.010240057953155067,
+              "n": 10
+            },
+            "first_step_dev_max": 4.1723251298364517e-08,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_300\\Checkpoints\\epoch=10.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8806894421577454,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.016067985626700653,
+                  "mae_ah": 0.01594405293464663,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.02702702702702703,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.006472579073212247,
+                  "last_step_ah": 0.8547645270824433
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_2\\Start_Point_300\\Checkpoints\\epoch=41.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.960464455334602e-09,
+                "first_step_dev_ah": 5.960464455334602e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8899040222167969,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.030270008839399384,
+                  "mae_ah": 0.030036535660425894,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.14864864864864866,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.0016024252430110325,
+                  "last_step_ah": 0.8827150642871857
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_3\\Start_Point_300\\Checkpoints\\epoch=47.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.980232227667301e-08,
+                "first_step_dev_ah": 2.980232227667301e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8879958391189575,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.028485343189923393,
+                  "mae_ah": 0.028265635172526126,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.0018068583132191882,
+                  "last_step_ah": 0.8804858505725861
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_4\\Start_Point_300\\Checkpoints\\epoch=33.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.9604645663569045e-09,
+                "first_step_dev_ah": 5.9604645663569045e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8880506157875061,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.02828832503905075,
+                  "mae_ah": 0.02807013662656155,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.0018123554940744316,
+                  "last_step_ah": 0.8802666008472443
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_5\\Start_Point_300\\Checkpoints\\epoch=11.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8813352584838867,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.016796221341505966,
+                  "mae_ah": 0.016666671752929723,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.04054054054054054,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.005566913874524356,
+                  "last_step_ah": 0.8587212502956391
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_6\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.980232227667301e-08,
+                "first_step_dev_ah": 2.980232227667301e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.888656735420227,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.02919942529388103,
+                  "mae_ah": 0.02897420954704293,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.0017191542858543368,
+                  "last_step_ah": 0.8813865840435029
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_7\\Start_Point_300\\Checkpoints\\epoch=54.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.888379693031311,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.02896975300399326,
+                  "mae_ah": 0.028746308724085564,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.12162162162162163,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.00175630423394246,
+                  "last_step_ah": 0.8810812473297119
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_8\\Start_Point_300\\Checkpoints\\epoch=50.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.1723251298364517e-08,
+                "first_step_dev_ah": 4.1723251298364517e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.888186514377594,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.02865510154396865,
+                  "mae_ah": 0.028434084177017288,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.00178253388585792,
+                  "last_step_ah": 0.8807062804698945
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_9\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.1723251298364517e-08,
+                "first_step_dev_ah": 4.1723251298364517e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8880763649940491,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.02849569754297463,
+                  "mae_ah": 0.028275909662246773,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.0018011444639374004,
+                  "last_step_ah": 0.8805045366287232
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_10\\Start_Point_300\\Checkpoints\\epoch=65.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.1723251298364517e-08,
+                "first_step_dev_ah": 4.1723251298364517e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8874639868736267,
+                "tf_row_index": 266,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 316,
+                  "mae_common": 0.027854561957577715,
+                  "mae_ah": 0.0276397191683452,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.13513513513513514,
+                  "true_rise_frac": 0.40540540540540543,
+                  "end_window_std_common": 0.0018905359639022055,
+                  "last_step_ah": 0.8796803832054139
+                }
+              }
+            ]
+          }
+        },
+        "100": {
+          "k": 100,
+          "T": 540,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 541,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.029733391040613028,
+              "std": 0.008117069025424967,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.029504056805372304,
+              "std": 0.00805446191092533,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 29.5040568053723,
+              "std": 8.05446191092533,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.1696969696969697,
+              "std": 0.09267520037084861,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.43434343434343436,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.0010300958120910892,
+              "std": 0.0017307519998656427,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8884492838382722,
+              "std": 0.014195808156859781,
+              "n": 10
+            },
+            "first_step_dev_max": 4.768371575369912e-08,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_1\\Start_Point_300\\Checkpoints\\epoch=10.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8943381309509277,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.01371411854518069,
+                  "mae_ah": 0.013608341276645675,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.004805989423855873,
+                  "last_step_ah": 0.8586429655551912
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_2\\Start_Point_300\\Checkpoints\\epoch=41.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.768371575369912e-08,
+                "first_step_dev_ah": 4.768371575369912e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.9046754240989685,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.034473084062152874,
+                  "mae_ah": 0.03420719248056419,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.1414141414141414,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.00019678312392017777,
+                  "last_step_ah": 0.8961182773113251
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_3\\Start_Point_300\\Checkpoints\\epoch=47.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.5762786843029915e-08,
+                "first_step_dev_ah": 3.5762786843029915e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.903867781162262,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.033466909737633485,
+                  "mae_ah": 0.03320877879858025,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.2222222222222222,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.0002191248396658943,
+                  "last_step_ah": 0.8950232744216919
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_4\\Start_Point_300\\Checkpoints\\epoch=33.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.1723251298364517e-08,
+                "first_step_dev_ah": 4.1723251298364517e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.903471052646637,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.0329039152470058,
+                  "mae_ah": 0.03265012669563301,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.23232323232323232,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.0002346210543160858,
+                  "last_step_ah": 0.8944590210914612
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_5\\Start_Point_300\\Checkpoints\\epoch=11.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8950201272964478,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.015022677933732211,
+                  "mae_ah": 0.014906807720661193,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.003753989781861538,
+                  "last_step_ah": 0.8646909534931183
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_6\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.768371575369912e-08,
+                "first_step_dev_ah": 4.768371575369912e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.9042184352874756,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.03391553016603449,
+                  "mae_ah": 0.03365393900871284,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.1919191919191919,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.00020354166434214378,
+                  "last_step_ah": 0.8955095052719116
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_7\\Start_Point_300\\Checkpoints\\epoch=54.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.768371575369912e-08,
+                "first_step_dev_ah": 4.768371575369912e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.9042485952377319,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.03395826532890545,
+                  "mae_ah": 0.03369634455442437,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.18181818181818182,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.00020845814309900773,
+                  "last_step_ah": 0.8955253720283509
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_8\\Start_Point_300\\Checkpoints\\epoch=50.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1920928910669204e-08,
+                "first_step_dev_ah": 1.1920928910669204e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.9039185047149658,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.03354139051177481,
+                  "mae_ah": 0.03328268510103233,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.2222222222222222,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.0002144447777143367,
+                  "last_step_ah": 0.8951110661029816
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_9\\Start_Point_300\\Checkpoints\\epoch=38.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.3841857821338408e-08,
+                "first_step_dev_ah": 2.3841857821338408e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.9037951231002808,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.03333541438746347,
+                  "mae_ah": 0.033078297674656,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.24242424242424243,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.00022162972825971324,
+                  "last_step_ah": 0.8948945701122285
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\CALCE\\Univariable\\RULMamba\\Repeat_10\\Start_Point_300\\Checkpoints\\epoch=65.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.9604645663569045e-09,
+                "first_step_dev_ah": 5.9604645663569045e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.9035252928733826,
+                "tf_row_index": 241,
+                "max_decode_err": 1.7881393432617188e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 341,
+                  "mae_common": 0.033002604486247,
+                  "mae_ah": 0.03274805474281318,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.25252525252525254,
+                  "true_rise_frac": 0.43434343434343436,
+                  "end_window_std_common": 0.00024237558387612063,
+                  "last_step_ah": 0.8945178329944611
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pf": {
+      "verification": {
+        "sp": 300,
+        "space": "Ah",
+        "stat": "run 1",
+        "mae": {
+          "mean": 0.0056557301010466765,
+          "seed1": 0.005779637593013169
+        },
+        "r2": {
+          "mean": 0.9961634789483551,
+          "seed1": 0.996219465682186
+        },
+        "reference": {
+          "mae": 0.0058,
+          "r2": 0.9962,
+          "space": "Ah",
+          "stat": "run 1"
+        },
+        "pass": true,
+        "n_runs": 10,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.005779637593013169,
+            "r2": 0.996219465682186,
+            "decode_err": 8.940696716308594e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 2,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0054826507770149874,
+            "r2": 0.9961476226353119,
+            "decode_err": 9.834766387939453e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 3,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0057126258130055325,
+            "r2": 0.9958217756409037,
+            "decode_err": 8.046627044677734e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 4,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0053657378351724995,
+            "r2": 0.9964146797714245,
+            "decode_err": 1.2516975402832031e-06,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 5,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.005576502170752829,
+            "r2": 0.9961805020662291,
+            "decode_err": 1.0728836059570312e-06,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 6,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.00558423217424253,
+            "r2": 0.9961004797821953,
+            "decode_err": 9.834766387939453e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 7,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.005572743377701163,
+            "r2": 0.996370272978937,
+            "decode_err": 9.5367431640625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 8,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0060049995854386355,
+            "r2": 0.9959696897279193,
+            "decode_err": 8.344650268554688e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 9,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.005875770434880566,
+            "r2": 0.9960606383702569,
+            "decode_err": 1.5497207641601562e-06,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 10,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.005602401249244854,
+            "r2": 0.9963496628281879,
+            "decode_err": 1.341104507446289e-06,
+            "x_is_true_capacity": true
+          }
+        ]
+      },
+      "points": {
+        "25": {
+          "k": 25,
+          "T": 615,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 616,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.034748723396060735,
+              "std": 0.0025471160606785038,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.03448070580281877,
+              "std": 0.0025274701039476604,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 34.480705802818775,
+              "std": 2.5274701039476604,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 1,
+              "n_never_cross": 9,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                737,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                97,
+                null
+              ],
+              "ae_values_sorted": [
+                97
+              ],
+              "ae_signed": {
+                "mean": 97.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs": {
+                "mean": 97.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.5583333333333333,
+              "std": 0.11317527104146313,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.29166666666666663,
+              "std": 5.851389114294502e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": NaN,
+              "std": NaN,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8546472311019899,
+              "std": 0.0059406460989693865,
+              "n": 10
+            },
+            "first_step_dev_max": 2.9802322398797543e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run1\\checkpoints\\epoch=85-step=1548.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.0728836075113435e-07,
+                "first_step_dev_ah": 1.0728836075113435e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8523206114768982,
+                "tf_row_index": 316,
+                "max_decode_err": 8.940696716308594e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.04015685452005252,
+                  "mae_ah": 0.03984712390411133,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.6666666666666666,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8638181507587434
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run2\\checkpoints\\epoch=77-step=1404.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 8.940696705206364e-08,
+                "first_step_dev_ah": 8.940696705206364e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8512289524078369,
+                "tf_row_index": 316,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.033681402681062816,
+                  "mae_ah": 0.033421617353679677,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5833333333333334,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8529997766017915
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run3\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 7.152557379708213e-08,
+                "first_step_dev_ah": 7.152557379708213e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8515269160270691,
+                "tf_row_index": 316,
+                "max_decode_err": 8.046627044677734e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.03479926843315889,
+                  "mae_ah": 0.03453086098504259,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.4583333333333333,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8538148164749146
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run4\\checkpoints\\epoch=68-step=1242.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.576278673200761e-08,
+                "first_step_dev_ah": 3.576278673200761e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8516536951065063,
+                "tf_row_index": 316,
+                "max_decode_err": 1.2516975402832031e-06,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.03559455360842462,
+                  "mae_ah": 0.03532001210996678,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.6666666666666666,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.859737378358841
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run5\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 7.748603814139443e-08,
+                "first_step_dev_ah": 7.748603814139443e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8512395620346069,
+                "tf_row_index": 316,
+                "max_decode_err": 1.0728836059570312e-06,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.0350528289458821,
+                  "mae_ah": 0.03478246578049852,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5416666666666666,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8552138447761537
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run6\\checkpoints\\epoch=62-step=1134.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.0728836052908974e-07,
+                "first_step_dev_ah": 1.0728836052908974e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8513356447219849,
+                "tf_row_index": 316,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.03311355265052103,
+                  "mae_ah": 0.032858147161694086,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.851457816362381
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run7\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.3841858043383013e-08,
+                "first_step_dev_ah": 2.3841858043383013e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8506229519844055,
+                "tf_row_index": 316,
+                "max_decode_err": 9.5367431640625e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.03099212960949608,
+                  "mae_ah": 0.03075308669869029,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.4166666666666667,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8449898183345795
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run8\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 8.344650259672903e-08,
+                "first_step_dev_ah": 8.344650259672903e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8516374826431274,
+                "tf_row_index": 316,
+                "max_decode_err": 8.344650268554688e-07,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.035768087032905065,
+                  "mae_ah": 0.035492207067699934,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.75,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8597109556198121
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run9\\checkpoints\\epoch=51-step=936.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.9802322398797543e-07,
+                "first_step_dev_ah": 2.9802322398797543e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8511364459991455,
+                "tf_row_index": 316,
+                "max_decode_err": 1.5497207641601562e-06,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.032080453895777905,
+                  "mae_ah": 0.0318330167181511,
+                  "pred_crossing_cycle": 737,
+                  "crossed": true,
+                  "ae": 97,
+                  "pred_rise_frac": 0.4166666666666667,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8466912329196931
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run10\\checkpoints\\epoch=94-step=1710.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 6.556510934174753e-08,
+                "first_step_dev_ah": 6.556510934174753e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8513904809951782,
+                "tf_row_index": 316,
+                "max_decode_err": 1.341104507446289e-06,
+                "rollout": {
+                  "n_steps_mae_window": 25,
+                  "n_steps_full": 267,
+                  "mae_common": 0.03624810258332625,
+                  "mae_ah": 0.035968520248653435,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5833333333333334,
+                  "true_rise_frac": 0.2916666666666667,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8580385208129884
+                }
+              }
+            ]
+          }
+        },
+        "50": {
+          "k": 50,
+          "T": 590,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 591,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.021054238297739482,
+              "std": 0.0024704759711844256,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.020891846539867233,
+              "std": 0.0024514211409849946,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 20.89184653986723,
+              "std": 2.4514211409849946,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 1,
+              "n_never_cross": 9,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                698,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                58,
+                null
+              ],
+              "ae_values_sorted": [
+                58
+              ],
+              "ae_signed": {
+                "mean": 58.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs": {
+                "mean": 58.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.32448979591836735,
+              "std": 0.11917388833188924,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.2857142857142857,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": NaN,
+              "std": NaN,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8555218762159349,
+              "std": 0.012556572652933164,
+              "n": 10
+            },
+            "first_step_dev_max": 6.198883055752447e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run1\\checkpoints\\epoch=85-step=1548.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1102230246251565e-16,
+                "first_step_dev_ah": 1.1102230246251565e-16,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8717182874679565,
+                "tf_row_index": 291,
+                "max_decode_err": 8.940696716308594e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.025748346805282388,
+                  "mae_ah": 0.025549749295323398,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.4489795918367347,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8682601869106293
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run2\\checkpoints\\epoch=77-step=1404.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 6.556510934174753e-08,
+                "first_step_dev_ah": 6.556510934174753e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8702338933944702,
+                "tf_row_index": 291,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.020242066626086165,
+                  "mae_ah": 0.020085939164437256,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.30612244897959184,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8573607742786409
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run3\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.0728836052908974e-07,
+                "first_step_dev_ah": 1.0728836052908974e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8701908588409424,
+                "tf_row_index": 291,
+                "max_decode_err": 8.046627044677734e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.020473077797781434,
+                  "mae_ah": 0.02031516854238017,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.2653061224489796,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8560568809509278
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run4\\checkpoints\\epoch=68-step=1242.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 5.960464466436832e-08,
+                "first_step_dev_ah": 5.960464466436832e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8719799518585205,
+                "tf_row_index": 291,
+                "max_decode_err": 1.2516975402832031e-06,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.023348055798896084,
+                  "mae_ah": 0.023167971781110026,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.42857142857142855,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8663157880306245
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run5\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.0728836075113435e-07,
+                "first_step_dev_ah": 1.0728836075113435e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8706604838371277,
+                "tf_row_index": 291,
+                "max_decode_err": 1.0728836059570312e-06,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.021463723739430715,
+                  "mae_ah": 0.021298173612219296,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.3469387755102041,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8600928723812105
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run6\\checkpoints\\epoch=62-step=1134.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.4901161182745426e-07,
+                "first_step_dev_ah": 1.4901161182745426e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.870650053024292,
+                "tf_row_index": 291,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.018875410570296423,
+                  "mae_ah": 0.01872982415393102,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.22448979591836735,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8502389609813691
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run7\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.324581147572502e-07,
+                "first_step_dev_ah": 2.324581147572502e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8696199059486389,
+                "tf_row_index": 291,
+                "max_decode_err": 9.5367431640625e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.017976204744123404,
+                  "mae_ah": 0.017837553920142604,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.20408163265306123,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8418541669845582
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run8\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.264976503019156e-07,
+                "first_step_dev_ah": 2.264976503019156e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8718903660774231,
+                "tf_row_index": 291,
+                "max_decode_err": 8.344650268554688e-07,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.02214671627626511,
+                  "mae_ah": 0.021975898214061138,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.42857142857142855,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8634821951389314
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run9\\checkpoints\\epoch=51-step=936.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 6.198883055752447e-07,
+                "first_step_dev_ah": 6.198883055752447e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8688881993293762,
+                "tf_row_index": 291,
+                "max_decode_err": 1.5497207641601562e-06,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.017970986506398005,
+                  "mae_ah": 0.017832375930788357,
+                  "pred_crossing_cycle": 698,
+                  "crossed": true,
+                  "ae": 58,
+                  "pred_rise_frac": 0.12244897959183673,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8277823209762575
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run10\\checkpoints\\epoch=94-step=1710.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 6.556510911970292e-08,
+                "first_step_dev_ah": 6.556510911970292e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.871819257736206,
+                "tf_row_index": 291,
+                "max_decode_err": 1.341104507446289e-06,
+                "rollout": {
+                  "n_steps_mae_window": 50,
+                  "n_steps_full": 292,
+                  "mae_common": 0.022297794112835057,
+                  "mae_ah": 0.022125810784279044,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.46938775510204084,
+                  "true_rise_frac": 0.2857142857142857,
+                  "end_window_std_common": NaN,
+                  "last_step_ah": 0.8637746155261995
+                }
+              }
+            ]
+          }
+        },
+        "75": {
+          "k": 75,
+          "T": 565,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 566,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.01926156550148942,
+              "std": 0.004871475118778753,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.019113000664475396,
+              "std": 0.004833901334499209,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 19.113000664475393,
+              "std": 4.83390133449921,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 1,
+              "n_never_cross": 9,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                686,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                46,
+                null
+              ],
+              "ae_values_sorted": [
+                46
+              ],
+              "ae_signed": {
+                "mean": 46.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs": {
+                "mean": 46.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.4175675675675675,
+              "std": 0.17122450567853414,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.41891891891891897,
+              "std": 5.851389114294502e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.006411314571723599,
+              "std": 0.003696680771506023,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8591432929039001,
+              "std": 0.020461203889137372,
+              "n": 10
+            },
+            "first_step_dev_max": 3.3974647506429534e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run1\\checkpoints\\epoch=85-step=1548.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.384185789905402e-07,
+                "first_step_dev_ah": 2.384185789905402e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8721873164176941,
+                "tf_row_index": 266,
+                "max_decode_err": 8.940696716308594e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.029180369775312236,
+                  "mae_ah": 0.028955301004067072,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5405405405405406,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.0026919545394004088,
+                  "last_step_ah": 0.8809537231922151
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run2\\checkpoints\\epoch=77-step=1404.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.576278695405222e-08,
+                "first_step_dev_ah": 3.576278695405222e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8704801201820374,
+                "tf_row_index": 266,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.014638392119688133,
+                  "mae_ah": 0.014525485910728074,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.2972972972972973,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.008181850312519556,
+                  "last_step_ah": 0.8445400416851044
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run3\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.9669532769217568e-07,
+                "first_step_dev_ah": 1.9669532769217568e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8710075616836548,
+                "tf_row_index": 266,
+                "max_decode_err": 8.046627044677734e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.01815992445376544,
+                  "mae_ah": 0.018019856596017736,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.36486486486486486,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.003987688410483093,
+                  "last_step_ah": 0.8650270402431489
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run4\\checkpoints\\epoch=68-step=1242.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.980232227667301e-08,
+                "first_step_dev_ah": 2.980232227667301e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8714327812194824,
+                "tf_row_index": 266,
+                "max_decode_err": 1.2516975402832031e-06,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.021980789901906956,
+                  "mae_ah": 0.021811251633121694,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.581081081081081,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.004564970965607592,
+                  "last_step_ah": 0.8750566005706788
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run5\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.0132789618477744e-07,
+                "first_step_dev_ah": 1.0132789618477744e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8710046410560608,
+                "tf_row_index": 266,
+                "max_decode_err": 1.0728836059570312e-06,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.020236797147177847,
+                  "mae_ah": 0.020080710329124358,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.43243243243243246,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.004601083602051361,
+                  "last_step_ah": 0.8694023311138154
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run6\\checkpoints\\epoch=62-step=1134.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 4.7683715975743723e-08,
+                "first_step_dev_ah": 4.7683715975743723e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8709936141967773,
+                "tf_row_index": 266,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.014470151224790714,
+                  "mae_ah": 0.014358542661192223,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.36486486486486486,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.006987669515064253,
+                  "last_step_ah": 0.850560885667801
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run7\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.1324882498442435e-07,
+                "first_step_dev_ah": 1.1324882498442435e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8701350688934326,
+                "tf_row_index": 266,
+                "max_decode_err": 9.5367431640625e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.014176467198497366,
+                  "mae_ah": 0.014067123825622679,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.25675675675675674,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.0091359762622966,
+                  "last_step_ah": 0.8400988578796388
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run8\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 6.556510911970292e-08,
+                "first_step_dev_ah": 6.556510911970292e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8708397150039673,
+                "tf_row_index": 266,
+                "max_decode_err": 8.344650268554688e-07,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.022079842992744365,
+                  "mae_ah": 0.021909540725503475,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.581081081081081,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.0054520342591490465,
+                  "last_step_ah": 0.8754928708076478
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run9\\checkpoints\\epoch=51-step=936.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 8.940696727410824e-08,
+                "first_step_dev_ah": 8.940696727410824e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8707947134971619,
+                "tf_row_index": 266,
+                "max_decode_err": 1.5497207641601562e-06,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.015161154242974711,
+                  "mae_ah": 0.015044215959382032,
+                  "pred_crossing_cycle": 686,
+                  "crossed": true,
+                  "ae": 46,
+                  "pred_rise_frac": 0.10810810810810811,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.015112087340646414,
+                  "last_step_ah": 0.8169489324092866
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run10\\checkpoints\\epoch=94-step=1710.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.3974647506429534e-07,
+                "first_step_dev_ah": 3.3974647506429534e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8714008331298828,
+                "tf_row_index": 266,
+                "max_decode_err": 1.341104507446289e-06,
+                "rollout": {
+                  "n_steps_mae_window": 75,
+                  "n_steps_full": 317,
+                  "mae_common": 0.022531765958036465,
+                  "mae_ah": 0.022357977999994578,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.6486486486486487,
+                  "true_rise_frac": 0.4189189189189189,
+                  "end_window_std_common": 0.003397830510017674,
+                  "last_step_ah": 0.8733516454696656
+                }
+              }
+            ]
+          }
+        },
+        "100": {
+          "k": 100,
+          "T": 540,
+          "sp": 300,
+          "sp_exact": false,
+          "protocol_internal": false,
+          "first_predicted_cycle": 541,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.024886453703704972,
+              "std": 0.008116082686872465,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.024694503992345202,
+              "std": 0.008053483180021663,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 24.6945039923452,
+              "std": 8.053483180021662,
+              "n": 10
+            },
+            "crossing": {
+              "true_eol": 640,
+              "n_cross": 1,
+              "n_never_cross": 9,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                676,
+                null
+              ],
+              "ae_signed_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                36,
+                null
+              ],
+              "ae_values_sorted": [
+                36
+              ],
+              "ae_signed": {
+                "mean": 36.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs": {
+                "mean": 36.0,
+                "std": 0.0,
+                "n": 1
+              },
+              "ae_abs_mean_incl_never_as_never": null
+            },
+            "pred_rise_frac": {
+              "mean": 0.3808080808080808,
+              "std": 0.14607130122145398,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.4444444444444445,
+              "std": 5.851389114294502e-17,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.0039817169817159825,
+              "std": 0.004536248153304704,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 0.8733552384376525,
+              "std": 0.026358781320712253,
+              "n": 10
+            },
+            "first_step_dev_max": 3.5166740408598685e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run1\\checkpoints\\epoch=85-step=1548.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.3841857821338408e-08,
+                "first_step_dev_ah": 2.3841857821338408e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8968609571456909,
+                "tf_row_index": 241,
+                "max_decode_err": 8.940696716308594e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.0355795218624346,
+                  "mae_ah": 0.03530509630413191,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.48484848484848486,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.001177770550828855,
+                  "last_step_ah": 0.8945422232151032
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run2\\checkpoints\\epoch=77-step=1404.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 6.556510911970292e-08,
+                "first_step_dev_ah": 6.556510911970292e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8958147764205933,
+                "tf_row_index": 241,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.023703144657363028,
+                  "mae_ah": 0.02352032183216386,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.4444444444444444,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0016142562105949697,
+                  "last_step_ah": 0.8801037371158601
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run3\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.3841857821338408e-08,
+                "first_step_dev_ah": 2.3841857821338408e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8955358862876892,
+                "tf_row_index": 241,
+                "max_decode_err": 8.046627044677734e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.022778128620722066,
+                  "mae_ah": 0.022602440462573103,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.32323232323232326,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0014129688119196016,
+                  "last_step_ah": 0.878752374649048
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run4\\checkpoints\\epoch=68-step=1242.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.0265579214751028e-07,
+                "first_step_dev_ah": 2.0265579214751028e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8968408107757568,
+                "tf_row_index": 241,
+                "max_decode_err": 1.2516975402832031e-06,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.031871216212917754,
+                  "mae_ah": 0.03162539288969177,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.46464646464646464,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0028036611975998144,
+                  "last_step_ah": 0.8897819995880129
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run5\\checkpoints\\epoch=56-step=1026.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.788139358804841e-08,
+                "first_step_dev_ah": 1.788139358804841e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8960182070732117,
+                "tf_row_index": 241,
+                "max_decode_err": 1.0728836059570312e-06,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.028646952017425134,
+                  "mae_ah": 0.028425997507933773,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.45454545454545453,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0018527830547552303,
+                  "last_step_ah": 0.8853424549102784
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run6\\checkpoints\\epoch=62-step=1134.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 3.5166740408598685e-07,
+                "first_step_dev_ah": 3.5166740408598685e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8954880237579346,
+                "tf_row_index": 241,
+                "max_decode_err": 9.834766387939453e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.01608598496406915,
+                  "mae_ah": 0.015961913442768757,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.32323232323232326,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0029434998104033243,
+                  "last_step_ah": 0.8682944118976594
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run7\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 2.801418302889047e-07,
+                "first_step_dev_ah": 2.801418302889047e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8948521018028259,
+                "tf_row_index": 241,
+                "max_decode_err": 9.5367431640625e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.012075861899741094,
+                  "mae_ah": 0.011982720537228255,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.23232323232323232,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0071640468279226075,
+                  "last_step_ah": 0.8509850263595582
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run8\\checkpoints\\epoch=75-step=1368.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.0132789618477744e-07,
+                "first_step_dev_ah": 1.0132789618477744e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8974234461784363,
+                "tf_row_index": 241,
+                "max_decode_err": 8.344650268554688e-07,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.031778470396995856,
+                  "mae_ah": 0.03153336242408888,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5050505050505051,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.003408100592938935,
+                  "last_step_ah": 0.8893176674842835
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run9\\checkpoints\\epoch=51-step=936.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.2516975411713815e-07,
+                "first_step_dev_ah": 1.2516975411713815e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.8937408924102783,
+                "tf_row_index": 241,
+                "max_decode_err": 1.5497207641601562e-06,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.015596739972908932,
+                  "mae_ah": 0.015476442007935827,
+                  "pred_crossing_cycle": 676,
+                  "crossed": true,
+                  "ae": 36,
+                  "pred_rise_frac": 0.06060606060606061,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.01588853868826982,
+                  "last_step_ah": 0.8077736854553224
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_CALCE_RUL_prediction_sl_64\\CS2_35\\PatchFormer\\SP300\\run10\\checkpoints\\epoch=94-step=1710.ckpt",
+                "sp": 300,
+                "sp_exact": false,
+                "first_step_dev": 1.9669532769217568e-07,
+                "first_step_dev_ah": 1.9669532769217568e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 0.896579921245575,
+                "tf_row_index": 241,
+                "max_decode_err": 1.341104507446289e-06,
+                "rollout": {
+                  "n_steps_mae_window": 100,
+                  "n_steps_full": 342,
+                  "mae_common": 0.0307485164324721,
+                  "mae_ah": 0.030511352514935905,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "pred_rise_frac": 0.5151515151515151,
+                  "true_rise_frac": 0.4444444444444444,
+                  "end_window_std_common": 0.0015515440719266664,
+                  "last_step_ah": 0.8886588037014008
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
