@@ -9,7 +9,21 @@
  * Cycles come from SysTick's current-value register, which QEMU models. It
  * counts DOWN, so a reading before minus a reading after gives the delta.
  *
- * Build: same flags as mcu_main_ms.c.
+ * Build (verified with arm-none-eabi-gcc 15.2.rel1; -I. because the model is
+ * pulled in with #include, and the libraries must come after the source):
+ *
+ *   arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -ffreestanding -O2 -I. \
+ *     -T mps2_linker.ld -o perf_ms.elf perf_ms.c \
+ *     -nostdlib -nostartfiles -lm -lc -lgcc
+ *
+ * Run (one executed instruction is one nanosecond of virtual time):
+ *
+ *   qemu-system-arm -M mps2-an385 -nographic -semihosting \
+ *     -icount shift=0,sleep=off -kernel perf_ms.elf
+ *
+ * For the FPU comparison swap -mcpu=cortex-m3 for
+ * "-mcpu=cortex-m7 -mfloat-abi=hard" (or -mfloat-abi=soft for the control)
+ * and run on -M mps2-an500, the Cortex-M7 image.
  */
 #include <stdint.h>
 #include <string.h>
@@ -69,6 +83,8 @@ const uint32_t vectors[16] = {
     (uint32_t)&systick_handler,     /* 15: SysTick */
 };
 
+int main(void);   /* defined below; _start runs before it, C23 needs the decl */
+
 __attribute__((noreturn, section(".text.start")))
 void _start(void) {
     /* Enable the FPU before ANY compiled code runs. With -mfloat-abi=hard the
@@ -125,7 +141,13 @@ void *memset(void *dst, int c, size_t n) {
     while (n--) *d++ = (unsigned char)c;
     return dst;
 }
-int __errno;
+/* libm.a references __errno.  mcu_main_ms.c satisfies it with a plain data
+ * definition (`int __errno;`), which linked under the 13.2.rel1 toolchain but
+ * does not under binutils 2.4x: the reference there is an interworking call
+ * into Thumb code, and a data symbol carries no ARM/Thumb state to resolve to
+ * ("Unknown destination type (ARM/Thumb)").  A function definition -- which is
+ * what newlib actually declares -- links on both. */
+int *__errno(void) { static int e; return &e; }
 
 /* SysTick lives in the core's private peripheral space and counts down. */
 static uint32_t rd_syst(void) {
