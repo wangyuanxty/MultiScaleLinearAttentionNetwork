@@ -203,9 +203,13 @@ statically sized pool and are excluded here.}
 \label{sec:latency}
 
 One inference of the full multi-scale model costs
-$4.86\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3. Three runs on
-the same window give $48{,}643{,}579$, $48{,}644{,}799$ and $48{,}641{,}330$
-ticks --- a spread of $0.007\%$.
+$4.88\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3. Three input
+windows give $48{,}755{,}486$, $48{,}756{,}706$ and $48{,}753{,}240$ ticks
+--- a spread of $0.007\%$. Rebuilt for a core that has a floating-point unit
+the same inference costs $3.39\times10^{6}$ ticks, $14.4\times$ fewer. Both
+figures are carried through this section, because which one a deployment sees
+is a property of the part rather than of the model --- and the difference
+between them is what separates the two timings derived below.
 
 The figure is an emulated SysTick count, and two properties of that counter
 have to be fixed before it means anything. It advances with the guest rather
@@ -216,31 +220,39 @@ $25\,\mathrm{MHz}$ --- the MPS2 board's own SYSCLK --- so one tick is forty
 instructions. And it is a 24-bit down-counter, while a single inference spans
 more than its $16.8\times10^{6}$-tick reload period, so the reloads are counted
 in the exception handler and the counter is read through a seqlock. A
-\texttt{-O0} build of the same source reports $57.12\times10^{6}$ ticks against
-\texttt{-O2}'s $48.64\times10^{6}$.
+\texttt{-O0} build of the same source reports $57.13\times10^{6}$ ticks against
+\texttt{-O2}'s $48.76\times10^{6}$.
 
-In instructions that is $1.95\times10^{9}$. The count is what the emulator
-measures directly; converting to cycles needs a cycles-per-instruction figure
-it cannot supply, and at $\mathrm{CPI}\approx1.3$, representative of compiled
-Thumb-2 on this core, one inference is $2.5\times10^{9}$ cycles, or
-$101\,\mathrm{s}$ at $25\,\mathrm{MHz}$. That figure has two separable factors, and only one is a property of the
-model. The first is the core. The MPS2-AN385 is a Cortex-M3, which has no
-floating-point unit, so every fp32 multiply and add becomes a call into a
-software routine; the linked binary contains $225$ call sites to those
-routines. Rebuilding the
-same source for a core with an FPU
-(\texttt{-mcpu=cortex-m7 -mfloat-abi=hard}) and re-measuring under the same
-instruction-count timing gives $3.24\times10^{6}$ ticks against
-$48.64\times10^{6}$ for the soft-float build \emph{on the same core}, so the
-FPU removes about $15\times$ of the \emph{instruction count}. Timing that
-charges every instruction the same virtual time cannot price an FPU
-instruction's extra cycles, and single-precision multiply and divide cost
-several cycles each on real silicon, so the wall-clock gain would be smaller
-than the instruction ratio --- while the higher clocks those cores run at would
-push the other way. The second factor is the kernel, a plain triple-loop
-matrix--vector product with no unrolling. Cortex-M4F and M33 parts, which BMS
-designs do use, have an FPU; the $101\,\mathrm{s}$ above is therefore assembled
-from two conservative choices rather than being a property of the model. The
+In instructions that is $1.95\times10^{9}$, or $1.36\times10^{8}$ for the FPU
+build. The count is what the emulator measures directly; converting to cycles
+needs a cycles-per-instruction figure it cannot supply. At
+$\mathrm{CPI}\approx1.3$, representative of compiled Thumb-2 on this core, one
+inference is $2.54\times10^{9}$ cycles soft-float and $1.76\times10^{8}$ with
+the FPU. On the emulator's $25\,\mathrm{MHz}$ those are $101\,\mathrm{s}$ and
+$7.1\,\mathrm{s}$; at the $200\,\mathrm{MHz}$ a Cortex-M7 part runs at, the FPU
+build is $0.9\,\mathrm{s}$. Timing that charges every instruction the same
+virtual time cannot price an FPU instruction's extra cycles, and
+single-precision multiply and divide cost several cycles each on real silicon,
+so the $14.4\times$ instruction ratio overstates the wall-clock gain --- while
+the higher clocks those parts run at push the other way. Read
+$0.9\,\mathrm{s}$ as an estimate and $7.1\,\mathrm{s}$ as the figure the
+emulator itself supports.
+
+The $101\,\mathrm{s}$ is assembled from three conservative choices rather than
+being a property of the model. The first is the clock: $25\,\mathrm{MHz}$ is
+the MPS2 board's own, far below what an FPU-equipped part runs at. The second
+is the core. The MPS2-AN385 is a Cortex-M3, which has no floating-point unit,
+so every fp32 multiply and add becomes a call into a software routine; the
+linked binary contains $225$ call sites to those routines. A soft-float build
+of the same source on the Cortex-M7 image costs $48.76\times10^{6}$ ticks ---
+within $0.02\%$ of the Cortex-M3 figure, because the count is dominated by
+those routines --- so the FPU build's $3.39\times10^{6}$ is a same-core
+measurement, and the FPU alone removes $14.4\times$ of the \emph{instruction
+count}. It also removes the input sensitivity, from the $0.007\%$ spread across
+the three windows above to $6\times10^{-7}$, because the branching lives in the
+software routines the FPU replaces. The third is the kernel, a plain
+triple-loop matrix--vector product with no unrolling. Cortex-M4F and M33 parts,
+which BMS designs do use, have an FPU. The
 two builds are not bit-identical --- fused multiply--add changes the rounding,
 and the results differ by about $3\times10^{-6}$ in relative terms. That is the
 same order as the agreement between the host build and the PyTorch forward
@@ -259,7 +271,8 @@ independent of clock frequency. Raising the clock shortens the inference in
 proportion, so it buys latency and not energy. Operationally the duty cycle is
 what matters: a battery management system runs this inference once per
 charge--discharge cycle, hours apart. At $c = 300\,\mu\mathrm{A}/\mathrm{MHz}$
-and $V = 3.3\,\mathrm{V}$ an inference costs $2.5\,\mathrm{J}$; spread over a
+and $V = 3.3\,\mathrm{V}$ an inference costs $2.5\,\mathrm{J}$ soft-float and
+$0.17\,\mathrm{J}$ with the FPU; spread over a
 cycle of several hours that is an average draw below a milliwatt, which is
 small against the BMS's own quiescent load but not negligible by default, and
 it is the quantity a duty-cycle budget should be built from. Neither figure
