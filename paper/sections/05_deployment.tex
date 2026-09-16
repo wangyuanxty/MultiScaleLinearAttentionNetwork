@@ -43,21 +43,13 @@ We compile the same C source for the host and Cortex-M3 and compare the two outp
 
 Table~\ref{tab:deploy} reports the memory footprints. INT8 yields a $73.4\%$ reduction to 504 KB with no accuracy loss 
 (R2=0.9955, MAE=0.00581). INT4 halves this to 268 KB but MAE rises $16.4\%$ (R2=0.9946). 
-AE changes from 2.16 to 2.17 cycles, within the ±1.5-cycle seed-to-seed spread. The variants are two deployment tiers: 
-multi-scale branches handle three temporal scales; the encoder alone is measured. 
-Flash and accuracy drive the choice.
+AE changes from 2.16 to 2.17 cycles, with ±1.5-cycle between different seeds. 
+The variants correspond to two deployment tiers: one employs multi-scale branches to handle three temporal scales, 
+while the other measures the encoder alone. The choice between them is governed by the trade-off between Flash and accuracy.
 
 \begin{table}[htbp]
 \centering
-\caption{Deployed footprints. Weights are the binary payload of the exported
-weight arrays; the generated header files are about $3.3\times$ larger,
-since the values are written as ASCII text. State is the recurrent matrix
-state, fixed and
-independent of the window. INT8 and INT4 round per output channel with
-fp32 scales. Accuracy is the CALCE SP500 multi-scale model over ten
-seeds; the single-branch row is one checkpoint at the same starting
-point, and the ten-seed comparison of the two architectures is given in
-Table~\ref{tab:ablation}.}
+\caption{Deployed footprints. }
 \label{tab:deploy}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -85,42 +77,39 @@ Table~\ref{tab:ablation}.}
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_dep_flash}
-\caption{Which precision fits which flash class. Weight footprint at each
-(architecture, precision) pair of Table~\ref{tab:deploy}, against the
+\caption{Weight footprint at each pair of Table~\ref{tab:deploy}, against the
 flash sizes common on Cortex-M parts. The single-branch encoder fits a
 $128$\,KB part at INT8 ($122$\,KB) and at INT4 ($67$\,KB); the multi-scale
-model needs $512$\,KB at INT4 or INT8 and $2$\,MB at fp32. In every case
-the footprint is fixed by the exported weight payload, so the choice can be
-made before the part is chosen.}
+model needs $512$\,KB at INT4 or INT8 and $2$\,MB at fp32.}
 \label{fig:dep_flash}
 \end{figure}
 
 \subsection{Memory and stack budget}
 
-The deployed model's static stack budget is 3.1\,KB, measured with the
-compiler's stack-usage report over the whole call chain; nothing is
-recursive, nothing is sized at runtime, and the transient activation
-buffers come from a pool fixed at compile time. Combined with the fixed
-state of Table~\ref{tab:deploy} this means the SRAM requirement is known
-at compile time --- the property a safety-related firmware review actually
-needs --- and it is why the memory argument can be made without appealing
-to any timing measurement.
+The deployed model has a static stack budget of 3.1 KB, as determined by the compiler’s stack-usage report 
+over the entire call chain. The implementation is non-recursive, uses no runtime-sized buffers, 
+and allocates all transient activation buffers from a compile-time fixed pool. Together with the fixed state in Table 8, 
+this ensures that the SRAM requirement is known at compile time—a property that safety-related firmware reviews 
+specifically require. Consequently, the memory argument can be made without relying on any timing measurement.
 
 \subsection{On latency and energy}
 \label{sec:latency}
 
 One inference of the full multi-scale model costs
 $4.88\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3, with three
-input windows spanning only $0.007\%$ ($48{,}755{,}486$, $48{,}756{,}706$ and
-$48{,}753{,}240$). Rebuilt for a core that has a floating-point unit the same
-inference costs $3.39\times10^{6}$ ticks, $14.4\times$ fewer. The emulator
-measures instructions---$1.95\times10^{9}$, or $1.36\times10^{8}$ with the
-FPU---and converting to cycles needs a cycles-per-instruction figure it cannot
-supply; at $\mathrm{CPI}\approx1.3$, representative of compiled Thumb-2 on this
-core, one inference is $2.54\times10^{9}$ cycles soft-float and
-$1.76\times10^{8}$ with the FPU. On the emulator's $25\,\mathrm{MHz}$ those are
-$101\,\mathrm{s}$ and $7.1\,\mathrm{s}$; at the $200\,\mathrm{MHz}$ a Cortex-M7
-part runs at, the FPU build is $0.9\,\mathrm{s}$. Both are conservative:
+input windows spanning only $0.007\%$. When rebuilt for a processor core integrated with a dedicated floating-point 
+unit (FPU), the proposed implementation achieves an inference latency of  $3.39\times10^{6}$ ticks, clock cycles for the same workload, 
+representing a $14.4\times$ reduction in runtime overhead compared to the baseline. 
+The hardware emulator counts total executed instructions: $1.95\times10^{9}$ for the soft-float implementation, 
+and $1.36\times10^{8}$ for the FPU-accelerated variant. As the emulator does not natively generate 
+cycles-per-instruction (CPI) metrics, instruction counts cannot be directly converted to clock cycle overhead. 
+Using a representative CPI $1.3$ for compiled Thumb-2 instructions on the target core, 
+the per-inference latency is calculated as $2.54\times10^{9}$ cycles for the soft-float implementation, and 
+$1.76\times10^{8}$ cycles for the FPU-accelerated version. 
+When running on the emulator with a configured core frequency of $25\,\mathrm{MHz}$, 
+the per-inference execution time of the soft-float and FPU-accelerated implementations is 
+$101\,\mathrm{s}$ and $7.1\,\mathrm{s}$, respectively. When deployed on a physical Cortex-M7 chip operating at 
+$200\,\mathrm{MHz}$ the FPU-enabled version yields a per-inference latency of $0.9\,\mathrm{s}$. Both are conservative:
 $25\,\mathrm{MHz}$ is the MPS2 board's own clock, the Cortex-M3 has no
 floating-point unit so every fp32 multiply and add becomes a call into a
 software routine, and the FPU figure is a same-core measurement. Because
@@ -147,10 +136,10 @@ $H{=}4$ heads and $d_{\text{model}}{=}64$ attending over $L$ tokens,
 against our fixed 48\,KB state.
 
 At the token count our experiments actually use, the attention score
-matrix is $16$\,KB --- \emph{smaller} than our state; the crossover is
-near $L\approx55$ tokens. By $L{=}1024$ the score matrix alone is
-$16$\,MB, $341\times$ our state. The argument is therefore not that a
-linear-attention model is cheaper today, but that its cost does not move
+matrix is $16$\,KB --- smaller than our state; the crossover is
+near $L\approx55$ tokens. When the sequence length $L{=}1024$ , the score matrix alone consumes 
+$16$\,MB, which is equivalent to $341$ the state size of our proposed scheme. The argument is therefore not a
+linear-attention model is cheaper today, but its cost does not move
 when the application needs more context --- and that the KV cache, unlike
 the state, keeps growing as inference proceeds.
 
