@@ -1,0 +1,255 @@
+=== pf  ks=(25, 50, 75, 100)  runs=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] ===
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run1: MAE=0.003317Ah R2=0.9977 decode_err=2.98e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run2: MAE=0.003318Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run3: MAE=0.003379Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run4: MAE=0.003369Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run5: MAE=0.003306Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run6: MAE=0.003470Ah R2=0.9976 decode_err=2.98e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run7: MAE=0.003344Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run8: MAE=0.003268Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run9: MAE=0.003301Ah R2=0.9977 decode_err=2.38e-07
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  [verify] pf SP300 run10: MAE=0.003221Ah R2=0.9977 decode_err=2.38e-07
+  [verify] pf teacher-forced SP300: MAE=0.003329 (ref 0.0033 Ah) R2=0.9977 (ref 0.9977) -> PASS
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 1 SP500 k= 25 (T=563): MAE=1345.75mAh AE=-21 (cross 568, by EOL: 568) d1=6.2e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 2 SP500 k= 25 (T=563): MAE=321.93mAh AE=-20 (cross 569, by EOL: 569) d1=1.8e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 3 SP500 k= 25 (T=563): MAE=916.11mAh AE=-22 (cross 567, by EOL: 567) d1=6.0e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 4 SP500 k= 25 (T=563): MAE=574.14mAh AE=-20 (cross 569, by EOL: 569) d1=1.2e-09 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 5 SP500 k= 25 (T=563): MAE=4594.37mAh AE=-23 (cross 566, by EOL: 566) d1=4.2e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 6 SP500 k= 25 (T=563): MAE=1202.20mAh AE=-21 (cross 568, by EOL: 568) d1=1.3e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 7 SP500 k= 25 (T=563): MAE=567.43mAh AE=-20 (cross 569, by EOL: 569) d1=6.4e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 8 SP500 k= 25 (T=563): MAE=1401.32mAh AE=-21 (cross 568, by EOL: 568) d1=1.1e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 9 SP500 k= 25 (T=563): MAE=829.81mAh AE=-21 (cross 568, by EOL: 568) d1=2.3e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run10 SP500 k= 25 (T=563): MAE=3854.61mAh AE=-22 (cross 567, by EOL: 567) d1=2.4e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 1 SP500 k= 50 (T=538): MAE=4421.18mAh AE=-30 (cross 559, by EOL: 559) d1=1.1e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 2 SP500 k= 50 (T=538): MAE=545.00mAh AE=-27 (cross 562, by EOL: 562) d1=8.6e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 3 SP500 k= 50 (T=538): MAE=2992.17mAh AE=-32 (cross 557, by EOL: 557) d1=1.9e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 4 SP500 k= 50 (T=538): MAE=2516.37mAh AE=-33 (cross 556, by EOL: 556) d1=8.9e-09 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 5 SP500 k= 50 (T=538): MAE=75595.98mAh AE=-38 (cross 551, by EOL: 551) d1=1.0e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 6 SP500 k= 50 (T=538): MAE=5473.05mAh AE=-31 (cross 558, by EOL: 558) d1=3.9e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 7 SP500 k= 50 (T=538): MAE=2358.91mAh AE=-31 (cross 558, by EOL: 558) d1=2.3e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 8 SP500 k= 50 (T=538): MAE=11472.97mAh AE=-35 (cross 554, by EOL: 554) d1=1.2e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 9 SP500 k= 50 (T=538): MAE=3394.34mAh AE=-32 (cross 557, by EOL: 557) d1=2.1e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run10 SP500 k= 50 (T=538): MAE=17996.65mAh AE=-30 (cross 559, by EOL: 559) d1=3.5e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 1 SP500 k= 75 (T=513): MAE=515680.98mAh AE=-66 (cross 523, by EOL: 523) d1=1.0e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 2 SP500 k= 75 (T=513): MAE=28393.11mAh AE=-63 (cross 526, by EOL: 526) d1=2.1e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 3 SP500 k= 75 (T=513): MAE=341040.02mAh AE=-67 (cross 522, by EOL: 522) d1=9.6e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 4 SP500 k= 75 (T=513): MAE=412318.68mAh AE=-65 (cross 524, by EOL: 524) d1=1.3e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 5 SP500 k= 75 (T=513): MAE=50684625.67mAh AE=-70 (cross 519, by EOL: 519) d1=4.2e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 6 SP500 k= 75 (T=513): MAE=2614608.68mAh AE=-67 (cross 522, by EOL: 522) d1=3.7e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 7 SP500 k= 75 (T=513): MAE=599637.25mAh AE=-65 (cross 524, by EOL: 524) d1=1.2e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 8 SP500 k= 75 (T=513): MAE=2305452.07mAh AE=-67 (cross 522, by EOL: 522) d1=4.1e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 9 SP500 k= 75 (T=513): MAE=445426.68mAh AE=-66 (cross 523, by EOL: 523) d1=5.6e-08 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run10 SP500 k= 75 (T=513): MAE=169660801.33mAh AE=-68 (cross 521, by EOL: 521) d1=3.2e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 1 SP400 k=100 (T=488): MAE=11.76mAh AE=3 (cross 592, by EOL: None) d1=2.7e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 2 SP400 k=100 (T=488): MAE=11.88mAh AE=7 (cross 596, by EOL: None) d1=1.8e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 3 SP400 k=100 (T=488): MAE=52.24mAh AE=None (cross None, by EOL: None) d1=1.3e-07 [4s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 4 SP400 k=100 (T=488): MAE=12.03mAh AE=9 (cross 598, by EOL: None) d1=2.4e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 5 SP400 k=100 (T=488): MAE=44.92mAh AE=-55 (cross 534, by EOL: 534) d1=3.3e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 6 SP400 k=100 (T=488): MAE=18.02mAh AE=-9 (cross 580, by EOL: 580) d1=7.1e-08 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 7 SP400 k=100 (T=488): MAE=49.80mAh AE=None (cross None, by EOL: None) d1=1.4e-07 [5s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 8 SP400 k=100 (T=488): MAE=47.58mAh AE=-55 (cross 534, by EOL: 534) d1=5.7e-08 [6s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run 9 SP400 k=100 (T=488): MAE=16.64mAh AE=-4 (cross 585, by EOL: 585) d1=8.5e-08 [6s]
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  pf run10 SP400 k=100 (T=488): MAE=20.99mAh AE=-14 (cross 575, by EOL: 575) d1=9.8e-08 [6s]
+  trajectories -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\_ar_traj_panasonic_pf.npz (42 arrays)
+
+saved D:/research/degradation_prognostics/Transformer_and_Multi_Scale_Models/src/results/_kt_pf_t2.json

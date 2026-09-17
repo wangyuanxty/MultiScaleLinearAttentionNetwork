@@ -1,0 +1,103 @@
+  ep0 loss=0.8014
+  ep10 loss=0.2957
+  ep20 loss=0.3002
+  ep30 loss=0.1769
+  ep40 loss=0.1656
+  ep50 loss=0.3536
+  ep60 loss=0.2505
+  ep70 loss=0.1907
+  ep80 loss=0.1727
+  ep90 loss=0.1185
+[single] seed1: MAE=0.0034 R2=0.9989 regen=0.056 AE=1.0
+  ep0 loss=0.5399
+  ep10 loss=0.4032
+  ep20 loss=0.2262
+  ep30 loss=0.3226
+  ep40 loss=0.2790
+  ep50 loss=0.4021
+  ep60 loss=0.2811
+  ep70 loss=0.5096
+  ep80 loss=0.2076
+  ep90 loss=0.2328
+[single] seed2: MAE=0.0034 R2=0.9989 regen=0.057 AE=1.0
+  ep0 loss=0.6115
+  ep10 loss=0.3239
+  ep20 loss=0.4260
+  ep30 loss=0.4585
+  ep40 loss=0.1727
+  ep50 loss=0.4108
+  ep60 loss=0.1819
+  ep70 loss=0.4747
+  ep80 loss=0.1635
+  ep90 loss=0.1833
+[single] seed3: MAE=0.0032 R2=0.9989 regen=0.048 AE=1.0
+  ep0 loss=0.8059
+  ep10 loss=0.3350
+  ep20 loss=0.4243
+  ep30 loss=0.3331
+  ep40 loss=0.2326
+  ep50 loss=0.3735
+  ep60 loss=0.2832
+  ep70 loss=0.2287
+  ep80 loss=0.1980
+  ep90 loss=0.2091
+[multi] seed1: MAE=0.0038 R2=0.9988 regen=0.038 AE=0.0
+  ep0 loss=0.5071
+  ep10 loss=0.4000
+  ep20 loss=0.2130
+  ep30 loss=0.3345
+  ep40 loss=0.3068
+  ep50 loss=0.4025
+  ep60 loss=0.2579
+  ep70 loss=0.5731
+  ep80 loss=0.2064
+  ep90 loss=0.2019
+[multi] seed2: MAE=0.0037 R2=0.9989 regen=0.075 AE=1.0
+  ep0 loss=0.6173
+  ep10 loss=0.2952
+  ep20 loss=0.4298
+  ep30 loss=0.4378
+  ep40 loss=0.1845
+  ep50 loss=0.3219
+  ep60 loss=0.1865
+  ep70 loss=0.4772
+  ep80 loss=0.2050
+  ep90 loss=0.1984
+[multi] seed3: MAE=0.0035 R2=0.9989 regen=0.064 AE=1.0
+  ep0 loss=0.8305
+  ep10 loss=0.3125
+  ep20 loss=0.3454
+  ep30 loss=0.2585
+  ep40 loss=0.2060
+  ep50 loss=0.3713
+  ep60 loss=0.2952
+  ep70 loss=0.2333
+  ep80 loss=0.1944
+  ep90 loss=0.1789
+[xchg] seed1: MAE=0.0034 R2=0.9989 regen=0.067 AE=1.0
+  ep0 loss=0.5414
+  ep10 loss=0.3119
+  ep20 loss=0.1521
+  ep30 loss=0.2761
+  ep40 loss=0.2266
+  ep50 loss=0.3804
+  ep60 loss=0.2518
+  ep70 loss=0.4799
+  ep80 loss=0.1707
+  ep90 loss=0.1828
+[xchg] seed2: MAE=0.0033 R2=0.9989 regen=0.093 AE=1.0
+  ep0 loss=0.6489
+  ep10 loss=0.2912
+  ep20 loss=0.4043
+  ep30 loss=0.4186
+  ep40 loss=0.2156
+  ep50 loss=0.3944
+  ep60 loss=0.2214
+  ep70 loss=0.4937
+  ep80 loss=0.2203
+  ep90 loss=0.2131
+[xchg] seed3: MAE=0.0035 R2=0.9989 regen=0.065 AE=1.0
+=== full-seq mean+/-std ===
+single: MAE=0.0034¡À0.0001 R2=0.9989¡À0.0000 regen=0.054 AE=1.0
+multi: MAE=0.0037¡À0.0001 R2=0.9989¡À0.0000 regen=0.059 AE=0.7
+xchg: MAE=0.0034¡À0.0001 R2=0.9989¡À0.0000 regen=0.075 AE=1.0

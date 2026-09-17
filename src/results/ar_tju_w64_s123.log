@@ -1,0 +1,34 @@
+========================================================================================================
+  TJU  W=64  SP=200  test=CY25_1  rated=2.50 Ah  EOL_AH=1.75 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=1000
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === OURS   test=CY25_1  SP200  W=64  root=../checkpoints/per_sp ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  ours   1      EOL-50      728       -        - 7.721e-03 1.169e-04 7.721e-03 1.169e-04         n
+  ours   1      EOL-100     678       -        - 1.314e-02 3.067e-04 3.927e-03 2.242e-05         n
+  ours   2      EOL-50      728      13     0.26 2.959e-03 1.509e-05 2.959e-03 1.509e-05         Y
+  ours   2      EOL-100     678      29     0.29 3.693e-03 2.501e-05 1.586e-03 3.030e-06         Y
+  ours   3      EOL-50      728      24     0.48 4.508e-03 3.226e-05 4.508e-03 3.226e-05         Y
+  ours   3      EOL-100     678      56     0.56 7.166e-03 8.387e-05 3.065e-03 1.235e-05         Y
+Traceback (most recent call last):
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\ar_baselines_tju.py", line 372, in <module>
+    p_ah = full[j] * (hi - lo + EPS) + lo
+^^
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\ar_baselines_tju.py", line 344, in main
+    W, lo, hi = int(ck["W"]), float(ck["lo"]), float(ck["hi"])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\ar_baselines_tju.py", line 202, in run_baseline
+    torch.cuda.empty_cache()
+             ^^^^^^^^^^^^^^
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\ar_baselines_tju.py", line 85, in official_tju
+    global DS, SP, TEST_CELL, SEQL, RATED, EOL_AH
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\reference_repos\ref_patchformer\TJUDataPreProcess.py", line 12, in <module>
+    id,_ = get_gpus_memory_info()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\reference_repos\ref_patchformer\assistant.py", line 23, in get_gpus_memory_info
+    memory_available = [int(line.split(':')[1].split(' ')[1]) for line in rst if 'Free' in line][::2]
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'N/A'

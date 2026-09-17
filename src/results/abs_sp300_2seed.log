@@ -1,0 +1,16 @@
+    [ep   1/100] loss=0.09482  53s, 53.2s/ep, eta 5270s
+    [ep   6/100] loss=0.02451  317s, 52.7s/ep, eta 4950s
+    [ep  11/100] loss=0.02327  574s, 51.6s/ep, eta 4589s
+    [ep  16/100] loss=0.02201  831s, 51.4s/ep, eta 4314s
+    [ep  21/100] loss=0.02317  1096s, 52.9s/ep, eta 4182s
+    [ep  26/100] loss=0.02192  1347s, 50.3s/ep, eta 3721s
+    [ep  31/100] loss=0.02068  1605s, 51.5s/ep, eta 3557s
+    [ep  36/100] loss=0.01918  1865s, 52.0s/ep, eta 3326s
+    [ep  41/100] loss=0.02096  2122s, 51.5s/ep, eta 3039s
+    [ep  46/100] loss=0.01837  2382s, 51.8s/ep, eta 2799s
+    [ep  51/100] loss=0.01836  2644s, 52.4s/ep, eta 2567s
+    [ep  56/100] loss=0.01799  2904s, 52.1s/ep, eta 2293s
+    [ep  61/100] loss=0.01799  3158s, 50.7s/ep, eta 1978s
+    [ep  66/100] loss=0.01586  3415s, 51.5s/ep, eta 1753s
+    [ep  71/100] loss=0.01806  3671s, 51.1s/ep, eta 1483s
+    [ep  76/100] loss=0.01558  3924s, 50.6s/ep, eta 1214s

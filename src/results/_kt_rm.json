@@ -1,0 +1,1763 @@
+{
+  "models": {
+    "rm": {
+      "verification": {
+        "sp": 300,
+        "space": "Ah",
+        "mae": {
+          "mean": 0.017353995094299322,
+          "std": 0.00020036603202854236,
+          "n": 10
+        },
+        "r2": {
+          "mean": 0.9724796998545235,
+          "std": 0.0010804261290154168,
+          "n": 10
+        },
+        "reference": {
+          "mae": 0.0174,
+          "r2": 0.9725,
+          "space": "Ah"
+        },
+        "pass": true,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01715072040557862,
+            "r2": 0.971501296166238,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 2,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017269213104248053,
+            "r2": 0.9719114965734775,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 3,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01726023960113526,
+            "r2": 0.9721157492169576,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 4,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01759363746643067,
+            "r2": 0.9737975871836493,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 5,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01770395240783692,
+            "r2": 0.9743054609876635,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 6,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017189576339721686,
+            "r2": 0.9715988039119641,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 7,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017605679702758795,
+            "r2": 0.9738752321011406,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 8,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.01729102687835694,
+            "r2": 0.972263354981677,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 9,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017200228309631353,
+            "r2": 0.9715137499142301,
+            "decode_err": 2.980232238769531e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 10,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.017275676727294926,
+            "r2": 0.9719142675082377,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          }
+        ]
+      },
+      "points": {
+        "25": {
+          "k": 25,
+          "T": 563,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.01177265263916916,
+              "std": 0.0007189408211389027,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.012000508811473659,
+              "std": 0.000732855705799063,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 12.00050881147366,
+              "std": 0.7328557057990629,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20833333333333334,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": 2.150706765532493,
+              "std": 0.0013965869652742074,
+              "n": 10
+            },
+            "first_step_dev_max": 1.3351440397713077e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_1\\Start_Point_500\\Checkpoints\\epoch=22.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 4.8279761966085744e-08,
+                "first_step_dev_ah": 4.8279761966085744e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1717989444732666,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.011659262630764253,
+                  "mae_ah": 0.011884924173354907,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1717989927530286,
+                  "last_step_ah": 2.15051178753376,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_2\\Start_Point_500\\Checkpoints\\epoch=28.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.3351440397713077e-07,
+                "first_step_dev_ah": 1.3351440397713077e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1722469329833984,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.012539733506163497,
+                  "mae_ah": 0.012782436299323852,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1722470664978024,
+                  "last_step_ah": 2.1521816343069076,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_3\\Start_Point_500\\Checkpoints\\epoch=24.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.556510889765832e-09,
+                "first_step_dev_ah": 6.556510889765832e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1712770462036133,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.010632491857353533,
+                  "mae_ah": 0.010838280558585982,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.171277052760124,
+                  "last_step_ah": 2.148405425548553,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_4\\Start_Point_500\\Checkpoints\\epoch=25.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.364418242947977e-09,
+                "first_step_dev_ah": 5.364418242947977e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1725521087646484,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.013132391178681662,
+                  "mae_ah": 0.013386564683913953,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.17255210340023,
+                  "last_step_ah": 2.1532802367210384,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_5\\Start_Point_500\\Checkpoints\\epoch=27.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.0490417468034252e-07,
+                "first_step_dev_ah": 1.0490417468034252e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.171666145324707,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.011489502602454007,
+                  "mae_ah": 0.01171187849044781,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1716662502288817,
+                  "last_step_ah": 2.1501979011297223,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_6\\Start_Point_500\\Checkpoints\\epoch=24.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 7.271766655492229e-08,
+                "first_step_dev_ah": 7.271766655492229e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.171988010406494,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.012030439247397155,
+                  "mae_ah": 0.012263284802436587,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1719880831241607,
+                  "last_step_ah": 2.15123184800148,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_7\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 7.331371332242043e-08,
+                "first_step_dev_ah": 7.331371332242043e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.171931266784668,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.011911336507321141,
+                  "mae_ah": 0.0121418768644331,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1719311934709546,
+                  "last_step_ah": 2.151007179021835,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_8\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 9.775161746716776e-08,
+                "first_step_dev_ah": 9.775161746716776e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.171814441680908,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.01167921230429248,
+                  "mae_ah": 0.011905259966850164,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1718143439292907,
+                  "last_step_ah": 2.150549533367157,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_9\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.33786012163273e-08,
+                "first_step_dev_ah": 3.33786012163273e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1713874340057373,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.01092091918960724,
+                  "mae_ah": 0.011132290315627848,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.171387400627136,
+                  "last_step_ah": 2.1490424090623854,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_10\\Start_Point_500\\Checkpoints\\epoch=25.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.7550925924279e-08,
+                "first_step_dev_ah": 3.7550925924279e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1718339920043945,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.011731237367656598,
+                  "mae_ah": 0.011958291959762396,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1718340295553205,
+                  "last_step_ah": 2.150659700632095,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        },
+        "50": {
+          "k": 50,
+          "T": 538,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.026325147034247938,
+              "std": 0.001992190361814351,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.026834662384987114,
+              "std": 0.002030748610686369,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 26.83466238498711,
+              "std": 2.0307486106863695,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                577,
+                581,
+                574,
+                585,
+                578,
+                579,
+                578,
+                577,
+                575,
+                578
+              ],
+              "ae_values_sorted": [
+                -15,
+                -14,
+                -12,
+                -12,
+                -11,
+                -11,
+                -11,
+                -10,
+                -8,
+                -4
+              ],
+              "ae_signed": {
+                "mean": -10.8,
+                "std": 3.084008934992101,
+                "n": 10
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                577,
+                581,
+                574,
+                585,
+                578,
+                579,
+                578,
+                577,
+                575,
+                578
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.02040816326530612,
+              "std": 0.0,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.1836734693877551,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.010519126905002627,
+              "std": 0.0007175290083692503,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.110648376762867,
+              "std": 0.004034005440982476,
+              "n": 10
+            },
+            "first_step_dev_max": 1.2576580044054708e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_1\\Start_Point_500\\Checkpoints\\epoch=22.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.960463234089275e-10,
+                "first_step_dev_ah": 5.960463234089275e-10,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.191925287246704,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.026625305640871032,
+                  "mae_ah": 0.02714063047170663,
+                  "pred_crossing_within_horizon": 577,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.1919252878427504,
+                  "last_step_ah": 2.1100377792119978,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010628016647163865,
+                  "pred_crossing_cycle": 577,
+                  "crossed": true,
+                  "ae": -12,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_2\\Start_Point_500\\Checkpoints\\epoch=28.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.1503696395465113e-07,
+                "first_step_dev_ah": 1.1503696395465113e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.19229793548584,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.0242589129276259,
+                  "mae_ah": 0.02472843693494826,
+                  "pred_crossing_within_horizon": 581,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.192298050522804,
+                  "last_step_ah": 2.114781112074852,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00979762399409368,
+                  "pred_crossing_cycle": 581,
+                  "crossed": true,
+                  "ae": -8,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_3\\Start_Point_500\\Checkpoints\\epoch=24.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.7881394143159923e-09,
+                "first_step_dev_ah": 1.7881394143159923e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1915156841278076,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.0298442049536622,
+                  "mae_ah": 0.03042183061838173,
+                  "pred_crossing_within_horizon": 574,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.191515682339668,
+                  "last_step_ah": 2.103270619511604,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.011883474873642748,
+                  "pred_crossing_cycle": 574,
+                  "crossed": true,
+                  "ae": -15,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_4\\Start_Point_500\\Checkpoints\\epoch=25.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 8.165836318241304e-08,
+                "first_step_dev_ah": 8.165836318241304e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1925594806671143,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.02265037394016394,
+                  "mae_ah": 0.023088765156269293,
+                  "pred_crossing_within_horizon": 585,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.1925595623254774,
+                  "last_step_ah": 2.117992939352989,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.009237838867007896,
+                  "pred_crossing_cycle": 585,
+                  "crossed": true,
+                  "ae": -4,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_5\\Start_Point_500\\Checkpoints\\epoch=27.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.993511166200392e-08,
+                "first_step_dev_ah": 3.993511166200392e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.19174861907959,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.026565559380594253,
+                  "mae_ah": 0.027079727840423812,
+                  "pred_crossing_within_horizon": 578,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.1917486590147015,
+                  "last_step_ah": 2.11057633459568,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010440220584393436,
+                  "pred_crossing_cycle": 578,
+                  "crossed": true,
+                  "ae": -11,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_6\\Start_Point_500\\Checkpoints\\epoch=24.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.0669231409465851e-07,
+                "first_step_dev_ah": 1.0669231409465851e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1920924186706543,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.02562745698819816,
+                  "mae_ah": 0.02612346875667594,
+                  "pred_crossing_within_horizon": 579,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.1920925253629684,
+                  "last_step_ah": 2.112035057544708,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010278650795670986,
+                  "pred_crossing_cycle": 579,
+                  "crossed": true,
+                  "ae": -10,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_7\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.2576580044054708e-07,
+                "first_step_dev_ah": 1.2576580044054708e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1920461654663086,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.026005487355991647,
+                  "mae_ah": 0.02650881578922293,
+                  "pred_crossing_within_horizon": 578,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.192046291232109,
+                  "last_step_ah": 2.1112319201231,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010429620697863294,
+                  "pred_crossing_cycle": 578,
+                  "crossed": true,
+                  "ae": -11,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_8\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.3841861818141297e-09,
+                "first_step_dev_ah": 2.3841861818141297e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.191955089569092,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.026647909365104746,
+                  "mae_ah": 0.027163671684265332,
+                  "pred_crossing_within_horizon": 577,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.1919550871849056,
+                  "last_step_ah": 2.1099478393793105,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010653562810025947,
+                  "pred_crossing_cycle": 577,
+                  "crossed": true,
+                  "ae": -12,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_9\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.139278374561741e-08,
+                "first_step_dev_ah": 6.139278374561741e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1915340423583984,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.02848748187193355,
+                  "mae_ah": 0.029038848567009213,
+                  "pred_crossing_within_horizon": 575,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.191534103751182,
+                  "last_step_ah": 2.1064488548040385,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.011225030299863391,
+                  "pred_crossing_cycle": 575,
+                  "crossed": true,
+                  "ae": -14,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_10\\Start_Point_500\\Checkpoints\\epoch=25.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.0132789274308607e-08,
+                "first_step_dev_ah": 1.0132789274308607e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.191974401473999,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.026538777918333926,
+                  "mae_ah": 0.027052428030967964,
+                  "pred_crossing_within_horizon": 578,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.1919744116067883,
+                  "last_step_ah": 2.110161311030388,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010617229480301013,
+                  "pred_crossing_cycle": 578,
+                  "crossed": true,
+                  "ae": -11,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        },
+        "75": {
+          "k": 75,
+          "T": 513,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.022242176560070034,
+              "std": 0.0009461964660284409,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.022672667237917467,
+              "std": 0.0009645098157555833,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 22.67266723791747,
+              "std": 0.9645098157555835,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20270270270270271,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.0012988690694548054,
+              "std": 0.00018859351101358624,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.1881740924715993,
+              "std": 0.002581906788782513,
+              "n": 10
+            },
+            "first_step_dev_max": 1.400709148668966e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_1\\Start_Point_500\\Checkpoints\\epoch=22.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 7.152557657263969e-09,
+                "first_step_dev_ah": 7.152557657263969e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2221994400024414,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.022100540114351835,
+                  "mae_ah": 0.022528289461135723,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2221994328498837,
+                  "last_step_ah": 2.187832664251327,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0013204015861793413,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_2\\Start_Point_500\\Checkpoints\\epoch=28.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.841255168448356e-08,
+                "first_step_dev_ah": 5.841255168448356e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.222555160522461,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.023242276037318235,
+                  "mae_ah": 0.023692123341560248,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2225552189350126,
+                  "last_step_ah": 2.1908785182237622,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0011038208174796922,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_3\\Start_Point_500\\Checkpoints\\epoch=24.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 9.477138540603391e-08,
+                "first_step_dev_ah": 9.477138540603391e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2217752933502197,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.020655132836633068,
+                  "mae_ah": 0.02105490675767252,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2217751985788343,
+                  "last_step_ah": 2.1836988633871077,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0016460892755312533,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_4\\Start_Point_500\\Checkpoints\\epoch=25.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 9.596347849694098e-08,
+                "first_step_dev_ah": 9.596347849694098e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2227985858917236,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.023983281797251572,
+                  "mae_ah": 0.02444747104644762,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.222798489928245,
+                  "last_step_ah": 2.192795248031616,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0009759474584349019,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_5\\Start_Point_500\\Checkpoints\\epoch=27.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.9604645663569045e-09,
+                "first_step_dev_ah": 5.9604645663569045e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2221152782440186,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.02193687955993739,
+                  "mae_ah": 0.02236146130561819,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.222115272283554,
+                  "last_step_ah": 2.187417640686035,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.001337023667275342,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_6\\Start_Point_500\\Checkpoints\\epoch=24.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.4901161193847656e-08,
+                "first_step_dev_ah": 1.4901161193847656e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.222349166870117,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.022589688628198285,
+                  "mae_ah": 0.023026905298232887,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.222349151968956,
+                  "last_step_ah": 2.189175260066986,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0012227068475492992,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_7\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.794929507947245e-08,
+                "first_step_dev_ah": 6.794929507947245e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.222301721572876,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.022436913579481618,
+                  "mae_ah": 0.02287117333412161,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.222301653623581,
+                  "last_step_ah": 2.18875463783741,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0012536839314363768,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_8\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.125999491539801e-08,
+                "first_step_dev_ah": 5.125999491539801e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2222070693969727,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.022124087579802297,
+                  "mae_ah": 0.022552292680740275,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2222070181369777,
+                  "last_step_ah": 2.187893527150154,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0013174041386770767,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_9\\Start_Point_500\\Checkpoints\\epoch=26.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.400709148668966e-07,
+                "first_step_dev_ah": 1.400709148668966e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2218830585479736,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.021137355069510352,
+                  "mae_ah": 0.021546462257703035,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2218831986188885,
+                  "last_step_ah": 2.1851422351598737,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0015159132031822816,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_10\\Start_Point_500\\Checkpoints\\epoch=25.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 9.536743394988889e-09,
+                "first_step_dev_ah": 9.536743394988889e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2222232818603516,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 0.02221561039821565,
+                  "mae_ah": 0.02264558689594256,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.222223272323608,
+                  "last_step_ah": 2.188152329921722,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0012956997688024904,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        },
+        "100": {
+          "k": 100,
+          "T": 488,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.04796596432777698,
+              "std": 0.0011712085136818945,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.04889433122754074,
+              "std": 0.0011938769043222583,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 48.89433122754075,
+              "std": 1.1938769043222575,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "ae_values_sorted": [],
+              "ae_signed": {
+                "mean": null,
+                "std": null,
+                "n": 0
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 0,
+              "n_never_cross": 10,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.00707070707070707,
+              "std": 0.004879251429693415,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.23232323232323232,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.0003785288276620742,
+              "std": 6.815231050175443e-05,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.2421355539560315,
+              "std": 0.0018468367837579144,
+              "n": 10
+            },
+            "first_step_dev_max": 1.341104507446289e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_1\\Start_Point_400\\Checkpoints\\epoch=26.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 7.748603847446134e-08,
+                "first_step_dev_ah": 7.748603847446134e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.267547607421875,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04805645798890323,
+                  "mae_ah": 0.048986576366424305,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2675475299358365,
+                  "last_step_ah": 2.2423026108741757,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0003689077633587826,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_2\\Start_Point_400\\Checkpoints\\epoch=22.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 8.344650304081824e-09,
+                "first_step_dev_ah": 8.344650304081824e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.267361879348755,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04678411706535626,
+                  "mae_ah": 0.047689609664678355,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2673618710041046,
+                  "last_step_ah": 2.240262891054153,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00044881983658723985,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_3\\Start_Point_400\\Checkpoints\\epoch=22.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.341104507446289e-07,
+                "first_step_dev_ah": 1.341104507446289e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.267598867416382,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04833007679716203,
+                  "mae_ah": 0.04926549098491649,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2675990015268326,
+                  "last_step_ah": 2.2427163702249526,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0003559974190672454,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_4\\Start_Point_400\\Checkpoints\\epoch=22.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.914138817037951e-08,
+                "first_step_dev_ah": 6.914138817037951e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.267247438430786,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.046129975843667535,
+                  "mae_ah": 0.04702280773520449,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.267247369289398,
+                  "last_step_ah": 2.239237071275711,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0004860460141258588,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_5\\Start_Point_400\\Checkpoints\\epoch=16.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.1920928688624599e-08,
+                "first_step_dev_ah": 1.1920928688624599e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.267592668533325,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04829981034308729,
+                  "mae_ah": 0.04923463873267152,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.267592680454254,
+                  "last_step_ah": 2.242672845125198,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00035690603382120006,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_6\\Start_Point_400\\Checkpoints\\epoch=25.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.2993812514849878e-07,
+                "first_step_dev_ah": 1.2993812514849878e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.26778507232666,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.049462079031529174,
+                  "mae_ah": 0.05041940278410888,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2677852022647853,
+                  "last_step_ah": 2.2444723641872404,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00029550184450202147,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_7\\Start_Point_400\\Checkpoints\\epoch=21.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 7.629394538355427e-08,
+                "first_step_dev_ah": 7.629394538355427e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2676801681518555,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04887628858233204,
+                  "mae_ah": 0.04982227453589417,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.26768009185791,
+                  "last_step_ah": 2.2435818153619764,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0003238049738860901,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_8\\Start_Point_400\\Checkpoints\\epoch=24.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 4.053115798541285e-08,
+                "first_step_dev_ah": 4.053115798541285e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2675232887268066,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04781086085351495,
+                  "mae_ah": 0.048736225771903764,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2675233292579646,
+                  "last_step_ah": 2.2418816274404523,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.0003885656285839607,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_9\\Start_Point_400\\Checkpoints\\epoch=26.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.2452087118126656e-08,
+                "first_step_dev_ah": 5.2452087118126656e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2677652835845947,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.0494100451095178,
+                  "mae_ah": 0.05036636176109291,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.010101010101010102,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.267765336036682,
+                  "last_step_ah": 2.244407166838646,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00029599403452577937,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_rul_mamba\\Outputs\\PANASONIC\\Univariable\\RULMamba\\Repeat_10\\Start_Point_400\\Checkpoints\\epoch=27.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.7881393699070713e-08,
+                "first_step_dev_ah": 1.7881393699070713e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.26731276512146,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04649993166269943,
+                  "mae_ah": 0.047399923938512584,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2673127472400663,
+                  "last_step_ah": 2.2398207771778105,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00046474472816256373,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "protocol": {
+    "dataset": "PANASONIC",
+    "test_cell": "Cell03",
+    "train_cells": [
+      "Cell01",
+      "Cell02"
+    ],
+    "checkpoints": {
+      "ours": "checkpoints/per_sp/panasonic/SP{sp}_seed{s}.pt, s=1..10",
+      "pf": "reference_repos/ref_patchformer/results_PANASONIC_RUL_prediction_sl_30/Cell03/PatchFormer/SP{sp}/run{r}/checkpoints/*.ckpt, r=1..10",
+      "rm": "reference_repos/ref_rul_mamba/Outputs/PANASONIC/Univariable/RULMamba/Repeat_{r}/Start_Point_{sp}/Checkpoints/*.ckpt, r=1..10"
+    },
+    "warmup_W": 30,
+    "rated_ah": 3.03,
+    "eol_ah": 2.12,
+    "eol_ah_trainer_threshold": 2.1209999999999996,
+    "true_eol_cycle": 588,
+    "true_first_below_cycle": 589,
+    "second_crossing_cycle": 646,
+    "series_len_test_cell": 924,
+    "ks": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "ks_protocol_internal": [
+      88,
+      188,
+      288
+    ],
+    "ks_protocol_internal_note": "true_EOL - SP for SP in 300/400/500: the launch offsets whose checkpoint is the one trained for exactly that point (strict comparison, not table rows).",
+    "ks_computed": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "n_runs": 10,
+    "start": "T = true_EOL - k; warm-up = the W true cycles before T (cycles T-W+1..T); the first predicted cycle is T+1, so the horizon covers T+1..T+k and ends on the true EOL cycle.",
+    "model_selection": "nearest per-SP checkpoint with SP <= T; only SP 300/400/500 exist.  For T < 300 (k = 320, T = 268) no SP <= T exists and the nearest available one (SP300) is used, flagged sp_fallback.",
+    "metric_space": "MAE reported in mAh (= Ah x 1000); the same numbers are stored in Ah and in the common (our train-cell min-max) space, common = (Ah - LO)/(HI - LO).",
+    "ae_convention": "AE = predicted crossing cycle - true EOL (588), signed cycles: negative = the model calls EOL early, positive = late.  A crossing is the first cycle at/under 2.12 Ah; Cell03's first sub-threshold cycle is 589 (the 1-cycle offset between 'first below' and 'last at/above' the threshold cancels because true and predicted are read the same way).  The rollout is NOT stopped at k: it continues until the prediction goes under the threshold or the true series ends.  A run that never crosses is excluded from the AE mean and counted in the footnote, never imputed.",
+    "std_ddof": 1,
+    "first_step_tol": 1e-05,
+    "points": {
+      "25": {
+        "k": 25,
+        "T": 563,
+        "sp": 500,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "50": {
+        "k": 50,
+        "T": 538,
+        "sp": 500,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "75": {
+        "k": 75,
+        "T": 513,
+        "sp": 500,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "100": {
+        "k": 100,
+        "T": 488,
+        "sp": 400,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      }
+    }
+  },
+  "reference_teacher_forced": {
+    "ours": {
+      "mae": 0.0037,
+      "r2": 0.9976,
+      "space": "common (train-cell min-max)"
+    },
+    "pf": {
+      "mae": 0.0033,
+      "r2": 0.9977,
+      "space": "Ah"
+    },
+    "rm": {
+      "mae": 0.0174,
+      "r2": 0.9725,
+      "space": "Ah"
+    }
+  },
+  "notes": [
+    "CELL03 REGENERATES: it crosses 2.12 Ah at 588, climbs back to 2.167 Ah over the next ~35 cycles, and crosses down again at 646.  true_EOL is the first crossing, as everywhere else in this repo; a model that only ever predicts a smooth decline cannot represent the recovery, and one that freezes above the threshold never reports a crossing at all.",
+    "MAE at k comes from ONE rollout per run, not from a run of its own: the rollout runs on until the prediction crosses, and its first k steps are the MAE window.  Each k launches from its own T with its own checkpoint.",
+    "crossing_within_horizon is a DIAGNOSTIC (does the prediction cross inside the k-step launch window, i.e. by the true EOL?); the reported AE comes from the continued rollout.",
+    "end_window_std_common diagnoses how the rollout ends: ~1e-7 means the per-window normaliser has collapsed and the trajectory is frozen, huge means the decode feedback diverged.",
+    "The teacher-forced first step of the rollout is compared with the rollout's own first step (same warm-up window) as the protocol check; max deviation is reported per k."
+  ]
+}

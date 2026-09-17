@@ -106,7 +106,8 @@ def eval_fullseq(model, caps, test_cell, W, lo, hi, eol_ah):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", choices=["calce", "nasa"], default="calce")
+    ap.add_argument("--dataset", choices=["calce", "nasa", "panasonic"],
+                    default="calce")
     ap.add_argument("--config", nargs="+", required=True, choices=list(CONFIGS))
     ap.add_argument("--seeds", type=int, default=10)
     ap.add_argument("--start-seed", type=int, default=1)

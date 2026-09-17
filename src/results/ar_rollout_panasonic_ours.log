@@ -1,0 +1,16 @@
+common space: lo=1.7590938807 hi=2.7784485817
+  load_series: W=30 eol=2.12 lo=1.7590938807 hi=2.7784485817; common lo=1.7590938807 hi=2.7784485817
+  ours SP300 seed 1: tf MAE=0.0036 R2=0.9976 AE=1 | roll MAE=0.2875 R2=-1.677 cross=130 AE=158 | d1=0.0e+00 [14s]
+  ours SP300 seed 2: tf MAE=0.0033 R2=0.9977 AE=0 | roll MAE=0.2835 R2=-2.043 cross=None AE=None | d1=0.0e+00 [29s]
+  ours SP300 seed 3: tf MAE=0.0039 R2=0.9976 AE=1 | roll MAE=0.3001 R2=-2.311 cross=None AE=None | d1=0.0e+00 [43s]
+  ours SP300 seed 4: tf MAE=0.0037 R2=0.9975 AE=1 | roll MAE=0.2964 R2=-1.850 cross=90 AE=198 | d1=0.0e+00 [58s]
+  ours SP300 seed 5: tf MAE=0.0039 R2=0.9976 AE=1 | roll MAE=0.2940 R2=-2.212 cross=None AE=None | d1=0.0e+00 [72s]
+  ours SP300 seed 6: tf MAE=0.0040 R2=0.9976 AE=1 | roll MAE=0.3038 R2=-2.372 cross=None AE=None | d1=0.0e+00 [86s]
+  ours SP300 seed 7: tf MAE=0.0035 R2=0.9976 AE=1 | roll MAE=0.1882 R2=-0.198 cross=154 AE=134 | d1=0.0e+00 [101s]
+  ours SP300 seed 8: tf MAE=0.0037 R2=0.9976 AE=0 | roll MAE=0.3044 R2=-2.382 cross=None AE=None | d1=0.0e+00 [119s]
+  ours SP300 seed 9: tf MAE=0.0042 R2=0.9976 AE=1 | roll MAE=0.2857 R2=-2.078 cross=None AE=None | d1=0.0e+00 [137s]
+  ours SP300 seed10: tf MAE=0.0035 R2=0.9977 AE=1 | roll MAE=0.1734 R2=-0.304 cross=None AE=None | d1=0.0e+00 [154s]
+  ours SP400 seed 1: tf MAE=0.0033 R2=0.9966 AE=0 | roll MAE=0.1526 R2=-0.363 cross=None AE=None | d1=0.0e+00 [13s]
+  ours SP400 seed 2: tf MAE=0.0034 R2=0.9965 AE=0 | roll MAE=0.0931 R2=0.563 cross=142 AE=46 | d1=0.0e+00 [26s]
+  ours SP400 seed 3: tf MAE=0.0037 R2=0.9964 AE=1 | roll MAE=0.2613 R2=-1.976 cross=94 AE=94 | d1=0.0e+00 [41s]
+  ours SP400 seed 4: tf MAE=0.0038 R2=0.9963 AE=1 | roll MAE=0.3185 R2=-3.347 cross=96 AE=92 | d1=0.0e+00 [54s]

@@ -1,0 +1,117 @@
+######## calce SP300, 10 seeds, 起跑 300/400/500 ########
+  SP300_seed1.pt          CS2_35          @300  MSE@50=5.445e-05  MSE=1.569e-01  AE=  141  AE/k=0.41  Y
+  SP300_seed1.pt          CS2_35          @400  MSE@50=1.749e-04  MSE=3.476e-02  AE=   18  AE/k=0.07  Y
+  SP300_seed1.pt          CS2_35          @500  MSE@50=2.200e-04  MSE=2.073e-02  AE=    7  AE/k=0.05  Y
+
+                          MEAN                  MSE@50=1.498e-04  MSE=7.078e-02  AE=55.3  crossed=3/3
+  SP300_seed2.pt          CS2_35          @300  MSE@50=9.702e-05  MSE=8.364e-02  AE=>=309  AE/k=0.91  n
+  SP300_seed2.pt          CS2_35          @400  MSE@50=1.806e-04  MSE=1.012e-01  AE=>=409  AE/k=1.70  n
+  SP300_seed2.pt          CS2_35          @500  MSE@50=7.001e-04  MSE=1.032e-01  AE=>=509  AE/k=3.64  n
+
+                          MEAN                  MSE@50=3.259e-04  MSE=9.602e-02  AE=409.0  crossed=0/3
+  SP300_seed3.pt          CS2_35          @300  MSE@50=1.583e-03  MSE=3.562e-02  AE=  230  AE/k=0.68  Y
+  SP300_seed3.pt          CS2_35          @400  MSE@50=4.159e-04  MSE=2.500e-02  AE=  117  AE/k=0.49  Y
+  SP300_seed3.pt          CS2_35          @500  MSE@50=5.641e-04  MSE=3.126e-02  AE=   45  AE/k=0.32  Y
+
+                          MEAN                  MSE@50=8.544e-04  MSE=3.062e-02  AE=130.7  crossed=3/3
+  SP300_seed4.pt          CS2_35          @300  MSE@50=5.665e-05  MSE=3.582e-02  AE=  251  AE/k=0.74  Y
+  SP300_seed4.pt          CS2_35          @400  MSE@50=1.995e-04  MSE=1.022e-01  AE=>=409  AE/k=1.70  n
+  SP300_seed4.pt          CS2_35          @500  MSE@50=6.457e-04  MSE=1.032e-01  AE=>=509  AE/k=3.64  n
+
+                          MEAN                  MSE@50=3.006e-04  MSE=8.040e-02  AE=389.7  crossed=1/3
+  SP300_seed5.pt          CS2_35          @300  MSE@50=2.568e-04  MSE=8.743e-02  AE=>=309  AE/k=0.91  n
+  SP300_seed5.pt          CS2_35          @400  MSE@50=2.234e-04  MSE=1.035e-01  AE=>=409  AE/k=1.70  n
+  SP300_seed5.pt          CS2_35          @500  MSE@50=8.130e-05  MSE=7.991e-02  AE=>=509  AE/k=3.64  n
+
+                          MEAN                  MSE@50=1.872e-04  MSE=9.027e-02  AE=409.0  crossed=0/3
+  SP300_seed6.pt          CS2_35          @300  MSE@50=1.041e-04  MSE=6.050e-02  AE=>=309  AE/k=0.91  n
+  SP300_seed6.pt          CS2_35          @400  MSE@50=8.400e-05  MSE=7.532e-02  AE=>=409  AE/k=1.70  n
+  SP300_seed6.pt          CS2_35          @500  MSE@50=9.716e-05  MSE=6.795e-02  AE=  328  AE/k=2.34  Y
+
+                          MEAN                  MSE@50=9.508e-05  MSE=6.792e-02  AE=348.7  crossed=1/3
+  SP300_seed7.pt          CS2_35          @300  MSE@50=2.325e-04  MSE=7.399e-03  AE=  105  AE/k=0.31  Y
+  SP300_seed7.pt          CS2_35          @400  MSE@50=1.849e-04  MSE=1.479e-02  AE=   42  AE/k=0.17  Y
+  SP300_seed7.pt          CS2_35          @500  MSE@50=1.444e-04  MSE=1.436e-02  AE=   36  AE/k=0.26  Y
+
+                          MEAN                  MSE@50=1.873e-04  MSE=1.218e-02  AE=61.0  crossed=3/3
+  # SP300_seed8.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed8.pt          CS2_35          @300  MSE@50=1.439e-04  MSE=6.071e-03  AE=    4  AE/k=0.01  Y
+  SP300_seed8.pt          CS2_35          @400  MSE@50=1.254e-04  MSE=1.744e-02  AE=  119  AE/k=0.50  Y
+  SP300_seed8.pt          CS2_35          @500  MSE@50=7.161e-04  MSE=1.037e-01  AE=>=509  AE/k=3.64  n
+
+                          MEAN                  MSE@50=3.285e-04  MSE=4.239e-02  AE=210.7  crossed=2/3
+  # SP300_seed9.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed9.pt          CS2_35          @300  MSE@50=1.553e-04  MSE=8.543e-02  AE=>=309  AE/k=0.91  n
+  SP300_seed9.pt          CS2_35          @400  MSE@50=1.076e-04  MSE=9.747e-02  AE=>=409  AE/k=1.70  n
+  SP300_seed9.pt          CS2_35          @500  MSE@50=9.295e-05  MSE=3.193e-02  AE=   23  AE/k=0.16  Y
+
+                          MEAN                  MSE@50=1.186e-04  MSE=7.161e-02  AE=247.0  crossed=1/3
+  # SP300_seed10.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed10.pt         CS2_35          @300  MSE@50=7.032e-05  MSE=3.036e-02  AE=  172  AE/k=0.51  Y
+  SP300_seed10.pt         CS2_35          @400  MSE@50=1.342e-04  MSE=4.218e-02  AE=  254  AE/k=1.06  Y
+  SP300_seed10.pt         CS2_35          @500  MSE@50=2.942e-05  MSE=7.087e-02  AE=>=509  AE/k=3.64  n
+
+                          MEAN                  MSE@50=7.797e-05  MSE=4.780e-02  AE=311.7  crossed=2/3
+
+######## panasonic SP300, 10 seeds, 起跑 300/400/500 ########
+  # SP300_seed1.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed1.pt          Cell03          @300  MSE@50=1.569e-03  MSE=1.041e-01  AE=  158  AE/k=0.55  Y
+  SP300_seed1.pt          Cell03          @400  MSE@50=1.226e-03  MSE=8.193e-02  AE=   97  AE/k=0.52  Y
+  SP300_seed1.pt          Cell03          @500  MSE@50=2.326e-03  MSE=6.224e-02  AE=   41  AE/k=0.47  Y
+
+                          MEAN                  MSE@50=1.707e-03  MSE=8.274e-02  AE=98.7  crossed=3/3
+  # SP300_seed2.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed2.pt          Cell03          @300  MSE@50=2.213e-04  MSE=1.183e-01  AE=>=361  AE/k=1.25  n
+  SP300_seed2.pt          Cell03          @400  MSE@50=6.789e-05  MSE=9.046e-02  AE=>=461  AE/k=2.45  n
+  SP300_seed2.pt          Cell03          @500  MSE@50=2.912e-04  MSE=5.308e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=1.934e-04  MSE=8.728e-02  AE=461.0  crossed=0/3
+  # SP300_seed3.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed3.pt          Cell03          @300  MSE@50=3.584e-04  MSE=1.287e-01  AE=>=361  AE/k=1.25  n
+  SP300_seed3.pt          Cell03          @400  MSE@50=5.906e-04  MSE=1.095e-01  AE=>=461  AE/k=2.45  n
+  SP300_seed3.pt          Cell03          @500  MSE@50=5.596e-04  MSE=7.144e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=5.029e-04  MSE=1.032e-01  AE=461.0  crossed=0/3
+  # SP300_seed4.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed4.pt          Cell03          @300  MSE@50=3.934e-03  MSE=1.108e-01  AE=  198  AE/k=0.69  Y
+  SP300_seed4.pt          Cell03          @400  MSE@50=2.398e-03  MSE=7.510e-02  AE=  115  AE/k=0.61  Y
+  SP300_seed4.pt          Cell03          @500  MSE@50=3.443e-03  MSE=5.170e-02  AE=   46  AE/k=0.52  Y
+
+                          MEAN                  MSE@50=3.258e-03  MSE=7.919e-02  AE=119.7  crossed=3/3
+  # SP300_seed5.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed5.pt          Cell03          @300  MSE@50=2.661e-04  MSE=1.249e-01  AE=>=361  AE/k=1.25  n
+  SP300_seed5.pt          Cell03          @400  MSE@50=3.363e-04  MSE=1.049e-01  AE=>=461  AE/k=2.45  n
+  SP300_seed5.pt          Cell03          @500  MSE@50=3.192e-04  MSE=6.672e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=3.072e-04  MSE=9.883e-02  AE=461.0  crossed=0/3
+  # SP300_seed6.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed6.pt          Cell03          @300  MSE@50=4.401e-04  MSE=1.311e-01  AE=>=361  AE/k=1.25  n
+  SP300_seed6.pt          Cell03          @400  MSE@50=6.523e-04  MSE=1.104e-01  AE=>=461  AE/k=2.45  n
+  SP300_seed6.pt          Cell03          @500  MSE@50=9.646e-04  MSE=7.583e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=6.857e-04  MSE=1.058e-01  AE=461.0  crossed=0/3
+  # SP300_seed7.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed7.pt          Cell03          @300  MSE@50=1.154e-03  MSE=4.657e-02  AE=  134  AE/k=0.47  Y
+  SP300_seed7.pt          Cell03          @400  MSE@50=7.758e-04  MSE=3.290e-02  AE=   80  AE/k=0.43  Y
+  SP300_seed7.pt          Cell03          @500  MSE@50=1.613e-03  MSE=2.434e-02  AE=   35  AE/k=0.40  Y
+
+                          MEAN                  MSE@50=1.181e-03  MSE=3.461e-02  AE=83.0  crossed=3/3
+  # SP300_seed8.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed8.pt          Cell03          @300  MSE@50=4.560e-04  MSE=1.315e-01  AE=>=361  AE/k=1.25  n
+  SP300_seed8.pt          Cell03          @400  MSE@50=7.242e-04  MSE=1.114e-01  AE=>=461  AE/k=2.45  n
+  SP300_seed8.pt          Cell03          @500  MSE@50=1.880e-04  MSE=6.463e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=4.561e-04  MSE=1.025e-01  AE=461.0  crossed=0/3
+  # SP300_seed9.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed9.pt          Cell03          @300  MSE@50=2.156e-04  MSE=1.197e-01  AE=>=361  AE/k=1.25  n
+  SP300_seed9.pt          Cell03          @400  MSE@50=1.414e-04  MSE=1.001e-01  AE=>=461  AE/k=2.45  n
+  SP300_seed9.pt          Cell03          @500  MSE@50=4.864e-04  MSE=6.976e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=2.811e-04  MSE=9.652e-02  AE=461.0  crossed=0/3
+  # SP300_seed10.pt: no tgt_mode in the checkpoint; inferred 'zscore' from the filename
+  SP300_seed10.pt         Cell03          @300  MSE@50=1.232e-03  MSE=5.071e-02  AE=>=361  AE/k=1.25  n
+  SP300_seed10.pt         Cell03          @400  MSE@50=3.514e-04  MSE=3.439e-02  AE=>=461  AE/k=2.45  n
+  SP300_seed10.pt         Cell03          @500  MSE@50=5.411e-04  MSE=4.173e-02  AE=>=561  AE/k=6.38  n
+
+                          MEAN                  MSE@50=7.082e-04  MSE=4.228e-02  AE=461.0  crossed=0/3
+

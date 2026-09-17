@@ -1,0 +1,28 @@
+  dropped 2 outlier cells (max > 1.2 Ah): ['batch2_cell12', 'batch2_cell44']
+=== MIT all-cells  train=39 test=2  W=64  eol=0.86 Ah  SPs [300] ===
+  cached split uses 8 train cells; this uses 39
+  SP300: 17281 windows (16809 train + 472 test-cell pre-SP)
+    [ep   1/100] loss=0.32804  50s, 50.4s/ep, eta 4992s
+    [ep   6/100] loss=0.27111  300s, 49.8s/ep, eta 4685s
+    [ep  11/100] loss=0.22454  718s, 83.6s/ep, eta 7439s
+    [ep  16/100] loss=0.17586  965s, 49.6s/ep, eta 4165s
+    [ep  21/100] loss=0.15602  1214s, 49.8s/ep, eta 3935s
+    [ep  26/100] loss=0.14688  1478s, 52.8s/ep, eta 3907s
+    [ep  31/100] loss=0.14013  1739s, 52.1s/ep, eta 3593s
+    [ep  36/100] loss=0.13535  1994s, 51.0s/ep, eta 3261s
+    [ep  41/100] loss=0.14045  2251s, 51.4s/ep, eta 3032s
+    [ep  46/100] loss=0.13304  2507s, 51.3s/ep, eta 2771s
+    [ep  51/100] loss=0.12733  2763s, 51.1s/ep, eta 2505s
+    [ep  56/100] loss=0.12451  3020s, 51.5s/ep, eta 2265s
+    [ep  61/100] loss=0.12590  3282s, 52.4s/ep, eta 2044s
+    [ep  66/100] loss=0.11827  3532s, 50.0s/ep, eta 1700s
+    [ep  71/100] loss=0.11780  3782s, 50.0s/ep, eta 1449s
+    [ep  76/100] loss=0.11250  4028s, 49.2s/ep, eta 1182s
+    [ep  81/100] loss=0.11050  4279s, 50.2s/ep, eta 955s
+    [ep  86/100] loss=0.10933  4527s, 49.5s/ep, eta 693s
+    [ep  91/100] loss=0.10674  4775s, 49.7s/ep, eta 447s
+    [ep  96/100] loss=0.10752  5022s, 49.4s/ep, eta 198s
+    [ep 100/100] loss=0.10441  5221s, 49.6s/ep, eta 0s
+    SP300 seed1: MAE=0.00154 R2=0.9999 AE=1.0 [5250s]
+=== per-SP means over seeds ===
+  SP300: MAE=0.00154 R2=0.9999 AE=1.00

@@ -1,0 +1,65 @@
+========================================================================================================
+  NASA noise augmentation  test=B0005  W=30  eol=1.4 Ah  real train cells 3
+  lo=1.1538 hi=2.0353 (from the 3 REAL cells, fixed across configs)   test series 168 cycles
+========================================================================================================
+  n_aug=0 (CONTROL): 3 real training cells only
+    [ep   1/100] loss=0.79517  1s, 1.4s/ep, eta 134s
+    [ep   6/100] loss=0.44637  6s, 0.9s/ep, eta 81s
+    [ep  11/100] loss=0.41228  10s, 0.8s/ep, eta 69s
+    [ep  16/100] loss=0.39301  13s, 0.7s/ep, eta 58s
+    [ep  21/100] loss=0.39637  16s, 0.7s/ep, eta 53s
+    [ep  26/100] loss=0.32597  20s, 0.7s/ep, eta 49s
+    [ep  31/100] loss=0.29583  23s, 0.7s/ep, eta 46s
+    [ep  36/100] loss=0.29258  27s, 0.7s/ep, eta 47s
+    [ep  41/100] loss=0.27894  30s, 0.7s/ep, eta 42s
+    [ep  46/100] loss=0.24405  34s, 0.7s/ep, eta 37s
+    [ep  51/100] loss=0.24753  37s, 0.7s/ep, eta 32s
+    [ep  56/100] loss=0.25646  40s, 0.7s/ep, eta 30s
+    [ep  61/100] loss=0.23436  44s, 0.7s/ep, eta 27s
+    [ep  66/100] loss=0.23071  47s, 0.7s/ep, eta 23s
+    [ep  71/100] loss=0.22245  50s, 0.7s/ep, eta 19s
+    [ep  76/100] loss=0.22573  54s, 0.7s/ep, eta 16s
+    [ep  81/100] loss=0.22422  57s, 0.7s/ep, eta 13s
+    [ep  86/100] loss=0.23177  60s, 0.7s/ep, eta 9s
+    [ep  91/100] loss=0.21283  64s, 0.7s/ep, eta 6s
+    [ep  96/100] loss=0.21049  67s, 0.7s/ep, eta 3s
+    [ep 100/100] loss=0.24893  70s, 0.7s/ep, eta 0s
+      3c seed1: TF MAE=0.0090 R2=0.9931 | AR MSE@50=1.09e-03 MSE=3.99e-03 AE=  28  [79s]
+
+  n_aug=9: 30 training cells (3 real + 27 synthetic)   per-cell noise (Ah): B0006:0.0263  B0007:0.0121  B0018:0.0240
+    added sigma = 1.00x own noise -> total noise x1.41
+    [ep   1/100] loss=0.59227  7s, 7.0s/ep, eta 689s
+    [ep   6/100] loss=0.51039  42s, 7.0s/ep, eta 657s
+    [ep  11/100] loss=0.48708  75s, 6.7s/ep, eta 594s
+    [ep  16/100] loss=0.46659  111s, 7.2s/ep, eta 604s
+    [ep  21/100] loss=0.45182  148s, 7.5s/ep, eta 589s
+    [ep  26/100] loss=0.43960  183s, 6.9s/ep, eta 508s
+    [ep  31/100] loss=0.43496  217s, 6.9s/ep, eta 473s
+    [ep  36/100] loss=0.42989  255s, 7.7s/ep, eta 490s
+    [ep  41/100] loss=0.41212  292s, 7.3s/ep, eta 429s
+    [ep  46/100] loss=0.41240  329s, 7.4s/ep, eta 397s
+    [ep  51/100] loss=0.39534  365s, 7.3s/ep, eta 359s
+    [ep  56/100] loss=0.40004  400s, 7.0s/ep, eta 310s
+    [ep  61/100] loss=0.38477  434s, 6.7s/ep, eta 263s
+    [ep  66/100] loss=0.36711  467s, 6.6s/ep, eta 226s
+    [ep  71/100] loss=0.34713  500s, 6.6s/ep, eta 193s
+    [ep  76/100] loss=0.33508  534s, 6.6s/ep, eta 160s
+    [ep  81/100] loss=0.31136  567s, 6.7s/ep, eta 127s
+    [ep  86/100] loss=0.30107  600s, 6.6s/ep, eta 92s
+    [ep  91/100] loss=0.29274  633s, 6.6s/ep, eta 59s
+    [ep  96/100] loss=0.27606  666s, 6.6s/ep, eta 26s
+    [ep 100/100] loss=0.27801  692s, 6.6s/ep, eta 0s
+     30c seed1: TF MAE=0.0110 R2=0.9922 | AR MSE@50=1.33e-03 MSE=8.47e-03 AE=  --  [698s]
+
+========================================================================================================
+  cells     win  seeds    TF MAE    TF R2   AR MSE@50     AR MSE    AR AE  crossed
+--------------------------------------------------------------------------------------------------------
+      3     378      1    0.0090   0.9931    1.09e-03   3.99e-03       28    1/1  
+     30    3780      1    0.0110   0.9922    1.33e-03   8.47e-03       --    0/1  
+
+  Control and augmented runs are the same code path; only the cell
+  count differs.  No per-SP split: the test cell is held out whole.
+  TF = the per-step non-recursive pass over the test series; AR = a
+  self-fed rollout launched 50 cycles before EOL with
+  the plain z-score decode, no correction.  A rollout that never
+  crosses contributes no AR AE.

@@ -1,0 +1,136 @@
+##### TJU ours #####
+========================================================================================================
+  TJU  W=64  SP=200  test=CY25_1  rated=2.50 Ah  EOL_AH=1.75 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=300
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === OURS   test=CY25_1  SP200  W=64  root=../checkpoints/per_sp ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  ours   1      EOL-50      728       -        - 7.721e-03 1.169e-04 7.721e-03 1.169e-04         n
+  ours   1      EOL-100     678       -        - 1.314e-02 3.067e-04 3.927e-03 2.242e-05         n
+  ours   2      EOL-50      728      13     0.26 2.959e-03 1.509e-05 2.959e-03 1.509e-05         Y
+  ours   2      EOL-100     678      29     0.29 3.693e-03 2.501e-05 1.586e-03 3.030e-06         Y
+  ours   3      EOL-50      728      24     0.48 4.508e-03 3.226e-05 4.508e-03 3.226e-05         Y
+  ours   3      EOL-100     678      56     0.56 7.166e-03 8.387e-05 3.065e-03 1.235e-05         Y
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === TJU summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  ours   EOL-50      2/3 5.063e-03 5.474e-05 5.063e-03 5.474e-05     18.5
+  ours   EOL-100     2/3 8.001e-03 1.385e-04 2.859e-03 1.260e-05     42.5
+##### TJU pf rm #####
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+
+========================================================================================================
+  TJU  W=64  SP=200  test=CY25_1  rated=2.50 Ah  EOL_AH=1.75 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=300
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === PF   test=CY25_1  EOL=778  rated=2.50  EOL_AH=1.75  seql=64 ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  pf     1      EOL-50      727       2     0.04 3.064e-03 1.669e-05 3.094e-03 1.697e-05         Y
+  pf     1      EOL-100     677       6     0.06 4.140e-03 2.786e-05 1.660e-03 4.323e-06         Y
+  pf     2      EOL-50      727       3     0.06 2.075e-03 9.492e-06 2.075e-03 9.596e-06         Y
+  pf     2      EOL-100     677       3     0.03 1.525e-03 5.462e-06 9.702e-04 1.361e-06         Y
+  pf     3      EOL-50      727       2     0.04 2.112e-03 1.043e-05 2.132e-03 1.062e-05         Y
+  pf     3      EOL-100     677       1     0.01 2.028e-03 9.714e-06 8.786e-04 1.316e-06         Y
+
+  === RM   test=CY25_1  EOL=778  rated=2.50  EOL_AH=1.75  seql=64 ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  rm     1      EOL-50      727       8     0.16 2.342e-03 1.020e-05 2.298e-03 9.984e-06         Y
+  rm     1      EOL-100     677      21     0.21 4.797e-03 3.127e-05 3.105e-03 1.067e-05         Y
+  rm     2      EOL-50      727       7     0.14 2.292e-03 9.954e-06 2.251e-03 9.775e-06         Y
+  rm     2      EOL-100     677      20     0.20 4.618e-03 2.888e-05 3.032e-03 1.015e-05         Y
+  rm     3      EOL-50      727      10     0.20 2.594e-03 1.175e-05 2.532e-03 1.134e-05         Y
+  rm     3      EOL-100     677      28     0.28 5.858e-03 4.723e-05 3.579e-03 1.430e-05         Y
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === TJU summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  pf     EOL-50      3/3 2.417e-03 1.221e-05 2.433e-03 1.240e-05      2.3
+  pf     EOL-100     3/3 2.564e-03 1.435e-05 1.170e-03 2.333e-06      3.3
+  rm     EOL-50      3/3 2.409e-03 1.063e-05 2.360e-03 1.037e-05      8.3
+  rm     EOL-100     3/3 5.091e-03 3.580e-05 3.239e-03 1.171e-05     23.0
+
+##### NASA ours #####
+========================================================================================================
+  NASA  W=30  SP=50  test=B0005  rated=2.00 Ah  EOL_AH=1.40 Ah
+  runs=[1, 2, 3]  launches=EOL-20/30/40/50/60  steps=200
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === OURS   test=B0005  SP50  W=64  root=../checkpoints/per_sp ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  ours   1      EOL-20      104       -        - 1.598e-02 2.989e-04 5.061e-02 3.710e-03         n
+  ours   1      EOL-30       94       -        - 3.111e-02 1.103e-03 4.813e-02 2.933e-03         n
+  ours   1      EOL-40       84       -        - 6.003e-02 4.625e-03 7.485e-02 7.315e-03         n
+  ours   1      EOL-50       74       -        - 9.688e-02 1.203e-02 9.688e-02 1.203e-02         n
+  ours   1      EOL-60       64       -        - 1.192e-01 1.830e-02 1.011e-01 1.313e-02         n
+  ours   2      EOL-20      104      18     0.90 2.491e-02 7.011e-04 4.131e-02 2.010e-03         Y
+  ours   2      EOL-30       94      28     0.93 3.484e-02 1.383e-03 4.718e-02 2.587e-03         Y
+  ours   2      EOL-40       84       -        - 4.985e-02 3.126e-03 6.024e-02 4.586e-03         n
+  ours   2      EOL-50       74       -        - 7.002e-02 6.298e-03 7.002e-02 6.298e-03         n
+  ours   2      EOL-60       64       -        - 9.286e-02 1.102e-02 7.886e-02 7.899e-03         n
+  ours   3      EOL-20      104       5     0.25 1.401e-02 2.220e-04 1.897e-02 4.327e-04         Y
+  ours   3      EOL-30       94      10     0.33 1.713e-02 3.841e-04 2.500e-02 7.936e-04         Y
+  ours   3      EOL-40       84       -        - 2.554e-02 9.306e-04 3.330e-02 1.584e-03         n
+  ours   3      EOL-50       74       -        - 3.544e-02 1.750e-03 3.544e-02 1.750e-03         n
+  ours   3      EOL-60       64       -        - 3.901e-02 2.292e-03 3.068e-02 1.425e-03         n
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === NASA summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  ours   EOL-20      2/3 1.830e-02 4.073e-04 3.696e-02 2.051e-03     11.5
+  ours   EOL-30      2/3 2.769e-02 9.568e-04 4.010e-02 2.104e-03     19.0
+  ours   EOL-40      0/3 4.514e-02 2.894e-03 5.613e-02 4.495e-03        -
+  ours   EOL-50      0/3 6.745e-02 6.693e-03 6.745e-02 6.693e-03        -
+  ours   EOL-60      0/3 8.369e-02 1.054e-02 7.020e-02 7.485e-03        -
+##### NASA pf rm #####
+usage: ar_baselines_tju.py [-h] [--model MODEL] [--seed SEED]
+                           [--root_dir ROOT_DIR] [--seq_len SEQ_LEN]
+                           [--label_len LABEL_LEN] [--pred_len PRED_LEN]
+                           [--patch_len PATCH_LEN] [--d_model D_MODEL]
+                           [--count COUNT] [--batch_size BATCH_SIZE]
+                           [--data_dir DATA_DIR] [--Battery_list BATTERY_LIST]
+                           [--Rated_Capacity RATED_CAPACITY]
+                           [--test_name TEST_NAME]
+                           [--start_point_list START_POINT_LIST]
+                           [--max_epochs MAX_EPOCHS]
+ar_baselines_tju.py: error: unrecognized arguments: --ds nasa --models pf rm --runs 1 2 3 --steps 200
+
+ERROR conda.cli.main_run:execute(125): `conda run python ar_baselines_tju.py --ds nasa --models pf rm --runs 1 2 3 --steps 200` failed. (See above for error)
+========================================================================================================
+  NASA  W=30  SP=50  test=B0005  rated=2.00 Ah  EOL_AH=1.40 Ah
+  runs=[1, 2, 3]  launches=EOL-20/30/40/50/60  steps=200
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+##### ALL DONE #####

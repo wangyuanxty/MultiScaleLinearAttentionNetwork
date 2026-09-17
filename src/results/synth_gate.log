@@ -1,0 +1,36 @@
+====================================================================================================
+  SYNTHETIC LEARNING CURVE  [gate]  pool seed=0  115 train + 5 test  W=64
+  lo=0.2628 hi=1.1559 (from ALL 115 training cells, constant across arms)   steps/arm=10000 (matched)
+  N=[1, 100]  seeds=[1]
+====================================================================================================
+      N seed    win     ep   TF MAE   TF R2   AR MSE@50    AR MSE   AR AE  crossed
+  --------------------------------------------------------------------------------
+    [ep   1/2000] loss=1.11357  2s, 1.7s/ep, eta 3495s
+    [ep 251/2000] loss=0.56725  246s, 1.0s/ep, eta 1709s
+    [ep 501/2000] loss=0.36922  491s, 1.0s/ep, eta 1470s
+    [ep 751/2000] loss=0.18964  857s, 1.5s/ep, eta 1827s
+    [ep 1001/2000] loss=0.12685  1676s, 3.3s/ep, eta 3274s
+    [ep 1251/2000] loss=0.12502  2240s, 2.3s/ep, eta 1689s
+    [ep 1501/2000] loss=0.11362  2727s, 1.9s/ep, eta 973s
+    [ep 1751/2000] loss=0.09666  3205s, 1.9s/ep, eta 476s
+    [ep 2000/2000] loss=0.08650  3594s, 1.6s/ep, eta 0s
+      1    1    266   2000  0.01859  0.9707   2.718e-03 6.051e-02 150.000    0/5    [3629s]
+
+    [ep   1/22] loss=0.69779  86s, 85.5s/ep, eta 1796s
+    [ep   3/22] loss=0.61047  256s, 85.3s/ep, eta 1621s
+    [ep   5/22] loss=0.58702  427s, 85.3s/ep, eta 1449s
+    [ep   7/22] loss=0.57993  624s, 98.9s/ep, eta 1483s
+    [ep   9/22] loss=0.57652  816s, 95.6s/ep, eta 1242s
+    [ep  11/22] loss=0.57157  986s, 85.1s/ep, eta 936s
+    [ep  13/22] loss=0.57079  1162s, 88.2s/ep, eta 794s
+    [ep  15/22] loss=0.57283  1334s, 86.0s/ep, eta 602s
+    [ep  17/22] loss=0.56843  1511s, 88.3s/ep, eta 441s
+    [ep  19/22] loss=0.56741  1685s, 86.9s/ep, eta 261s
+    [ep  21/22] loss=0.56363  1860s, 87.6s/ep, eta 88s
+    [ep  22/22] loss=0.56490  1946s, 85.9s/ep, eta 0s
+    100    1  28077     22  0.01336  0.9867   2.027e-03 3.092e-02  31.600    5/5    [2107s]
+
+  saved 2 rows to results/synth_curve.json
+  AE is the mean over the 5 held-out cells; rows where a
+  rollout never crossed carry a lower bound (tail length), so 'crossed'
+  is reported but is NOT the metric.

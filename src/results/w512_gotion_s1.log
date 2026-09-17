@@ -1,0 +1,26 @@
+=== gotion W=512 (dataset default 30)  seeds 1..1  SPs [600] ===
+  SP600: 1906 windows of 512 cycles (1818 from train cells + 88 test-cell pre-SP)
+    [ep   1/100] loss=0.48003  28s, 28.0s/ep, eta 2772s
+    [ep   6/100] loss=0.14327  166s, 27.7s/ep, eta 2603s
+    [ep  11/100] loss=0.10498  305s, 27.7s/ep, eta 2464s
+    [ep  16/100] loss=0.10011  444s, 27.8s/ep, eta 2333s
+    [ep  21/100] loss=0.09316  604s, 32.0s/ep, eta 2526s
+    [ep  26/100] loss=0.09289  744s, 28.1s/ep, eta 2079s
+    [ep  31/100] loss=0.09213  884s, 28.0s/ep, eta 1934s
+    [ep  36/100] loss=0.08831  1024s, 28.0s/ep, eta 1794s
+    [ep  41/100] loss=0.09387  1196s, 34.4s/ep, eta 2028s
+    [ep  46/100] loss=0.08643  1388s, 38.4s/ep, eta 2075s
+    [ep  51/100] loss=0.08720  1569s, 36.1s/ep, eta 1767s
+    [ep  56/100] loss=0.08700  1709s, 28.0s/ep, eta 1231s
+    [ep  61/100] loss=0.08460  1848s, 27.8s/ep, eta 1086s
+    [ep  66/100] loss=0.08325  1987s, 27.8s/ep, eta 944s
+    [ep  71/100] loss=0.08456  2125s, 27.6s/ep, eta 802s
+    [ep  76/100] loss=0.08365  2264s, 27.8s/ep, eta 666s
+    [ep  81/100] loss=0.08471  2403s, 27.8s/ep, eta 528s
+    [ep  86/100] loss=0.08325  2541s, 27.8s/ep, eta 389s
+    [ep  91/100] loss=0.08616  2680s, 27.8s/ep, eta 250s
+    [ep  96/100] loss=0.08782  2819s, 27.9s/ep, eta 111s
+    [ep 100/100] loss=0.08423  2931s, 27.8s/ep, eta 0s
+    SP600 seed1: MAE=0.00816 RMSE=0.01082 R2=0.9958 AE=27.0 [3165s]
+=== per-SP means over seeds ===
+  SP600: MAE=0.00816 R2=0.9958 AE=27.00

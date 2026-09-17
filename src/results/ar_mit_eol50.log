@@ -1,0 +1,50 @@
+  ckpt      SP300_seed1.pt
+  protocol  launch cycle 439 = EOL - 50;  rollout 68 steps -> cycle 507  (W=64, series 507)
+  MSE       3.025e-03      MAE  0.04961
+  MSE@50     1.863e-03      MAE@50  0.03912
+  AE        11      AE/k = 0.22
+  sigma end 0.10947   floor 0.00106   ratio 103.3   (in range)
+  final     0.0863   (truth at end 0.0000)
+
+  Same test cell / same seed / same protocol against the 8-cell
+  split: --ckpt ../checkpoints/per_sp/mit/SP300_seed1.pt
+  ckpt      SP300_seed1_ep025.pt  (ep 25)
+  protocol  launch cycle 439 = EOL - 50;  rollout 68 steps -> cycle 507  (W=64, series 507)
+  MSE       6.615e-03      MAE  0.06897
+  MSE@50     3.232e-03      MAE@50  0.04850
+  AE        11      AE/k = 0.22
+  sigma end 0.16997   floor 0.00105   ratio 162.6   (in range)
+  final     -0.1464   (truth at end 0.0002)
+
+  Same test cell / same seed / same protocol against the 8-cell
+  split: --ckpt ../checkpoints/per_sp/mit/SP300_seed1.pt
+  ckpt      SP300_seed1_ep050.pt  (ep 50)
+  protocol  launch cycle 439 = EOL - 50;  rollout 68 steps -> cycle 507  (W=64, series 507)
+  MSE       1.437e-02      MAE  0.10821
+  MSE@50     9.518e-03      MAE@50  0.08734
+  AE        >=18    AE/k = 0.36   (never crossed: lower bound)
+  sigma end 0.08535   floor 0.00105   ratio 81.6   (in range)
+  final     0.1916   (truth at end 0.0002)
+
+  Same test cell / same seed / same protocol against the 8-cell
+  split: --ckpt ../checkpoints/per_sp/mit/SP300_seed1.pt
+  ckpt      SP300_seed1_ep075.pt  (ep 75)
+  protocol  launch cycle 439 = EOL - 50;  rollout 68 steps -> cycle 507  (W=64, series 507)
+  MSE       7.113e-04      MAE  0.02412
+  MSE@50     7.167e-04      MAE@50  0.02335
+  AE        5       AE/k = 0.10
+  sigma end 0.13568   floor 0.00105   ratio 129.8   (in range)
+  final     -0.0307   (truth at end 0.0002)
+
+  Same test cell / same seed / same protocol against the 8-cell
+  split: --ckpt ../checkpoints/per_sp/mit/SP300_seed1.pt
+  ckpt      SP300_seed1_ep100.pt  (ep 100)
+  protocol  launch cycle 439 = EOL - 50;  rollout 68 steps -> cycle 507  (W=64, series 507)
+  MSE       7.457e-03      MAE  0.07518
+  MSE@50     4.956e-03      MAE@50  0.05912
+  AE        >=18    AE/k = 0.36   (never crossed: lower bound)
+  sigma end 0.09107   floor 0.00105   ratio 87.1   (in range)
+  final     0.1354   (truth at end 0.0002)
+
+  Same test cell / same seed / same protocol against the 8-cell
+  split: --ckpt ../checkpoints/per_sp/mit/SP300_seed1.pt

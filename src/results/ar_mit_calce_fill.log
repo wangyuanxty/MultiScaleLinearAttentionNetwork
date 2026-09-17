@@ -1,0 +1,110 @@
+##### MIT pf rm #####
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+
+========================================================================================================
+  MIT  W=64  SP=200  test=batch2_cell5  rated=1.07 Ah  EOL_AH=0.86 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=400
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === PF   test=batch2_cell5  EOL=489  rated=1.07  EOL_AH=0.86  seql=64 ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  pf     1      EOL-50      438      14     0.28 1.751e-02 5.081e-04 1.689e-02 4.714e-04         Y
+  pf     1      EOL-100     388      24     0.24 2.699e-02 1.491e-03 5.463e-03 4.538e-05         Y
+  pf     2      EOL-50      438      10     0.20 1.081e-02 1.840e-04 1.047e-02 1.720e-04         Y
+  pf     2      EOL-100     388      21     0.21 2.245e-02 8.420e-04 7.131e-03 7.086e-05         Y
+  pf     3      EOL-50      438      15     0.30 1.924e-02 5.910e-04 1.863e-02 5.539e-04         Y
+  pf     3      EOL-100     388      27     0.27 3.036e-02 1.741e-03 6.791e-03 7.129e-05         Y
+
+  === RM   test=batch2_cell5  EOL=489  rated=1.07  EOL_AH=0.86  seql=64 ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  rm     1      EOL-50      438       3     0.06 4.987e-03 2.631e-05 4.980e-03 2.626e-05         Y
+  rm     1      EOL-100     388       -        - 1.674e-02 4.437e-04 5.403e-03 4.610e-05         n
+  rm     2      EOL-50      438       3     0.06 5.602e-03 3.336e-05 5.588e-03 3.323e-05         Y
+  rm     2      EOL-100     388       -        - 1.900e-02 5.705e-04 6.222e-03 5.983e-05         n
+  rm     3      EOL-50      438       1     0.02 4.043e-03 1.725e-05 4.074e-03 1.747e-05         Y
+  rm     3      EOL-100     388       -        - 1.696e-02 4.509e-04 5.598e-03 4.899e-05         n
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === MIT summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  pf     EOL-50      3/3 1.585e-02 4.277e-04 1.533e-02 3.991e-04     13.0
+  pf     EOL-100     3/3 2.660e-02 1.358e-03 6.462e-03 6.251e-05     24.0
+  rm     EOL-50      3/3 4.877e-03 2.564e-05 4.881e-03 2.565e-05      2.3
+  rm     EOL-100     0/3 1.757e-02 4.884e-04 5.741e-03 5.164e-05        -
+
+##### CALCE ours #####
+========================================================================================================
+  CALCE  W=64  SP=300  test=CS2_35  rated=1.10 Ah  EOL_AH=0.77 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=300
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === OURS   test=CS2_35  SP300  W=64  root=../checkpoints/per_sp ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  ours   1      EOL-50      590      25     0.50 1.731e-02 4.788e-04 1.731e-02 4.788e-04         Y
+  ours   1      EOL-100     540      12     0.12 3.086e-02 1.392e-03 1.516e-02 3.745e-04         Y
+  ours   2      EOL-50      590       -        - 2.689e-02 1.374e-03 2.689e-02 1.374e-03         n
+  ours   2      EOL-100     540       -        - 3.711e-02 2.177e-03 2.203e-02 6.185e-04         n
+  ours   3      EOL-50      590     107     2.14 1.533e-02 4.679e-04 1.533e-02 4.679e-04         Y
+  ours   3      EOL-100     540      55     0.55 2.247e-02 6.681e-04 1.400e-02 2.500e-04         Y
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === CALCE summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  ours   EOL-50      2/3 1.984e-02 7.735e-04 1.984e-02 7.735e-04     66.0
+  ours   EOL-100     2/3 3.015e-02 1.412e-03 1.707e-02 4.143e-04     33.5
+##### MIT ours #####
+========================================================================================================
+  MIT  W=64  SP=200  test=batch2_cell5  rated=1.07 Ah  EOL_AH=0.86 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=400
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === OURS   test=batch2_cell5  SP200  W=64  root=../checkpoints/per_sp ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  ours   1      EOL-50      439       2     0.04 2.387e-03 6.534e-06 2.387e-03 6.534e-06         Y
+  ours   1      EOL-100     389      12     0.12 9.427e-03 1.517e-04 2.337e-03 1.094e-05         Y
+  ours   1      EOL-50      676      11     0.22 7.993e-03 1.211e-04 7.993e-03 1.211e-04         Y
+  ours   1      EOL-100     626       6     0.06 8.436e-03 9.311e-05 4.242e-03 2.345e-05         Y
+  ours   2      EOL-50      439       2     0.04 2.712e-03 8.133e-06 2.712e-03 8.133e-06         Y
+  ours   2      EOL-100     389       -        - 1.791e-02 5.162e-04 5.609e-03 5.241e-05         n
+  ours   2      EOL-50      676      17     0.34 1.659e-02 3.757e-04 1.659e-02 3.757e-04         Y
+  ours   2      EOL-100     626      19     0.19 1.029e-02 2.510e-04 9.170e-04 1.034e-06         Y
+  ours   3      EOL-50      439       1     0.02 2.000e-03 4.199e-06 2.000e-03 4.199e-06         Y
+  ours   3      EOL-100     389      16     0.16 1.432e-02 3.160e-04 4.850e-03 3.859e-05         Y
+  ours   3      EOL-50      676       8     0.16 4.559e-03 4.232e-05 4.559e-03 4.232e-05         Y
+  ours   3      EOL-100     626       -        - 1.486e-02 3.225e-04 6.052e-03 4.957e-05         n
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === MIT summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  ours   EOL-50      6/6 6.039e-03 9.301e-05 6.039e-03 9.301e-05      6.8
+  ours   EOL-100     4/6 1.254e-02 2.751e-04 4.001e-03 2.933e-05     13.2
+##### ALL DONE #####

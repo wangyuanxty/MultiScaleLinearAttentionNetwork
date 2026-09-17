@@ -1,0 +1,17 @@
+================================================================================================
+  SYNTHETIC POOL  seed=0  115 train + 5 test  (test generated first, held out for every N)
+  EOL_FRAC=0.8  TAIL=50  FLOOR=0.35  L~U(150,450)  n_k/L~U(0.65,0.90)  f~U(0.25,0.50)  gamma~U(2.0,4.0)  sig/d~U(0.8,2.5)
+================================================================================================
+  cell        Q0     L   nk/L     f   gam  sig/d   phi  EOL@  len    slope  drop/cyc   acf1
+  -----------------------------------------------------------------------------------------
+  TEST     1.014   231   0.66  0.25  3.63   2.35  0.38   233  281  0.00658   0.01382   0.93
+  TEST     1.023   313   0.88  0.45  2.01   2.26  0.21   310  363  0.00599   0.01483   0.84
+  TEST     1.023   203   0.87  0.39  2.60   1.52  0.21   200  253  0.01164   0.02118   0.94
+  TEST     0.962   351   0.81  0.40  2.77   2.50  0.49   350  401  0.00457   0.00915   0.88
+  TEST     1.019   345   0.82  0.35  2.27   2.03  0.36   345  395  0.00476   0.00780   0.82
+
+  A. crossing vs nominal L:  max |dev| = 7 cycles, mean 1.7   (was 10 before sigma was tied to the EOL slope)
+  B. tail past EOL: 50-50 cycles for every cell (uniform by construction).  Lowest value reached anywhere: -0.151*Q0, still positive.
+  C. series length: 204-499   train windows at W=64: 32860   at W=256: 11327
+  D. sig/d range 0.81-2.50   (real CALCE CS2_35 = 2.0)
+  E. files written: none

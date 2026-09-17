@@ -1,0 +1,79 @@
+  dropped 2 outlier cells (max > 1.2 Ah): ['batch2_cell12', 'batch2_cell44']
+====================================================================================================
+  MIT cell-count dose-response  pool=39 cells  test=['batch2_cell5', 'batch2_cell47']  W=64  SP300  epochs=100
+  lo=0.8250 hi=1.0895 from ALL 39 cells, constant across every N   N=[4, 12]  seeds=[1, 2, 3]
+====================================================================================================
+     N seed    win    TF MAE    TF R2   AR MSE@50     AR MSE   AR AE  crossed
+  ---------------------------------------------------------------------------
+    [ep   1/100] loss=0.48738  27s, 26.6s/ep, eta 2630s
+    [ep   6/100] loss=0.29012  54s, 5.6s/ep, eta 523s
+    [ep  11/100] loss=0.26849  83s, 5.8s/ep, eta 515s
+    [ep  16/100] loss=0.25913  111s, 5.4s/ep, eta 457s
+    [ep  21/100] loss=0.25931  159s, 9.7s/ep, eta 769s
+    [ep  26/100] loss=0.25559  248s, 17.7s/ep, eta 1308s
+    [ep  31/100] loss=0.22124  306s, 11.7s/ep, eta 808s
+    [ep  36/100] loss=0.19635  334s, 5.5s/ep, eta 353s
+    [ep  41/100] loss=0.16286  361s, 5.5s/ep, eta 323s
+    [ep  46/100] loss=0.16049  390s, 5.7s/ep, eta 308s
+    [ep  51/100] loss=0.15475  418s, 5.6s/ep, eta 275s
+    [ep  56/100] loss=0.15400  446s, 5.6s/ep, eta 248s
+    [ep  61/100] loss=0.14982  477s, 6.2s/ep, eta 242s
+    [ep  66/100] loss=0.15118  506s, 5.8s/ep, eta 198s
+    [ep  71/100] loss=0.19716  535s, 5.8s/ep, eta 167s
+    [ep  76/100] loss=0.15244  562s, 5.4s/ep, eta 130s
+    [ep  81/100] loss=0.15381  652s, 17.9s/ep, eta 341s
+    [ep  86/100] loss=0.14966  829s, 35.5s/ep, eta 497s
+    [ep  91/100] loss=0.14593  929s, 20.1s/ep, eta 181s
+    [ep  96/100] loss=0.14471  963s, 6.7s/ep, eta 27s
+    [ep 100/100] loss=0.14653  998s, 8.8s/ep, eta 0s
+     4    1   1813   0.00222   0.9997   5.054e-04  5.048e-04     3.0    2/2    [1018s]
+    [ep   1/100] loss=0.51353  6s, 6.5s/ep, eta 639s
+    [ep   6/100] loss=0.27873  49s, 8.4s/ep, eta 794s
+    [ep  11/100] loss=0.27188  78s, 5.9s/ep, eta 527s
+    [ep  16/100] loss=0.18101  117s, 7.8s/ep, eta 651s
+    [ep  21/100] loss=0.16583  146s, 5.9s/ep, eta 464s
+    [ep  26/100] loss=0.15759  174s, 5.5s/ep, eta 407s
+    [ep  31/100] loss=0.16013  207s, 6.7s/ep, eta 460s
+    [ep  36/100] loss=0.15695  242s, 6.9s/ep, eta 444s
+    [ep  41/100] loss=0.15514  271s, 5.8s/ep, eta 341s
+    [ep  46/100] loss=0.15146  298s, 5.5s/ep, eta 296s
+    [ep  51/100] loss=0.15295  326s, 5.5s/ep, eta 270s
+    [ep  56/100] loss=0.19046  370s, 8.8s/ep, eta 387s
+    [ep  61/100] loss=0.15334  405s, 7.1s/ep, eta 277s
+    [ep  66/100] loss=0.15043  441s, 7.1s/ep, eta 241s
+    [ep  71/100] loss=0.14839  607s, 33.3s/ep, eta 966s
+    [ep  76/100] loss=0.14919  688s, 16.1s/ep, eta 386s
+    [ep  81/100] loss=0.14537  719s, 6.3s/ep, eta 119s
+    [ep  86/100] loss=0.14345  752s, 6.6s/ep, eta 92s
+    [ep  91/100] loss=0.14181  783s, 6.1s/ep, eta 55s
+    [ep  96/100] loss=0.14020  843s, 12.1s/ep, eta 48s
+    [ep 100/100] loss=0.13982  865s, 5.6s/ep, eta 0s
+     4    2   1813   0.00227   0.9997   1.736e-04  5.428e-04     4.0    2/2    [879s]
+    [ep   1/100] loss=0.46240  6s, 5.6s/ep, eta 559s
+    [ep   6/100] loss=0.27498  35s, 5.9s/ep, eta 550s
+    [ep  11/100] loss=0.27108  64s, 5.9s/ep, eta 524s
+    [ep  16/100] loss=0.26501  209s, 29.0s/ep, eta 2435s
+    [ep  21/100] loss=0.26307  374s, 32.9s/ep, eta 2598s
+    [ep  26/100] loss=0.17050  449s, 15.1s/ep, eta 1116s
+    [ep  31/100] loss=0.16989  477s, 5.6s/ep, eta 386s
+    [ep  36/100] loss=0.16076  510s, 6.6s/ep, eta 420s
+    [ep  41/100] loss=0.15210  549s, 7.9s/ep, eta 466s
+    [ep  46/100] loss=0.15507  581s, 6.3s/ep, eta 338s
+    [ep  51/100] loss=0.15659  614s, 6.7s/ep, eta 327s
+    [ep  56/100] loss=0.15544  650s, 7.2s/ep, eta 316s
+    [ep  61/100] loss=0.15003  679s, 5.8s/ep, eta 227s
+    [ep  66/100] loss=0.14997  708s, 5.8s/ep, eta 197s
+    [ep  71/100] loss=0.15066  748s, 8.0s/ep, eta 231s
+    [ep  76/100] loss=0.14594  783s, 7.1s/ep, eta 170s
+    [ep  81/100] loss=0.15413  821s, 7.5s/ep, eta 143s
+    [ep  86/100] loss=0.14847  856s, 6.9s/ep, eta 97s
+    [ep  91/100] loss=0.14888  885s, 5.9s/ep, eta 53s
+    [ep  96/100] loss=0.14998  938s, 10.5s/ep, eta 42s
+    [ep 100/100] loss=0.14322  1002s, 16.1s/ep, eta 0s
+     4    3   1813   0.00201   0.9998   8.549e-04  1.506e-03     8.0    2/2    [1016s]
+
+    [ep   1/100] loss=0.32811  17s, 17.2s/ep, eta 1699s
+    [ep   6/100] loss=0.25301  106s, 17.7s/ep, eta 1662s
+    [ep  11/100] loss=0.25197  205s, 19.9s/ep, eta 1774s
+    [ep  16/100] loss=0.20385  328s, 24.6s/ep, eta 2067s
+    [ep  21/100] loss=0.17660  422s, 18.7s/ep, eta 1474s

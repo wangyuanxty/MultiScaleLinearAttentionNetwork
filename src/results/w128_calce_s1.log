@@ -1,0 +1,26 @@
+=== calce W=128 (dataset default 64)  seeds 1..1  SPs [300] ===
+  SP300: 2695 windows of 128 cycles (2523 from train cells + 172 test-cell pre-SP)
+    [ep   1/100] loss=0.65045  12s, 12.1s/ep, eta 1193s
+    [ep   6/100] loss=0.50277  69s, 11.5s/ep, eta 1079s
+    [ep  11/100] loss=0.39986  128s, 11.6s/ep, eta 1037s
+    [ep  16/100] loss=0.27803  186s, 11.6s/ep, eta 975s
+    [ep  21/100] loss=0.25113  244s, 11.6s/ep, eta 917s
+    [ep  26/100] loss=0.23205  295s, 10.2s/ep, eta 757s
+    [ep  31/100] loss=0.21803  338s, 8.6s/ep, eta 596s
+    [ep  36/100] loss=0.21455  378s, 8.0s/ep, eta 509s
+    [ep  41/100] loss=0.21495  417s, 7.9s/ep, eta 466s
+    [ep  46/100] loss=0.21205  457s, 7.9s/ep, eta 425s
+    [ep  51/100] loss=0.19414  496s, 7.9s/ep, eta 389s
+    [ep  56/100] loss=0.20675  536s, 7.9s/ep, eta 348s
+    [ep  61/100] loss=0.20175  576s, 7.9s/ep, eta 309s
+    [ep  66/100] loss=0.18593  615s, 7.9s/ep, eta 269s
+    [ep  71/100] loss=0.18577  655s, 7.9s/ep, eta 231s
+    [ep  76/100] loss=0.17906  694s, 7.9s/ep, eta 190s
+    [ep  81/100] loss=0.18001  734s, 8.0s/ep, eta 152s
+    [ep  86/100] loss=0.18139  774s, 8.0s/ep, eta 112s
+    [ep  91/100] loss=0.18517  814s, 7.9s/ep, eta 72s
+    [ep  96/100] loss=0.17903  853s, 7.9s/ep, eta 32s
+    [ep 100/100] loss=0.17086  885s, 7.9s/ep, eta 0s
+    SP300 seed1: MAE=0.00693 RMSE=0.01401 R2=0.9955 AE=0.0 [931s]
+=== per-SP means over seeds ===
+  SP300: MAE=0.00693 R2=0.9955 AE=0.00

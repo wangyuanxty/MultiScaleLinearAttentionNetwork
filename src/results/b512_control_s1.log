@@ -1,0 +1,24 @@
+    [ep   1/100] loss=0.90327  8s, 8.0s/ep, eta 788s
+    [ep   6/100] loss=0.70277  42s, 6.8s/ep, eta 640s
+    [ep  11/100] loss=0.68805  77s, 6.9s/ep, eta 618s
+    [ep  16/100] loss=0.59720  111s, 6.9s/ep, eta 578s
+    [ep  21/100] loss=0.49949  147s, 7.1s/ep, eta 560s
+    [ep  26/100] loss=0.50347  182s, 7.1s/ep, eta 525s
+    [ep  31/100] loss=0.45916  218s, 7.3s/ep, eta 502s
+    [ep  36/100] loss=0.43372  255s, 7.3s/ep, eta 470s
+    [ep  41/100] loss=0.41939  291s, 7.2s/ep, eta 425s
+    [ep  46/100] loss=0.40833  326s, 7.1s/ep, eta 381s
+    [ep  51/100] loss=0.39498  360s, 6.7s/ep, eta 328s
+    [ep  56/100] loss=0.37643  396s, 7.1s/ep, eta 313s
+    [ep  61/100] loss=0.36372  431s, 7.2s/ep, eta 280s
+    [ep  66/100] loss=0.35526  467s, 7.1s/ep, eta 242s
+    [ep  71/100] loss=0.35396  503s, 7.2s/ep, eta 209s
+    [ep  76/100] loss=0.33377  540s, 7.4s/ep, eta 178s
+    [ep  81/100] loss=0.33645  577s, 7.4s/ep, eta 141s
+    [ep  86/100] loss=0.32032  614s, 7.4s/ep, eta 103s
+    [ep  91/100] loss=0.31888  651s, 7.5s/ep, eta 67s
+    [ep  96/100] loss=0.32228  689s, 7.4s/ep, eta 30s
+    [ep 100/100] loss=0.31809  718s, 7.4s/ep, eta 0s
+calce SP300 seed1 (epochs=100): AE=[3] MAE=0.0077 R2=0.9936 trainN=2715+236
+=== per-SP means over seeds ===
+SP300: AE=3.00 MAE=0.0077 RMSE=0.0167 R2=0.9936

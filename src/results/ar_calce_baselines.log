@@ -1,0 +1,58 @@
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+
+========================================================================================================
+  CALCE  W=64  SP=300  test=CS2_35  rated=1.10 Ah  EOL_AH=0.77 Ah
+  runs=[1, 2, 3]  launches=EOL-50/100  steps=300
+  AE: a non-crossing rollout prints '-' and is NEVER averaged in
+========================================================================================================
+
+  === PF   test=CS2_35  EOL=640  rated=1.10  EOL_AH=0.77  seql=64 ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  pf     1      EOL-50      589       -        - 2.507e-02 1.558e-03 2.361e-02 1.397e-03         n
+  pf     1      EOL-100     539       -        - 3.502e-02 2.043e-03 1.825e-02 4.326e-04         n
+  pf     2      EOL-50      589       -        - 1.964e-02 1.059e-03 1.831e-02 9.314e-04         n
+  pf     2      EOL-100     539       -        - 2.287e-02 1.215e-03 8.868e-03 1.077e-04         n
+  pf     3      EOL-50      589       -        - 1.998e-02 1.088e-03 1.867e-02 9.636e-04         n
+  pf     3      EOL-100     539       -        - 2.233e-02 1.189e-03 8.924e-03 1.128e-04         n
+
+  === RM   test=CS2_35  EOL=640  rated=1.10  EOL_AH=0.77  seql=64 ===
+  model  run    launch       t0      AE     AE/k   MAE_eol   MSE_eol    MAE@50    MSE@50     cross
+  rm     1      EOL-50      589       -        - 1.985e-02 7.339e-04 1.887e-02 6.535e-04         n
+  rm     1      EOL-100     539       -        - 1.346e-02 5.794e-04 5.579e-03 4.434e-05         n
+  rm     2      EOL-50      589       -        - 2.336e-02 1.363e-03 2.197e-02 1.217e-03         n
+  rm     2      EOL-100     539       -        - 3.413e-02 1.951e-03 1.871e-02 4.471e-04         n
+  rm     3      EOL-50      589       -        - 2.218e-02 1.237e-03 2.083e-02 1.101e-03         n
+  rm     3      EOL-100     539       -        - 3.314e-02 1.879e-03 1.783e-02 4.131e-04         n
+
+  -> D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_baselines_tju.json
+
+  === CALCE summary (mean over runs) ===
+  model  launch     cross   MAE_eol   MSE_eol    MAE@50    MSE@50   meanAE
+  pf     EOL-50      0/3 2.157e-02 1.235e-03 2.020e-02 1.097e-03        -
+  pf     EOL-100     0/3 2.674e-02 1.482e-03 1.201e-02 2.177e-04        -
+  rm     EOL-50      0/3 2.180e-02 1.111e-03 2.056e-02 9.904e-04        -
+  rm     EOL-100     0/3 2.691e-02 1.470e-03 1.404e-02 3.015e-04        -
+

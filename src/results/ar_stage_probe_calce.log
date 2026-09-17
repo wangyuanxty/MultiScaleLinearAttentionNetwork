@@ -1,0 +1,54 @@
+========================================================================================
+  stage probe: does the model use the level, or only the shape?
+  CALCE CS2_35 SP500 seed1  W=64  input = 64 normalised capacities, nothing else
+========================================================================================
+  A1. level sweep, SHAPE HELD FIXED  (z as the whole window shifts)
+      anchor     level    sigma    -0.20    -0.10    -0.05    +0.00    +0.05    +0.10    +0.20   dz/dlev
+      early      0.893  0.01171   -1.291   -1.054   -0.860   -0.684   -0.560   -0.455   -0.293      2.61
+      mid        0.836  0.00625   +0.853   +1.576   +2.045   +2.420   +2.579   +2.565   +2.058      3.49
+      knee       0.715  0.03004   -2.486   -2.378   -2.333   -2.434   -2.426   -2.314   -1.939      1.06
+
+  A2. spread sweep, LEVEL HELD FIXED  (control for A1)
+      anchor     level   sigma0     0.25x     0.50x     1.00x     2.00x   dz/dsig
+      early      0.893  0.01171   -0.594   -0.554   -0.684   -0.997    -21.41
+      mid        0.836  0.00625   +1.099   +1.728   +2.420   +3.438    204.25
+      knee       0.715  0.03004   -2.448   -2.427   -2.434   -1.858     11.45
+      dz/dlev in A1 against dz/dsig here is the whole answer: if the
+      level slope is ~0 while the sigma slope is not, the model reads
+      shape and the level is decoration.
+
+  B. the stage -> sigma manifold
+      sig-train table, from the TRAINING cells' own windows:
+         level     sigma   bar
+         0.116   0.06334   ##############################
+         0.160   0.05515   ##########################
+         0.203   0.04055   ##################
+         0.247   0.04200   ##################
+         0.290   0.04778   #####################
+         0.333   0.05090   #######################
+         0.377   0.04747   #####################
+         0.420   0.04269   ###################
+         0.464   0.03936   #################
+         0.507   0.04310   ###################
+         0.551   0.04192   ##################
+         0.594   0.04569   ####################
+         0.637   0.02202   #######
+         0.681   0.01874   ######
+         0.724   0.01625   ####
+         0.768   0.01758   #####
+         0.811   0.00843   #
+         0.854   0.00915   #
+         0.898   0.01680   #####
+         0.941   0.02401   #########
+      monotone increasing in level?  False   (sigma min 0.00843 at level 0.811, max 0.06334 at 0.116)
+
+      the test cell's real (level, sigma) path, CS2_35:
+          level band     n  sigma mean  sigma min
+       0.219-0.364      58     0.06885    0.04317
+       0.364-0.508      64     0.04305    0.03247
+       0.508-0.653      86     0.03231    0.02212
+       0.653-0.797     167     0.01890    0.00810
+       0.797-0.942     442     0.01307    0.00589
+      narrow sigma band per level = shape and stage are near-
+      interchangeable in real data, which is what lets the rollout
+      produce a combination the model never saw.

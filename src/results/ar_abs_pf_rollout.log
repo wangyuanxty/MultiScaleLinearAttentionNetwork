@@ -1,0 +1,24 @@
+========================================================================================
+  PatchFormer ABSOLUTE-TARGET  SP500 run1  seql=64 rated=1.1
+  true EOL = cycle 640 (threshold 0.77 Ah); common space lo=0.142164 hi=1.134451
+========================================================================================
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'logging_metrics' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['logging_metrics'])`.
+  rank_zero_warn(
+D:\anaconda\envs\patchformer\lib\site-packages\pytorch_lightning\utilities\parsing.py:269: UserWarning: Attribute 'loss' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['loss'])`.
+  rank_zero_warn(
+  ckpt = results_CALCE_ABS_prediction_sl_64\CS2_35\PatchFormer\SP500\run1\checkpoints\epoch=25-step=494.ckpt
+
+[gates]
+  G1 target_scale global (spread 0.00e+00/0.00e+00); centre=0.645107 scale=0.184365 -> PASS
+  G2 hand decode == official predict  (max err 2.97e-08, windows are true Capacity: True) -> PASS
+  G3 teacher-forced reproduces the recorded ABS run: MAE=0.0126 (ref 0.0126) R2=0.9897 (ref 0.9897) AE=0 (ref 0) -> PASS
+  [teacher-forced] RUL=141/141, n=383 cycles
+
+  k= 25 (T=615, start=616): MAE_common=0.07576 MAE=75.18mAh cross=None AE=None last=1.1238Ah d1=1.3e-06 [6s]
+  k= 50 (T=590, start=591): MAE_common=0.09528 MAE=94.54mAh cross=None AE=None last=1.1287Ah d1=4.2e-07 [6s]
+  k= 75 (T=565, start=566): MAE_common=0.10366 MAE=102.86mAh cross=None AE=None last=1.1293Ah d1=7.1e-07 [6s]
+  k=100 (T=540, start=541): MAE_common=0.12703 MAE=126.05mAh cross=None AE=None last=1.1288Ah d1=2.9e-07 [7s]
+
+  trajectories -> src\results\ar_traj_calce_pfabs.npz
+  metrics      -> src\results\ar_ktable_calce_pfabs.json
+  recorded ABS run in reference_repos\ref_patchformer\results\pf_calce_ABS_selfrun_CS2_35.json: MAE=0.0126 R2=0.9897 AE=0

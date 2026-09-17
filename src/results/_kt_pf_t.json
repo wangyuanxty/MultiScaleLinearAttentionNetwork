@@ -1,0 +1,1794 @@
+{
+  "models": {
+    "pf": {
+      "verification": {
+        "sp": 300,
+        "space": "Ah",
+        "mae": {
+          "mean": 0.003329297370910648,
+          "std": 6.76482226752684e-05,
+          "n": 10
+        },
+        "r2": {
+          "mean": 0.9976989745845313,
+          "std": 2.768273357947087e-05,
+          "n": 10
+        },
+        "reference": {
+          "mae": 0.0033,
+          "r2": 0.9977,
+          "space": "Ah"
+        },
+        "pass": true,
+        "per_run": [
+          {
+            "run": 1,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.003316876411437991,
+            "r2": 0.9976749843028769,
+            "decode_err": 2.980232238769531e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 2,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.003317889976501465,
+            "r2": 0.9977149954002955,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 3,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0033793354034423856,
+            "r2": 0.997708271897778,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 4,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0033693838119506878,
+            "r2": 0.9977164835565386,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 5,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0033056154251098675,
+            "r2": 0.9977213159201123,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 6,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0034696434020996107,
+            "r2": 0.9976477215505487,
+            "decode_err": 2.980232238769531e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 7,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0033444049835205133,
+            "r2": 0.997677471193637,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 8,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.0032675352096557648,
+            "r2": 0.9977407631284357,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 9,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.003301151657104495,
+            "r2": 0.9976819323724625,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          },
+          {
+            "run": 10,
+            "ok": true,
+            "sp": 300,
+            "mae_ah": 0.003221137428283693,
+            "r2": 0.9977058065226279,
+            "decode_err": 2.384185791015625e-07,
+            "x_is_true_capacity": true
+          }
+        ]
+      },
+      "points": {
+        "25": {
+          "k": 25,
+          "T": 563,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 1.5311332888830003,
+              "std": 1.429476443084377,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 1.560767915945053,
+              "std": 1.4571435322871071,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 1560.7679159450531,
+              "std": 1457.143532287107,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                568,
+                569,
+                567,
+                569,
+                566,
+                568,
+                569,
+                568,
+                568,
+                567
+              ],
+              "ae_values_sorted": [
+                -23,
+                -22,
+                -22,
+                -21,
+                -21,
+                -21,
+                -21,
+                -20,
+                -20,
+                -20
+              ],
+              "ae_signed": {
+                "mean": -21.1,
+                "std": 0.9944289260117531,
+                "n": 10
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                568,
+                569,
+                567,
+                569,
+                566,
+                568,
+                569,
+                568,
+                568,
+                567
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20833333333333334,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": null,
+              "std": null,
+              "n": 0
+            },
+            "last_step_ah": {
+              "mean": -5.491492358386516,
+              "std": 7.971564031641536,
+              "n": 10
+            },
+            "first_step_dev_max": 2.2590160364543976e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run1\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.198883051311554e-08,
+                "first_step_dev_ah": 6.198883051311554e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.149339437484741,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 1.3201951082608554,
+                  "mae_ah": 1.3457470898985864,
+                  "pred_crossing_within_horizon": 568,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1493394994735717,
+                  "last_step_ah": -4.03427106142044,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 568,
+                  "crossed": true,
+                  "ae": -21,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run2\\checkpoints\\epoch=19-step=260.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.8358230624571092e-07,
+                "first_step_dev_ah": 1.8358230624571092e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1502058506011963,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.3158202476632177,
+                  "mae_ah": 0.3219328541398051,
+                  "pred_crossing_within_horizon": 569,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.15020566701889,
+                  "last_step_ah": 0.9011619061231612,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 569,
+                  "crossed": true,
+                  "ae": -20,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run3\\checkpoints\\epoch=16-step=221.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.020069109879955e-08,
+                "first_step_dev_ah": 6.020069109879955e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1472623348236084,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.8987180650679627,
+                  "mae_ah": 0.9161124845385551,
+                  "pred_crossing_within_horizon": 567,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1472623950242995,
+                  "last_step_ah": -1.698057358860969,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 567,
+                  "crossed": true,
+                  "ae": -22,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run4\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.1920930909070648e-09,
+                "first_step_dev_ah": 1.1920930909070648e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1553170680999756,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.5632423671381261,
+                  "mae_ah": 0.5741437547683718,
+                  "pred_crossing_within_horizon": 569,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1553170669078825,
+                  "last_step_ah": -0.05349505662918097,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 569,
+                  "crossed": true,
+                  "ae": -20,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run5\\checkpoints\\epoch=24-step=325.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 4.231929784381805e-08,
+                "first_step_dev_ah": 4.231929784381805e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.149009943008423,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 4.507132935701892,
+                  "mae_ah": 4.594367146229744,
+                  "pred_crossing_within_horizon": 566,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.149009900689125,
+                  "last_step_ah": -21.18758800506592,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 566,
+                  "crossed": true,
+                  "ae": -23,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run6\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.2636184720804522e-07,
+                "first_step_dev_ah": 1.2636184720804522e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1492724418640137,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 1.1793750012133133,
+                  "mae_ah": 1.2022014517784119,
+                  "pred_crossing_within_horizon": 568,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1492723155021665,
+                  "last_step_ah": -3.489891622066497,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 568,
+                  "crossed": true,
+                  "ae": -21,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run7\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 6.437301669492967e-08,
+                "first_step_dev_ah": 6.437301669492967e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.148580312728882,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.5566583016166478,
+                  "mae_ah": 0.567432256627083,
+                  "pred_crossing_within_horizon": 569,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.148580248355865,
+                  "last_step_ah": -0.29765948832035094,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 569,
+                  "crossed": true,
+                  "ae": -20,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run8\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.0848045395306372e-07,
+                "first_step_dev_ah": 1.0848045395306372e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.149888277053833,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 1.3747101353800104,
+                  "mae_ah": 1.4013172390699389,
+                  "pred_crossing_within_horizon": 568,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.149888168573379,
+                  "last_step_ah": -4.362633082866668,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 568,
+                  "crossed": true,
+                  "ae": -21,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run9\\checkpoints\\epoch=16-step=221.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.2590160364543976e-07,
+                "first_step_dev_ah": 2.2590160364543976e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.151167869567871,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 0.8140568984770964,
+                  "mae_ah": 0.8298127263784408,
+                  "pred_crossing_within_horizon": 568,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1511680954694747,
+                  "last_step_ah": -1.4243695449829097,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 568,
+                  "crossed": true,
+                  "ae": -21,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run10\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.3841857821338408e-08,
+                "first_step_dev_ah": 2.3841857821338408e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.1446640491485596,
+                "rollout": {
+                  "n_steps": 25,
+                  "mae_common": 3.7814238283108796,
+                  "mae_ah": 3.8546121560215942,
+                  "pred_crossing_within_horizon": 567,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20833333333333334,
+                  "first_step_ah": 2.1446640729904174,
+                  "last_step_ah": -19.268120269775387,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": null,
+                  "pred_crossing_cycle": 567,
+                  "crossed": true,
+                  "ae": -22,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        },
+        "50": {
+          "k": 50,
+          "T": 538,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 12.435967471020529,
+              "std": 22.287810082291273,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 12.676661903592347,
+              "std": 22.719183983318796,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 12676.661903592347,
+              "std": 22719.183983318795,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                559,
+                562,
+                557,
+                556,
+                551,
+                558,
+                558,
+                554,
+                557,
+                559
+              ],
+              "ae_values_sorted": [
+                -38,
+                -35,
+                -33,
+                -32,
+                -32,
+                -31,
+                -31,
+                -30,
+                -30,
+                -27
+              ],
+              "ae_signed": {
+                "mean": -31.9,
+                "std": 2.998147576235848,
+                "n": 10
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                559,
+                562,
+                557,
+                556,
+                551,
+                558,
+                558,
+                554,
+                557,
+                559
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.01836734693877551,
+              "std": 0.020294467877790878,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.1836734693877551,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 30.009900542153332,
+              "std": 55.5877003133328,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": -116.31652541828154,
+              "std": 221.5123466109361,
+              "n": 10
+            },
+            "first_step_dev_max": 2.110004424515921e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run1\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.084804530648853e-07,
+                "first_step_dev_ah": 1.084804530648853e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2118685245513916,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 4.3372325907935325,
+                  "mae_ah": 4.4211784309387205,
+                  "pred_crossing_within_horizon": 559,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.061224489795918366,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2118686330318447,
+                  "last_step_ah": -32.432878704071044,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 9.283859107826057,
+                  "pred_crossing_cycle": 559,
+                  "crossed": true,
+                  "ae": -30,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run2\\checkpoints\\epoch=19-step=260.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 8.583068833445395e-08,
+                "first_step_dev_ah": 8.583068833445395e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.209566593170166,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 0.5346533071230425,
+                  "mae_ah": 0.5450013620436194,
+                  "pred_crossing_within_horizon": 562,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2095666790008544,
+                  "last_step_ah": -1.6738012361526484,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1.0403719682693697,
+                  "pred_crossing_cycle": 562,
+                  "crossed": true,
+                  "ae": -27,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run3\\checkpoints\\epoch=16-step=221.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.853704452159377e-07,
+                "first_step_dev_ah": 1.853704452159377e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2138447761535645,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 2.9353554002839677,
+                  "mae_ah": 2.9921683265089984,
+                  "pred_crossing_within_horizon": 557,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2138449615240097,
+                  "last_step_ah": -18.436934623718262,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 5.592697678116774,
+                  "pred_crossing_cycle": 557,
+                  "crossed": true,
+                  "ae": -32,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run4\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 8.940697071579962e-09,
+                "first_step_dev_ah": 8.940697071579962e-09,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2136929035186768,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 2.4685915067968334,
+                  "mae_ah": 2.516370357406139,
+                  "pred_crossing_within_horizon": 556,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2136928945779797,
+                  "last_step_ah": -15.921545062065125,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 4.682138913859506,
+                  "pred_crossing_cycle": 556,
+                  "crossed": true,
+                  "ae": -33,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run5\\checkpoints\\epoch=24-step=325.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.043081283569336e-07,
+                "first_step_dev_ah": 1.043081283569336e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.217183828353882,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 74.16061869118428,
+                  "mae_ah": 75.5959752950549,
+                  "pred_crossing_within_horizon": 551,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.21718393266201,
+                  "last_step_ah": -725.3243275451659,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 183.10285106104416,
+                  "pred_crossing_cycle": 551,
+                  "crossed": true,
+                  "ae": -38,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run6\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.8743019015186064e-08,
+                "first_step_dev_ah": 3.8743019015186064e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.216611385345459,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 5.369129255603489,
+                  "mae_ah": 5.473047147202492,
+                  "pred_crossing_within_horizon": 558,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.216611424088478,
+                  "last_step_ah": -44.28455892562866,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 12.113381793924873,
+                  "pred_crossing_cycle": 558,
+                  "crossed": true,
+                  "ae": -31,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run7\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.324581149792948e-08,
+                "first_step_dev_ah": 2.324581149792948e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.213402509689331,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 2.3141239202186137,
+                  "mae_ah": 2.3589130968689913,
+                  "pred_crossing_within_horizon": 558,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2134024864435196,
+                  "last_step_ah": -16.26581017971039,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 4.786475639745136,
+                  "pred_crossing_cycle": 558,
+                  "crossed": true,
+                  "ae": -31,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run8\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.239776610262311e-07,
+                "first_step_dev_ah": 1.239776610262311e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2146754264831543,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 11.255134724827029,
+                  "mae_ah": 11.47297449261546,
+                  "pred_crossing_within_horizon": 554,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.02040816326530612,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2146755504608153,
+                  "last_step_ah": -90.92372388839722,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 24.37070916216199,
+                  "pred_crossing_cycle": 554,
+                  "crossed": true,
+                  "ae": -35,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run9\\checkpoints\\epoch=16-step=221.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.110004424515921e-07,
+                "first_step_dev_ah": 2.110004424515921e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.217200517654419,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 3.329887365545908,
+                  "mae_ah": 3.394336340010166,
+                  "pred_crossing_within_horizon": 557,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2172007286548614,
+                  "last_step_ah": -22.556576285362244,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 6.75817020872299,
+                  "pred_crossing_cycle": 557,
+                  "crossed": true,
+                  "ae": -32,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run10\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.516674018655408e-08,
+                "first_step_dev_ah": 3.516674018655408e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2172250747680664,
+                "rollout": {
+                  "n_steps": 50,
+                  "mae_common": 17.65494794782859,
+                  "mae_ah": 17.99665418727398,
+                  "pred_crossing_within_horizon": 559,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.04081632653061224,
+                  "true_rise_frac": 0.1836734693877551,
+                  "first_step_ah": 2.2172251099348066,
+                  "last_step_ah": -195.3450977325439,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 48.36834988786246,
+                  "pred_crossing_cycle": 559,
+                  "crossed": true,
+                  "ae": -30,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        },
+        "75": {
+          "k": 75,
+          "T": 513,
+          "sp": 500,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 22328.63440460699,
+              "std": 52916.566740833696,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 22760.798448188187,
+              "std": 53940.75107028084,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 22760798.448188186,
+              "std": 53940751.07028084,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                523,
+                526,
+                522,
+                524,
+                519,
+                522,
+                524,
+                522,
+                523,
+                521
+              ],
+              "ae_values_sorted": [
+                -70,
+                -68,
+                -67,
+                -67,
+                -67,
+                -66,
+                -66,
+                -65,
+                -65,
+                -63
+              ],
+              "ae_signed": {
+                "mean": -66.4,
+                "std": 1.8973665961010275,
+                "n": 10
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 10,
+              "n_never_cross": 0,
+              "pred_crossing_per_run": [
+                523,
+                526,
+                522,
+                524,
+                519,
+                522,
+                524,
+                522,
+                523,
+                521
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.0,
+              "std": 0.0,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.20270270270270271,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 88943.47113491937,
+              "std": 216424.89234159116,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": -360642.4066262168,
+              "std": 883152.9017899679,
+              "n": 10
+            },
+            "first_step_dev_max": 3.188848491930685e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run1\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.025199889426176e-07,
+                "first_step_dev_ah": 1.025199889426176e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.207738161087036,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 505.8896357913282,
+                  "mae_ah": 515.6809784524042,
+                  "pred_crossing_within_horizon": 523,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.207738263607025,
+                  "last_step_ah": -4119.876427001953,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1117.6780902026667,
+                  "pred_crossing_cycle": 523,
+                  "crossed": true,
+                  "ae": -66,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run2\\checkpoints\\epoch=19-step=260.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.086162531611535e-08,
+                "first_step_dev_ah": 2.086162531611535e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2089881896972656,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 27.854006019221767,
+                  "mae_ah": 28.39311197855075,
+                  "pred_crossing_within_horizon": 526,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.208988210558891,
+                  "last_step_ah": -188.248193321228,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 50.523008430561674,
+                  "pred_crossing_cycle": 526,
+                  "crossed": true,
+                  "ae": -63,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run3\\checkpoints\\epoch=16-step=221.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 9.596347805285177e-08,
+                "first_step_dev_ah": 9.596347805285177e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2044084072113037,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 334.56461942348346,
+                  "mae_ah": 341.0400176117141,
+                  "pred_crossing_within_horizon": 522,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2044085031747818,
+                  "last_step_ah": -3363.0954602050774,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 893.4441234226996,
+                  "pred_crossing_cycle": 522,
+                  "crossed": true,
+                  "ae": -67,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run4\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.3351440397713077e-07,
+                "first_step_dev_ah": 1.3351440397713077e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2098121643066406,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 404.48990361471004,
+                  "mae_ah": 412.31868477375104,
+                  "pred_crossing_within_horizon": 524,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2098122978210446,
+                  "last_step_ah": -4970.895498046873,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1280.71613261682,
+                  "pred_crossing_cycle": 524,
+                  "crossed": true,
+                  "ae": -65,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run5\\checkpoints\\epoch=24-step=325.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 4.172325152040912e-08,
+                "first_step_dev_ah": 4.172325152040912e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2043404579162598,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 49722.26607493566,
+                  "mae_ah": 50684.62566995554,
+                  "pred_crossing_within_horizon": 519,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2043404161930082,
+                  "last_step_ah": -732769.0453125,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 184506.5795242254,
+                  "pred_crossing_cycle": 519,
+                  "crossed": true,
+                  "ae": -70,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run6\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.695487960087007e-08,
+                "first_step_dev_ah": 3.695487960087007e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.20694899559021,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 2564.964556294717,
+                  "mae_ah": 2614.6086784655768,
+                  "pred_crossing_within_horizon": 522,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2069490325450896,
+                  "last_step_ah": -32529.609521484374,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 8413.753408885275,
+                  "pred_crossing_cycle": 522,
+                  "crossed": true,
+                  "ae": -67,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run7\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.1682510336896712e-07,
+                "first_step_dev_ah": 1.1682510336896712e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.207667350769043,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 588.2518132588357,
+                  "mae_ah": 599.6372512419779,
+                  "pred_crossing_within_horizon": 524,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2076674675941463,
+                  "last_step_ah": -7186.496447753906,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1849.4519199692575,
+                  "pred_crossing_cycle": 524,
+                  "crossed": true,
+                  "ae": -65,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run8\\checkpoints\\epoch=15-step=208.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 4.1127205197000194e-08,
+                "first_step_dev_ah": 4.1127205197000194e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.20570707321167,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 2261.6779702612657,
+                  "mae_ah": 2305.4520712293465,
+                  "pred_crossing_within_horizon": 522,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2057070320844647,
+                  "last_step_ah": -27324.75896484375,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 7122.238082601055,
+                  "pred_crossing_cycle": 522,
+                  "crossed": true,
+                  "ae": -67,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run9\\checkpoints\\epoch=16-step=221.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.602836594675864e-08,
+                "first_step_dev_ah": 5.602836594675864e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.207552909851074,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 436.96927439637716,
+                  "mae_ah": 445.42668406693537,
+                  "pred_crossing_within_horizon": 523,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.20755296587944,
+                  "last_step_ah": -4459.3529370117185,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 1196.4623818464283,
+                  "pred_crossing_cycle": 523,
+                  "crossed": true,
+                  "ae": -66,
+                  "max_decode_err": 2.980232238769531e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP500\\run10\\checkpoints\\epoch=18-step=247.ckpt",
+                "sp": 500,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.188848491930685e-07,
+                "first_step_dev_ah": 3.188848491930685e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.204707622528076,
+                "rollout": {
+                  "n_steps": 75,
+                  "mae_common": 166439.4161920743,
+                  "mae_ah": 169660.80133410607,
+                  "pred_crossing_within_horizon": 521,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.20270270270270271,
+                  "first_step_ah": 2.2047079414129254,
+                  "last_step_ah": -2789512.687499999,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 683003.8646769936,
+                  "pred_crossing_cycle": 521,
+                  "crossed": true,
+                  "ae": -68,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        },
+        "100": {
+          "k": 100,
+          "T": 488,
+          "sp": 400,
+          "sp_exact": false,
+          "sp_fallback": false,
+          "true_crossing_cycle_first_below": 589,
+          "true_eol_cycle": 588,
+          "summary": {
+            "n_runs_requested": 10,
+            "n_runs_ok": 10,
+            "n_runs_failed": 0,
+            "mae_common": {
+              "mean": 0.028043440570522597,
+              "std": 0.017258585241949547,
+              "n": 10
+            },
+            "mae_ah": {
+              "mean": 0.028586212978959073,
+              "std": 0.01759261999971838,
+              "n": 10
+            },
+            "mae_mah": {
+              "mean": 28.586212978959075,
+              "std": 17.592619999718384,
+              "n": 10
+            },
+            "crossing": {
+              "n_cross": 8,
+              "n_never_cross": 2,
+              "pred_crossing_per_run": [
+                592,
+                596,
+                null,
+                598,
+                534,
+                580,
+                null,
+                534,
+                585,
+                575
+              ],
+              "ae_values_sorted": [
+                -55,
+                -55,
+                -14,
+                -9,
+                -4,
+                3,
+                7,
+                9
+              ],
+              "ae_signed": {
+                "mean": -14.75,
+                "std": 26.02608581514214,
+                "n": 8
+              }
+            },
+            "crossing_within_horizon": {
+              "n_cross": 5,
+              "n_never_cross": 5,
+              "pred_crossing_per_run": [
+                null,
+                null,
+                null,
+                null,
+                534,
+                580,
+                null,
+                534,
+                585,
+                575
+              ]
+            },
+            "pred_rise_frac": {
+              "mean": 0.11212121212121211,
+              "std": 0.15586352827058225,
+              "n": 10
+            },
+            "true_rise_frac": {
+              "mean": 0.23232323232323232,
+              "std": 0.0,
+              "n": 10
+            },
+            "end_window_std_common": {
+              "mean": 0.009518588431581512,
+              "std": 0.005288841536621863,
+              "n": 10
+            },
+            "last_step_ah": {
+              "mean": 2.152714554905891,
+              "std": 0.05579034260398707,
+              "n": 10
+            },
+            "first_step_dev_max": 2.741813656115255e-07,
+            "first_step_all_within_tol": true,
+            "runs": [
+              {
+                "run": 1,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run1\\checkpoints\\epoch=99-step=1300.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.741813656115255e-07,
+                "first_step_dev_ah": 2.741813656115255e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.263741970062256,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.011533519285011846,
+                  "mae_ah": 0.011756747102737419,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2637422442436215,
+                  "last_step_ah": 2.1255179053544997,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.012472989775614292,
+                  "pred_crossing_cycle": 592,
+                  "crossed": true,
+                  "ae": 3,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 2,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run2\\checkpoints\\epoch=96-step=1261.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.8179416638730572e-07,
+                "first_step_dev_ah": 1.8179416638730572e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2636544704437256,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.011651618758439862,
+                  "mae_ah": 0.011877132356166865,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.263654652237892,
+                  "last_step_ah": 2.129229097366333,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.011201428777117542,
+                  "pred_crossing_cycle": 596,
+                  "crossed": true,
+                  "ae": 7,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 3,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run3\\checkpoints\\epoch=80-step=1053.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.2934207926917907e-07,
+                "first_step_dev_ah": 1.2934207926917907e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2650320529937744,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.05124964184167686,
+                  "mae_ah": 0.052241563338041086,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.23232323232323232,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.265031923651695,
+                  "last_step_ah": 2.2494056904315944,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 3.802051392757802e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 4,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run4\\checkpoints\\epoch=59-step=780.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 2.384185791015625e-07,
+                "first_step_dev_ah": 2.384185791015625e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.263521671295166,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.01180532515211437,
+                  "mae_ah": 0.01203381369113922,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.263521909713745,
+                  "last_step_ah": 2.131045954227447,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.010413388350676369,
+                  "pred_crossing_cycle": 598,
+                  "crossed": true,
+                  "ae": 9,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 5,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run5\\checkpoints\\epoch=60-step=793.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 3.278255444882916e-08,
+                "first_step_dev_ah": 3.278255444882916e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2634830474853516,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04407018453000702,
+                  "mae_ah": 0.044923149776458796,
+                  "pred_crossing_within_horizon": 534,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.41414141414141414,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.263483080267906,
+                  "last_step_ah": 2.1910903644561763,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.014116013577111444,
+                  "pred_crossing_cycle": 534,
+                  "crossed": true,
+                  "ae": -55,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 6,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run6\\checkpoints\\epoch=88-step=1157.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 7.09295275846955e-08,
+                "first_step_dev_ah": 7.09295275846955e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2629308700561523,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.01767769289718934,
+                  "mae_ah": 0.018019839358329827,
+                  "pred_crossing_within_horizon": 580,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2629307991266248,
+                  "last_step_ah": 2.107826668024063,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.01263602695765532,
+                  "pred_crossing_cycle": 580,
+                  "crossed": true,
+                  "ae": -9,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 7,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run7\\checkpoints\\epoch=108-step=1417.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 1.3709068280576275e-07,
+                "first_step_dev_ah": 1.3709068280576275e-07,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.265401840209961,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.04885233953656913,
+                  "mae_ah": 0.04979786196351027,
+                  "pred_crossing_within_horizon": null,
+                  "crossed_within_horizon": false,
+                  "pred_rise_frac": 0.18181818181818182,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2654019773006437,
+                  "last_step_ah": 2.245830311179161,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 2.5305978245490752e-06,
+                  "pred_crossing_cycle": null,
+                  "crossed": false,
+                  "ae": null,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 8,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run8\\checkpoints\\epoch=63-step=832.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 5.7220459481754915e-08,
+                "first_step_dev_ah": 5.7220459481754915e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.2635884284973145,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.046675103166694626,
+                  "mae_ah": 0.0475784858345987,
+                  "pred_crossing_within_horizon": 534,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.29292929292929293,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.263588371276855,
+                  "last_step_ah": 2.1339348649978636,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.00834601896341737,
+                  "pred_crossing_cycle": 534,
+                  "crossed": true,
+                  "ae": -55,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 9,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run9\\checkpoints\\epoch=65-step=858.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 8.463859524354689e-08,
+                "first_step_dev_ah": 8.463859524354689e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.26347017288208,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.016326791601464524,
+                  "mae_ah": 0.01664279177188877,
+                  "pred_crossing_within_horizon": 585,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.2634702575206753,
+                  "last_step_ah": 2.115151346325874,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.012029160827539007,
+                  "pred_crossing_cycle": 585,
+                  "crossed": true,
+                  "ae": -4,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              },
+              {
+                "run": 10,
+                "ok": true,
+                "ckpt": "D:\\research\\degradation_prognostics\\Transformer_and_Multi_Scale_Models\\reference_repos\\ref_patchformer\\results_PANASONIC_RUL_prediction_sl_30\\Cell03\\PatchFormer\\SP400\\run10\\checkpoints\\epoch=90-step=1183.ckpt",
+                "sp": 400,
+                "sp_exact": false,
+                "sp_fallback": false,
+                "first_step_dev": 9.834766379057669e-08,
+                "first_step_dev_ah": 9.834766379057669e-08,
+                "first_step_within_tol": true,
+                "teacher_forced_first_step": 2.263188600540161,
+                "rollout": {
+                  "n_steps": 100,
+                  "mae_common": 0.02059218893605839,
+                  "mae_ah": 0.020990744596719794,
+                  "pred_crossing_within_horizon": 575,
+                  "crossed_within_horizon": true,
+                  "pred_rise_frac": 0.0,
+                  "true_rise_frac": 0.23232323232323232,
+                  "first_step_ah": 2.263188698887825,
+                  "last_step_ah": 2.0981133466958997,
+                  "true_last_step_ah": 2.122079610824585,
+                  "end_window_std_common": 0.013964524437466475,
+                  "pred_crossing_cycle": 575,
+                  "crossed": true,
+                  "ae": -14,
+                  "max_decode_err": 2.384185791015625e-07
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "protocol": {
+    "dataset": "PANASONIC",
+    "test_cell": "Cell03",
+    "train_cells": [
+      "Cell01",
+      "Cell02"
+    ],
+    "checkpoints": {
+      "ours": "checkpoints/per_sp/panasonic/SP{sp}_seed{s}.pt, s=1..10",
+      "pf": "reference_repos/ref_patchformer/results_PANASONIC_RUL_prediction_sl_30/Cell03/PatchFormer/SP{sp}/run{r}/checkpoints/*.ckpt, r=1..10",
+      "rm": "reference_repos/ref_rul_mamba/Outputs/PANASONIC/Univariable/RULMamba/Repeat_{r}/Start_Point_{sp}/Checkpoints/*.ckpt, r=1..10"
+    },
+    "warmup_W": 30,
+    "rated_ah": 3.03,
+    "eol_ah": 2.12,
+    "eol_ah_trainer_threshold": 2.1209999999999996,
+    "true_eol_cycle": 588,
+    "true_first_below_cycle": 589,
+    "second_crossing_cycle": 646,
+    "series_len_test_cell": 924,
+    "ks": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "ks_protocol_internal": [
+      88,
+      188,
+      288
+    ],
+    "ks_protocol_internal_note": "true_EOL - SP for SP in 300/400/500: the launch offsets whose checkpoint is the one trained for exactly that point (strict comparison, not table rows).",
+    "ks_computed": [
+      25,
+      50,
+      75,
+      100
+    ],
+    "n_runs": 10,
+    "start": "T = true_EOL - k; warm-up = the W true cycles before T (cycles T-W+1..T); the first predicted cycle is T+1, so the horizon covers T+1..T+k and ends on the true EOL cycle.",
+    "model_selection": "nearest per-SP checkpoint with SP <= T; only SP 300/400/500 exist.  For T < 300 (k = 320, T = 268) no SP <= T exists and the nearest available one (SP300) is used, flagged sp_fallback.",
+    "metric_space": "MAE reported in mAh (= Ah x 1000); the same numbers are stored in Ah and in the common (our train-cell min-max) space, common = (Ah - LO)/(HI - LO).",
+    "ae_convention": "AE = predicted crossing cycle - true EOL (588), signed cycles: negative = the model calls EOL early, positive = late.  A crossing is the first cycle at/under 2.12 Ah; Cell03's first sub-threshold cycle is 589 (the 1-cycle offset between 'first below' and 'last at/above' the threshold cancels because true and predicted are read the same way).  The rollout is NOT stopped at k: it continues until the prediction goes under the threshold or the true series ends.  A run that never crosses is excluded from the AE mean and counted in the footnote, never imputed.",
+    "std_ddof": 1,
+    "first_step_tol": 1e-05,
+    "points": {
+      "25": {
+        "k": 25,
+        "T": 563,
+        "sp": 500,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "50": {
+        "k": 50,
+        "T": 538,
+        "sp": 500,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "75": {
+        "k": 75,
+        "T": 513,
+        "sp": 500,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      },
+      "100": {
+        "k": 100,
+        "T": 488,
+        "sp": 400,
+        "sp_exact": false,
+        "sp_fallback": false,
+        "true_crossing_cycle_first_below": 589,
+        "true_eol_cycle": 588
+      }
+    }
+  },
+  "reference_teacher_forced": {
+    "ours": {
+      "mae": 0.0037,
+      "r2": 0.9976,
+      "space": "common (train-cell min-max)"
+    },
+    "pf": {
+      "mae": 0.0033,
+      "r2": 0.9977,
+      "space": "Ah"
+    },
+    "rm": {
+      "mae": 0.0174,
+      "r2": 0.9725,
+      "space": "Ah"
+    }
+  },
+  "notes": [
+    "CELL03 REGENERATES: it crosses 2.12 Ah at 588, climbs back to 2.167 Ah over the next ~35 cycles, and crosses down again at 646.  true_EOL is the first crossing, as everywhere else in this repo; a model that only ever predicts a smooth decline cannot represent the recovery, and one that freezes above the threshold never reports a crossing at all.",
+    "MAE at k comes from ONE rollout per run, not from a run of its own: the rollout runs on until the prediction crosses, and its first k steps are the MAE window.  Each k launches from its own T with its own checkpoint.",
+    "crossing_within_horizon is a DIAGNOSTIC (does the prediction cross inside the k-step launch window, i.e. by the true EOL?); the reported AE comes from the continued rollout.",
+    "end_window_std_common diagnoses how the rollout ends: ~1e-7 means the per-window normaliser has collapsed and the trajectory is frozen, huge means the decode feedback diverged.",
+    "The teacher-forced first step of the rollout is compared with the rollout's own first step (same warm-up window) as the protocol check; max deviation is reported per k."
+  ]
+}

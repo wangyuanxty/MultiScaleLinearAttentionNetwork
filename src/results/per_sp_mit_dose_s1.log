@@ -1,0 +1,38 @@
+  dropped 2 outlier cells (max > 1.2 Ah): ['batch2_cell12', 'batch2_cell44']
+====================================================================================================
+  MIT cell-count dose-response  pool=39 cells  test=['batch2_cell5', 'batch2_cell47']  W=64  SP300  epochs=100
+  lo=0.8250 hi=1.0895 from ALL 39 cells, constant across every N   N=[4, 8, 20]  seeds=[1]
+====================================================================================================
+     N seed    win    TF MAE    TF R2   AR MSE@50     AR MSE   AR AE  crossed
+  ---------------------------------------------------------------------------
+    [ep   1/100] loss=0.48738  32s, 32.3s/ep, eta 3202s
+    [ep   6/100] loss=0.29012  190s, 31.6s/ep, eta 2970s
+    [ep  11/100] loss=0.26849  345s, 30.9s/ep, eta 2752s
+    [ep  16/100] loss=0.25913  505s, 31.9s/ep, eta 2684s
+    [ep  21/100] loss=0.25931  667s, 32.4s/ep, eta 2558s
+    [ep  26/100] loss=0.25559  826s, 31.9s/ep, eta 2360s
+    [ep  31/100] loss=0.22124  983s, 31.5s/ep, eta 2170s
+    [ep  36/100] loss=0.19635  1144s, 32.2s/ep, eta 2061s
+    [ep  41/100] loss=0.16286  1300s, 31.2s/ep, eta 1839s
+    [ep  46/100] loss=0.16049  1440s, 28.0s/ep, eta 1511s
+    [ep  51/100] loss=0.15475  1595s, 31.0s/ep, eta 1518s
+    [ep  56/100] loss=0.15400  1743s, 29.6s/ep, eta 1304s
+    [ep  61/100] loss=0.14982  1899s, 31.2s/ep, eta 1217s
+    [ep  66/100] loss=0.15118  2051s, 30.4s/ep, eta 1034s
+    [ep  71/100] loss=0.19716  2209s, 31.6s/ep, eta 915s
+    [ep  76/100] loss=0.15244  2369s, 32.1s/ep, eta 770s
+    [ep  81/100] loss=0.15381  2535s, 33.0s/ep, eta 627s
+    [ep  86/100] loss=0.14966  2697s, 32.5s/ep, eta 455s
+    [ep  91/100] loss=0.14593  2859s, 32.4s/ep, eta 292s
+    [ep  96/100] loss=0.14471  3020s, 32.2s/ep, eta 129s
+    [ep 100/100] loss=0.14653  3148s, 32.1s/ep, eta 0s
+     4    1   1813   0.00222   0.9997   5.054e-04  5.048e-04     3.0    2/2    [3231s]
+
+    [ep   1/100] loss=0.36880  63s, 63.1s/ep, eta 6243s
+    [ep   6/100] loss=0.26525  386s, 64.7s/ep, eta 6080s
+    [ep  11/100] loss=0.26563  705s, 63.8s/ep, eta 5675s
+    [ep  16/100] loss=0.25752  1025s, 63.9s/ep, eta 5369s
+    [ep  21/100] loss=0.25627  1348s, 64.6s/ep, eta 5103s
+    [ep  26/100] loss=0.25632  1662s, 62.9s/ep, eta 4655s
+    [ep  31/100] loss=0.25422  1976s, 62.8s/ep, eta 4334s
+    [ep  36/100] loss=0.24969  2297s, 64.0s/ep, eta 4098s

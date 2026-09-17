@@ -1,0 +1,29 @@
+================================================================================================
+  CALCE CS2_35 SP500  decode variants, 10 seeds, launch at true EOL - k
+  z-score rule: y = z * sigma_window + mu_window;  sigma-floor uses max(sigma_win, 0.5*sigma_launch)
+================================================================================================
+  z-clamp headroom (a priori):
+    |Z_CRIT| * sigma_floor = 0.01029   (sigma_floor 0.00585, the flattest real window)
+    true drop per cycle    = 0.00585   (mean |diff| over the last 50 cycles before EOL)
+    ratio 1.76  ->  clamp CAN keep up on its own
+================================================================================================
+  mode             k         MSE          AE   AE/k    final   mean|z|     sig0  binds
+--------------------------------------------------------------------------------------
+  baseline        50    9.27e-04   99+/-77/4   1.98   0.6944    1.0042  0.01274      0
+  baseline       100    1.77e-03  117+/-75/4   1.17   0.7127    1.0465  0.01343      0
+
+  sig-train       50    7.32e-04  58+/-11/10   1.16   0.2607    1.5608  0.01274      0
+  sig-train      100    5.88e-04  43+/-29/10   0.43   0.2111    1.5750  0.01343      0
+
+  z-clamp         50    8.12e-04  45+/-13/10   0.90   0.4219    1.6840  0.01274    217
+  z-clamp        100    2.59e-03  28+/-17/10   0.28   0.3661    1.6628  0.01343    252
+
+  MSE over the k launch steps;  AE = |predicted crossing - true EOL| in cycles (10 seeds);  AE/k is its ratio to
+  the remaining life at launch, so an AE of k is a useless number.
+  AE reads mean+/-std/N where N is how many of the seeds reached the
+  threshold at all -- a rollout that never crosses contributes no AE,
+  so N < seeds means the mean is over a self-selected subset.
+  mean|z| is over the whole rollout and is the RAW z, before any
+  clamp.  binds counts the steps z-clamp actually intervened on --
+  0 means the clamp never fired and the row is baseline by another
+  name; a large count means it was fighting the model the whole way.

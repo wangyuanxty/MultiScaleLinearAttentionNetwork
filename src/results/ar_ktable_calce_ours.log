@@ -1,0 +1,65 @@
+=== ours  Ks=[25, 50, 75, 100, 140]  runs=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] ===
+  load_series calce: true EOL cycle = 640 (last cycle at/above 0.77 Ah); grid Ks=[25, 50, 75, 100, 140]
+  [verify] ours SP300 seed 1: MAE=0.007345 R2=0.9941 AE=2
+  [verify] ours SP300 seed 2: MAE=0.006076 R2=0.9955 AE=2
+  [verify] ours SP300 seed 3: MAE=0.005859 R2=0.9952 AE=7
+  [verify] ours SP300 seed 4: MAE=0.007560 R2=0.9942 AE=3
+  [verify] ours SP300 seed 5: MAE=0.005847 R2=0.9959 AE=2
+  [verify] ours SP300 seed 6: MAE=0.007428 R2=0.9939 AE=3
+  [verify] ours SP300 seed 7: MAE=0.007053 R2=0.9950 AE=2
+  [verify] ours SP300 seed 8: MAE=0.006901 R2=0.9952 AE=1
+  [verify] ours SP300 seed 9: MAE=0.005966 R2=0.9964 AE=7
+  [verify] ours SP300 seed10: MAE=0.006346 R2=0.9960 AE=3
+  [verify] ours teacher-forced SP300 (ref = 10-seed mean, common (checkpoint min-max)): MAE=0.006638 (ref 0.0066) R2=0.9951 (ref 0.9951) -> PASS
+  ours seed 1 SP500 k= 25 (T=615): MAE=32.42mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 1 SP500 k= 50 (T=590): MAE=18.41mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 1 SP500 k= 75 (T=565): MAE=18.46mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 1 SP500 k=100 (T=540): MAE=20.37mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 1 SP500 k=140 (T=500): MAE=33.33mAh cross=None AE=None d1=0.0e+00 [16s]
+  ours seed 2 SP500 k= 25 (T=615): MAE=30.92mAh cross=None AE=None d1=0.0e+00 [11s]
+  ours seed 2 SP500 k= 50 (T=590): MAE=16.62mAh cross=None AE=None d1=0.0e+00 [12s]
+  ours seed 2 SP500 k= 75 (T=565): MAE=16.32mAh cross=None AE=None d1=0.0e+00 [13s]
+  ours seed 2 SP500 k=100 (T=540): MAE=14.40mAh cross=None AE=None d1=0.0e+00 [15s]
+  ours seed 2 SP500 k=140 (T=500): MAE=31.48mAh cross=None AE=None d1=0.0e+00 [17s]
+  ours seed 3 SP500 k= 25 (T=615): MAE=37.08mAh cross=870 AE=230 d1=0.0e+00 [11s]
+  ours seed 3 SP500 k= 50 (T=590): MAE=19.33mAh cross=789 AE=149 d1=0.0e+00 [12s]
+  ours seed 3 SP500 k= 75 (T=565): MAE=14.58mAh cross=825 AE=185 d1=0.0e+00 [13s]
+  ours seed 3 SP500 k=100 (T=540): MAE=15.02mAh cross=789 AE=149 d1=0.0e+00 [15s]
+  ours seed 3 SP500 k=140 (T=500): MAE=16.35mAh cross=None AE=None d1=0.0e+00 [20s]
+  ours seed 4 SP500 k= 25 (T=615): MAE=34.80mAh cross=846 AE=206 d1=0.0e+00 [15s]
+  ours seed 4 SP500 k= 50 (T=590): MAE=19.31mAh cross=815 AE=175 d1=0.0e+00 [15s]
+  ours seed 4 SP500 k= 75 (T=565): MAE=14.37mAh cross=851 AE=211 d1=0.0e+00 [16s]
+  ours seed 4 SP500 k=100 (T=540): MAE=14.84mAh cross=848 AE=208 d1=0.0e+00 [17s]
+  ours seed 4 SP500 k=140 (T=500): MAE=71.36mAh cross=None AE=None d1=0.0e+00 [17s]
+  ours seed 5 SP500 k= 25 (T=615): MAE=35.35mAh cross=None AE=None d1=0.0e+00 [13s]
+  ours seed 5 SP500 k= 50 (T=590): MAE=19.50mAh cross=None AE=None d1=0.0e+00 [12s]
+  ours seed 5 SP500 k= 75 (T=565): MAE=15.58mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 5 SP500 k=100 (T=540): MAE=17.24mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 5 SP500 k=140 (T=500): MAE=44.41mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 6 SP500 k= 25 (T=615): MAE=32.97mAh cross=None AE=None d1=0.0e+00 [10s]
+  ours seed 6 SP500 k= 50 (T=590): MAE=18.25mAh cross=None AE=None d1=0.0e+00 [11s]
+  ours seed 6 SP500 k= 75 (T=565): MAE=16.53mAh cross=None AE=None d1=0.0e+00 [11s]
+  ours seed 6 SP500 k=100 (T=540): MAE=21.72mAh cross=None AE=None d1=0.0e+00 [13s]
+  ours seed 6 SP500 k=140 (T=500): MAE=17.87mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 7 SP500 k= 25 (T=615): MAE=19.27mAh cross=652 AE=12 d1=0.0e+00 [10s]
+  ours seed 7 SP500 k= 50 (T=590): MAE=26.84mAh cross=632 AE=-8 d1=0.0e+00 [10s]
+  ours seed 7 SP500 k= 75 (T=565): MAE=83.72mAh cross=601 AE=-39 d1=0.0e+00 [12s]
+  ours seed 7 SP500 k=100 (T=540): MAE=92.15mAh cross=588 AE=-52 d1=0.0e+00 [13s]
+  ours seed 7 SP500 k=140 (T=500): MAE=117.72mAh cross=558 AE=-82 d1=0.0e+00 [14s]
+  ours seed 8 SP500 k= 25 (T=615): MAE=23.86mAh cross=705 AE=65 d1=0.0e+00 [10s]
+  ours seed 8 SP500 k= 50 (T=590): MAE=14.85mAh cross=703 AE=63 d1=0.0e+00 [11s]
+  ours seed 8 SP500 k= 75 (T=565): MAE=17.10mAh cross=681 AE=41 d1=0.0e+00 [13s]
+  ours seed 8 SP500 k=100 (T=540): MAE=14.30mAh cross=700 AE=60 d1=0.0e+00 [15s]
+  ours seed 8 SP500 k=140 (T=500): MAE=15.63mAh cross=673 AE=33 d1=0.0e+00 [16s]
+  ours seed 9 SP500 k= 25 (T=615): MAE=39.10mAh cross=None AE=None d1=0.0e+00 [13s]
+  ours seed 9 SP500 k= 50 (T=590): MAE=17.09mAh cross=None AE=None d1=0.0e+00 [15s]
+  ours seed 9 SP500 k= 75 (T=565): MAE=20.92mAh cross=None AE=None d1=0.0e+00 [13s]
+  ours seed 9 SP500 k=100 (T=540): MAE=18.73mAh cross=None AE=None d1=0.0e+00 [14s]
+  ours seed 9 SP500 k=140 (T=500): MAE=37.61mAh cross=None AE=None d1=0.0e+00 [16s]
+  ours seed10 SP500 k= 25 (T=615): MAE=24.61mAh cross=None AE=None d1=0.0e+00 [11s]
+  ours seed10 SP500 k= 50 (T=590): MAE=22.90mAh cross=None AE=None d1=0.0e+00 [12s]
+  ours seed10 SP500 k= 75 (T=565): MAE=15.76mAh cross=None AE=None d1=0.0e+00 [13s]
+  ours seed10 SP500 k=100 (T=540): MAE=12.22mAh cross=None AE=None d1=0.0e+00 [15s]
+  ours seed10 SP500 k=140 (T=500): MAE=18.65mAh cross=None AE=None d1=0.0e+00 [16s]
+
+saved D:\research\degradation_prognostics\Transformer_and_Multi_Scale_Models\src\results\ar_ktable_calce.json

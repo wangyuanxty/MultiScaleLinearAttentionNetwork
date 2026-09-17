@@ -1,0 +1,12 @@
+calce SP500 seed1 (epochs=100): AE=[52] MAE=0.0638 R2=0.8464 trainN=2715+436
+calce SP500 seed2 (epochs=100): AE=[52] MAE=0.0636 R2=0.8474 trainN=2715+436
+calce SP500 seed3 (epochs=100): AE=[52] MAE=0.0642 R2=0.8453 trainN=2715+436
+calce SP500 seed4 (epochs=100): AE=[52] MAE=0.0640 R2=0.8458 trainN=2715+436
+calce SP500 seed5 (epochs=100): AE=[52] MAE=0.0637 R2=0.8472 trainN=2715+436
+calce SP500 seed6 (epochs=100): AE=[52] MAE=0.0638 R2=0.8467 trainN=2715+436
+calce SP500 seed7 (epochs=100): AE=[52] MAE=0.0641 R2=0.8455 trainN=2715+436
+calce SP500 seed8 (epochs=100): AE=[52] MAE=0.0637 R2=0.8470 trainN=2715+436
+calce SP500 seed9 (epochs=100): AE=[52] MAE=0.0640 R2=0.8458 trainN=2715+436
+calce SP500 seed10 (epochs=100): AE=[52] MAE=0.0636 R2=0.8474 trainN=2715+436
+=== per-SP means over seeds ===
+SP500: AE=52.00 MAE=0.0638 RMSE=0.0768 R2=0.8464

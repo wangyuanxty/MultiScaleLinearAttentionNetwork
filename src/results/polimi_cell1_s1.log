@@ -1,0 +1,25 @@
+================================================================================================
+  PoliMi-TUB  test=cell1  train=5 cells  W=32  epochs=100  ABS_TARGET
+  SoH range from training cells: lo=0.3145 hi=1.0115
+================================================================================================
+  3751 windows from 5 cells (59 steps/epoch x 100)
+
+  seed  TrueEOL   RULerr@50  RULerr@150  RULerr@300  RULerr@450    TF MAE   TF RMSE
+  ---------------------------------------------------------------------------------
+    [ep   1/100] loss=0.08928  39s, 38.9s/ep, eta 3853s
+    [ep  13/100] loss=0.01841  503s, 38.7s/ep, eta 3367s
+    [ep  25/100] loss=0.01587  967s, 38.6s/ep, eta 2896s
+    [ep  37/100] loss=0.01573  1434s, 38.9s/ep, eta 2451s
+    [ep  49/100] loss=0.01354  1895s, 38.4s/ep, eta 1960s
+    [ep  61/100] loss=0.01318  2351s, 38.0s/ep, eta 1483s
+    [ep  73/100] loss=0.01157  2796s, 37.1s/ep, eta 1002s
+    [ep  85/100] loss=0.01021  3244s, 37.3s/ep, eta 559s
+    [ep  97/100] loss=0.01034  3692s, 37.3s/ep, eta 112s
+    [ep 100/100] loss=0.01015  3805s, 37.7s/ep, eta 0s
+     1      588         479         398         259         116   0.00940   0.00997  [4351s]
+
+  Bellomo et al. Table 2, their Autoregressive model:
+      RULerr@50 = 103   @150 = 81   @300 = 47   @450 = 21   (monotone convergence)
+  Ours freeze on CALCE.  If the four numbers above converge the same
+  way, our model is fine and CALCE was the problem; if they do not,
+  the fault is in our model or pipeline, not in the dataset size.

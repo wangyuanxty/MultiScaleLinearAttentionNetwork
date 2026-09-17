@@ -1,0 +1,5 @@
+    [ep   1/100] loss=0.76400  14s elapsed, eta 1419s
+    [ep   6/100] loss=0.53380  67s elapsed, eta 1043s
+    [ep  11/100] loss=0.46607  129s elapsed, eta 1043s  | tf=0.48329 ar=0.00856 lam=0.71 K=4
+    [ep  16/100] loss=0.43620  250s elapsed, eta 1312s  | tf=0.48227 ar=0.00780 lam=4.64 K=4
+    [ep  21/100] loss=0.41168  499s elapsed, eta 1876s  | tf=0.33453 ar=0.00832 lam=5.53 K=8

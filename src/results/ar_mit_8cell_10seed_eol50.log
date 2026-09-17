@@ -1,0 +1,30 @@
+seed1   ckpt      SP300_seed1.pt
+seed1   MSE       3.025e-03      MAE  0.04961
+seed1   AE        11      AE/k = 0.22
+seed2   ckpt      SP300_seed2.pt
+seed2   MSE       8.374e-03      MAE  0.07470
+seed2   AE        >=18    AE/k = 0.36   (never crossed: lower bound)
+seed3   ckpt      SP300_seed3.pt
+seed3   MSE       8.764e-03      MAE  0.08067
+seed3   AE        >=18    AE/k = 0.36   (never crossed: lower bound)
+seed4   ckpt      SP300_seed4.pt
+seed4   MSE       6.743e-05      MAE  0.00764
+seed4   AE        1       AE/k = 0.02
+seed5   ckpt      SP300_seed5.pt
+seed5   MSE       2.423e-03      MAE  0.04512
+seed5   AE        8       AE/k = 0.16
+seed6   ckpt      SP300_seed6.pt
+seed6   MSE       2.463e-04      MAE  0.01437
+seed6   AE        2       AE/k = 0.04
+seed7   ckpt      SP300_seed7.pt
+seed7   MSE       1.338e-03      MAE  0.03291
+seed7   AE        5       AE/k = 0.10
+seed8   ckpt      SP300_seed8.pt
+seed8   MSE       3.788e-03      MAE  0.05421
+seed8   AE        13      AE/k = 0.26
+seed9   ckpt      SP300_seed9.pt
+seed9   MSE       3.415e-02      MAE  0.16441
+seed9   AE        >=18    AE/k = 0.36   (never crossed: lower bound)
+seed10   ckpt      SP300_seed10.pt
+seed10   MSE       5.561e-04      MAE  0.02059
+seed10   AE        5       AE/k = 0.10
