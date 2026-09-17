@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 sys.path.insert(0, '.')
 from gdn_model import build_gdn_model
 from make_figures import load_series
+from train_per_sp import window_std
 
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 EPS = 1e-6
@@ -56,7 +57,7 @@ def predict_seq(model, ds, lo, hi):
             win = tc[i - W:i, None]
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).to(DEV)
             wmean = float(win[:, 0].mean())
-            wstd = float(win[:, 0].std()) + EPS
+            wstd = window_std(win[:, 0]) + EPS
             seg_p.append(model(cin).item() * wstd + wmean)
     seg_p = np.array(seg_p)
     tv = tc[W:]
@@ -319,7 +320,7 @@ def fig_uq_band():
             win = tc[i - W:i, None]
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).to(DEV)
             wmean = float(win[:, 0].mean())
-            wstd = float(win[:, 0].std()) + EPS
+            wstd = window_std(win[:, 0]) + EPS
             qz = model(cin).cpu().numpy().squeeze()
             qs.append(qz * wstd + wmean)
     qs = np.array(qs)

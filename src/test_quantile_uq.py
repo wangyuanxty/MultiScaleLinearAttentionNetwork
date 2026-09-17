@@ -19,6 +19,7 @@ import torch
 sys.path.insert(0, '.')
 from gdn_model import build_gdn_model, PinballLoss
 from make_figures import load_series
+from train_per_sp import window_std
 
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 BATCH, EPOCHS, SEED = 64, 100, 42
@@ -50,7 +51,7 @@ def predict_seq(model, caps, cell, lo, hi, W):
             win = tc[i - W:i, None]
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).to(DEV)
             wmean = float(win[:, 0].mean())
-            wstd = float(win[:, 0].std()) + EPS
+            wstd = window_std(win[:, 0]) + EPS
             qz = model(cin).cpu().numpy().squeeze()  # (3,)
             qs.append(qz * wstd + wmean)
     return np.array(qs), tc[W:]

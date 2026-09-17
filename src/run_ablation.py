@@ -16,6 +16,7 @@ from load_datasets import load_calce_cells_multivar, load_nasa_multivar, load_na
 from data_pipeline import Seq2VecDataset, collate_seq2vec
 from torch.utils.data import DataLoader
 import logging; logging.basicConfig(level=logging.WARNING)
+from train_per_sp import window_std
 
 DEV = torch.device("cuda")
 BATCH, SEED = 64, 42
@@ -58,7 +59,7 @@ def eval_table_a(model, tc, W, sps, eol_ah=None, lo=None, hi=None):
     with torch.no_grad():
         for i in range(W, len(tc)):
             win = tc[i - W:i]
-            wmean = float(win.mean()); wstd = float(win.std()) + 1e-6
+            wmean = float(win.mean()); wstd = window_std(win) + 1e-6
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).unsqueeze(-1).to(DEV)
             p_norm = model(cin).item()
             preds.append(p_norm * wstd + wmean)  # per-window de-normalize

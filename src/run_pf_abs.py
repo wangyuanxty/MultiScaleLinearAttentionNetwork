@@ -240,12 +240,18 @@ def main():
     ap.add_argument("--max_epochs", type=int, default=200)
     ap.add_argument("--suffix", type=str, default="",
                     help="suffix to isolate outputs (e.g. b16)")
+    ap.add_argument("--no-early-stop", action="store_true",
+                    help="drop EarlyStopping and train the full --max_epochs, "
+                         "keeping a checkpoint every 10 epochs.  Isolates "
+                         "'the absolute-target run stopped early' from 'the "
+                         "absolute target itself is worse': read the "
+                         "one-step residual as a function of epoch.")
     ap.add_argument("--check-data", action="store_true",
                     help="build datasets and stop before training")
     args = ap.parse_args()
 
     import pytorch_lightning as pl
-    from pytorch_lightning.callbacks import EarlyStopping
+    from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
     from pytorch_forecasting.metrics import SMAPE
     from ModelsModify.PatchFormer import PatchFormerNetModel
 
@@ -309,16 +315,31 @@ def main():
 
             save_dir = os.path.join(sp_root, f"run{seed}")
             os.makedirs(save_dir, exist_ok=True)
-            early_stop = EarlyStopping(monitor="val_loss", min_delta=1e-5,
-                                       patience=10, verbose=False, mode="min")
+            if args.no_early_stop:
+                # One checkpoint every 10 epochs: the question is how the
+                # one-step residual moves with training length, so the
+                # intermediate models have to survive, not just the last.
+                callbacks = [ModelCheckpoint(
+                    dirpath=save_dir, filename="ep{epoch:03d}",
+                    every_n_epochs=10, save_top_k=-1, save_last=True)]
+            else:
+                callbacks = [EarlyStopping(monitor="val_loss", min_delta=1e-5,
+                                           patience=10, verbose=False,
+                                           mode="min")]
             trainer = pl.Trainer(
                 max_epochs=args.max_epochs, accelerator="gpu", devices=1,
-                gradient_clip_val=0.2, callbacks=[early_stop],
+                gradient_clip_val=0.2, callbacks=callbacks,
                 logger=False, default_root_dir=save_dir)
             trainer.fit(model, train_dataloaders=train_dl,
                         val_dataloaders=val_dl)
 
-            best_path = trainer.checkpoint_callback.best_model_path
+            if args.no_early_stop:
+                # no monitor -> no "best"; take the highest-numbered epoch
+                ckpts = sorted(f for f in os.listdir(save_dir)
+                               if f.endswith(".ckpt") and f.startswith("ep"))
+                best_path = os.path.join(save_dir, ckpts[-1])
+            else:
+                best_path = trainer.checkpoint_callback.best_model_path
             print(f"[SP{sp} run{seed}] best: {best_path}", flush=True)
             best_model = PatchFormerNetModel.load_from_checkpoint(best_path).cuda()
 

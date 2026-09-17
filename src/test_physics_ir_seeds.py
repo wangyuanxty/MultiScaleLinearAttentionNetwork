@@ -32,6 +32,7 @@ from gdn_model import build_gdn_model, masked_mae
 from make_figures import load_series
 from eval_multiseed import true_rul
 from load_datasets import load_calce_cells_multivar
+from train_per_sp import window_std
 
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 W, BATCH, EPOCHS, EPS = 64, 64, 100, 1e-6
@@ -181,7 +182,7 @@ def eval_z_corrupted(zck, caps, test_cell, eol_ah, mode, seed, W_):
         for i in range(W_, len(tc)):
             win = tc[i - W_:i]
             wmean = float(win.mean())
-            wstd = float(win.std()) + EPS
+            wstd = window_std(win) + EPS
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).unsqueeze(-1).to(DEV)
             seg_p.append(model(cin).item() * wstd + wmean)
     seg_p = np.array(seg_p)

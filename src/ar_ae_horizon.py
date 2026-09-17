@@ -48,6 +48,7 @@ import os
 import sys
 
 import numpy as np
+import torch
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
@@ -117,7 +118,7 @@ def tf_ours(model, seq, t, w):
     idx = np.arange(t, len(seq))
     x = np.stack([seq[i - w:i, None] for i in idx]).astype(np.float32)
     wmean = x[:, :, 0].mean(axis=1)
-    wstd = x[:, :, 0].std(axis=1) + EPS
+    wstd = torch.as_tensor(x[:, :, 0], dtype=torch.float32).std(dim=1).numpy() + EPS
     with torch.no_grad():
         pred = model(torch.tensor(x, device=dev)).squeeze(-1).cpu().numpy()
     return pred * wstd + wmean

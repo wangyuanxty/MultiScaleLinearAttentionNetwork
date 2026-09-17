@@ -98,7 +98,13 @@ def _load_series_raw(ds):
         caps_all = load_panasonic_cells()
         caps = {c: caps_all[c].copy().astype(np.float32) for c in caps_all}
         cells = sorted(caps.keys())
-        return caps, cells[:-1], cells[-1], 30, [300, 500, 700], 2.12
+        # 300/400/500, not 300/500/700: the checkpoints in
+        # checkpoints/per_sp/panasonic/ are SP300/SP400/SP500 (ten seeds each)
+        # and the paper's table heading says the same, so this hardcoded list
+        # was the odd one out.  Anything that runs PANASONIC without an
+        # explicit --sps would otherwise train SP700 -- which has no
+        # checkpoints and is not reported -- while silently skipping SP400.
+        return caps, cells[:-1], cells[-1], 30, [300, 400, 500], 2.12
     if ds == "gotion":
         from load_datasets import load_gotion_cells
         caps_all = load_gotion_cells()
@@ -147,7 +153,7 @@ def predict_series(ds, K=1, seeds=(42, 43, 44)):
     with torch.no_grad():
         p_norm = model(cin).cpu().numpy()  # (N, 1)
     wmean = windows.mean(axis=1, keepdims=True)
-    wstd = windows.std(axis=1, keepdims=True) + 1e-6
+    wstd = torch.as_tensor(windows, dtype=torch.float32).std(dim=1, keepdim=True).numpy() + 1e-6
     pv = (p_norm * wstd + wmean)[: len(tc) - W, :]  # (M, 1)
     tv = tc[W:]
     return pv, tv, lo, hi, W, sps, eol_ah

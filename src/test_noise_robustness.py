@@ -16,6 +16,7 @@ import torch
 sys.path.insert(0, '.')
 from gdn_model import build_gdn_model, masked_mae, PhysicsRegularizer
 from make_figures import load_series
+from train_per_sp import window_std
 
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 W, BATCH, EPOCHS, SEED = 64, 64, 100, 42
@@ -117,7 +118,7 @@ def eval_corrupted(model, caps, train_cells, test_cell, lo, hi, eol_ah, mode):
         for i in range(W, len(tc)):
             win = tc[i - W:i]
             wmean = float(win.mean())
-            wstd = float(win.std()) + EPS
+            wstd = window_std(win) + EPS
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).unsqueeze(-1).to(DEV)
             seg_p.append(model(cin).item() * wstd + wmean)
     seg_p = np.array(seg_p)

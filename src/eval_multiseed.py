@@ -85,8 +85,12 @@ def eval_table_a(ds, seed):
                 continue
             windows = np.stack([tc[sp - W + i:sp + i] for i in range(n)])
             wmean = windows.mean(axis=1)
-            wstd = windows.std(axis=1) + 1e-6
             cin = torch.tensor(windows, dtype=torch.float32).unsqueeze(-1).to(DEV)
+            # torch.std on the tensor the model is fed -- same operator and
+            # dtype as the training target's scale (numpy's .std() is biased,
+            # 0.78% smaller at W=64, and that goes straight into the
+            # de-normalisation below).
+            wstd = cin[:, :, 0].std(dim=1).cpu().numpy() + 1e-6
             with torch.no_grad():
                 seg_p = model(cin).cpu().numpy()[:, 0]
             seg_p = seg_p * wstd + wmean  # per-window de-normalize
@@ -138,8 +142,10 @@ def eval_table_b(ds, seed):
                         break
                     win = tc[t - W:t]
                     wmean = float(win.mean())
-                    wstd = float(win.std()) + 1e-6
                     cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).unsqueeze(-1).to(DEV)
+                    # torch.std on the tensor the model is fed (see the batched
+                    # site above for why numpy's .std() is the wrong estimator).
+                    wstd = float(cin[:, :, 0].std(dim=1)) + 1e-6
                     pred = model(cin).squeeze(0).cpu().numpy() * wstd + wmean
                     if pred[-1] < threshold_n:
                         for j in range(len(pred) - 1):

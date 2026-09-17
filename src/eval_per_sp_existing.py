@@ -24,9 +24,18 @@ EPS = 1e-6
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def eval_sp_batched(model, caps, test_cells, lo, hi, W, sp, eol_ah):
-    """Batch-forwards of train_per_sp.eval_sp (identical math:
-    per-window z-score de-normalization, same crossing rule)."""
+def eval_sp_batched(model, caps, test_cells, lo, hi, W, sp, eol_ah,
+                    abs_target=False):
+    """Batch-forwards of train_per_sp.eval_sp (identical math: the same
+    per-window de-normalization, chosen by `abs_target`, and the same crossing
+    rule).  train_per_sp.decode_pred documents why the two decodes differ.
+
+    `abs_target` MUST be True for an absolute-target checkpoint.  The wrong
+    decode is silent: the z-score rule multiplies a capacity-scale output by
+    the window std, so the decoded trajectory becomes ~98% the true window
+    mean and every seed reports the same crossing cycle.  Checkpoints written
+    from 2026-09-15 carry an `abs_target` key; anything older must be told.
+    """
     model.eval()
     th = (eol_ah - lo) / (hi - lo + EPS)
     rows = []
@@ -36,9 +45,14 @@ def eval_sp_batched(model, caps, test_cells, lo, hi, W, sp, eol_ah):
             idx = np.arange(sp, len(seq))
             X = np.stack([seq[i - W:i, None] for i in idx]).astype(np.float32)
             wmean = X[:, :, 0].mean(axis=1)
-            wstd = X[:, :, 0].std(axis=1) + EPS
-            pred = model(torch.tensor(X, device=DEV)).squeeze(-1).cpu().numpy()
-            seg_p = pred * wstd + wmean
+            cin = torch.tensor(X, device=DEV)
+            # torch.std on the tensor the model is fed -- the same operator and
+            # dtype training's target scale came from.  numpy's .std() is the
+            # biased estimator (0.78% smaller at W=64) and that error goes
+            # straight into `y = z*wstd + wmean` below.
+            wstd = cin[:, :, 0].std(dim=1).cpu().numpy() + EPS
+            pred = model(cin).squeeze(-1).cpu().numpy()
+            seg_p = pred if abs_target else pred * wstd + wmean
             tv = seq[sp:]
             n = min(len(tv), len(seg_p))
             tv, seg_p = tv[:n], seg_p[:n]

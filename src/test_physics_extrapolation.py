@@ -17,6 +17,7 @@ from gdn_model import build_gdn_model, masked_mae
 from make_figures import load_series
 from eval_multiseed import true_rul
 from load_datasets import load_calce_cells_multivar
+from train_per_sp import window_std
 
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 W, BATCH, EPOCHS, SEEDS = 64, 64, 100, [42]
@@ -101,7 +102,7 @@ def train_eval(seed, use_ir, ds="calce"):
                 win = win[:, None]
             cin = torch.tensor(win, dtype=torch.float32).unsqueeze(0).to(DEV)
             wmean = float(win[:, 0].mean())
-            wstd = float(win[:, 0].std()) + EPS
+            wstd = window_std(win[:, 0]) + EPS
             seg_p.append(model(cin).item() * wstd + wmean)
     seg_p = np.array(seg_p)
     mae = np.mean(np.abs(seg_p - seg_t))
