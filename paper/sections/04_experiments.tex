@@ -80,7 +80,7 @@ sliding-window single-step predictions for one cell of each dataset;
 Table~\ref{tab:tableA} reports the full per-SP results. The six
 datasets cover distinct degradation regimes and operational
 scenarios; we present them as case studies below, each closing with
-its operational implication and a comparison with published results
+what the result implies in practice and a comparison with published results
 on that dataset.
 
 \begin{figure}[htbp]
@@ -235,16 +235,17 @@ Method & & \multicolumn{3}{c}{SP1} & \multicolumn{3}{c}{SP2} & \multicolumn{3}{c
 
 \subsubsection{PANASONIC: regeneration-rich fleet operation}
 PANASONIC (NCA, 3.03\,Ah) is the regeneration benchmark: staircase
-profiles with local capacity recoveries. Our model wins every metric
-and every SP against all published baselines (Table~\ref{tab:lit_all}:
-MAE $0.0037$ vs.\ $0.0105$ for the strongest baseline at SP300; R\textsuperscript{2}
-$0.9976$ vs.\ $0.9898$; AE $0.8$ vs.\ $2.2$); against an
-official-repo reproduction of PatchFormer it ties within noise at
-SP300 and SP400 and leads SP500 by $\sim$4$\times$ (MAE $0.0040$ vs.\
-$0.0167$). Figure~\ref{fig:regen}
+profiles with local capacity recoveries. Our model ranks first on the
+mean per-SP MAE (Table~\ref{tab:lit_all}: $0.0038$, against $0.0079$
+for the closest method, an official-repo reproduction of PatchFormer,
+and $0.0162$ for the strongest published baseline at SP300). That
+reproduction is ahead at one start point only, SP300 (MAE $0.0033$
+vs.\ $0.0037$, $p<10^{-3}$ over ten repeats); at SP400 the two are
+indistinguishable ($p=0.12$) and ours leads SP500 by $\sim$4$\times$
+(MAE $0.0040$ vs.\ $0.0167$). Figure~\ref{fig:regen}
 shows why: the free-head readout tracks a $0.024$\,Ah local rise
 without overshoot, while a structurally monotonic predictor cannot
-represent this pattern at all. \emph{Operational implication:} real
+represent this pattern at all. \emph{In practice:} real
 fleet data is non-monotonic; a model with a structural monotonicity
 bias would systematically mis-schedule maintenance after recovery
 events. The free head covers this regime, and the monotonic rate head
@@ -267,11 +268,12 @@ pattern at all.}
 
 \subsubsection{TJU: long-life cycle counting}
 TJU (NCM/NCA, 2.5\,Ah, $\sim$900-cycle cells) is the long-life,
-low-noise regime. The model edges the strongest baseline on
-every SP (Table~\ref{tab:lit_all}: MAE $0.0013$ vs.\ $0.0014$ at
-SP200, R\textsuperscript{2} $0.9999$ vs.\ $0.9998$, AE $0.2$ vs.\ $2.1$; at SP400
-R\textsuperscript{2} $0.9996$ vs.\ $0.9994$ and AE $1.6$ vs.\ $3.0$).
-\emph{Operational implication:} long-life assets accumulate decisions
+low-noise regime. The model leads on MAE at SP200 and SP300
+(Table~\ref{tab:lit_all}: $0.0013$ vs.\ $0.0014$ and $0.0014$ vs.\
+$0.0015$); at SP400 ModernTCN and RUL-Mamba are marginally ahead on
+MAE ($0.0016$ vs.\ $0.0018$) while our R\textsuperscript{2} and AE are
+better ($0.9996$ vs.\ $0.9995$ and $1.6$ vs.\ $2.7$--$2.9$).
+\emph{In practice:} long-life assets accumulate decisions
 slowly; the combination of near-perfect trajectory fit and calibrated
 intervals (Section~\ref{sec:conf}) supports low-frequency,
 high-stakes replacement planning.
@@ -315,7 +317,7 @@ and $1.6$ on the other (10-seed means), exceeding the published MIT
 result of Zhou et al.\ \cite{ref_zhou2025}
 (R\textsuperscript{2} $0.9902$) under a different protocol (7-step multi-point).
 Per-SP protocol (every (SP, seed) retrained from scratch, 10 seeds
-per SP) is applied uniformly. \emph{Operational implication:}
+per SP) is applied uniformly. \emph{In practice:}
 cross-cell generalization at R$^2 \approx 1$ is the enabler for
 fleet-scale screening and grading with per-device confidence.
 
@@ -329,10 +331,10 @@ PatchFormer result at SP90
 ($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), while
 its MAE remains slightly ahead ($0.0083$ vs.\ $0.0072$ at SP90;
 AE $0.6$ vs.\ $2.5$).
-\emph{Operational implication:}
+\emph{In practice:}
 short histories are the regime where rapid commissioning checks and
 second-life screening must run with limited data; the model's
-trajectory quality is decision-grade from $\sim$50 cycles of
+trajectory error is already small from $\sim$50 cycles of
 observation.
 
 
@@ -656,13 +658,9 @@ models share one optimizer budget rather than a per-dataset one. The
 official-style 0.8/0.2 row-tail early stopping was also tried; the
 small validation window made it terminate at 2--16 epochs with
 systematically worse test metrics, so the fixed schedule is kept.
-Latency is measured under emulation
-(Section~\ref{sec:latency}), not on silicon, and no on-device power figure
-is reported. All validation is on public laboratory cycling data;
+All validation is on public laboratory cycling data;
 field conditions such as partial cycling, pack-level effects, and
-non-stationary loads remain open. Both the single-branch encoder and the
-full multi-scale model are implemented in C and verified on emulated
-hardware; the deployed footprints, the cross-architecture agreement and
-the caveats that come with emulation are given in
+non-stationary loads remain open. The deployment chain is verified
+separately, and the caveats that come with it are stated in
 Section~\ref{sec:deploy}.
 

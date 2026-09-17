@@ -23,7 +23,7 @@ supervised---monitoring problem of all.
 Battery management systems (BMS) characterize battery health through three state quantities: 
 state of charge (SOC), defined as the fraction of remaining usable charge; 
 state of health (SOH), defined as the current full capacity relative to rated capacity, 
-with end-of-life conventionally set at $70–80\%$ of rated capacity; and remaining useful life (RUL), 
+with end-of-life conventionally set at $70$--$80\%$ of rated capacity; and remaining useful life (RUL),
 defined as the number of cycles until that threshold is crossed. 
 These three quantities form a natural progression: SOC describes present energy availability, 
 SOH quantifies aging to date, and RUL forecasts remaining service life. 
@@ -90,16 +90,16 @@ is the region whose values fall outside the trained range; consequently,
 learned predictors tend to flatten or drift there. Moreover, 
 corrupted or noisy sensor streams markedly degrade prediction accuracy.
 
-Beneath these technical gaps lies a decision-layer gap: even an
-accurate SOH/RUL estimate is an intermediate product, and translating
-it into maintenance actions today still relies on expert judgment.
+Even an
+accurate SOH/RUL estimate is an intermediate product: translating
+it into a maintenance action today still relies on expert judgment.
 Field evidence from large-scale storage systems shows that
 explainable, decision-oriented operation and maintenance frameworks
 cut response time and operational cost by over 80\% compared with
 conventional expert-driven practice \cite{ref_qu_bess}. Space is an extreme operating regime: satellites run on
 lithium-ion batteries, in-orbit repair is impossible, and a battery fault
-cannot be serviced---an environment in which on-device,
-decision-grade prognostics is a requirement rather than a convenience.
+cannot be serviced---an environment in which on-device
+prognostics is a requirement rather than a convenience.
 
 This paper proposes DeltaCycle, a multi-scale linear-attention
 network for battery prognostics designed from the outset for embedded
@@ -126,9 +126,9 @@ exchange.} Three patch branches (sizes 2/4/8) read degradation at
 local, regional, and global scales; after every layer the coarse
 branch's GDN state---the compressed degradation history---projects to
 a single query that reads the fine and mid branch sequences.
-Ablations show the exchange is essential. From an operational standpoint, 
-the coarse branch functions as an explicit degradation-stage indicator, 
-providing the type of information on which maintenance scheduling ultimately relies.
+Ablations show the exchange is essential. The coarse branch also
+acts as an explicit degradation-stage indicator, the quantity a
+maintenance schedule is ultimately indexed on.
 
 \item \textbf{A physics-consistent degradation-rate head.} Why
 physics at all? The third limitation above is the motivation:
@@ -177,9 +177,9 @@ conducted on public laboratory data.}
 \label{fig:overview}
 \end{figure}
 
-The technical contributions above translate into an operational
-value chain in which each application stresses a specific DeltaCycle
-capability rather than generic monitoring (Figure~\ref{fig:overview}):
+The technical contributions above map onto the deployment regimes we
+target, each stressing a different part of the design rather than
+generic monitoring (Figure~\ref{fig:overview}):
 no-connectivity edge deployment (spacecraft satellites
 and UAV fleets, where physical access and onboard
 connectivity budget rule out cloud dependence), risk-aware

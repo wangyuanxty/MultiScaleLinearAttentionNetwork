@@ -50,11 +50,10 @@ Prognostics}
 \begin{abstract}
 
 Lithium-ion battery fleets—across electric vehicles, robotics, portable medical devices, 
-and second-life use—generate a continuous stream of maintenance and replacement decisions. 
-This market is projected to grow several-fold over the coming decade. Every
-such decision requires three things that current monitoring
+and second-life use—generate a continuous stream of maintenance and replacement decisions.
+Every such decision requires three things that current monitoring
 technology cannot deliver simultaneously: models accurate enough to
-be decision-grade, yet small enough to run on the microcontrollers
+support a maintenance decision, yet small enough to run on the microcontrollers
 inside battery management systems rather than in the cloud;
 forecasts that stay trustworthy as horizons lengthen and field data
 corrupts; and uncertainty statements that let operators trade risk
@@ -67,19 +66,18 @@ deployment-verified through a minimal single-branch variant that runs in C on a 
 with a fixed-size recurrent state and matches PyTorch to within floating-point rounding error; 
 a physics-consistent degradation-rate head driven by measured internal resistance—the 
 macroscopic signature of lithium-inventory loss—which acts as a constraint on the decay direction; 
-and conformal-calibrated prediction intervals that convert point forecasts into decision-grade outputs.
+and conformal-calibrated prediction intervals with verified coverage.
 
 Across six public battery datasets spanning multiple chemistries, DeltaCycle
-achieves first-tier accuracy among protocol-matched baselines---state
-of the art on PANASONIC, first place on TJU against the strongest
-published and reproduced baselines, with $R^2 \geq 0.9995$ on MIT and explicit
-tracking of capacity regeneration. The physics term was validated in physics-relevant settings, 
+ranks top-3 among protocol-matched baselines on all six: first on GOTION and
+PANASONIC, joint-first on TJU, and second on CALCE. It reaches $R^2 \geq 0.9995$ on MIT
+and tracks capacity regeneration explicitly. The physics term was validated in physics-relevant settings,
 where it doubled unseen-tail extrapolation fidelity and outperformed all baselines 
 in every corruption-robustness test. Interval coverage is lifted to $93.5\%\pm0.9\%$ at 
-nominal $95\%$. For battery operators, this translates into a capability shift:
-continuous, risk-aware asset monitoring that runs on-device at
-near-zero marginal cost, without cloud connectivity, model
-retraining, or specialist hardware.
+nominal $95\%$. Operationally, the same model runs on the device: the recurrent
+kernel is shipped in C, matches the PyTorch forward to floating-point rounding,
+and holds a fixed-size state, so monitoring does not require cloud connectivity
+or retraining.
 \end{abstract}
 
 \begin{keyword}
