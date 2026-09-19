@@ -43,13 +43,16 @@ We compile the same C source for the host and Cortex-M3 and compare the two outp
 
 Table~\ref{tab:deploy} reports the memory footprints. INT8 yields a $73.4\%$ reduction to 504 KB with no accuracy loss 
 (R2=0.9955, MAE=0.00581). INT4 halves this to 268 KB but MAE rises $16.4\%$ (R2=0.9946). 
-AE changes from 2.16 to 2.17 cycles, with ±1.5-cycle between different seeds. 
-The variants correspond to two deployment tiers: one employs multi-scale branches to handle three temporal scales, 
-while the other measures the encoder alone. The choice between them is governed by the trade-off between Flash and accuracy.
+AE changes from 2.16 to 2.17 cycles, with ±1.5-cycle between different seeds.
+These are footprint tiers, not accuracy tiers: the multi-scale model needs a
+2\,MB part, while the encoder alone fits 128\,KB at INT8. Both are trained and
+evaluated under the same protocol, and the figures above concern quantization only.
 
 \begin{table}[htbp]
 \centering
-\caption{Deployed footprints. }
+\caption{Deployed flash and SRAM footprints. Accuracy is reported in
+Section~\ref{sec:exp}; the quantization figures in the text are the only
+precision-related ones this section makes.}
 \label{tab:deploy}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -57,18 +60,13 @@ while the other measures the encoder alone. The choice between them is governed 
 \toprule
  & & fp32 & INT8 & INT4 \\
 \midrule
-\multirow{5}{*}{Multi-scale}
+\multirow{2}{*}{Multi-scale}
  & weights & 1.85\,MB & 504\,KB & 268\,KB \\
  & state (SRAM) & \multicolumn{3}{c}{48\,KB, independent of window} \\
- & $R^2$ & 0.9955 & 0.9955 & 0.9946 \\
- & MAE & 0.00581 & 0.00581 & 0.00676 \\
- & AE (cycles) & 2.16 & 2.17 & 2.40 \\
 \midrule
-\multirow{4}{*}{Single-branch}
+\multirow{2}{*}{Single-branch}
  & weights & 444\,KB & 122\,KB & 67\,KB \\
  & state (SRAM) & \multicolumn{3}{c}{16\,KB} \\
- & AE (cycles) & 1.0 & 0.9 & --- \\
- & & & & \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -85,9 +85,9 @@ def main():
 
     for cfg_name in args.config:
         cfg = CONFIGS[cfg_name]
-        ckpt_dir = f"../checkpoints/per_sp_abl/calce/{cfg_name}"
+        ckpt_dir = f"../checkpoints/per_sp_abl/{ds}/{cfg_name}"
         os.makedirs(ckpt_dir, exist_ok=True)
-        out_path = f"results/per_sp_ablation_calce_{cfg_name}.json"
+        out_path = f"results/per_sp_ablation_{ds}_{cfg_name}.json"
         out = json.load(open(out_path)) if os.path.exists(out_path) else {
             "dataset": ds, "config": cfg_name, "protocol": "per-SP, pilot seeds 1-3",
         }
