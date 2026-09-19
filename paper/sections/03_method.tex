@@ -58,8 +58,6 @@ $\mathbf{S}_t \in \mathbb{R}^{d_k \times d_v}$ is fixed-size and
 updated incrementally, yielding $O(N)$ scan complexity with
 constant memory. With $H$ heads, $d_k=16$, and $d_v=32$, the total
 state is $H \cdot d_k \cdot d_v \cdot 4$ bytes $= 8$\,KB per layer.
-Figure~\ref{fig:evidence}\subref{fig:cost} contrasts the per-window cost of this
-scan with quadratic self-attention.
 During a window scan the state is updated incrementally---each new
 cycle erases part of the old memory (via $\mathbf{b}_t$) and writes
 new information (via $\mathbf{w}_t$)---so the fixed-size matrix acts
@@ -115,45 +113,10 @@ $128\to64 \to$ RMSNorm.
 \label{fig:gdn2}
 \end{figure}
 
-\begin{figure}[!ht]
-\centering
-\begin{subfigure}[b]{0.32\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/fig_evidence_decay}
-\caption{}
-\label{fig:decay}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.32\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/fig_evidence_complexity}
-\caption{}
-\label{fig:cost}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.32\textwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/fig_evidence_patch}
-\caption{}
-\label{fig:patch_pool}
-\end{subfigure}
-\caption{Method-consistency evidence. (a) Real per-layer mean decay
-weights from the seed-42 CALCE checkpoint: each layer keeps state
-over hundreds of cycles, and the per-channel log-rate gate
-($g = -\exp(A_{\log})\,\mathrm{softplus}(\mathrm{raw}_g +
-\mathrm{dt}_{\mathrm{bias}})$, $\boldsymbol{\alpha}_t=\exp(g)$)
-sets how quickly each channel forgets. (b) Per-window cost of the
-single-query linear-attention scan ($O(L)$) versus quadratic
-self-attention ($O(L^2)$). (c) Real multi-scale capacity series of
-the $W{=}64$ CALCE window under patch sizes $P\in\{2,4,8\}$
-(32/16/8 tokens).}
-\label{fig:evidence}
-\end{figure}
-
 Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
 long-term monotonic envelope. We encode these with three parallel
-branches using patch sizes $P \in \{2,4,8\}$
-(Figure~\ref{fig:evidence}\subref{fig:patch_pool} shows the real capacity series at each
-patch scale). Each branch projects its
+branches using patch sizes $P \in \{2,4,8\}$. Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
 two GDN-2 layers. Each branch scans at its own token count---32, 16 and
 8 for patch sizes 2, 4 and 8---and the branches are aligned to the
