@@ -20,15 +20,14 @@ over the strongly nonlinear EOL-acceleration phase.
 
 Recurrent models were among the first deep approaches to capacity sequences:
 LSTM-based predictors \cite{ref_lstm_rul_zhang,ref_lstm_elman_li},
-GRU variants \cite{ref_gru_ding,ref_gru_rnn}, and recurrent networks
+GRU variants \cite{ref_gru_rnn}, and recurrent networks
 for RUL \cite{ref_rnn_catelani} capture temporal dynamics but suffer
 from long-term dependency limitations. Convolutional hybrids combine
 local feature extraction with recurrence, including CNN-BiLSTM
 \cite{ref_cnn_bilstm}, TCN-LSTM \cite{ref_tcn_lstm}, and attention
 mechanisms \cite{ref_lstm_transformer}. Transformer-based models
 \cite{ref_vaswani} brought global attention to battery prognostics:
-direct Transformer RUL predictors \cite{ref_trans_rul}, hybrid
-CEEMDAN-Transformer-DNN models \cite{ref_ceemdan_trans}, and
+hybrid CEEMDAN-Transformer-DNN models \cite{ref_ceemdan_trans} and
 PatchFormer \cite{ref_patchformer}, which combines dual patch-wise
 attention with feature-wise attention. General time-series
 transformers evaluated on battery tasks include Autoformer

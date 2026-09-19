@@ -1,0 +1,114 @@
+{
+  "alpha": 0.05,
+  "quantiles": [
+    0.025,
+    0.5,
+    0.975
+  ],
+  "train_cells": [
+    "CS2_37",
+    "CS2_38"
+  ],
+  "cal_cell": "CS2_36",
+  "test_cell": "CS2_35",
+  "seeds": [
+    {
+      "seed": 1,
+      "q_adj": 0.003,
+      "P50_MAE": 0.0075,
+      "raw_coverage": 0.905,
+      "cqr_coverage": 0.927,
+      "cqr_width": 0.043
+    },
+    {
+      "seed": 2,
+      "q_adj": 0.0029,
+      "P50_MAE": 0.0075,
+      "raw_coverage": 0.876,
+      "cqr_coverage": 0.923,
+      "cqr_width": 0.0446
+    },
+    {
+      "seed": 3,
+      "q_adj": 0.005,
+      "P50_MAE": 0.0078,
+      "raw_coverage": 0.878,
+      "cqr_coverage": 0.933,
+      "cqr_width": 0.0414
+    },
+    {
+      "seed": 4,
+      "q_adj": 0.006,
+      "P50_MAE": 0.0072,
+      "raw_coverage": 0.903,
+      "cqr_coverage": 0.938,
+      "cqr_width": 0.0454
+    },
+    {
+      "seed": 5,
+      "q_adj": 0.0034,
+      "P50_MAE": 0.007,
+      "raw_coverage": 0.875,
+      "cqr_coverage": 0.919,
+      "cqr_width": 0.0326
+    },
+    {
+      "seed": 6,
+      "q_adj": 0.0051,
+      "P50_MAE": 0.007,
+      "raw_coverage": 0.89,
+      "cqr_coverage": 0.945,
+      "cqr_width": 0.0405
+    },
+    {
+      "seed": 7,
+      "q_adj": 0.0022,
+      "P50_MAE": 0.007,
+      "raw_coverage": 0.913,
+      "cqr_coverage": 0.934,
+      "cqr_width": 0.0413
+    },
+    {
+      "seed": 8,
+      "q_adj": 0.0071,
+      "P50_MAE": 0.0072,
+      "raw_coverage": 0.905,
+      "cqr_coverage": 0.951,
+      "cqr_width": 0.0472
+    },
+    {
+      "seed": 9,
+      "q_adj": 0.0053,
+      "P50_MAE": 0.0093,
+      "raw_coverage": 0.874,
+      "cqr_coverage": 0.942,
+      "cqr_width": 0.0439
+    },
+    {
+      "seed": 10,
+      "q_adj": 0.0037,
+      "P50_MAE": 0.0085,
+      "raw_coverage": 0.889,
+      "cqr_coverage": 0.933,
+      "cqr_width": 0.0411
+    }
+  ],
+  "agg": {
+    "P50_MAE": {
+      "mean": 0.0076,
+      "std": 0.0007
+    },
+    "raw_coverage": {
+      "mean": 0.8908,
+      "std": 0.014
+    },
+    "cqr_coverage": {
+      "mean": 0.9345,
+      "std": 0.0094
+    },
+    "cqr_width": {
+      "mean": 0.0421,
+      "std": 0.0038
+    }
+  }
+}

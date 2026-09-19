@@ -72,10 +72,12 @@ def main():
         q_test, y_test = predict_seq(model, caps, TEST_CELL, lo, hi, W)
         mae50 = float(np.mean(np.abs(q_test[:, 1] - y_test)))
         raw_in = (y_test >= q_test[:, 0]) & (y_test <= q_test[:, 2])
+        raw_width = float(np.mean(q_test[:, 2] - q_test[:, 0]))
         cqr_lo, cqr_hi = q_test[:, 0] - q_adj, q_test[:, 2] + q_adj
         cqr_in = (y_test >= cqr_lo) & (y_test <= cqr_hi)
         print(f"[seed {seed}] raw_cov={raw_in.mean():.3f} "
               f"cqr_cov={cqr_in.mean():.3f} "
+              f"raw_width={raw_width:.4f} "
               f"width={np.mean(cqr_hi - cqr_lo):.4f} "
               f"P50MAE={mae50:.4f} q_adj={q_adj:.4f}", flush=True)
 
@@ -85,12 +87,14 @@ def main():
             "seed": seed, "q_adj": round(q_adj, 4),
             "P50_MAE": round(mae50, 4),
             "raw_coverage": round(float(raw_in.mean()), 3),
+            "raw_width": round(raw_width, 4),
             "cqr_coverage": round(float(cqr_in.mean()), 3),
             "cqr_width": round(float(np.mean(cqr_hi - cqr_lo)), 4),
         })
 
     agg = {}
-    for k in ("P50_MAE", "raw_coverage", "cqr_coverage", "cqr_width"):
+    for k in ("P50_MAE", "raw_coverage", "raw_width", "cqr_coverage",
+              "cqr_width"):
         vals = np.array([r[k] for r in rows])
         agg[k] = {"mean": round(float(vals.mean()), 4),
                   "std": round(float(vals.std()), 4)}
