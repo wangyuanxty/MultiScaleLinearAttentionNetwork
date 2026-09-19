@@ -61,20 +61,34 @@ plt.rcParams.update(
 # ---------------------------------------------------------------------------
 # Shared constants (paper/sections/05_deployment.tex)
 # ---------------------------------------------------------------------------
-ATTN_H = 4                    # heads, tab:attn
-MODEL_D = 64                  # d_model, tab:attn
+ATTN_H = 4                    # heads, matching the deployed model
+MODEL_D = 64                  # d_model of the comparison attention model
 STATE_MULTI_KB = 48.0         # six-layer recurrent state, tab:deploy
 STATE_SINGLE_KB = 16.0        # two-layer recurrent state, tab:deploy
 STATE_PER_LAYER_KB = 8.0      # H*Dk*Dv*4 = 4*16*32*4 bytes
 STACK_KB = 3.1                # static stack budget, "Memory and stack budget"
+# The 48 KB state is the SUM over every GDN-2 block, so the attention model it
+# is compared against has the same depth.  The two attention terms scale with
+# that depth differently, and the difference is the point of the figure:
+#
+#   * the score matrix is per-layer TRANSIENT.  Layers are evaluated in
+#     sequence and each layer's scores are freed before the next one runs, so
+#     the peak is one layer's H*L^2, not six layers';
+#   * the KV cache is per-layer RESIDENT.  Every layer holds its K and V for
+#     the whole of inference, so the total is ATTN_LAYERS times one layer's.
+#
+# Comparing a six-layer state against a one-layer KV cache would understate
+# the baseline by 6x.
+ATTN_LAYERS = int(round(STATE_MULTI_KB / STATE_PER_LAYER_KB))     # 6
 
 TOKENS = np.array([32, 64, 128, 256, 512, 1024])
-# attention score matrix: H * L^2 * 4 bytes -> KB
+# score matrix, peak over layers: H * L^2 * 4 bytes
 ATTN_KB = ATTN_H * TOKENS.astype(float) ** 2 * 4.0 / 1024.0
-# KV cache: 2 * L * d_model * 4 bytes -> KB
-KV_KB = 2.0 * TOKENS * MODEL_D * 4.0 / 1024.0
-# crossover: H*L^2*4 / 1024 == STATE_MULTI_KB
+# KV cache, resident across layers: ATTN_LAYERS * 2 * L * d_model * 4 bytes
+KV_KB = ATTN_LAYERS * 2.0 * TOKENS * MODEL_D * 4.0 / 1024.0
+# first token count at which each attention term exceeds the whole state
 CROSSOVER_L = float(np.sqrt(STATE_MULTI_KB * 1024.0 / (ATTN_H * 4.0)))
+CROSSOVER_KV = STATE_MULTI_KB * 1024.0 / (ATTN_LAYERS * 2.0 * MODEL_D * 4.0)
 
 # Weights, tab:deploy. 1 MB is read as 1024 KB, the convention used by the
 # same section's attention table (256 tokens -> 1.0 MB for 1048576 bytes).
@@ -113,34 +127,35 @@ def fig_dep_memctx():
     fig, ax = plt.subplots(figsize=(6.9, 4.0))
 
     ax.plot(TOKENS, ATTN_KB, "o-", color=COLORS[3], lw=1.3, ms=4.2,
-            label=r"attention scores ($H L^2 \times 4$ B)")
+            label="attention scores ($HL^2\\times4$ B, peak of one layer)")
     ax.plot(TOKENS, KV_KB, "s-", color=COLORS[1], lw=1.3, ms=4.0,
-            label=r"KV cache ($2 L d_{\mathrm{model}} \times 4$ B)")
+            label=(f"KV cache ($2Ld_{{\\mathrm{{model}}}}\\times4$ B "
+                   f"$\\times{ATTN_LAYERS}$ layers)"))
     ax.plot(TOKENS, np.full_like(TOKENS, STATE_MULTI_KB, dtype=float), "^--",
             color=COLORS[0], lw=1.4, ms=4.6,
-            label="ours: 6-layer recurrent state")
+            label=f"ours: {ATTN_LAYERS}-layer recurrent state")
 
-    # crossover: attention scores reach the 48 KB state line
-    ax.axvline(CROSSOVER_L, color="0.45", ls=":", lw=1.0, zorder=0)
-    ax.plot([CROSSOVER_L], [STATE_MULTI_KB], "o", ms=5.4, mfc="white",
-            mec="0.2", mew=1.1, zorder=5)
-    ax.annotate(
-        f"crossover $L \\approx {CROSSOVER_L:.0f}$ tokens",
-        xy=(CROSSOVER_L, STATE_MULTI_KB), xytext=(80.0, 200.0),
-        fontsize=7.5, color="0.15",
-        arrowprops=dict(arrowstyle="->", lw=0.8, color="0.35",
-                        shrinkA=1, shrinkB=4),
-    )
+    # Two crossovers.  The KV cache is resident at every layer, so it passes
+    # the whole state first -- before the first plotted token; the score
+    # matrix only does so later, and only because it is quadratic in L.
+    for xc, lab, col in ((CROSSOVER_KV, "KV cache", COLORS[1]),
+                         (CROSSOVER_L, "scores", COLORS[3])):
+        ax.axvline(xc, color="0.45", ls=":", lw=1.0, zorder=0)
+        ax.plot([xc], [STATE_MULTI_KB], "o", ms=5.4, mfc="white",
+                mec="0.2", mew=1.1, zorder=5)
+        ax.text(xc * 1.07, 1.1e5, f"{lab}\n$L{{=}}{xc:.0f}$", fontsize=6.9,
+                color=col, ha="left", va="top", linespacing=1.3)
 
     # evaluated operating point: 32 tokens on the finest (patch-2) branch
     ax.axvline(32.0, color="0.55", ls="--", lw=0.9, zorder=0)
-    ax.plot([32.0], [ATTN_KB[0]], "o", ms=6.2, mfc="white", mec=COLORS[3],
-            mew=1.4, zorder=6)
+    for yv, col, mk in ((ATTN_KB[0], COLORS[3], "o"), (KV_KB[0], COLORS[1], "s")):
+        ax.plot([32.0], [yv], mk, ms=6.2, mfc="white", mec=col,
+                mew=1.4, zorder=6)
     ax.annotate(
-        "evaluated window: 32 tokens\n"
-        "($W{=}64$ cycles, patch 2)\n"
-        "attention 16 KB $<$ our 48 KB state",
-        xy=(32.0, ATTN_KB[0] * 0.90), xytext=(35.0, 4.6),
+        f"evaluated window: 32 tokens ($W{{=}}64$ cycles, patch 2)\n"
+        f"scores {ATTN_KB[0]:.0f} KB are transient, but the KV cache is\n"
+        f"{KV_KB[0]:.0f} KB and resident, twice our whole state",
+        xy=(32.0, KV_KB[0]), xytext=(36.0, 5.6),
         fontsize=6.8, color="0.12", ha="left", va="bottom",
         bbox=dict(boxstyle="round,pad=0.30", fc="white", ec="0.65", lw=0.6),
         arrowprops=dict(arrowstyle="->", lw=0.8, color="0.35",
@@ -151,7 +166,7 @@ def fig_dep_memctx():
             fontsize=7.5, color=COLORS[0], ha="right", va="bottom")
     ax.text(
         0.985, 0.035,
-        "the claim is the slope, not today's value",
+        "ours is the only line that is flat in $L$",
         transform=ax.transAxes, fontsize=7.2, color="0.3",
         ha="right", va="bottom", style="italic",
     )
@@ -165,7 +180,7 @@ def fig_dep_memctx():
     for axis in (ax.xaxis, ax.yaxis):
         axis.set_minor_formatter(matplotlib.ticker.NullFormatter())
         axis.set_minor_locator(matplotlib.ticker.NullLocator())
-    ax.set_xlim(24.0, 2600.0)
+    ax.set_xlim(13.0, 2600.0)
     ax.set_ylim(4.2, 1.4e5)
 
     ax.set_xlabel("context length $L$ (tokens)")
@@ -179,8 +194,11 @@ def fig_dep_memctx():
 
     fig.tight_layout()
     _save(fig, "fig_dep_memctx")
-    print(f"  crossover L = {CROSSOVER_L:.1f} tokens; "
-          f"attention at 32 tokens = {ATTN_KB[0]:g} KB")
+    print(f"  {ATTN_LAYERS} layers: KV cache passes the {STATE_MULTI_KB:.0f} KB "
+          f"state at L = {CROSSOVER_KV:.1f}; "
+          f"score matrix at L = {CROSSOVER_L:.1f}")
+    print(f"  at the evaluated 32 tokens: scores {ATTN_KB[0]:g} KB (transient), "
+          f"KV cache {KV_KB[0]:g} KB (resident)")
 
 
 # ---------------------------------------------------------------------------

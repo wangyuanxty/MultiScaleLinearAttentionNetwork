@@ -131,25 +131,33 @@ deployment argument, which rests on the memory bound rather than on timing.
 
 \subsection{Comparison with an attention model at equal context}
 
-Figure~\ref{fig:dep_memctx} makes the trade explicit for a model with
-$H{=}4$ heads and $d_{\text{model}}{=}64$ attending over $L$ tokens,
-against our fixed 48\,KB state.
+Figure~\ref{fig:dep_memctx} makes the trade explicit for a model of the
+same depth and width ($H{=}4$, $d_{\text{model}}{=}64$, six layers)
+attending over $L$ tokens, against our fixed 48\,KB state.
 
-At the token count our experiments actually use, the attention score
-matrix is $16$\,KB --- smaller than our state; the crossover is
-near $L\approx55$ tokens. When the sequence length $L{=}1024$ , the score matrix alone consumes 
-$16$\,MB, which is equivalent to $341$ the state size of our proposed scheme. The argument is therefore not a
-linear-attention model is cheaper today, but its cost does not move
-when the application needs more context --- and that the KV cache, unlike
-the state, keeps growing as inference proceeds.
+The two attention terms do not behave alike. The score matrix is
+quadratic but transient: at the $32$ tokens our finest branch actually
+sees, it is $16$\,KB, smaller than our state. The KV cache is linear but
+resident, and each of the six layers holds its own, so it is $96$\,KB at
+those same $32$ tokens --- twice our whole state --- and it passes the
+state at $L\approx16$. At $L{=}1024$ the score matrix alone reaches
+$16$\,MB, $341\times$ our state.
+
+The argument is therefore not that a linear-attention model is cheaper
+today, but that its cost does not move when the application needs more
+context: ours is the only quantity in the figure that is flat in $L$.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_dep_memctx}
-\caption{Working memory against context length, for the same model: the
-score matrix ($HL^2\times4$ bytes) and the KV cache
-($2Ld_{\text{model}}\times4$ bytes) with $H{=}4$ and
-$d_{\text{model}}{=}64$, against the fixed $48$\,KB recurrent state.}
+\caption{Working memory against context length, for a model of the same
+depth (six layers) and width ($H{=}4$, $d_{\text{model}}{=}64$). The
+score matrix is $HL^2\times4$ bytes at the peak of one layer, since the
+layers run in sequence and each frees its scores before the next; the KV
+cache is $6\times2Ld_{\text{model}}\times4$ bytes, since every layer holds
+its keys and values for the whole of inference. Both are drawn against our
+fixed $48$\,KB recurrent state, which is the sum over those same six
+blocks.}
 \label{fig:dep_memctx}
 \end{figure}
 
