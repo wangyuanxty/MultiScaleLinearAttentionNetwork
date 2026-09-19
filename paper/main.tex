@@ -57,13 +57,11 @@ Every such decision requires three capabilities that current monitoring
 technology cannot deliver simultaneously: models accurate enough to
 support a maintenance decision, yet small enough to run on the microcontrollers
 inside battery management systems rather than in the cloud;
-forecasts that remain trustworthy from 33 to 921 cycles of remaining
-life, and under corrupted field data;
+cycles of remaining life prediction remains trustworthy even when field data are corrupted;
 and uncertainty statements that let operators trade risk against cost explicitly.
 
-We propose DeltaCycle, a capacity-only battery monitoring loop built
-for deployment. Our work makes the following innovations:
-a multi-scale linear-attention encoder, 
+To address these limitations, we propose DeltaCycle, a capacity-only battery monitoring loop built
+for deployment. Our work makes the following innovations: a multi-scale linear-attention encoder, 
 deployment-verified through a minimal single-branch variant that runs in C on a microcontroller 
 with a fixed-size recurrent state and matches PyTorch to within floating-point rounding error; 
 a physics-consistent degradation-rate head driven by measured internal resistance 
@@ -75,7 +73,7 @@ and second on CALCE. Interval coverage
 is lifted to $93.5\%\pm0.9\%$ at nominal $95\%$, and the physics rate head more than
 doubles unseen-tail extrapolation fidelity while winning every corruption-robustness
 setting tested on MAE.  The source code and
-datasets are available at https://github.com/wangyuanxty/MultiScaleLinearAttentionNetwork.
+datasets are available at \url{https://github.com/wangyuanxty/MultiScaleLinearAttentionNetwork}.
 
 \end{abstract}
 
@@ -99,9 +97,7 @@ The datasets used in this study are public: CALCE (Center for
 Advanced Life Cycle Engineering, request access), NASA (Prognostics
 Center of Excellence Data Repository), MIT/Stanford
 (data.matr.io/1), PANASONIC and TJU (as distributed with the
-PatchFormer and RUL-Mamba repositories). Code for training,
-evaluation, figure generation, and the MCU deployment is available
-at \url{https://github.com/wangyuanxty/MultiScaleLinearAttentionNetwork}.
+PatchFormer and RUL-Mamba repositories). 
 
 \section*{CRediT authorship contribution statement}
 
