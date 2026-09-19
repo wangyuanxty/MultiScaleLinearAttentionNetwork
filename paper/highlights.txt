@@ -1,7 +1,7 @@
 Highlights
 
-- First or joint-first on three of six datasets, top-3 against all baselines
-- An internal-resistance rate head doubles unseen-tail extrapolation fidelity
-- It also wins every corrupted-input setting on MAE (dropout 0.0074 vs 0.0105)
-- Conformal calibration lifts interval coverage to 93.5% at nominal 95%
-- The full model runs in C on a Cortex-M3 with a fixed 48 KB state, no malloc
+- Linear-attention backbone with verified edge deployment in C on Cortex-M3
+- Multi-scale branches with per-layer stage-query cross-scale exchange
+- Physics rate head: doubles extrapolation, wins every corrupted-input MAE
+- Calibrated uncertainty at one forward pass: 93.5% coverage, no ensemble
+- First or joint-first on three of six datasets, top-3 vs protocol-matched

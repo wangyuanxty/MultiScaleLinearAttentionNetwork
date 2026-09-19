@@ -118,8 +118,7 @@ longer history at full resolution where a quadratic attention buffer
 would force either more SRAM or a coarser representation.
 Operationally, the accuracy machinery is no longer tied to the
 cloud: the model runs inside the BMS microcontroller itself---the
-prerequisite for per-device monitoring at fleet scale and near-zero
-marginal cost.
+prerequisite for per-device monitoring at fleet scale.
 
 \item \textbf{Multi-scale branches with stage-query cross-scale
 exchange.} Three patch branches (sizes 2/4/8) read degradation at
@@ -148,7 +147,7 @@ matter: unseen-tail extrapolation fidelity doubles and the head wins
 every corruption-robustness setting tested. This provides evidence that 
 the mechanism performs measurable work rather than acting as a decorative constraint.
 
-\item \textbf{Decision-grade uncertainty at one forward pass.} A single pinball-trained model 
+\item \textbf{Calibrated uncertainty at one forward pass.} A single pinball-trained model
 directly produces P2.5/P50/P97.5 intervals. Conformal calibration on a held-out cell, 
 using only two scalar parameters and no ensembling, raises coverage to $93.5\%\pm0.9\%$ (ten seeds) 
 at a nominal $95\%$ level. Crucially, the interval—not the point estimate—is 
