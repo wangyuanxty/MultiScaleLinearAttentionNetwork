@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600, initial-scale=1">
+<title>Physics Rate Head</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #F3F5F7; color: #1F262B;
+  width: 1600px; height: 900px; overflow: hidden;
+}
+@page { size: 1600px 900px; margin: 0; }
+@media print { html, body { width: 1600px; height: 900px; } }
+.container {
+  width: 100%; height: 100%; padding: 10px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.head-strip {
+  flex: 0 0 28px; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; display: flex; align-items: center;
+  justify-content: center; gap: 16px;
+  font-size: 13px; font-weight: bold; letter-spacing: 1px;
+}
+.head-strip .m { font-family: Georgia, serif; font-style: italic; font-weight: normal; color: #C96A4A; }
+
+/* physical motivation chain band + main mechanism figure */
+.mech {
+  flex: 1; min-height: 0; background: #FFFFFF; border: 2px solid #C9D1D8;
+  border-radius: 8px; padding: 8px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.motiv { flex: 0 0 130px; min-height: 0; }
+.motiv img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.mech img { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+
+/* one results band */
+.evidence {
+  flex: 0 0 168px; display: flex; gap: 8px;
+}
+.ev-card {
+  flex: 1; background: #FFFFFF; border: 1px solid #C9D1D8; border-radius: 6px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 7px; padding: 8px;
+}
+.ev-label { font-size: 11.5px; color: #8A7B54; letter-spacing: 0.6px; text-align: center; }
+.ev-num { font-size: 24px; font-weight: bold; color: #D64533; }
+.ev-num small { font-size: 13px; }
+.ev-num span { color: #2E7D8C; }
+.ev-sub { font-size: 10.5px; color: #6B7680; font-style: italic; text-align: center; }
+
+.foot-strip {
+  flex: 0 0 42px; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+}
+.ft {
+  background: #F1F5F9; border: 1px solid #D5DDE3; border-radius: 4px;
+  padding: 4px 14px; font-size: 12px; font-weight: bold; color: #2E7D8C;
+}
+.ft.c { background: #F6EFE9; border-color: #E4CDBD; color: #C96A4A; }
+.ft.g { background: #ECF2E9; border-color: #CBD9BF; color: #4C8C5A; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="head-strip">
+    PHYSICS-CONSISTENT DEGRADATION-RATE HEAD <span class="m">· one module, two values: tail foresight + corruption resilience</span>
+  </div>
+
+  <div class="mech">
+    <div class="motiv"><img src="../ms_motivation.png" alt="physical motivation chain"></div>
+    <img src="../ms_rate_head.png" alt="rate head mechanism">
+  </div>
+
+  <div class="evidence">
+    <div class="ev-card">
+      <div class="ev-label">UNSEEN-TAIL EXTRAPOLATION</div>
+      <div class="ev-num">0.775 <small>vs</small> 0.447</div>
+      <div class="ev-sub">rate head vs free head (R²) · curves in §5</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-label">CORRUPTED DATA · DROP-30</div>
+      <div class="ev-num">23 <small>→</small> 17</div>
+      <div class="ev-sub">AE, free head → rate head · curves in §5</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-label">IR SOURCE & TRAINING</div>
+      <div class="ev-num" style="font-size:17px;"><span>EIS · IR_last</span></div>
+      <div class="ev-sub">absolute capacity space · L = MAE(Q̂, c)</div>
+    </div>
+  </div>
+
+  <div class="foot-strip">
+    <span class="ft">γ = softplus(γ_log)</span><span class="ft c">r ≥ 0</span>
+    <span class="ft g">Q̂ ≤ Q_last</span>
+    <span class="ft">L = MAE(Q̂, c)</span>
+    <span class="ft c">one module, two values</span>
+  </div>
+</div>
+</body>
+</html>

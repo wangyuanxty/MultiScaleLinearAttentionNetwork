@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600, initial-scale=1">
+<title>Edge Deployment</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #F3F5F7; color: #1F262B;
+  width: 1600px; height: 900px; overflow: hidden;
+}
+@page { size: 1600px 900px; margin: 0; }
+@media print { html, body { width: 1600px; height: 900px; } }
+.container {
+  width: 100%; height: 100%; padding: 10px 16px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.head-strip {
+  flex: 0 0 28px; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; display: flex; align-items: center;
+  justify-content: center; gap: 16px;
+  font-size: 13px; font-weight: bold; letter-spacing: 1px;
+}
+.head-strip .m { font-family: Georgia, serif; font-style: italic; font-weight: normal; color: #B08A2E; }
+
+/* top: sensing photo band */
+.photo-strip { flex: 0 0 148px; display: flex; gap: 8px; overflow: hidden; }
+.ph-card {
+  flex: 1; background: #FFFFFF; border: 1px solid #C9D1D8; border-radius: 6px;
+  padding: 5px; display: flex; flex-direction: column;
+}
+.ph-card img { height: 106px; width: 100%; object-fit: cover; border-radius: 4px; flex: none; }
+.ph-cap { flex: 0 0 26px; font-size: 11px; font-weight: bold; text-align: center;
+  display: flex; align-items: center; justify-content: center; color: #2E7D8C; }
+
+/* middle: hub */
+.hub { flex: 1; min-height: 0; display: flex; gap: 8px; }
+.side-block { flex: 0 0 360px; display: flex; flex-direction: column; gap: 8px; }
+.center-block {
+  flex: 1; background: #FFFFFF; border: 1px solid #C9D1D8; border-radius: 6px;
+  display: flex; flex-direction: column; padding: 6px;
+}
+.center-block .phead {
+  flex: 0 0 26px; font-size: 12px; font-weight: bold; text-align: center;
+  display: flex; align-items: center; justify-content: center;
+  background: #DCE8F3; border-bottom: 1px solid #A8BDD1;
+  border-radius: 4px 4px 0 0;
+}
+.center-block img { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+
+.card {
+  flex: 1; min-height: 0; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; padding: 7px 10px; display: flex; flex-direction: column;
+}
+.card .ctitle {
+  font-size: 11px; font-weight: bold; letter-spacing: 0.5px;
+  color: #B08A2E; padding-bottom: 4px; border-bottom: 1px solid #EEF1F4;
+  margin-bottom: 5px; display: flex; align-items: center; justify-content: center;
+}
+.kv2 { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+.krow { display: flex; align-items: center; gap: 8px; }
+.klabel { font-size: 11px; color: #6B7680; flex: 0 0 74px; }
+.kbar { flex: 1; height: 20px; background: #F2F5F7; border: 1px solid #C9D1D8;
+  border-radius: 3px; position: relative; overflow: hidden; }
+.kfill { position: absolute; left: 0; top: 0; bottom: 0; background: #B08A2E; }
+.kval { font-size: 11px; font-weight: bold; flex: 0 0 96px; text-align: right; }
+.chips { display: flex; gap: 6px; }
+.chip {
+  flex: 1; border-radius: 4px; padding: 6px 8px; font-size: 11px; font-weight: bold;
+  text-align: center; background: #F6EED8; border: 1px solid #E0D5B5; color: #1F262B;
+}
+.chip.g { background: #E4EDDD; border-color: #C4D4BC; }
+.chip.b { background: #DCE8F3; border-color: #A8BDD1; }
+.chip.c { background: #F3E2DC; border-color: #E0BCB4; }
+
+/* bottom: verification row */
+.verify { flex: 0 0 168px; display: flex; gap: 8px; }
+.libm { flex: 0 0 380px; }
+.libm .ctitle { color: #4C8C5A; }
+.libm table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.libm td { padding: 4px 8px; border-bottom: 1px solid #EEF1F4; }
+.libm td:first-child { color: #6B7680; }
+.libm td:last-child { text-align: right; font-weight: bold; color: #2E7D8C; }
+.libm td:last-child em { color: #4C8C5A; }
+.lat { flex: 1; }
+.bitx { flex: 0 0 380px; justify-content: center; }
+.bitx .big {
+  font-size: 24px; font-weight: bold; color: #D64533; text-align: center;
+  letter-spacing: 1px;
+}
+.bitx .sub { font-size: 11px; color: #6B7680; text-align: center; font-style: italic; }
+
+.foot-strip {
+  flex: 0 0 42px; background: #FFFFFF; border: 1px solid #C9D1D8;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+}
+.ft {
+  background: #EAF1F8; border: 1px solid #A8BDD1; border-radius: 4px;
+  padding: 4px 13px; font-size: 12px; font-weight: bold; color: #2E7D8C;
+}
+.ft.g { background: #E4EDDD; border-color: #C4D4BC; color: #4C8C5A; }
+.ft.c { background: #F3E2DC; border-color: #E0BCB4; color: #C96A4A; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="head-strip">
+    EDGE DEPLOYMENT <span class="m">· sensing → deterministic on-board inference → bit-exact verification</span>
+  </div>
+
+  <!-- top: from the bench -->
+  <div class="photo-strip">
+    <div class="ph-card"><img src="../photos/test_bench.png" alt="bench"><div class="ph-cap">cycler test bench</div></div>
+    <div class="ph-card"><img src="../photos/cell18650.png" alt="cell"><div class="ph-cap">capacity + cycle count</div></div>
+    <div class="ph-card"><img src="../photos/bms_pcb.png" alt="bms"><div class="ph-cap">on-board BMS</div></div>
+  </div>
+
+  <!-- hub: memory / MCU / quantization -->
+  <div class="hub">
+    <div class="side-block">
+      <div class="card">
+        <div class="ctitle">DETERMINISTIC MEMORY</div>
+        <div class="kv2">
+          <div class="krow"><div class="klabel">state</div>
+            <div class="kbar"><div class="kfill" style="width:2.3%"></div></div>
+            <div class="kval">16 KB</div></div>
+          <div class="krow"><div class="klabel">weights</div>
+            <div class="kbar"><div class="kfill" style="width:100%"></div></div>
+            <div class="kval">340 KB</div></div>
+          <div class="chips"><span class="chip b">state 8 KB × 2 layers</span><span class="chip b">zero malloc</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ctitle">KV-CACHE GROWTH</div>
+        <div class="kv2">
+          <div class="krow"><div class="klabel">self-attn</div>
+            <div class="kbar"><div class="kfill" style="width:78%"></div></div>
+            <div class="kval">grows O(L)</div></div>
+          <div class="krow"><div class="klabel">GDN-2</div>
+            <div class="kbar"><div class="kfill g" style="width:2.3%"></div></div>
+            <div class="kval">fixed 16 KB</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="center-block">
+      <div class="phead">ON-BOARD MCU · FULL NETWORK IN C</div>
+      <img src="../photos/mcu_wide.png" alt="mcu">
+    </div>
+
+    <div class="side-block">
+      <div class="card">
+        <div class="ctitle">INT8 QUANTIZATION</div>
+        <div class="kv2">
+          <div class="chips"><span class="chip c">fp32 → INT8</span><span class="chip c">−75%</span></div>
+          <div class="krow"><div class="klabel">accuracy</div>
+            <div class="kbar"><div class="kfill c" style="width:100%"></div></div>
+            <div class="kval">AE 2.2 → 2.3</div></div>
+          <div class="chips"><span class="chip">P2.5</span><span class="chip">P50</span><span class="chip">P97.5</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ctitle">OUTPUTS</div>
+        <div class="chips" style="flex:1; align-items:stretch; flex-direction:column;">
+          <span class="chip g">calibrated interval → RUL</span>
+          <span class="chip g">capacity-only input</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- verification row -->
+  <div class="verify">
+    <div class="card libm">
+      <div class="ctitle">LIBM · BIT-EXACT ARM vs X86</div>
+      <table>
+        <tr><td>expf</td><td>identical <em>✓</em></td></tr>
+        <tr><td>logf</td><td>identical <em>✓</em></td></tr>
+        <tr><td>sqrtf</td><td>identical <em>✓</em></td></tr>
+        <tr><td>erff</td><td>identical <em>✓</em></td></tr>
+      </table>
+    </div>
+    <div class="card lat">
+      <div class="ctitle">REAL LATENCY (C · QEMU-MEASURED)</div>
+      <div class="kv2">
+        <div class="krow"><div class="klabel">Cortex-M3</div>
+          <div class="kbar"><div class="kfill" style="width:100%"></div></div>
+          <div class="kval">428 ms @ 25 MHz</div></div>
+        <div class="krow"><div class="klabel">STM32F4</div>
+          <div class="kbar"><div class="kfill g" style="width:3%"></div></div>
+          <div class="kval">8–12 ms @ 168 MHz</div></div>
+      </div>
+    </div>
+    <div class="card bitx">
+      <div class="big">&lt; 3 × 10⁻⁶</div>
+      <div class="sub">full-scan diff vs PyTorch</div>
+      <div class="sub" style="margin-top:4px;">no heap · no float drift · static allocation</div>
+    </div>
+  </div>
+
+  <div class="foot-strip">
+    <span class="ft">16 KB fixed state</span><span class="ft g">bit-exact</span>
+    <span class="ft c">8–12 ms per inference</span>
+    <span class="ft">no cloud · no connectivity</span>
+  </div>
+</div>
+</body>
+</html>

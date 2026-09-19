@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600, initial-scale=1">
+<title>DeltaCycle System Overview</title>
+<style>
+@page { size: 1600px 900px; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #F3F5F7;
+  color: #1F262B;
+  width: 1600px;
+  height: 900px;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 4px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ---------- Scene strip: square photo cards, A-B-C-D order ---------- */
+.scene-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
+  height: 238px;
+}
+
+.scene-card {
+  background: #FFFFFF;
+  border: 1px solid #C9D1D8;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.scene-photo-wrap { position: relative; flex: 1; min-height: 0; background: #FFFFFF; }
+.scene-photo { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.scene-dot {
+  position: absolute; top: 8px; right: 8px;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px rgba(31,38,43,.25);
+}
+.dot-a { background: #2E7D8C; }
+.dot-b { background: #B08A2E; }
+.dot-c { background: #4C8C5A; }
+.dot-d { background: #D64533; }
+
+.scene-meta {
+  padding: 3px 7px 4px;
+  border-top: 1px solid #E3E8EC;
+}
+.scene-name { font-size: 12.5px; font-weight: bold; text-align: center; }
+.scene-stress { font-size: 10.0px; color: #707A82; font-style: italic; text-align: center; margin-top: 1px; }
+.scene-input { font-size: 9.5px; color: #969FA7; text-align: center; margin-top: 2px; }
+
+/* ---------- Dataset spec table ---------- */
+.ds-band {
+  background: #FBF7EF;
+  border: 1px solid #E4DCC8;
+  border-radius: 6px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  height: 70px;
+}
+.spec-col {
+  display: flex; flex-direction: column; justify-content: center;
+  font-size: 10.0px; letter-spacing: 1px; font-weight: bold;
+  color: #8A7B54; text-align: center;
+  padding-right: 8px; border-right: 1px solid #E4DCC8;
+  white-space: nowrap; line-height: 1.5;
+}
+.spec-grid {
+  flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px;
+}
+.spec-card {
+  background: #FFFDF7; border: 1px solid #E9E1CD; border-radius: 4px;
+  padding: 3px 7px; display: flex; flex-direction: column; gap: 1px;
+  justify-content: center;
+}
+.spec-row1 { display: flex; align-items: center; gap: 6px; }
+.spec-name { font-size: 11.5px; font-weight: bold; }
+.chem-tag {
+  font-size: 9.0px; font-weight: bold; color: #FFFFFF;
+  border-radius: 2px; padding: 1px 4px;
+}
+.chem-lco { background: #2E7D8C; }
+.chem-lfp { background: #4C8C5A; }
+.chem-nca { background: #C96A4A; }
+.chem-ncm { background: #7A5FA8; }
+.spec-cap { font-size: 9.5px; color: #6B6350; }
+.spec-sps { display: flex; gap: 4px; align-items: center; }
+.sp-dot {
+  font-size: 9.0px; background: #F0E7D2; border: 1px solid #D9C9A3;
+  border-radius: 8px; padding: 1px 5px; color: #6B6350;
+}
+.eol-bar {
+  height: 7px; background: #F0E7D2; border: 1px solid #D9C9A3;
+  border-radius: 2px; position: relative; overflow: hidden;
+}
+.eol-fill { height: 100%; background: #D64533; }
+.eol-txt { font-size: 9.0px; color: #8A7B54; margin-top: 1px; }
+.ds-side {
+  font-size: 9.5px; color: #8A7B54; font-style: italic; line-height: 1.5;
+  width: 128px; display: flex; flex-direction: column; justify-content: center;
+  text-align: left;
+}
+
+/* ---------- Model / train / infer triptych (AI figures) ---------- */
+.triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  height: 224px;
+}
+.triptych-panel {
+  background: #FFFFFF;
+  border: 1px solid #C9D1D8;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.triptych-head {
+  font-size: 10.5px; font-weight: bold; letter-spacing: 1px;
+  padding: 3px 8px 2px; text-align: center;
+  border-bottom: 1px solid #E3E8EC;
+}
+.th-train { background: #DCE8F3; }
+.th-model { background: #F6EED8; }
+.th-infer { background: #E4EDDD; }
+.triptych-panel img { flex: 1; width: 100%; object-fit: contain; min-height: 0; }
+
+/* ---------- Capabilities ---------- */
+.capabilities {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  flex: 1;
+  min-height: 0;
+}
+
+.capability {
+  background: #FFFFFF;
+  border: 1px solid #C9D1D8;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cap-head {
+  background: #DCE8F3;
+  border-bottom: 1px solid #C9D1D8;
+  padding: 5px 8px;
+  font-size: 13.0px; font-weight: bold; color: #1F262B;
+}
+.capability:nth-child(2) .cap-head { background: #F6EED8; }
+.capability:nth-child(3) .cap-head { background: #E4EDDD; }
+.capability:nth-child(4) .cap-head { background: #F3E2DC; }
+
+.cap-body {
+  flex: 1; min-height: 0;
+  padding: 7px 9px;
+  display: flex; flex-direction: column; gap: 5px;
+}
+
+.chart-embed { flex: 1; min-height: 0; }
+.chart-embed img { width: 100%; height: 100%; object-fit: contain; }
+.chart-embed svg { width: 100%; height: 100%; }
+
+.metric-line {
+  font-size: 9.5px; color: #707A82; font-style: italic; text-align: center;
+  padding: 2px 0 0; border-top: 1px solid #EEF1F4; margin-top: 1px;
+}
+
+/* A: dataset badges */
+.badge-row { display: flex; justify-content: space-around; align-items: center; }
+.ds-badge {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #F6EED8; border: 1px solid #C9D1D8;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8.5px; font-weight: bold; color: #1F262B;
+}
+
+/* B: causal chain */
+.chain {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 3px;
+  background: #F0F5EE; border: 1px solid #DDE5DA; border-radius: 4px;
+  padding: 5px 6px;
+}
+.chain-box {
+  background: #E4EDDD; border: 1px solid #C9D1D8; border-radius: 3px;
+  padding: 4px 7px;
+  font-family: Georgia, 'Times New Roman', serif; font-style: italic;
+  font-size: 11.5px; white-space: nowrap;
+}
+.chain-arrow { color: #D64533; font-size: 12px; font-weight: bold; }
+
+.split2 { display: grid; grid-template-columns: 1.15fr 1fr; gap: 7px; flex: 1; min-height: 0; }
+.split2 > div { min-height: 0; display: flex; }
+.split2 svg { width: 100%; height: 100%; }
+
+.phys-note {
+  display: flex; align-items: center; gap: 8px;
+  border-top: 1px solid #EEF1F4; padding-top: 5px;
+}
+.phys-note img {
+  width: 48px; height: 48px; object-fit: cover; border-radius: 3px;
+  border: 1px solid #C9D1D8; flex: 0 0 auto;
+}
+.phys-note-text { font-size: 10.0px; line-height: 1.45; }
+.phys-note-text b { color: #D64533; }
+
+/* C: calibration chain */
+.cal-chain {
+  display: flex; align-items: center; justify-content: space-between; gap: 3px;
+  background: #F0F4F1; border: 1px solid #DDE5DA; border-radius: 4px;
+  padding: 5px 6px;
+}
+.cal-box {
+  background: #E4EDDD; border: 1px solid #C9D1D8; border-radius: 3px;
+  padding: 4px 5px; font-size: 9.5px; text-align: center; line-height: 1.25;
+}
+.cal-arrow { color: #D64533; font-size: 13.0px; font-weight: bold; }
+
+/* C: coverage rings */
+.cov-row {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  background: #F4F7F5; border: 1px solid #DDE5DA; border-radius: 4px;
+  padding: 6px;
+}
+.cov-item { display: flex; align-items: center; gap: 7px; }
+.cov-label { font-size: 9.5px; line-height: 1.3; color: #5A655E; }
+.cov-label b { display: block; color: #1F262B; }
+
+/* D: memory bars */
+.mem-row { display: flex; align-items: center; gap: 7px; }
+.mem-label { font-size: 10.5px; font-weight: 600; width: 46px; }
+.mem-track {
+  flex: 1; height: 20px; position: relative;
+  background: #F2F5F7; border: 1px solid #C9D1D8; border-radius: 3px;
+  overflow: hidden;
+}
+.mem-fill { height: 100%; background: #DCE8F3; }
+.mem-fill.green { background: #E4EDDD; }
+.mem-val {
+  position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+  font-size: 10.5px; font-weight: bold;
+}
+
+.feature-chip {
+  background: #F6EED8; border: 1px solid #E0D5B5; border-radius: 3px;
+  font-size: 10.5px; padding: 4px 8px; text-align: center;
+}
+
+.cloud-row {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #FBF8F2; border: 1px solid #E4DCC8; border-radius: 4px;
+  padding: 6px;
+}
+.cloud-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; }
+.cloud-item svg { flex: 0 0 auto; }
+.cloud-x { color: #D64533; font-weight: bold; font-size: 13.0px; }
+
+/* ---------- Bottom flow ---------- */
+.flow {
+  height: 118px;
+  background: #FFFFFF;
+  border: 1px solid #C9D1D8;
+  border-radius: 6px;
+  padding: 12px 14px 8px;
+  position: relative;
+}
+.flow-row { display: flex; align-items: stretch; justify-content: space-between; gap: 6px; height: 100%; }
+.fstep {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px;
+  background: #F4F7F9; border: 1px solid #D5DDE3; border-radius: 4px;
+  padding: 3px 6px;
+}
+.fstep:nth-child(odd) { background: #F9F5EA; border-color: #E3D9BD; }
+.fstep-img { width: 56px; height: 56px; object-fit: cover; border-radius: 4px; border: 1px solid #C9D1D8; flex: 0 0 auto; }
+.fstep-txt { text-align: left; }
+.fstep-name { font-size: 12.5px; font-weight: bold; }
+.fstep-sub { font-size: 9.5px; color: #707A82; }
+.farrow { align-self: center; color: #D64533; font-size: 14px; font-weight: bold; flex: 0 0 auto; }
+
+.foutput {
+  flex: 0 0 252px;
+  display: flex; flex-direction: column; justify-content: center; gap: 5px;
+  background: #FDFCFA; border: 1px dashed #D9C9A3; border-radius: 4px;
+  padding: 6px 9px;
+}
+.foutput-title {
+  font-size: 9.5px; letter-spacing: 1.2px; font-weight: bold;
+  color: #8A7B54; text-align: center;
+}
+.foutput-cards { display: flex; gap: 5px; }
+.decision-tag {
+  flex: 1;
+  font-size: 12.0px; padding: 5px 6px; border-radius: 4px;
+  color: #FFFFFF; font-weight: bold; letter-spacing: 0.2px; text-align: center;
+  white-space: nowrap;
+}
+.dt1 { background: #8FA8B4; }
+.dt2 { background: #D64533; }
+.dt3 { background: #B89B5E; }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Scene strip: A-B-C-D order, dot = capability color -->
+  <div class="scene-strip">
+    <div class="scene-card">
+      <div class="scene-photo-wrap">
+        <img class="scene-photo" src="../photos/ebike.png" alt="E-bike Swap">
+        <div class="scene-dot dot-a"></div>
+      </div>
+      <div class="scene-meta">
+        <div class="scene-name">E-bike Swap</div>
+        <div class="scene-stress">fast grading</div>
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-photo-wrap">
+        <img class="scene-photo" src="../photos/second_life.png" alt="Second-Life">
+        <div class="scene-dot dot-b"></div>
+      </div>
+      <div class="scene-meta">
+        <div class="scene-name">Second-Life</div>
+        <div class="scene-stress">unseen-tail grading</div>
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-photo-wrap">
+        <img class="scene-photo" src="../photos/medical.png" alt="Medical Device">
+        <div class="scene-dot dot-c"></div>
+      </div>
+      <div class="scene-meta">
+        <div class="scene-name">Portable Medical</div>
+        <div class="scene-stress">UQ-critical</div>
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-photo-wrap">
+        <img class="scene-photo" src="../photos/ev_pack.png" alt="EV Fleet">
+        <div class="scene-dot dot-d"></div>
+      </div>
+      <div class="scene-meta">
+        <div class="scene-name">EV Fleet</div>
+        <div class="scene-stress">no-connectivity edge</div>
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-photo-wrap">
+        <img class="scene-photo" src="../photos/robot.png" alt="Robot Fleet">
+        <div class="scene-dot dot-d"></div>
+      </div>
+      <div class="scene-meta">
+        <div class="scene-name">Robot Fleet</div>
+        <div class="scene-stress">real-time on-device</div>
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-photo-wrap">
+        <img class="scene-photo" src="../photos/power_tool.png" alt="Power Tools">
+        <div class="scene-dot dot-d"></div>
+      </div>
+      <div class="scene-meta">
+        <div class="scene-name">Power Tools</div>
+        <div class="scene-stress">on-pack gauge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dataset spec table -->
+  <div class="ds-band">
+    <div class="spec-col">5 PUBLIC<br>DATASETS</div>
+    <div class="spec-grid">
+      <div class="spec-card">
+        <div class="spec-row1"><span class="spec-name">CALCE</span><span class="chem-tag chem-lco">LCO</span></div>
+        <div class="spec-cap">1.1 Ah · primary, physics (IR)</div>
+        <div class="spec-sps"><span class="sp-dot">300</span><span class="sp-dot">400</span><span class="sp-dot">500</span></div>
+        <div class="eol-bar"><div class="eol-fill" style="width:70%"></div></div>
+        <div class="eol-txt">EOL 70%</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row1"><span class="spec-name">NASA</span><span class="chem-tag chem-lco">LCO</span></div>
+        <div class="spec-cap">2.0 Ah · short-history</div>
+        <div class="spec-sps"><span class="sp-dot">50</span><span class="sp-dot">70</span><span class="sp-dot">90</span></div>
+        <div class="eol-bar"><div class="eol-fill" style="width:70%"></div></div>
+        <div class="eol-txt">EOL 70%</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row1"><span class="spec-name">MIT</span><span class="chem-tag chem-lfp">LFP</span></div>
+        <div class="spec-cap">1.07 Ah · cross-battery · 10 cells</div>
+        <div class="spec-sps"><span class="sp-dot">200</span><span class="sp-dot">300</span><span class="sp-dot">400</span></div>
+        <div class="eol-bar"><div class="eol-fill" style="width:70%"></div></div>
+        <div class="eol-txt">EOL 70%</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row1"><span class="spec-name">PANASONIC</span><span class="chem-tag chem-nca">NCA</span></div>
+        <div class="spec-cap">3.03 Ah · regeneration</div>
+        <div class="spec-sps"><span class="sp-dot">300</span><span class="sp-dot">500</span><span class="sp-dot">700</span></div>
+        <div class="eol-bar"><div class="eol-fill" style="width:80%"></div></div>
+        <div class="eol-txt">EOL 80%</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row1"><span class="spec-name">TJU</span><span class="chem-tag chem-ncm">NCM+NCA</span></div>
+        <div class="spec-cap">2.5 Ah · long-cycle</div>
+        <div class="spec-sps"><span class="sp-dot">200</span><span class="sp-dot">300</span><span class="sp-dot">400</span></div>
+        <div class="eol-bar"><div class="eol-fill" style="width:80%"></div></div>
+        <div class="eol-txt">EOL 80%</div>
+      </div>
+    </div>
+    <div class="ds-side">4 chemistries · per-SP truncation &amp; retraining (12 SPs × 10 seeds) · all public</div>
+  </div>
+
+  <!-- Model / train / infer triptych: AI-generated components, HTML assembled -->
+  <div class="triptych">
+    <div class="triptych-panel">
+      <div class="triptych-head th-train">① TRAINING · ONCE PER (DATASET, SP, SEED)</div>
+      <img src="../ms_train.png" alt="Training pipeline">
+    </div>
+    <div class="triptych-panel">
+      <div class="triptych-head th-model">② MODEL STRUCTURE · MULTI-SCALE GDN-2</div>
+      <img src="../ms_model.png" alt="Model structure">
+    </div>
+    <div class="triptych-panel">
+      <div class="triptych-head th-infer">③ INFERENCE · EVERY CYCLE, ON DEVICE</div>
+      <img src="../ms_infer.png" alt="Inference flow">
+    </div>
+  </div>
+
+  <!-- Capabilities -->
+  <div class="capabilities">
+
+    <!-- A -->
+    <div class="capability">
+      <div class="cap-head">A · First-Tier Accuracy</div>
+      <div class="cap-body">
+        <div class="chart-embed">
+          <img src="../charts/pred_curve.svg" alt="Prediction curve">
+        </div>
+        <div class="badge-row">
+          <div class="ds-badge">CALCE</div><div class="ds-badge">NASA</div>
+          <div class="ds-badge">MIT</div><div class="ds-badge">PANA</div>
+          <div class="ds-badge">TJU</div>
+        </div>
+        <div class="metric-line">R² ≥ 0.9995 (MIT/PANA) · 12 SPs · 10 seeds · regen tracked</div>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="capability">
+      <div class="cap-head">B · Physics-Consistent Head</div>
+      <div class="cap-body">
+        <div class="chain">
+          <div class="chain-box">IR_t</div><div class="chain-arrow">→</div>
+          <div class="chain-box">γ≥0</div><div class="chain-arrow">→</div>
+          <div class="chain-box">r≥0</div><div class="chain-arrow">→</div>
+          <div class="chain-box">Q̂ = c_t − r</div>
+        </div>
+        <div class="split2">
+          <div>
+            <svg viewBox="0 0 220 104" preserveAspectRatio="none">
+              <path d="M10 92 H214 M10 92 V10" stroke="#1F262B" stroke-width="1.1" fill="none"/>
+              <path d="M214 92 L208 89.5 M214 92 L208 94.5 M10 10 L7.5 16 M10 10 L12.5 16" stroke="#1F262B" stroke-width="1.1" fill="none"/>
+              <text x="112" y="101" font-size="9.5" fill="#1F262B" font-style="italic" text-anchor="middle">cycle</text>
+              <text x="4" y="24" font-size="9.5" fill="#1F262B" font-style="italic">Q</text>
+              <rect x="10" y="12" width="120" height="80" fill="#9BA7B0" opacity="0.13"/>
+              <rect x="130" y="12" width="84" height="80" fill="#E8B84B" opacity="0.16"/>
+              <text x="70" y="22" font-size="10" fill="#707A82" font-style="italic" text-anchor="middle">train</text>
+              <text x="172" y="22" font-size="10" fill="#B08A2E" font-style="italic" text-anchor="middle">unseen tail</text>
+              <path d="M14 24 C70 28 130 36 208 60" fill="none" stroke="#1F262B" stroke-width="1.6"/>
+              <path d="M14 26 C70 30 130 38 138 40 160 33 188 20 208 10" fill="none" stroke="#9BA7B0" stroke-width="1.4" stroke-dasharray="5 3"/>
+              <path d="M14 27 C70 31 130 39 208 62" fill="none" stroke="#D64533" stroke-width="1.8"/>
+              <path d="M182 20 L197 14" stroke="#9BA7B0" stroke-width="1.1"/>
+              <text x="199" y="14" font-size="9.5" fill="#9BA7B0" font-style="italic" text-anchor="start">diverges</text>
+              <path d="M182 70 L196 64" stroke="#D64533" stroke-width="1.1"/>
+              <text x="198" y="68" font-size="9.5" fill="#D64533" font-style="italic" text-anchor="start">follows</text>
+            </svg>
+          </div>
+          <div>
+            <svg viewBox="0 0 220 100" preserveAspectRatio="none">
+              <path d="M22 88 H213 M22 88 V9" stroke="#1F262B" stroke-width="1.2" fill="none"/>
+              <path d="M213 88 L207 85 M213 88 L207 91 M22 9 L19 15 M22 9 L25 15" stroke="#1F262B" stroke-width="1.2" fill="none"/>
+              <path d="M22 28 C90 34 150 50 211 78" fill="none" stroke="#1F262B" stroke-width="1.7"/>
+              <line x1="22" y1="42" x2="213" y2="42" stroke="#2E7D8C" stroke-width="1.1" stroke-dasharray="4 3"/>
+              <text x="198" y="39" font-size="9.5" fill="#2E7D8C" font-style="italic" text-anchor="end">EOL 80%</text>
+              <line x1="22" y1="62" x2="213" y2="62" stroke="#D64533" stroke-width="1.1" stroke-dasharray="4 3"/>
+              <text x="198" y="59" font-size="9.5" fill="#D64533" font-style="italic" text-anchor="end">EOL 70%</text>
+              <circle cx="100" cy="49" r="3" fill="#1F262B"/>
+              <text x="86" y="44" font-size="10" fill="#1F262B" font-weight="bold" text-anchor="end">SP</text>
+              <path d="M100 49 L100 62 M100 62 C120 58 150 56 172 59" fill="none" stroke="#8FA8B4" stroke-width="1.3"/>
+              <line x1="172" y1="62" x2="172" y2="59" stroke="#8FA8B4" stroke-width="1.3"/>
+              <text x="136" y="54" font-size="10" fill="#8FA8B4" font-weight="bold" text-anchor="middle">RUL</text>
+            </svg>
+          </div>
+        </div>
+        <div class="phys-note">
+          <img src="../photos/impedance.png" alt="Impedance">
+          <div class="phys-note-text">
+            IR from last window cycle (EIS / online) · extR²
+            <b>0.775 vs 0.447</b> free head · tail stays monotone by
+            construction
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="capability">
+      <div class="cap-head">C · Decision-Grade UQ</div>
+      <div class="cap-body">
+        <div class="cal-chain">
+          <div class="cal-box">pinball train<br>P2.5/P50/P97.5</div><div class="cal-arrow">→</div>
+          <div class="cal-box">held-out<br>calibration</div><div class="cal-arrow">→</div>
+          <div class="cal-box">width<br>adjustment</div><div class="cal-arrow">→</div>
+          <div class="cal-box">calibrated<br>band</div>
+        </div>
+        <div class="cov-row">
+          <div class="cov-item">
+            <svg width="52" height="52" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="20" fill="none" stroke="#E3E8EC" stroke-width="5"/>
+              <circle cx="26" cy="26" r="20" fill="none" stroke="#2E7D8C" stroke-width="5"
+                      stroke-dasharray="119.4 125.7" transform="rotate(-90 26 26)"/>
+              <text x="26" y="30" font-size="12" font-weight="bold" text-anchor="middle" fill="#1F262B">95.0%</text>
+            </svg>
+            <div class="cov-label"><b>nominal</b>target coverage</div>
+          </div>
+          <div style="color:#D64533; font-size:14px; font-weight:bold;">→</div>
+          <div class="cov-item">
+            <svg width="52" height="52" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="20" fill="none" stroke="#E3E8EC" stroke-width="5"/>
+              <circle cx="26" cy="26" r="20" fill="none" stroke="#4C8C5A" stroke-width="5"
+                      stroke-dasharray="117.3 125.7" transform="rotate(-90 26 26)"/>
+              <text x="26" y="30" font-size="12" font-weight="bold" text-anchor="middle" fill="#1F262B">93.3%</text>
+            </svg>
+            <div class="cov-label"><b>actual</b>calibrated, one pass</div>
+          </div>
+        </div>
+        <div class="chart-embed">
+          <svg viewBox="0 0 220 110" preserveAspectRatio="none">
+            <path d="M8 98 H212 M8 98 V10" stroke="#1F262B" stroke-width="1.1" fill="none"/>
+            <path d="M212 98 L206 95.5 M212 98 L206 100.5 M8 10 L5.5 16 M8 10 L10.5 16" stroke="#1F262B" stroke-width="1.1" fill="none"/>
+            <text x="110" y="107" font-size="9.5" fill="#1F262B" font-style="italic" text-anchor="middle">cycle</text>
+            <text x="2" y="24" font-size="9.5" fill="#1F262B" font-style="italic">Q</text>
+            <path d="M14 20 L206 56" fill="none" stroke="#1F262B" stroke-width="1.4"/>
+            <path d="M14 14 L200 44 L200 60 L14 30 Z" fill="#2E7D8C" opacity="0.14"/>
+            <path d="M14 14 L200 44" fill="none" stroke="#2E7D8C" stroke-width="1.1" stroke-dasharray="4 3"/>
+            <path d="M14 30 L200 60" fill="none" stroke="#2E7D8C" stroke-width="1.1" stroke-dasharray="4 3"/>
+            <line x1="14" y1="52" x2="206" y2="66" stroke="#D64533" stroke-width="1.3" stroke-dasharray="5 3"/>
+            <text x="16" y="78" font-size="10" fill="#D64533" font-style="italic">EOL</text>
+            <circle cx="140" cy="51" r="3.2" fill="#2E7D8C"/>
+            <text x="140" y="44" font-size="9.5" fill="#2E7D8C" font-style="italic" text-anchor="middle">earliest (P2.5)</text>
+            <circle cx="181" cy="55" r="3.2" fill="#4C8C5A"/>
+            <text x="181" y="39" font-size="9.5" fill="#4C8C5A" font-style="italic" text-anchor="middle">latest (P97.5)</text>
+            <path d="M145 61 L176 61" stroke="#1F262B" stroke-width="1.4" fill="none"/>
+            <path d="M145 61 L150 58.5 M145 61 L150 63.5 M176 61 L171 58.5 M176 61 L171 63.5" stroke="#1F262B" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="metric-line">RUL interval = [P2.5 cross, P97.5 cross] · the interval, not the point, drives policy</div>
+      </div>
+    </div>
+
+    <!-- D -->
+    <div class="capability">
+      <div class="cap-head">D · Edge Deployment</div>
+      <div class="cap-body">
+        <div class="mem-row">
+          <div class="mem-label">state</div>
+          <div class="mem-track"><div class="mem-fill" style="width:2.3%"></div><div class="mem-val">16 KB</div></div>
+        </div>
+        <div class="mem-row">
+          <div class="mem-label">weights</div>
+          <div class="mem-track"><div class="mem-fill green" style="width:100%"></div><div class="mem-val">340 KB</div></div>
+        </div>
+        <div style="flex:0 0 145px; flex-shrink:0; overflow:hidden;">
+          <img src="../photos/mcu_wide.png" alt="MCU" style="display:block; width:100%; height:100%; object-fit:cover; border-radius:3px; border:1px solid #C9D1D8;">
+        </div>
+        <div class="feature-chip">INT8 −75% · capacity-only · fixed state · zero malloc · P2.5/P50/P97.5 · QEMU bit-exact &lt;3×10⁻⁶</div>
+        <div class="cloud-row">
+          <div class="cloud-item">
+            <svg width="22" height="16" viewBox="0 0 22 16"><path d="M5 13 a4 4 0 1 1 .8-7.9 5 5 0 0 1 9.6 1.2 3.4 3.4 0 0 1-.7 6.7Z" fill="none" stroke="#9BA7B0" stroke-width="1.2"/><line x1="14" y1="2" x2="20" y2="14" stroke="#D64533" stroke-width="1.3"/></svg>
+            cloud
+          </div>
+          <div class="cloud-x">→</div>
+          <div class="cloud-item">
+            <svg width="18" height="16" viewBox="0 0 18 16"><rect x="3" y="2" width="12" height="9" rx="1" fill="none" stroke="#1F262B" stroke-width="1.2"/><line x1="5" y1="13" x2="5" y2="15" stroke="#1F262B" stroke-width="1.1"/><line x1="13" y1="13" x2="13" y2="15" stroke="#1F262B" stroke-width="1.1"/><rect x="6.5" y="4.5" width="5" height="4" fill="#2E7D8C"/></svg>
+            onboard MCU
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
