@@ -1,6 +1,5 @@
 ﻿% ============================================================
-% A Multi-Scale Linear-Attention Network with
-% Physics-Consistent Degradation-Rate Head for Battery Prognostics
+% DeltaCycle: Multi-Scale Linear Attention for Calibrated On-Device Battery Prognostics
 %
 % Target: Journal of Energy Storage (Elsevier, elsarticle)
 % ============================================================
@@ -31,9 +30,8 @@
 
 \begin{frontmatter}
 
-\title{DeltaCycle: A Multi-Scale Linear-Attention
-Network with a Physics-Consistent Degradation-Rate Head for Battery
-Prognostics}
+\title{DeltaCycle: Multi-Scale Linear Attention
+for Calibrated On-Device Battery Prognostics}
 
 \author[nuaa]{Naiming Xie\corref{cor1}}
 \ead{xienaiming@nuaa.edu.cn}
@@ -69,9 +67,10 @@ which acts as a constraint on the decay direction;
 and conformal-calibrated prediction intervals with verified coverage. 
 Across six public battery datasets spanning multiple chemistries, 
 DeltaCycle ranks top-3 among protocol-matched baselines: first on GOTION and PANASONIC, joint-first on TJU, 
-and second on CALCE. That physics term more than doubles unseen-tail extrapolation
-fidelity and wins every corruption-robustness setting tested on MAE, while interval coverage
-is lifted to $93.5\%\pm0.9\%$ at nominal $95\%$.  The source code and
+and second on CALCE. Interval coverage
+is lifted to $93.5\%\pm0.9\%$ at nominal $95\%$, and the physics rate head more than
+doubles unseen-tail extrapolation fidelity while winning every corruption-robustness
+setting tested on MAE.  The source code and
 datasets are available at https://github.com/wangyuanxty/MultiScaleLinearAttentionNetwork.
 
 \end{abstract}
@@ -102,7 +101,17 @@ at \url{https://github.com/wangyuanxty/MultiScaleLinearAttentionNetwork}.
 
 \section*{CRediT authorship contribution statement}
 
+Yuan Wang: Writing -- original draft, Visualization, Software,
+Methodology, Data curation, Conceptualization. Naiming Xie: Writing --
+review and editing, Validation, Supervision, Conceptualization. Mingshan
+Li: Writing -- review and editing, Validation, Supervision,
+Conceptualization.
+
 \section*{Declaration of competing interest}
+
+The authors declare that they have no known competing financial
+interests or personal relationships that could have appeared to
+influence the work reported in this paper.
 
 \section*{Acknowledgements}
 

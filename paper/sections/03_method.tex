@@ -94,9 +94,9 @@ fused state: $h_f = h_{\text{fuse}} + c_f$.}
 \label{fig:arch}
 \end{figure*}
 
-\begin{figure*}[!t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/fig_gdn2_flow}
+\includegraphics[width=\linewidth]{figures/fig_gdn2_flow}
 \caption{One GDN-2 block. The input token $x_t$ is projected to
 queries/keys/values ($W_q$: $64\to64$, $W_k$: $64\to64$,
 $W_v$: $64\to128$), each through a causal 1-D convolution
@@ -111,7 +111,7 @@ $\mathbf{o}_t = \mathbf{S}_t^{\top}\mathbf{q}_t \to$ Linear
 $128\to64 \to$ RMSNorm.
 }
 \label{fig:gdn2}
-\end{figure*}
+\end{figure}
 
 Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
@@ -199,7 +199,7 @@ the z-score free head at $0.0065\pm0.0003$), while the rate head
 reaches $0.00427\pm0.00002$. The extension
 further improves the unseen-tail extrapolation ($R^2$ $0.775$ vs
 $0.374$) and robustness to corrupted inputs (Section
-\ref{sec:ablation}).
+\ref{sec:phys}).
 
 \subsection{Readout and training protocol}
 \label{sec:readout}
