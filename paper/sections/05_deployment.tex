@@ -74,9 +74,9 @@ while the other measures the encoder alone. The choice between them is governed 
 \end{table}
 
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/fig_dep_flash}
+\includegraphics[width=\linewidth]{figures/fig_dep_flash}
 \caption{Weight footprint at each pair of Table~\ref{tab:deploy}, against the
 flash sizes common on Cortex-M parts. The single-branch encoder fits a
 $128$\,KB part at INT8 ($122$\,KB) and at INT4 ($67$\,KB); the multi-scale
@@ -147,9 +147,9 @@ The argument is therefore not that a linear-attention model is cheaper
 today, but that its cost does not move when the application needs more
 context: ours is the only quantity in the figure that is flat in $L$.
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/fig_dep_memctx}
+\includegraphics[width=\linewidth]{figures/fig_dep_memctx}
 \caption{Working memory against context length, for a model of the same
 depth (six layers) and width ($H{=}4$, $d_{\text{model}}{=}64$). The
 score matrix is $HL^2\times4$ bytes at the peak of one layer, since the

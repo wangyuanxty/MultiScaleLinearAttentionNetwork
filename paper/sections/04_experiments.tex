@@ -83,14 +83,14 @@ scenarios; we present them as case studies below, each closing with
 what the result implies in practice and a comparison with published results
 on that dataset.
 
-\begin{figure}[htbp]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_traj}
 \caption{Single-step capacity prediction on one test cell per
 dataset. Green dashed lines mark the starting points (SPs); red
 dotted lines mark the EOL thresholds.}
 \label{fig:traj}
-\end{figure}
+\end{figure*}
 
 
 Figure~\ref{fig:compare} shows our model ranks first (mean per-SP MAE) on PANASONIC, TJU (tied) and GOTION, 
@@ -98,14 +98,14 @@ second on CALCE, and third on NASA and MIT — top-3 on all six datasets and
 clearly beating all generic time-series transformers. Although PatchFormer slightly leads on NASA/CALCE/MIT, 
 our model is overall the best or co-best method.
 
-\begin{figure}[htbp]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_compare}
 \caption{Per-SP trajectory MAE of the compared methods on all six
 datasets, averaged over the three SPs (log scale). Green: Ours; blue:
 PatchFormer/RUL-Mamba; gray: other baselines.}
 \label{fig:compare}
-\end{figure}
+\end{figure*}
 
 \begin{table}[htbp]
 \centering
@@ -145,93 +145,81 @@ GOTION & 450 & 921 & 0.0074$\pm$0.0001 & 0.0101$\pm$0.0002 & 0.9970$\pm$0.0001 &
 \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table*}[!t]
 \centering
 \caption{Comparison with reference baselines on all five
 published-comparison datasets. MAE in normalized capacity; each
-dataset's starting points are given in its heading; bold marks the
+dataset's starting points are listed under its name; bold marks the
 best value in each column, ties are both bold. Ours: means over ten
 seeds (per-SP protocol), AE reported as mean over seeds; the two
 self-run baselines (PatchFormer, RUL-Mamba) use ten repeats per SP.}
 \label{tab:lit_all}
 \scriptsize
-\setlength{\tabcolsep}{1pt}
-\tiny
-\begin{tabular}{ll rrr rrr rrr}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}ll rrr rrr rrr@{}}
 \toprule
-Method & & \multicolumn{3}{c}{SP1} & \multicolumn{3}{c}{SP2} & \multicolumn{3}{c}{SP3} \\
+ & & \multicolumn{3}{c}{SP1} & \multicolumn{3}{c}{SP2} & \multicolumn{3}{c}{SP3} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
+Dataset & Method & MAE & R\textsuperscript{2} & AE & MAE & R\textsuperscript{2} & AE & MAE & R\textsuperscript{2} & AE \\
 \midrule
-  \multicolumn{11}{l}{\emph{PANASONIC} (SP 300/400/500)} \\
-  \midrule
-  PatchFormer & & \textbf{0.0033} & \textbf{0.9977} & 1.0 & 0.0037 & \textbf{0.9965} & 1.0 & 0.0167 & 0.9698 & 3.6 \\
-  RUL-Mamba & & 0.0174 & 0.9725 & 2.3 & 0.0182 & 0.9563 & 2.0 & 0.0212 & 0.9183 & 2.0 \\
-  iTransformer & & 0.0162 & 0.9790 & 1.2 & 0.0175 & 0.9654 & 1.2 & 0.0203 & 0.9278 & 1.4 \\
-  Autoformer & & 0.0231 & 0.9737 & 2.6 & 0.0241 & 0.9585 & 3.8 & 0.0263 & 0.9258 & 7.2 \\
-  FEDformer & & 0.0257 & 0.9648 & 6.8 & 0.0269 & 0.9446 & 6.8 & 0.0295 & 0.8896 & 8.4 \\
-  Ours & & 0.0037 & 0.9976 & \textbf{0.8} & \textbf{0.0036} & \textbf{0.9965} & \textbf{0.8} & \textbf{0.0040} & \textbf{0.9936} & \textbf{0.9} \\
+\multirow{6}{*}{\shortstack[l]{PANASONIC\\\emph{300/400/500}}} & PatchFormer & \textbf{0.0033} & \textbf{0.9977} & 1.0 & 0.0037 & \textbf{0.9965} & 1.0 & 0.0167 & 0.9698 & 3.6 \\
+  & RUL-Mamba & 0.0174 & 0.9725 & 2.3 & 0.0182 & 0.9563 & 2.0 & 0.0212 & 0.9183 & 2.0 \\
+  & iTransformer & 0.0162 & 0.9790 & 1.2 & 0.0175 & 0.9654 & 1.2 & 0.0203 & 0.9278 & 1.4 \\
+  & Autoformer & 0.0231 & 0.9737 & 2.6 & 0.0241 & 0.9585 & 3.8 & 0.0263 & 0.9258 & 7.2 \\
+  & FEDformer & 0.0257 & 0.9648 & 6.8 & 0.0269 & 0.9446 & 6.8 & 0.0295 & 0.8896 & 8.4 \\
+  & Ours & 0.0037 & 0.9976 & \textbf{0.8} & \textbf{0.0036} & \textbf{0.9965} & \textbf{0.8} & \textbf{0.0040} & \textbf{0.9936} & \textbf{0.9} \\
 \midrule
+\multirow{12}{*}{\shortstack[l]{TJU\\\emph{200/300/400}}} & TimeMixer & 0.0071 & 0.9963 & 7.6 & 0.0086 & 0.9919 & 6.0 & 0.0123 & 0.9777 & 6.5 \\
+  & TimesNet & 0.0163 & 0.9830 & 1.0 & 0.0146 & 0.9808 & \textbf{0.2} & 0.0130 & 0.9783 & \textbf{0.4} \\
+  & PatchTST & 0.0078 & 0.9960 & 9.8 & 0.0069 & 0.9952 & 7.4 & 0.0067 & 0.9925 & 5.8 \\
+  & MambaSimple & 0.0119 & 0.9902 & 9.5 & 0.0107 & 0.9887 & 7.7 & 0.0094 & 0.9874 & 5.5 \\
+  & ModernTCN & 0.0014 & 0.9998 & 2.8 & 0.0015 & 0.9997 & 2.7 & \textbf{0.0016} & 0.9995 & 2.7 \\
+  & Autoformer & 0.0050 & 0.9979 & 5.5 & 0.0049 & 0.9970 & 5.4 & 0.0047 & 0.9957 & 4.8 \\
+  & FEDformer & 0.0058 & 0.9977 & 6.0 & 0.0056 & 0.9968 & 5.7 & 0.0054 & 0.9954 & 4.9 \\
+  & iTransformer & 0.0017 & 0.9998 & 1.8 & 0.0018 & 0.9996 & 1.8 & 0.0019 & 0.9994 & 1.4 \\
+  & PathFormer & 0.0100 & 0.9930 & 9.9 & 0.0112 & 0.9855 & 12.1 & 0.0152 & 0.9606 & 15.6 \\
+  & PatchFormer & 0.0014 & 0.9998 & 2.1 & 0.0015 & 0.9997 & 2.2 & 0.0019 & 0.9994 & 3.0 \\
+  & RUL-Mamba & 0.0014 & 0.9998 & 2.8 & 0.0015 & 0.9997 & 2.9 & \textbf{0.0016} & 0.9995 & 2.9 \\
+  & Ours & \textbf{0.0013} & \textbf{0.9999} & \textbf{0.2} & \textbf{0.0014} & \textbf{0.9998} & 0.9 & 0.0018 & \textbf{0.9996} & 1.6 \\
 \midrule
-  \multicolumn{11}{l}{\emph{TJU} (SP 200/300/400)} \\
-  \midrule
-  TimeMixer & & 0.0071 & 0.9963 & 7.6 & 0.0086 & 0.9919 & 6.0 & 0.0123 & 0.9777 & 6.5 \\
-  TimesNet & & 0.0163 & 0.9830 & 1.0 & 0.0146 & 0.9808 & \textbf{0.2} & 0.0130 & 0.9783 & \textbf{0.4} \\
-  PatchTST & & 0.0078 & 0.9960 & 9.8 & 0.0069 & 0.9952 & 7.4 & 0.0067 & 0.9925 & 5.8 \\
-  MambaSimple & & 0.0119 & 0.9902 & 9.5 & 0.0107 & 0.9887 & 7.7 & 0.0094 & 0.9874 & 5.5 \\
-  ModernTCN & & 0.0014 & 0.9998 & 2.8 & 0.0015 & 0.9997 & 2.7 & \textbf{0.0016} & 0.9995 & 2.7 \\
-  Autoformer & & 0.0050 & 0.9979 & 5.5 & 0.0049 & 0.9970 & 5.4 & 0.0047 & 0.9957 & 4.8 \\
-  FEDformer & & 0.0058 & 0.9977 & 6.0 & 0.0056 & 0.9968 & 5.7 & 0.0054 & 0.9954 & 4.9 \\
-  iTransformer & & 0.0017 & 0.9998 & 1.8 & 0.0018 & 0.9996 & 1.8 & 0.0019 & 0.9994 & 1.4 \\
-  PathFormer & & 0.0100 & 0.9930 & 9.9 & 0.0112 & 0.9855 & 12.1 & 0.0152 & 0.9606 & 15.6 \\
-  PatchFormer & & 0.0014 & 0.9998 & 2.1 & 0.0015 & 0.9997 & 2.2 & 0.0019 & 0.9994 & 3.0 \\
-  RUL-Mamba$^{\ddagger}$ & & 0.0014 & 0.9998 & 2.8 & 0.0015 & 0.9997 & 2.9 & \textbf{0.0016} & 0.9995 & 2.9 \\
-  Ours & & \textbf{0.0013} & \textbf{0.9999} & \textbf{0.2} & \textbf{0.0014} & \textbf{0.9998} & 0.9 & 0.0018 & \textbf{0.9996} & 1.6 \\
+\multirow{8}{*}{\shortstack[l]{GOTION\\\emph{450/600/750}}} & ModernTCN & 0.0553 & 0.9960 & \textbf{8.3} & 0.0570 & 0.9947 & \textbf{8.0} & 0.0619 & 0.9921 & \textbf{7.8} \\
+  & Autoformer & 0.0694 & 0.9930 & 9.9 & 0.0716 & 0.9909 & 9.4 & 0.0783 & 0.9864 & 8.8 \\
+  & FEDformer & 0.0720 & 0.9922 & 10.5 & 0.0733 & 0.9902 & 10.1 & 0.0794 & 0.9857 & 9.5 \\
+  & iTransformer & 0.0564 & 0.9957 & 9.8 & 0.0586 & 0.9944 & 9.5 & 0.0642 & 0.9913 & 9.0 \\
+  & PathFormer & 0.1663 & 0.9276 & 12.8 & 0.1925 & 0.8797 & 15.2 & 0.2306 & 0.7766 & 16.7 \\
+  & PatchFormer & 0.0536 & 0.9964 & 9.6 & 0.0563 & 0.9952 & 9.1 & 0.0606 & 0.9928 & 8.0 \\
+  & RUL-Mamba & 0.0525 & 0.9960 & 15.2 & 0.0552 & 0.9946 & 15.9 & 0.0598 & 0.9917 & 15.7 \\
+  & Ours & \textbf{0.0074} & \textbf{0.9970} & 18.2 & \textbf{0.0081} & \textbf{0.9958} & 10.7 & \textbf{0.0086} & \textbf{0.9938} & 15.1 \\
 \midrule
+\multirow{12}{*}{\shortstack[l]{NASA\\\emph{50/70/90}}} & TimeMixer & 0.0239 & 0.9540 & 8.0 & 0.0241 & 0.9014 & 6.7 & 0.0203 & 0.8290 & 9.0 \\
+  & TimesNet & 0.0364 & 0.8753 & 3.0 & 0.0298 & 0.8349 & 2.9 & 0.0213 & 0.8699 & 3.0 \\
+  & PatchTST & 0.0260 & 0.9405 & 4.2 & 0.0201 & 0.9333 & 3.9 & 0.0150 & 0.9209 & 5.0 \\
+  & MambaSimple & 0.0301 & 0.9254 & 6.7 & 0.0250 & 0.9034 & 5.7 & 0.0188 & 0.8943 & 4.1 \\
+  & ModernTCN & 0.0166 & 0.9750 & 2.9 & 0.0127 & 0.9700 & 4.4 & 0.0098 & 0.9483 & 6.8 \\
+  & Autoformer & 0.0234 & 0.9341 & 3.6 & 0.0230 & 0.8721 & 4.1 & 0.0213 & 0.8153 & 4.2 \\
+  & FEDformer & 0.0215 & 0.9569 & 4.7 & 0.0199 & 0.9217 & 5.0 & 0.0172 & 0.8961 & 5.8 \\
+  & iTransformer & 0.0076 & 0.9891 & 5.4 & 0.0078 & 0.9772 & 4.3 & 0.0086 & 0.9528 & 4.5 \\
+  & PathFormer & 0.0274 & 0.9228 & 5.1 & 0.0214 & 0.9100 & 5.6 & 0.0186 & 0.8941 & 7.9 \\
+  & PatchFormer & \textbf{0.0061} & \textbf{0.9919} & \textbf{0.2} & \textbf{0.0072} & 0.9808 & 1.4 & \textbf{0.0072} & 0.9623 & 2.5 \\
+  & RUL-Mamba & 0.0089 & 0.9889 & 1.7 & 0.0090 & 0.9771 & 1.3 & 0.0091 & 0.9568 & 1.8 \\
+  & Ours & 0.0098 & 0.9908 & 0.9 & 0.0089 & \textbf{0.9822} & \textbf{0.4} & 0.0080 & \textbf{0.9804} & \textbf{0.5} \\
 \midrule
-  \multicolumn{11}{l}{\emph{GOTION} (SP 450/600/750)} \\
-  \midrule
-  ModernTCN & & 0.0553 & 0.9960 & \textbf{8.3} & 0.0570 & 0.9947 & \textbf{8.0} & 0.0619 & 0.9921 & \textbf{7.8} \\
-  Autoformer & & 0.0694 & 0.9930 & 9.9 & 0.0716 & 0.9909 & 9.4 & 0.0783 & 0.9864 & 8.8 \\
-  FEDformer & & 0.0720 & 0.9922 & 10.5 & 0.0733 & 0.9902 & 10.1 & 0.0794 & 0.9857 & 9.5 \\
-  iTransformer & & 0.0564 & 0.9957 & 9.8 & 0.0586 & 0.9944 & 9.5 & 0.0642 & 0.9913 & 9.0 \\
-  PathFormer & & 0.1663 & 0.9276 & 12.8 & 0.1925 & 0.8797 & 15.2 & 0.2306 & 0.7766 & 16.7 \\
-  PatchFormer & & 0.0536 & 0.9964 & 9.6 & 0.0563 & 0.9952 & 9.1 & 0.0606 & 0.9928 & 8.0 \\
-  RUL-Mamba & & 0.0525 & 0.9960 & 15.2 & 0.0552 & 0.9946 & 15.9 & 0.0598 & 0.9917 & 15.7 \\
-  Ours & & \textbf{0.0074} & \textbf{0.9970} & 18.2 & \textbf{0.0081} & \textbf{0.9958} & 10.7 & \textbf{0.0086} & \textbf{0.9938} & 15.1 \\
-\midrule
-  \multicolumn{11}{l}{\emph{NASA} (SP 50/70/90)} \\
-  \midrule
-  TimeMixer & & 0.0239 & 0.9540 & 8.0 & 0.0241 & 0.9014 & 6.7 & 0.0203 & 0.8290 & 9.0 \\
-  TimesNet & & 0.0364 & 0.8753 & 3.0 & 0.0298 & 0.8349 & 2.9 & 0.0213 & 0.8699 & 3.0 \\
-  PatchTST & & 0.0260 & 0.9405 & 4.2 & 0.0201 & 0.9333 & 3.9 & 0.0150 & 0.9209 & 5.0 \\
-  MambaSimple & & 0.0301 & 0.9254 & 6.7 & 0.0250 & 0.9034 & 5.7 & 0.0188 & 0.8943 & 4.1 \\
-  ModernTCN & & 0.0166 & 0.9750 & 2.9 & 0.0127 & 0.9700 & 4.4 & 0.0098 & 0.9483 & 6.8 \\
-  Autoformer & & 0.0234 & 0.9341 & 3.6 & 0.0230 & 0.8721 & 4.1 & 0.0213 & 0.8153 & 4.2 \\
-  FEDformer & & 0.0215 & 0.9569 & 4.7 & 0.0199 & 0.9217 & 5.0 & 0.0172 & 0.8961 & 5.8 \\
-  iTransformer & & 0.0076 & 0.9891 & 5.4 & 0.0078 & 0.9772 & 4.3 & 0.0086 & 0.9528 & 4.5 \\
-  PathFormer & & 0.0274 & 0.9228 & 5.1 & 0.0214 & 0.9100 & 5.6 & 0.0186 & 0.8941 & 7.9 \\
-  PatchFormer & & \textbf{0.0061} & \textbf{0.9919} & \textbf{0.2} & \textbf{0.0072} & 0.9808 & 1.4 & \textbf{0.0072} & 0.9623 & 2.5 \\
-  RUL-Mamba$^\dagger$ & & 0.0089 & 0.9889 & 1.7 & 0.0090 & 0.9771 & 1.3 & 0.0091 & 0.9568 & 1.8 \\
-  Ours & & 0.0098 & 0.9908 & 0.9 & 0.0089 & \textbf{0.9822} & \textbf{0.4} & 0.0080 & \textbf{0.9804} & \textbf{0.5} \\
-\midrule
-\midrule
-  \multicolumn{11}{l}{\emph{CALCE} (SP 300/400/500)} \\
-  \midrule
-  TimeMixer & & 0.0244 & 0.9608 & 15.8 & 0.0287 & 0.9512 & 16.4 & 0.0341 & 0.9245 & 16.7 \\
-  TimesNet & & 0.0369 & 0.9469 & 42.0 & 0.0456 & 0.9304 & 44.3 & 0.0559 & 0.8938 & 47.0 \\
-  PatchTST & & 0.0200 & 0.9750 & 9.5 & 0.0230 & 0.9683 & 11.4 & 0.0276 & 0.9497 & 11.5 \\
-  MambaSimple & & 0.0239 & 0.9682 & 15.8 & 0.0281 & 0.9607 & 18.6 & 0.0333 & 0.9416 & 19.9 \\
-  ModernTCN & & 0.0109 & 0.9909 & 3.2 & 0.0124 & 0.9888 & 3.3 & 0.0147 & 0.9838 & 5.3 \\
-  Autoformer & & 0.0216 & 0.9738 & 10.3 & 0.0242 & 0.9681 & 11.0 & 0.0281 & 0.9550 & 12.0 \\
-  FEDformer & & 0.0197 & 0.9782 & 14.4 & 0.0224 & 0.9735 & 15.9 & 0.0260 & 0.9628 & 17.6 \\
-  iTransformer & & 0.0141 & 0.9880 & 6.9 & 0.0166 & 0.9849 & 8.1 & 0.0198 & 0.9787 & 10.9 \\
-  PathFormer & & 0.0431 & 0.9060 & 40.3 & 0.0532 & 0.8814 & 41.9 & 0.0659 & 0.8212 & 43.4 \\
-  RUL-Mamba$^{\mathsection}$ & & 0.0175 & 0.9782 & 11.5 & 0.0201 & 0.9733 & 13.1 & 0.0245 & 0.9605 & 15.7 \\
-  PatchFormer & & \textbf{0.0057} & \textbf{0.9962} & \textbf{0.9} & \textbf{0.0068} & \textbf{0.9951} & \textbf{0.9} & \textbf{0.0081} & \textbf{0.9930} & \textbf{1.0} \\
-  Ours & & 0.0066 & 0.9951 & 3.2 & 0.0078 & 0.9933 & 2.5 & 0.0092 & 0.9898 & 2.4 \\
+\multirow{12}{*}{\shortstack[l]{CALCE\\\emph{300/400/500}}} & TimeMixer & 0.0244 & 0.9608 & 15.8 & 0.0287 & 0.9512 & 16.4 & 0.0341 & 0.9245 & 16.7 \\
+  & TimesNet & 0.0369 & 0.9469 & 42.0 & 0.0456 & 0.9304 & 44.3 & 0.0559 & 0.8938 & 47.0 \\
+  & PatchTST & 0.0200 & 0.9750 & 9.5 & 0.0230 & 0.9683 & 11.4 & 0.0276 & 0.9497 & 11.5 \\
+  & MambaSimple & 0.0239 & 0.9682 & 15.8 & 0.0281 & 0.9607 & 18.6 & 0.0333 & 0.9416 & 19.9 \\
+  & ModernTCN & 0.0109 & 0.9909 & 3.2 & 0.0124 & 0.9888 & 3.3 & 0.0147 & 0.9838 & 5.3 \\
+  & Autoformer & 0.0216 & 0.9738 & 10.3 & 0.0242 & 0.9681 & 11.0 & 0.0281 & 0.9550 & 12.0 \\
+  & FEDformer & 0.0197 & 0.9782 & 14.4 & 0.0224 & 0.9735 & 15.9 & 0.0260 & 0.9628 & 17.6 \\
+  & iTransformer & 0.0141 & 0.9880 & 6.9 & 0.0166 & 0.9849 & 8.1 & 0.0198 & 0.9787 & 10.9 \\
+  & PathFormer & 0.0431 & 0.9060 & 40.3 & 0.0532 & 0.8814 & 41.9 & 0.0659 & 0.8212 & 43.4 \\
+  & RUL-Mamba & 0.0175 & 0.9782 & 11.5 & 0.0201 & 0.9733 & 13.1 & 0.0245 & 0.9605 & 15.7 \\
+  & PatchFormer & \textbf{0.0057} & \textbf{0.9962} & \textbf{0.9} & \textbf{0.0068} & \textbf{0.9951} & \textbf{0.9} & \textbf{0.0081} & \textbf{0.9930} & \textbf{1.0} \\
+  & Ours & 0.0066 & 0.9951 & 3.2 & 0.0078 & 0.9933 & 2.5 & 0.0092 & 0.9898 & 2.4 \\
 \midrule
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \subsubsection{PANASONIC: regeneration-rich fleet operation}
 PANASONIC (NCA, 3.03\,Ah) is the regeneration benchmark: staircase
@@ -254,7 +242,7 @@ monotonic-degradation cells---the two readouts partition the
 degradation regimes by design.
 
 
-\begin{figure}[htbp]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_regen}
 \caption{PANASONIC test cell: full trajectory (left, green bands mark
@@ -263,7 +251,7 @@ regeneration segments) and zoom on the strongest regeneration zone
 overshoot; a structurally monotonic predictor cannot represent this
 pattern at all.}
 \label{fig:regen}
-\end{figure}
+\end{figure*}
 
 
 \subsubsection{TJU: long-life cycle counting}
@@ -408,6 +396,7 @@ $p$-values against the main model are given in the text. Stage-query
 is the main model.}
 \label{tab:ablation}
 \footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lcccc}
 \toprule
 Dataset & Configuration & MAE & R\textsuperscript{2} & AE \\
@@ -471,7 +460,7 @@ rate head keeps following the fade through the unseen tail.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/fig_extrap}
+\includegraphics[width=\linewidth]{figures/fig_extrap}
 \caption{Unseen-tail extrapolation on the CALCE test cell (train
 90\%, evaluate the final 10\% right of the dashed line). Black: true
 capacity; gray dotted: last-value continuation; red: main-model
@@ -485,6 +474,8 @@ degradation envelope instead of flattening or drifting.}
 \caption{Unseen-tail extrapolation (train 90\%, evaluate final 10\%),
 CALCE. Sliding-window protocol identical to the main results.}
 \label{tab:extrap}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lcc}
 \toprule
 Predictor & Tail R\textsuperscript{2} & Tail MAE (norm.) \\
@@ -521,7 +512,7 @@ whose logged impedance is noisy), so the rate head's physics term
 contributes where the IR measurement is informative; the learned
 component must carry the fade otherwise.
 
-\begin{figure}[htbp]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_robust}
 \caption{Drop30 corruption on the CALCE test cell. Left: full
@@ -529,7 +520,7 @@ trajectory (gray: corrupted forward-filled input; black: true; red:
 free head, AE 23; green: rate head + IR, AE 17). Right: zoom on the
 EOL-crossing region.}
 \label{fig:robust}
-\end{figure}
+\end{figure*}
 
 \begin{table}[htbp]
 \centering
@@ -539,6 +530,8 @@ median 1 for the rate head in every mode).
 $^{\dagger}$worst-case AE 574 in a single free-head seed;
 $^{\ddagger}$worst-case AE 68 in a single rate-head seed.}
 \label{tab:robust}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lcc cc}
 \toprule
 Mode & \multicolumn{2}{c}{MAE (norm.)} & \multicolumn{2}{c}{AE} \\
@@ -571,7 +564,7 @@ early/mid/late-life windows form separable clusters, confirming that
 the coarse branch encodes the degradation stage ($93.2\%$ three-stage
 linear separability).
 
-\begin{figure}[htbp]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_stages}
 \caption{Coarse-branch (patch 8) pooled representations of
@@ -579,7 +572,7 @@ PANASONIC windows. Left: PCA projection colored by degradation
 stage terciles; right: normalized three-stage confusion matrix of a
 linear classifier on the projection (accuracy $93.2\%$).}
 \label{fig:stages}
-\end{figure}
+\end{figure*}
 
 \subsection{Uncertainty quantification}
 \label{sec:conf}
@@ -610,7 +603,7 @@ concrete cost model is left to future work.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/fig_uq_band}
+\includegraphics[width=\linewidth]{figures/fig_uq_band}
 \caption{CQR-calibrated P2.5--P97.5 interval on the CALCE test cell
 (shaded band), with the P50 trajectory and the measured capacity.
 The interval is the deployment-ready output: one forward pass, two
@@ -623,6 +616,8 @@ calibration scalars, no ensemble.}
 \caption{Uncertainty quantification: pinball quantiles with
 conformalized quantile regression (CQR), CALCE.}
 \label{tab:quantile}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lccc}
 \toprule
 Metric & Raw pinball & CQR & Target \\
@@ -631,8 +626,7 @@ P50 MAE & 0.0076 & --- & $\approx$ point model (0.0075) \\
 Coverage (overall) & 0.891 & 0.935 & 0.95 \\
 Interval width & 0.0286 & 0.0421 & --- \\
 \bottomrule
-\multicolumn{4}{l}{\footnotesize Ten seed-verified models (mean values; per-SP coverage is not broken out here -- the}\\
-\multicolumn{4}{l}{\footnotesize seed-to-seed spread 0.919--0.951 dominates the per-SP variation).}\\
+\multicolumn{4}{@{}p{\dimexpr\columnwidth-6pt\relax}@{}}{\footnotesize Ten seed-verified models (mean values; per-SP coverage is not broken out here -- the seed-to-seed spread 0.919--0.951 dominates the per-SP variation).}\\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -72,7 +72,7 @@ together with the per-layer cross-scale exchange submodule (bottom,
 light-green box), and Figure~\ref{fig:gdn2} details the internal
 recurrence of one GDN-2 block.
 
-\begin{figure}[!ht]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/new_modelarch.png}
 \caption{Multi-scale GDN-2 architecture and cross-scale exchange
@@ -92,9 +92,9 @@ $q$ with the fine/mid branch keys and values ($k, v$,
 $d_{\text{model}}{=}64$) to produce the context $c_f$, added to the
 fused state: $h_f = h_{\text{fuse}} + c_f$.}
 \label{fig:arch}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[!ht]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_gdn2_flow}
 \caption{One GDN-2 block. The input token $x_t$ is projected to
@@ -111,7 +111,7 @@ $\mathbf{o}_t = \mathbf{S}_t^{\top}\mathbf{q}_t \to$ Linear
 $128\to64 \to$ RMSNorm.
 }
 \label{fig:gdn2}
-\end{figure}
+\end{figure*}
 
 Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
@@ -235,11 +235,12 @@ $q \in \{0.025, 0.5, 0.975\}$ (P2.5, the median P50, and P97.5),
 bounding a central 95\% interval. The head is trained
 with the pinball (quantile) loss
 \begin{equation}
-\mathcal{L}_{\text{pin}} \;=\;
+\begin{split}
+\mathcal{L}_{\text{pin}} &=
 \frac{1}{N}\sum_{i}\sum_{q \in \{0.025,0.5,0.975\}}
-\rho_q\!\left( c_i - \hat{c}_i^{(q)} \right),
-\qquad
-\rho_q(u) = \max(q u, (q-1) u),
+\rho_q\!\left( c_i - \hat{c}_i^{(q)} \right), \\
+&\quad \rho_q(u) = \max(q u, (q-1) u),
+\end{split}
 \end{equation}
 where $c_i$ is the observed capacity, $\hat{c}_i^{(q)}$ is the
 predicted $q$-quantile, and the pinball function $\rho_q$ penalizes
