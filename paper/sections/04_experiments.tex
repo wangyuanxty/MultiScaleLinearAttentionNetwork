@@ -75,11 +75,10 @@ $93.5\%\pm0.9\%$).
 
 Figure~\ref{fig:traj} shows representative SOH trajectories with
 sliding-window single-step predictions for one cell of each dataset;
-Table~\ref{tab:tableA} reports the full per-SP results. The six
-datasets cover distinct degradation regimes and operational
-scenarios; we present them as case studies below, each closing with
-what the result implies in practice and a comparison with published results
-on that dataset.
+Table~\ref{tab:tableA} reports the full per-SP results. The six datasets span distinct degradation regimes 
+and operational scenarios. We present each as a standalone case study in the sections below: 
+each case concludes with a discussion of the practical implications of our experimental results, 
+as well as a benchmark comparison against state-of-the-art (SOTA) results reported on the same dataset.
 
 \begin{figure*}[!t]
 \centering
@@ -109,9 +108,7 @@ PatchFormer/RUL-Mamba; gray: other baselines.}
 \centering
 \caption{Per-SP trajectory results, mean $\pm$ std
 over ten seeds (1--10) per SP under the PatchFormer-consistent
-per-SP protocol (a fresh model per (SP, seed)). TRUL in cycles; MAE/RMSE are trajectory
-errors in normalized capacity; AE (a small bounded integer) is
-reported as mean over seeds.}
+per-SP protocol (a fresh model per (SP, seed)).}
 \label{tab:tableA}
 \scriptsize
 \setlength{\tabcolsep}{1pt}
