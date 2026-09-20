@@ -43,10 +43,10 @@ and RUL-Mamba \cite{ref_rulmamba}, we report trajectory
 metrics per starting point (SP): R\textsuperscript{2}, MAE (mean absolute error),
 RMSE (root mean squared error), and AE. Let TRUL be the true
 remaining useful life in cycles at an SP (cycles from the SP to the
-true EOL crossing), PRUL the predicted RUL from the first threshold
+true EOL crossing), PRUL is the predicted RUL from the first threshold
 crossing of the predicted capacity sequence, AE $= |\text{TRUL} -
-\text{PRUL}|$ the absolute RUL error in cycles, and RE $=$
-AE/TRUL the relative RUL error.
+\text{PRUL}|$ is the absolute RUL error in cycles, and RE $=$
+AE/TRUL is the relative RUL error.
 
 \emph{Training configuration.} All models use Adam (learning rate
 $1\times10^{-3}$, batch size 64) for 100 epochs with a window of
@@ -58,15 +58,13 @@ applied to the reported results, so every variant compared in
 Sections~\ref{sec:ablation}--\ref{sec:phys} shares the same optimizer
 budget. We do not claim these configurations are optimal; a
 sensitivity note is included in Section~\ref{sec:limitations}.
-%
 The main results (Table~\ref{tab:tableA}) additionally follow the
-per-SP training protocol of PatchFormer: for each (dataset, SP,
-seed) a fresh model is trained from scratch, on the non-test cells'
-full sequences plus the test cell's cycles before the SP, and
-evaluated on the segment starting at the SP; we use ten seeds per
+per-SP training protocol of PatchFormer. For each combination of dataset, prediction Start Point (SP), 
+and random seed, a separate model with randomly initialized weights is trained from scratch, 
+with no pre-trained weights or cross-set parameter reuse allowed. we use ten seeds per
 SP (1--10), so each table cell aggregates ten independently trained
 models. The ablation studies (Section~\ref{sec:ablation}) use the
-same optimizer budget with ten seeds; the physics extension is
+same optimizer budget with ten seeds. The physics extension is
 reported over the same ten seeds for its head, extrapolation, and
 robustness studies, and the uncertainty study uses the ten-seed
 full-data training described above (coverage
