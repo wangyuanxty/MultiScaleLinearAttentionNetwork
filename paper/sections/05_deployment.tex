@@ -93,27 +93,43 @@ specifically require. Consequently, the memory argument can be made without rely
 \subsection{On latency and energy}
 \label{sec:latency}
 
-One inference of the full multi-scale model costs
-$4.88\times10^{7}$~\mbox{SysTick} ticks on the emulated Cortex-M3, with three
-input windows spanning only $0.007\%$. When rebuilt for a processor core integrated with a dedicated floating-point 
-unit (FPU), the proposed implementation achieves an inference latency of  $3.39\times10^{6}$ ticks, clock cycles for the same workload, 
-representing a $14.4\times$ reduction in runtime overhead compared to the baseline. 
-The hardware emulator counts total executed instructions: $1.95\times10^{9}$ for the soft-float implementation, 
-and $1.36\times10^{8}$ for the FPU-accelerated variant. As the emulator does not natively generate 
-cycles-per-instruction (CPI) metrics, instruction counts cannot be directly converted to clock cycle overhead. 
-Using a representative CPI $1.3$ for compiled Thumb-2 instructions on the target core, 
-the per-inference latency is calculated as $2.54\times10^{9}$ cycles for the soft-float implementation, and 
-$1.76\times10^{8}$ cycles for the FPU-accelerated version. 
-When running on the emulator with a configured core frequency of $25\,\mathrm{MHz}$, 
-the per-inference execution time of the soft-float and FPU-accelerated implementations is 
-$101\,\mathrm{s}$ and $7.1\,\mathrm{s}$, respectively. When deployed on a physical Cortex-M7 chip operating at 
-$200\,\mathrm{MHz}$ the FPU-enabled version yields a per-inference latency of $0.9\,\mathrm{s}$. Both are conservative:
-$25\,\mathrm{MHz}$ is the MPS2 board's own clock, the Cortex-M3 has no
-floating-point unit so every fp32 multiply and add becomes a call into a
-software routine, and the FPU figure is a same-core measurement. Because
-uniform instruction timing cannot price an FPU instruction's extra cycles,
-read $0.9\,\mathrm{s}$ as an estimate and $7.1\,\mathrm{s}$ as the figure the
-emulator itself supports.
+One inference of the full multi-scale model costs $4.88\times10^{7}$
+SysTick ticks on the emulated Cortex-M3, with three input windows
+spanning only $0.007\%$. The emulator runs in instruction-count mode
+(\texttt{-icount shift=0,sleep=off}), where one executed instruction
+advances virtual time by exactly one nanosecond. SysTick is therefore
+clocked at $25\,\mathrm{MHz}$, the MPS2 board's own SYSCLK, and
+\emph{one tick equals forty instructions}---the conversion this section
+uses throughout. SysTick is a 24-bit down-counter and a single
+inference spans more than $16.8\times10^{6}$ ticks, so the handler
+counts reloads and the value is read through a seqlock.
+
+Rebuilt with a hardware floating-point unit on the same core, the same
+workload costs $3.39\times10^{6}$ ticks, a $14.4\times$ reduction. The
+emulator reports executed instructions directly: $1.95\times10^{9}$
+soft-float, $1.36\times10^{8}$ with the FPU. It does not report cycles
+per instruction, so instructions cannot be turned into cycles without a
+CPI assumption; a representative CPI of $1.3$ for compiled Thumb-2 on
+this core gives $2.54\times10^{9}$ cycles soft-float and
+$1.76\times10^{8}$ with the FPU. At the emulator's $25\,\mathrm{MHz}$
+that is $101\,\mathrm{s}$ and $7.1\,\mathrm{s}$; on a physical
+Cortex-M7 part at $200\,\mathrm{MHz}$ the FPU build corresponds to
+$0.9\,\mathrm{s}$.
+
+Each step is deliberately conservative. $25\,\mathrm{MHz}$ is the MPS2
+board's own clock, well below what an FPU part runs at, and the
+Cortex-M3 has no floating-point unit, so every fp32 multiply and add
+becomes a call into a software routine---the linked binary contains
+$225$ such call sites. Those routines dominate the count, which is why
+the same source built soft-float for a Cortex-M7 image costs
+$48.76\times10^{6}$ ticks, within $0.02\%$ of the Cortex-M3 figure. The
+FPU number is therefore a same-core, same-source comparison in which
+the FPU alone removes a $14.4\times$ instruction count and also removes
+the input sensitivity, from $0.007\%$ across the three windows to
+$6\times10^{-7}$. Because uniform instruction timing cannot price the
+extra cycles an FPU instruction costs on real silicon, read
+$0.9\,\mathrm{s}$ as an estimate and $7.1\,\mathrm{s}$ as the figure
+the emulator itself supports.
 
 Energy follows from the same count and is clock-invariant: with core current
 $c$ in $\mu\mathrm{A}/\mathrm{MHz}$ and supply $V$, an inference of $N$ cycles
