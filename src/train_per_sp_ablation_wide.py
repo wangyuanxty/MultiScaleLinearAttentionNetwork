@@ -49,32 +49,77 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import train_per_sp_ablation as A          # noqa: E402
 
-D_MODEL = 304
+# Capacity-matched controls, both sized against xchg's 483,866 params:
+#   single_wide  1 branch,  no exchange, d_model=304 -> 483,514  (-352)
+#   multi_wide   3 branches, no exchange, d_model=95 -> ~484,067 (+201)
+#
+# multi_wide is what isolates the exchange mechanism: comparing it with xchg
+# differs only in the cross_stage module, at equal budget.  Comparing multi
+# (340,506) with xchg conflates the mechanism with +42% parameters.
+# (config, d_model, window_override).  Modes ending in _w64 re-run at W=64
+# instead of the dataset default: PANASONIC's trajectories are 920 cycles, but
+# the baseline convention sets W=30, which leaves the patch-8 branch only 3-4
+# tokens -- the coarse scale the multi-scale design exists to provide is
+# degenerate there.  They use distinct config names so their checkpoints and
+# results JSON never mix with the W=30 arms.
+MODES = {
+    # name: (cfg, d_model, window_override, head_dim_override)
+    "single_wide":     ({"multiscale": False, "stage_query": False}, 304, None, None),
+    "multi_wide":      ({"multiscale": True,  "stage_query": False}, 95,  None, None),
+    "single_wide_w64": ({"multiscale": False, "stage_query": False}, 304, 64,   None),
+    "multi_wide_w64":  ({"multiscale": True,  "stage_query": False}, 95,  64,   None),
+    "xchg_w64":        ({"multiscale": True,  "stage_query": True},  64,  64,   None),
+    # State-grown controls: same ~484k budget, but spent on the recurrent
+    # state (head_dim) rather than on the in/out projections.  single_state
+    # -> 483,778 params, 105 KB/layer; multi_state -> 490,278, 16.5 KB per
+    # branch per layer (three branches).  xchg keeps 8 KB/layer.
+    "single_state":    ({"multiscale": False, "stage_query": False}, 64,  None, 58),
+    "multi_state":     ({"multiscale": True,  "stage_query": False}, 64,  None, 23),
+}
 # The parent SKIPs any (SP, seed) already present in its results JSON, so
 # raising this from 3 to 10 only trains seeds 4..10 and leaves 1..3 alone.
 SEEDS = 10
 
 _orig_build = A.build_gdn_model
+_orig_load = A.load_series
+_TAG = {"d_model": 64, "window": None, "head_dim": None}
 
 
 def _build_with_width(*args, **kwargs):
-    kwargs["d_model"] = D_MODEL
+    kwargs["d_model"] = _TAG["d_model"]
+    if _TAG["head_dim"]:
+        kwargs["head_dim"] = _TAG["head_dim"]
     return _orig_build(*args, **kwargs)
 
 
-def main(ds: str = "calce") -> None:
+def _load_with_window(*args, **kwargs):
+    caps, tr, te, W, sps, eol = _orig_load(*args, **kwargs)
+    if _TAG["window"]:
+        W = _TAG["window"]
+    return caps, tr, te, W, sps, eol
+
+
+def main(ds: str = "calce", mode: str = "single_wide", seeds: int = SEEDS) -> None:
+    cfg, d_model, window, head_dim = MODES[mode]
+    _TAG["d_model"] = d_model
+    _TAG["window"] = window
+    _TAG["head_dim"] = head_dim
     A.build_gdn_model = _build_with_width
-    # A new key, so the parent's CONFIGS still describe the d_model=64 arms.
-    A.CONFIGS["single_wide"] = {"multiscale": False, "stage_query": False}
+    A.load_series = _load_with_window
+    # A distinct key per mode, so the parent's CONFIGS keep describing the
+    # d_model=64 / default-window arms.
+    A.CONFIGS[mode] = dict(cfg)
     sys.argv = [
         "train_per_sp_ablation.py",
         "--dataset", ds,
-        "--config", "single_wide",
-        "--seeds", str(SEEDS),
+        "--config", mode,
+        "--seeds", str(seeds),
     ]
     A.main()
 
 
 if __name__ == "__main__":
-    # Dataset comes from the command line, read before main() replaces argv.
-    main(sys.argv[1] if len(sys.argv) > 1 else "calce")
+    # Arguments are read before main() replaces argv.
+    main(sys.argv[1] if len(sys.argv) > 1 else "calce",
+         sys.argv[2] if len(sys.argv) > 2 else "single_wide",
+         int(sys.argv[3]) if len(sys.argv) > 3 else SEEDS)
