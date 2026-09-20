@@ -26,7 +26,11 @@ extension remains deployable under the same constraint.
 
 The backbone is Gated DeltaNet-2 (GDN-2) \cite{ref_gdn2}, a
 recurrent linear attention layer with channel-wise erase and write
-gates. For one head with key dimension $d_k$ and value dimension
+gates. GDN-2 generalizes Gated DeltaNet \cite{ref_gdn}, which ties
+erasing and writing to a single scalar gate, by moving each to its own
+channel-wise gate---erase on the key axis, write on the value axis---and
+it recovers Gated DeltaNet exactly when both gates and the decay
+collapse to scalars. For one head with key dimension $d_k$ and value dimension
 $d_v$, the recurrence is
 \begin{equation}
 \label{eq:gdn2}
@@ -62,7 +66,13 @@ During a window scan the state is updated incrementally---each new
 cycle erases part of the old memory (via $\mathbf{b}_t$) and writes
 new information (via $\mathbf{w}_t$)---so the fixed-size matrix acts
 as an adaptive compression of the degradation history rather than a
-static buffer.
+static buffer. Decoupling the two axes is what makes that compression
+useful for a capacity series, which mixes a slow global fade that
+should persist in the state with regeneration excursions that should
+not: a single scalar gate can only trade the two against each other
+uniformly across all channels, whereas separate erase and write gates
+let the layer drop a stale association without also suppressing the
+channels that carry the trend.
 
 \subsection{Multi-scale branches with per-layer cross-scale exchange}
 \label{sec:multiscale}
