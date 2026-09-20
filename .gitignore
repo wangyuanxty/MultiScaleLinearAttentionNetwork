@@ -32,3 +32,6 @@ __pycache__/
 
 # compiled paper (build artifact; regenerate with pdflatex)
 paper*/main.pdf
+
+# working numbers ledger -- decisions and current figures, kept local
+paper_plan.md
