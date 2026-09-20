@@ -12,58 +12,46 @@ non-negative resistance coefficient that only accelerates decay.  A pinball-trai
 P2.5/P50/P97.5 in a single forward pass, which conformal calibration on a held-out cell turns into a coverage-verified band.
 We evaluate the proposed framework under the per-SP protocol of PatchFormer and RUL-Mamba on six public datasets 
 spanning LCO, NCA, NCM, and LFP chemistries, with architecture, physics, uncertainty, 
-and deployment studies validated under the same protocol discipline. The performance 
-of DeltaCycle is validated across multiple publicly available datasets, 
-leading to the following conclusions:
+and deployment studies validated under the same protocol discipline. The findings
+are as follows:
 
 \begin{enumerate}
-\item \textbf{First-tier trajectory accuracy across six degradation
-regimes.} On mean per-SP MAE the model ranks top-3 on all six
-datasets---first on GOTION, PANASONIC and TJU (tied), second on CALCE,
-third on NASA and MIT---while clearly beating every generic time-series
-transformer. On CALCE it ranks second to PatchFormer on
-every reported metric (MAE $0.0065$--$0.0085$ vs.\ $0.0057$--$0.0081$), on
-MIT it reaches $R^2 \ge 0.9995$ at every SP on both held-out cells, and on
-NASA it exceeds the in-house PatchFormer in $R^2$ at SP70 and SP90
-($0.9822$ vs.\ $0.9808$; $0.9804$ vs.\ $0.9623$) while holding a mean AE of
-$0.6$ cycles against $2.5$. Non-monotonic field behaviour is tracked rather
-than smoothed away: the model follows a $0.024$\,Ah local capacity recovery
-on PANASONIC without overshoot, and the coarse branch encodes the
-degradation stage itself ($93.2\%$ three-stage linear separability).
+\item \textbf{Verified edge deployment.} The full multi-scale model runs in
+freestanding C99 on a Cortex-M3 and matches the PyTorch forward to within
+float32 rounding. The recurrent state is fixed at $48$\,KB and does not grow
+with the window, the stack budget is set at compile time, and INT8
+quantization brings the weights to $504$\,KB, with the minimal single-branch
+configuration fitting a $128$\,KB part.
 
-\item \textbf{Physics pays for itself where physics should matter.} A
-systematic injection-route study first shows that the conventional routes
-fail under the standard protocol which is
-why the mechanism that does work moves the constraint into absolute capacity
-space and onto an independently measured quantity. Trained that way, the
-rate head lowers CALCE MAE by $53\%$ against a control free head sharing the
-same target space. On the
-unseen final $10\%$ of life it reaches $R^2 = 0.7745\pm0.0001$ where the
-main-model readout reaches $0.374$ , more than doubling tail fidelity. Under a corrupted capacity
-channel it wins every robustness setting on MAE. The constraint is interpretable as well as effective: the
-resistance coefficient is non-negative by construction, so measured
-resistance can only accelerate the predicted decay and the head suppresses non-physical regeneration artifacts.
+\item \textbf{Multi-scale branches with cross-scale exchange.} A
+parameter-matched control on PANASONIC attributes a $5.7\,\%$ reduction in
+per-SP MAE to the exchange itself ($p=0.014$), and the coarse branch's
+representation encodes the degradation stage without supervision.
 
-\item \textbf{Uncertainty that a maintenance rule can consume.} Raw pinball
-quantiles cover only $89.1\%$ of observations at a nominal $95\%$; conformal
-calibration on a held-out cell, using two scalar parameters and no
-ensembling, lifts coverage to $93.5\%\pm0.9\%$. The residual gap to the nominal level reflects
-finite-sample calibration and cross-cell drift, and is reported rather than
-hidden. 
+\item \textbf{Calibrated uncertainty in one forward pass.} A single
+pinball-trained model produces P2.5/P50/P97.5 directly, and conformal
+calibration on a held-out cell, using two scalar parameters and no ensembling,
+raises coverage from $89.1\,\%$ to $93.5\%\pm0.9\,\%$ at a nominal $95\,\%$.
+The residual gap comes from finite-sample calibration and cross-cell drift and
+is reported rather than concealed.
 
-\item \textbf{Deployment verified at the level firmware reviews require.}
-The full multi-scale model in freestanding C99 matches the PyTorch forward
-to $1.07\times10^{-6}$ relative error, and the Cortex-M3 binary matches the
-host binary to $5.96\times10^{-8}$---about half a float32 ULP. INT8
-quantization takes the weights from $1.85$\,MB to $504$\,KB with no
-measurable accuracy loss ($R^2$ $0.9955$ unchanged, AE $2.16 \to 2.17$
-cycles), and the minimal single-branch variant fits a $128$\,KB part at
-$122$\,KB. The recurrent state stays at $48$\,KB regardless of window
-length. The stack budget is $3.1$\,KB and fixed at compile time.
+\item \textbf{Physics-consistent rate head.} The injection-route study shows
+the conventional routes fail under the standard protocol, but a head
+constrained to decay the last observed capacity by a non-negative function of
+measured resistance lowers CALCE MAE by $53\%$ against a control head sharing
+the same target space and raises $R^2$ on the unseen final $10\%$ of life from
+$0.374$ to $0.7745$.
+
+\item \textbf{Trajectory accuracy across six datasets.} On mean per-SP MAE the
+model ranks top-3 on all six datasets---first on GOTION, PANASONIC and TJU
+(tied), second on CALCE, third on NASA and MIT---and beats every generic
+time-series transformer. It tracks non-monotonic capacity recovery rather than
+smoothing it away.
 \end{enumerate}
 
-DeltaCycle shows that trajectory accuracy, physical consistency, calibrated uncertainty,
-and on-device feasibility are not mutually exclusive and can be achieved simultaneously.
+These results show that on-device feasibility, cross-scale exchange, calibrated
+uncertainty, physical consistency and trajectory accuracy can be achieved
+together in one model.
 Looking ahead, our future work will focus on two fronts. Architecturally, we will
 refine the cross-scale exchange to make the rate head adaptive to cells whose impedance
 channel is uninformative. On the deployment side, we will push compression beyond INT8---mixed
