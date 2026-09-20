@@ -231,10 +231,10 @@ reproduction is ahead at one start point only, SP300 (MAE $0.0033$
 vs.\ $0.0037$, $p<10^{-3}$ over ten repeats); at SP400 the two are
 indistinguishable ($p=0.12$) and ours leads SP500 by $\sim$4$\times$
 (MAE $0.0040$ vs.\ $0.0167$). Figure~\ref{fig:regen}
-shows why: the free-head readout tracks a $0.024$\,Ah local rise
+shows why the free-head readout tracks a $0.024$\,Ah local rise
 without overshoot, while a structurally monotonic predictor cannot
-represent this pattern at all. \emph{In practice:} real
-fleet data is non-monotonic; a model with a structural monotonicity
+represent this pattern at all. In practice, real
+fleet data is non-monotonic. A model with a structural monotonicity
 bias would systematically mis-schedule maintenance after recovery
 events. The free head covers this regime, and the monotonic rate head
 (Section~\ref{sec:physics}) is deliberately reserved for
