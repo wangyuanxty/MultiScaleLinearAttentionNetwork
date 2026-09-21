@@ -61,9 +61,10 @@ cycles of remaining life prediction remains trustworthy even when field data are
 and uncertainty statements that let operators trade risk against cost explicitly.
 
 To address these limitations, we propose DeltaCycle, a capacity-only battery monitoring loop built
-for deployment. Our work makes the following innovations: a multi-scale linear-attention encoder, 
-deployment-verified through a minimal single-branch variant that runs in C on a microcontroller 
-with a fixed-size recurrent state and matches PyTorch to within floating-point rounding error; 
+for deployment. Our work makes the following innovations: a multi-scale linear-attention encoder,
+deployed in C on a Cortex-M3 with a fixed-size recurrent state, whose host build matches the
+PyTorch forward and whose Cortex-M3 binary matches the host build to within floating-point
+rounding error;
 a physics-consistent degradation-rate head driven by measured internal resistance 
 which acts as a constraint on the decay direction; 
 and conformal-calibrated prediction intervals with verified coverage. 

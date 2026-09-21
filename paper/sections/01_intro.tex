@@ -111,8 +111,8 @@ deployment.} We adopt Gated DeltaNet-2 (GDN-2), a recurrent linear
 attention layer with a fixed-size matrix state (8\,KB per layer in
 the deployed configuration), and ship a full C
 implementation that matches the PyTorch forward within
-floating-point rounding, with arithmetic and libm components
-verified bit-identical across x86 and ARM emulation. Because the state
+floating-point rounding, and whose Cortex-M3 binary matches the host
+build to about half a float32 ULP. Because the state
 does not grow with the window, the deployed model can represent a
 longer history at full resolution where a quadratic attention buffer
 would force either more SRAM or a coarser representation.
