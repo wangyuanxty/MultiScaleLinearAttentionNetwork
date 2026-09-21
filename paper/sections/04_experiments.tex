@@ -151,10 +151,11 @@ self-run baselines (PatchFormer, RUL-Mamba) use ten repeats per SP.
 $^{\ast}$The EOL cycle is the first crossing of the measured series; for
 GOTION this is cycle~1371. The series oscillates across the threshold nine
 times between cycles 1371 and 1415, so the reference is not sharply defined
-and the AE reflects that ambiguity rather than model error: against
-cycle~1371 our AE is $17.8/10.1/14.9$, while a reference located on a
-smoothed series (cycle~1391) gives $1.7/2.6/2.6$. The cited baselines
-reference cycle~1392, so their AE values align with the latter.}
+and the AE reflects that ambiguity rather than model error. The unparenthesised
+AE is measured against cycle~1371; the value in parentheses against
+cycle~1391, obtained by locating both the measured series and the predicted
+trajectory on a moving average. The cited baselines reference cycle~1392, so
+their AE values are on the latter basis.}
 \label{tab:lit_all}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -191,7 +192,7 @@ Dataset & Method & MAE & R\textsuperscript{2} & AE & MAE & R\textsuperscript{2} 
   & PathFormer & 0.1663 &0.9276&12.8& 0.1925 &0.8797&15.2& 0.2306 &0.7766&16.7 \\
   & PatchFormer & 0.0536 &0.9964&9.6& 0.0563 &0.9952&9.1& 0.0606 &0.9928&8.0 \\
   & RUL-Mamba & 0.0525 &0.9960&15.2& 0.0552 &0.9946&15.9& 0.0598 &0.9917&15.7 \\
-  & Ours &\textbf{0.0473}&\textbf{0.9970}&18.2&\textbf{0.0518}&\textbf{0.9958}&10.7&\textbf{0.0550}&\textbf{0.9938}&15.1 \\
+  & Ours &\textbf{0.0473}&\textbf{0.9970}&18.2\;(1.7)&\textbf{0.0518}&\textbf{0.9958}&10.7\;(2.6)&\textbf{0.0550}&\textbf{0.9938}&15.1\;(2.6) \\
 \midrule
 \multirow{3}{*}{\shortstack[l]{MIT\\\emph{200/300/400}}} & PatchFormer & 0.0008 &0.9997&\textbf{0.6}& 0.0008 &\textbf{0.9997}&\textbf{0.8}& 0.0009 &\textbf{0.9995}&\textbf{0.4} \\
   & RUL-Mamba & 0.0011 &0.9994&1.4& 0.0016 &0.9991&1.1& 0.0022 &0.9979&1.0 \\
