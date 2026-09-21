@@ -42,7 +42,7 @@ We compile the same C source for the host and Cortex-M3 and compare the two outp
 \subsection{Quantization}
 
 Table~\ref{tab:deploy} reports the memory footprints. INT8 yields a $73.4\%$ reduction to 504 KB with no accuracy loss 
-(R2=0.9955, MAE=0.00581). INT4 halves this to 268 KB but MAE rises $16.4\%$ (R2=0.9946). 
+(R2=0.9955, MAE=0.00577). INT4 halves this to 268 KB but MAE rises $16.4\%$ (R2=0.9946).
 AE changes from 2.16 to 2.17 cycles, with ±1.5-cycle between different seeds.
 These are footprint tiers, not accuracy tiers: the multi-scale model needs a
 2\,MB part, while the encoder alone fits 128\,KB at INT8. Both are trained and
