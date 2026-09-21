@@ -56,8 +56,8 @@ fixed during the ablation stage and held constant across datasets,
 seeds, and model variants: no per-dataset or per-variant tuning is
 applied to the reported results, so every variant compared in
 Sections~\ref{sec:ablation}--\ref{sec:phys} shares the same optimizer
-budget. We do not claim these configurations are optimal; a
-sensitivity note is included in Section~\ref{sec:limitations}.
+budget. A sensitivity note on these choices is in
+Section~\ref{sec:limitations}.
 The main results (Table~\ref{tab:tableA}) additionally follow the
 per-SP training protocol of PatchFormer. For each combination of dataset, prediction Start Point (SP), 
 and random seed, a separate model with randomly initialized weights is trained from scratch, 
@@ -91,7 +91,7 @@ dotted lines mark the EOL thresholds.}
 
 
 Figure~\ref{fig:compare} shows our model ranks first (mean per-SP MAE) on PANASONIC, TJU, GOTION and MIT,
-and second on NASA and CALCE — top-2 on all six datasets and
+and second on NASA and CALCE---top-2 on all six datasets and
 ahead of every generic time-series transformer.
 
 \begin{figure*}[!t]
@@ -269,10 +269,9 @@ low-noise regime. The model leads on MAE at every starting point
 $0.0014$, $0.0015$ and $0.0016$ for the closest baselines), and its
 R\textsuperscript{2} and AE are best at SP400 as well ($0.9996$ vs.\
 $0.9995$ and $1.6$ vs.\ $2.7$--$2.9$).
-\emph{In practice:} long-life assets accumulate decisions
-slowly; the combination of near-perfect trajectory fit and calibrated
-intervals (Section~\ref{sec:conf}) supports low-frequency,
-high-stakes replacement planning.
+Long-life assets accumulate decisions slowly, so near-perfect
+trajectory fit plus calibrated intervals (Section~\ref{sec:conf})
+support low-frequency, high-stakes replacement planning.
 
 
 
@@ -319,9 +318,9 @@ Against the two self-run baselines on this dataset
 (Table~\ref{tab:lit_all}) the model ranks first on both
 MAE and R\textsuperscript{2} at all three starting points, and within one
 cycle of the best AE. Per-SP protocol (every (SP, seed) retrained from scratch, 10 seeds
-per SP) is applied uniformly. \emph{In practice:}
-cross-cell generalization at R$^2 \approx 1$ is the enabler for
-fleet-scale screening and grading with per-device confidence.
+per SP) is applied uniformly. Cross-cell generalization at this
+accuracy is what makes fleet-scale screening and grading with
+per-device confidence practical.
 
 
 \subsubsection{NASA: short-history rapid assessment}
@@ -332,12 +331,10 @@ model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
 PatchFormer result at SP90
 ($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), and at
 SP90 it leads on MAE as well ($0.0071$ vs.\ $0.0072$; AE $0.5$ vs.\
-$2.5$). PatchFormer stays ahead on MAE at SP50 and SP70.
-\emph{In practice:}
-short histories are the regime where rapid commissioning checks and
-second-life screening must run with limited data; the model's
-trajectory error is already small from $\sim$50 cycles of
-observation.
+$2.5$). PatchFormer stays ahead on MAE at SP50 and SP70. This regime is where
+rapid commissioning checks and second-life screening must run with
+limited data, and the model's trajectory error is already small from
+$\sim$50 cycles of observation.
 
 
 
@@ -606,7 +603,7 @@ $93.5\%\pm0.9\%$ overall (ten training seeds, range
 $91.9$--$95.1\%$), at a modest
 $+36\%$ interval-width cost; the small residual gap to $95\%$
 reflects finite-sample calibration ($n{=}869$) and cross-cell
-distribution drift, and is reported honestly.
+distribution drift.
 Figure~\ref{fig:uq_band} shows the calibrated band on the test cell.
 
 \emph{From intervals to a decision rule.} The calibrated band

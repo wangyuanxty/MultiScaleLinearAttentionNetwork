@@ -90,7 +90,7 @@ model needs $512$\,KB at INT4 or INT8 and $2$\,MB at fp32.}
 The deployed model has a static stack budget of 3.1 KB, as determined by the compiler’s stack-usage report 
 over the entire call chain. The implementation is non-recursive, uses no runtime-sized buffers, 
 and allocates all transient activation buffers from a compile-time fixed pool. Together with the fixed state in Table 8, 
-this ensures that the SRAM requirement is known at compile time—a property that safety-related firmware reviews 
+this ensures that the SRAM requirement is known at compile time, a property that safety-related firmware reviews
 specifically require. Consequently, the memory argument can be made without relying on any timing measurement.
 
 \subsection{On latency and energy}
