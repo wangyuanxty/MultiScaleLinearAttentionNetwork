@@ -4,7 +4,7 @@
 Lithium-ion batteries power electric vehicles, grid-scale energy storage,
  spacecraft and portable electronics. The market they serve is projected 
  to grow several-fold over the coming decade
-\cite{ref_yang_review}---making battery health
+\cite{ref_yang_review}, making battery health
 management a first-order economic concern rather than a technical
 nicety. Each application stresses battery management differently:
 electric-vehicle packs must track health under rapidly varying
@@ -68,11 +68,11 @@ attention complexity and growing memory footprint hinder deployment
 on resource-constrained embedded platforms. Most recently, state
 space models (SSMs) such as Mamba \cite{ref_mamba} have been applied
 to battery prognostics, with RUL-Mamba \cite{ref_rulmamba} reporting
-state-of-the-art performance on NASA, Oxford, and TJU datasets---yet
+state-of-the-art performance on NASA, Oxford, and TJU datasets. Yet
 the reported efficiency is measured on GPUs, and edge-deployment
 feasibility is not addressed.
 
-Despite these advances, four limitations remain. First, quadratic
+Despite these advances, three limitations remain. First, quadratic
 self-attention makes Transformer-based models difficult to deploy on
 microcontrollers (MCUs) used in BMS once the required context
 outgrows a fixed attention buffer: the attention score matrix grows
@@ -97,8 +97,8 @@ explainable, decision-oriented operation and maintenance frameworks
 cut response time and operational cost by over 80\% compared with
 conventional expert-driven practice \cite{ref_qu_bess}. Space is an extreme operating regime: satellites run on
 lithium-ion batteries, in-orbit repair is impossible, and a battery fault
-cannot be serviced---an environment in which on-device
-prognostics is a requirement rather than a convenience.
+cannot be serviced. In that regime, on-device prognostics is a requirement
+rather than a convenience.
 
 This paper proposes DeltaCycle, a multi-scale linear-attention
 network for battery prognostics designed from the outset for embedded
@@ -116,7 +116,7 @@ does not grow with the window, the deployed model can represent a
 longer history at full resolution where a quadratic attention buffer
 would force either more SRAM or a coarser representation.
 Operationally, the accuracy machinery is no longer tied to the
-cloud: the model runs inside the BMS microcontroller itself---the
+cloud: the model runs inside the BMS microcontroller itself, the
 prerequisite for per-device monitoring at fleet scale.
 
 \item \textbf{Multi-scale branches with stage-query cross-scale
@@ -142,7 +142,7 @@ that risk-averse schedulers actually care about.
 physics at all? The third limitation above is the motivation:
 learned predictors flatten or drift exactly where the target values
 leave the trained range, and physics supplies an inductive bias that remains valid
-outside the observed distribution---capacity decay is monotonic, and
+outside the observed distribution: capacity decay is monotonic, and
 internal resistance can only accelerate it. The challenge is
 injecting that bias without breaking the standard evaluation
 protocol. A systematic injection-route study shows why conventional
@@ -162,7 +162,7 @@ the mechanism performs measurable work rather than acting as a decorative constr
 \includegraphics[width=\textwidth]{figures/new_overview.png}
 \caption{System overview: the overall pipeline of the proposed
 method and an outlook on its application across physical battery
-systems with different power and operating profiles---spacecraft
+systems with different power and operating profiles: spacecraft
 satellites, unmanned aerial vehicles (UAVs), energy-storage battery
 cabinets, and power-battery packs. The pipeline starts from public
 cycling datasets (CALCE, NASA, MIT, PANASONIC, TJU, GOTION), performs data
@@ -171,7 +171,7 @@ seed) under the PatchFormer-consistent protocol, and exports an
 INT8-quantized model whose fixed 8\,KB recurrent state does not grow
 with the context window, so the window can be lengthened to meet
 accuracy requirements without the quadratic attention buffer that
-would otherwise dominate SRAM---laying the foundation for on-device
+would otherwise dominate SRAM, laying the foundation for on-device
 online monitoring.
 Application images are illustrative; the experimental validation is
 conducted on public laboratory data.}

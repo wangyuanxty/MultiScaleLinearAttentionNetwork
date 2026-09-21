@@ -53,7 +53,7 @@ $1\times10^{-3}$, batch size 64) for 100 epochs with a window of
 $W{=}64$ cycles ($W{=}30$ for NASA, PANASONIC and GOTION, matching the
 window convention of the baseline literature). These settings were
 fixed during the ablation stage and held constant across datasets,
-seeds, and model variants---no per-dataset or per-variant tuning is
+seeds, and model variants: no per-dataset or per-variant tuning is
 applied to the reported results, so every variant compared in
 Sections~\ref{sec:ablation}--\ref{sec:phys} shares the same optimizer
 budget. We do not claim these configurations are optimal; a
@@ -147,7 +147,14 @@ dataset's starting points are listed under its name; bold marks the
 best value in each column, ties are both bold. MambaSimple is the plain
 Mamba model of \cite{ref_mamba}. Ours: means over ten
 seeds (per-SP protocol), AE reported as mean over seeds; the two
-self-run baselines (PatchFormer, RUL-Mamba) use ten repeats per SP.}
+self-run baselines (PatchFormer, RUL-Mamba) use ten repeats per SP.
+$^{\ast}$The EOL cycle is the first crossing of the measured series; for
+GOTION this is cycle~1371. The series oscillates across the threshold nine
+times between cycles 1371 and 1415, so the reference is not sharply defined
+and the AE reflects that ambiguity rather than model error: against
+cycle~1371 our AE is $17.8/10.1/14.9$, while a reference located on a
+smoothed series (cycle~1391) gives $1.7/2.6/2.6$. The cited baselines
+reference cycle~1392, so their AE values align with the latter.}
 \label{tab:lit_all}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -177,7 +184,7 @@ Dataset & Method & MAE & R\textsuperscript{2} & AE & MAE & R\textsuperscript{2} 
   & RUL-Mamba &0.0018&0.9998&2.8&0.0020&0.9997&2.9&0.0021&0.9995&2.9 \\
   & Ours &\textbf{0.0013}&\textbf{0.9999}&\textbf{0.2}&\textbf{0.0014}&\textbf{0.9998}&0.9&\textbf{0.0018}&\textbf{0.9996}&1.6 \\
 \midrule
-\multirow{8}{*}{\shortstack[l]{GOTION\\\emph{450/600/750}}} & ModernTCN &0.0087&0.9960&\textbf{8.3}&0.0089&0.9947&\textbf{8.0}&0.0097&0.9921&\textbf{7.8} \\
+\multirow{8}{*}{\shortstack[l]{GOTION$^{\ast}$\\\emph{450/600/750}}} & ModernTCN &0.0087&0.9960&\textbf{8.3}&0.0089&0.9947&\textbf{8.0}&0.0097&0.9921&\textbf{7.8} \\
   & Autoformer &0.0109&0.9930&9.9&0.0112&0.9909&9.4&0.0123&0.9864&8.8 \\
   & FEDformer &0.0113&0.9922&10.5&0.0115&0.9902&10.1&0.0124&0.9857&9.5 \\
   & iTransformer &0.0088&0.9957&9.8&0.0092&0.9944&9.5&0.0100&0.9913&9.0 \\
@@ -237,7 +244,7 @@ fleet data is non-monotonic. A model with a structural monotonicity
 bias would systematically mis-schedule maintenance after recovery
 events. The free head covers this regime, and the monotonic rate head
 (Section~\ref{sec:physics}) is deliberately reserved for
-monotonic-degradation cells---the two readouts partition the
+monotonic-degradation cells: the two readouts partition the
 degradation regimes by design.
 
 
@@ -281,8 +288,12 @@ for the closest of them), and also leads their R\textsuperscript{2}
 time-series baselines ranges from $1.2\times$ (ModernTCN) to
 $4.2\times$ (PathFormer). The gap concentrates in the capacity-scale
 normalization, where operating a 27\,Ah range reacts badly to
-per-window statistics. Note that the cycle-unit AE values
-($10$-$18$) are scale-dependent: the 27\,Ah envelope spans
+per-window statistics. Part of that spread comes from the EOL reference
+itself: the measured series crosses the threshold nine times between cycles
+1371 and 1415, and locating the reference on a smoothed series (cycle~1391,
+matching the cited sources) lowers our AE to $1.7/2.6/2.6$ (footnote
+$^{\ast}$ in Table~\ref{tab:lit_all}). The remainder is scale-dependent:
+the 27\,Ah envelope spans
 $6.7$\,Ah at $\sim$4.7\,mAh/cycle, so a given capacity error
 converts to 4--10$\times$ more cycles than on the small-cell
 datasets; relative error stays at 2--5\%. \emph{Operational
@@ -313,7 +324,7 @@ fleet-scale screening and grading with per-device confidence.
 
 \subsubsection{NASA: short-history rapid assessment}
 NASA (LCO, 2.0\,Ah, $\sim$168-cycle cells) is the shortest-history
-scenario---new assets or limited telemetry. With only 168 cycles the
+scenario: new assets or limited telemetry. With only 168 cycles the
 model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
 (Table~\ref{tab:lit_all}); on R\textsuperscript{2} we exceed the self-run
 PatchFormer result at SP90
@@ -330,7 +341,7 @@ observation.
 
 \subsubsection{CALCE: long-term monotonic monitoring}
 CALCE (LCO, 1.1\,Ah, four cells) exhibits smooth, monotonic fade over
-$\sim$900 cycles---the canonical asset-monitoring regime. The model
+$\sim$900 cycles, the canonical asset-monitoring regime. The model
 ranks second only to PatchFormer on every reported metric among all
 compared baselines (Table~\ref{tab:lit_all}: MAE
 $0.0066$--$0.0092$ vs.\ $0.0057$--$0.0082$; R\textsuperscript{2} within $0.004$; AE
@@ -352,8 +363,8 @@ SP500 (mean 2.4), and the maximum is not a training failure but a
 geometric property of the test cell. Near the EOL threshold the
 CALCE trajectory is nearly flat (local slope $\approx 0.0022$\,/cycle
 in normalized capacity, $\approx 1.9$\,mAh/cycle), so a local
-prediction bias of $\sim$10\,mAh near the tail---diluted
-to $\le 0.001$ in the full-segment MAE---shifts the threshold
+prediction bias of $\sim$10\,mAh near the tail, diluted
+to $\le 0.001$ in the full-segment MAE, shifts the threshold
 crossing by 5--7 cycles.
 The same mechanism keeps PatchFormer's CALCE AE in a narrow band
 (0.9--1.0): on flat tails AE is a coarse-grained statistic; we report the
@@ -431,8 +442,8 @@ conflicts with the EOL acceleration tail ($R^2$ $0.61\to0.34$ on
 extrapolation), the features are redundant with capacity history (no
 gain in any setting), and the structural head cannot represent the
 positive z-score targets of plateau segments (training loss stalls).
-The surviving mechanism---the rate head of
-Section~\ref{sec:physics}---moves the constraint to absolute
+The surviving mechanism, the rate head of
+Section~\ref{sec:physics}, moves the constraint to absolute
 capacity space and to an independently measured feature; a control
 free head trained in the same absolute space (MAE
 $0.0090\pm0.0058$ over ten seeds, ranging $0.0052$--$0.0244$)
@@ -449,12 +460,12 @@ close with the interpretability of the learned physics term.
 We train on the first $90\%$ of each cell's life and evaluate the
 unseen final $10\%$ under the same sliding-window protocol used for
 the main results. The rate head reaches $R^2 = 0.7745\pm0.0001$ (ten seeds)
-on the tail---more than doubling the main-model readout
+on the tail, more than doubling the main-model readout
 ($0.374$) and far
 beyond last-value continuation ($-5.28$). The mechanism is explicit:
 the head predicts $\hat{Q}_t = Q_{t-1} - r$, so it never drifts
-away from the last observed capacity, and the IR term---correlated
-with capacity at $-0.98$ on the training cells---senses the
+away from the last observed capacity, and the IR term, correlated
+with capacity at $-0.98$ on the training cells, senses the
 contemporaneous degradation signal, so the head reacts to the EOL
 knee through the independently measured IR channel even though it
 has never seen the tail. The free head, in contrast, extrapolates
@@ -497,15 +508,15 @@ main-model readout (free head) & 0.374 & 0.035 \\
 The capacity channel of the test sequence is corrupted (30\% packet
 loss with hold-last-value, $\pm1\%$ Gaussian noise, 5\% impulse
 glitches) while IR stays clean. This models a
-capacity-channel-only failure---for example a current-sensor drift
-or a capacity-estimator failure---in which the independently
+capacity-channel-only failure (for example a current-sensor drift
+or a capacity-estimator failure), in which the independently
 measured impedance data remain valid; a total telemetry outage
 affecting both channels is outside the scenario. The rate head wins
 all four settings on every MAE contrast (clean $-34\%$, drop30
 $-30\%$, gauss $-13\%$, impulse $-32\%$); under 30\% loss the
 biased hold-last-value filling hurts the free head worst (MAE
 $0.0105\pm0.0028$ vs.\ $0.0074\pm0.0010$; worst-case AE $574$
-vs.\ $9$---the free head occasionally catastrophically misses the
+vs.\ $9$: the free head occasionally catastrophically misses the
 crossing, while the rate head's AE stays bounded (median $1$ in
 every mode). Figure~\ref{fig:robust} shows the
 mechanism: the forward-filled input plateaus upward, dragging the
@@ -555,8 +566,8 @@ impulse (5\%) & $0.0088\pm0.0003$ & \textbf{$0.0060\pm0.0001$} & \textbf{3.2} & 
 The rate head's physics-feature coefficient
 $\operatorname{softplus}(\gamma)$ is non-negative by construction,
 so the measured internal
-resistance can only accelerate the predicted decay---the SEI-growth
-direction---and the structural monotonicity removes nonphysical
+resistance can only accelerate the predicted decay (the SEI-growth
+direction), and the structural monotonicity removes nonphysical
 regeneration artifacts (regen fraction $0.163$ vs $0.232$ for the
 free head on CALCE). The learned rate component
 $\operatorname{softplus}(\mathbf{w}^\top\mathbf{h})$ absorbs the
@@ -584,9 +595,9 @@ linear classifier on the projection (accuracy $93.2\%$).}
 
 Table~\ref{tab:quantile} reports the quantile and conformal results on
 CALCE. The P50 estimate matches the point model (MAE $0.0076\pm0.0007$ vs
-$\approx 0.0075$). Raw pinball quantiles are miscalibrated---the P2.5--P97.5
+$\approx 0.0075$). Raw pinball quantiles are miscalibrated: the P2.5--P97.5
 interval covers only $89.1\%$ of observations against the nominal
-$95\%$---a known failure mode of quantile regression under
+$95\%$, a known failure mode of quantile regression under
 distribution shift. Conformal calibration on a held-out cell
 ($n = 869$ windows) lifts coverage to
 $93.5\%\pm0.9\%$ overall (ten training seeds, range
@@ -650,9 +661,9 @@ single calibration cell (CS2\_36), with its coverage verified over
 ten training seeds ($93.5\%\pm0.9\%$). \emph{Epoch
 sensitivity.} A continuation study on CALCE and NASA (ten seeds
 per SP) probed the budget: extending every model from 100 to 200
-epochs helps unevenly---NASA SP50 gains $19.6\%$ in MAE while SP70
+epochs helps unevenly: NASA SP50 gains $19.6\%$ in MAE while SP70
 and SP90 lose $2$--$4\%$, and the CALCE AE spread widens while its
-MAE improves $1.5$--$7.9\%$---and extension to 300 epochs adds
+MAE improves $1.5$--$7.9\%$. Extension to 300 epochs adds
 nothing beyond noise. We therefore keep a \emph{uniform}
 100-epoch budget for every dataset and variant, so all compared
 models share one optimizer budget rather than a per-dataset one. The
