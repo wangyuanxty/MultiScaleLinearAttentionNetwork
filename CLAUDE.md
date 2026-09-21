@@ -49,8 +49,12 @@ python src/make_horizon_analysis.py   # C3 per-horizon error
 # key in ~/.baoyu-skills/.env
 
 # Paper compile (pdflatex + bibtex, run pdflatex TWICE to resolve \ref)
-cd paper && pdflatex -interaction=nonstopmode main.tex && bibtex main \
-  && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+# The master .tex is named after the paper title (spaces and colons -> "_"):
+# DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics
+cd paper && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.tex \
+  && bibtex DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics \
+  && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.tex \
+  && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.tex
 
 # MCU deployment verification (QEMU Cortex-M3, bit-exact vs PyTorch)
 #   C sources in src/*.c (gdn2_mcu.c scan kernel, qemu_test.c harness)
