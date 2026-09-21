@@ -4,4 +4,4 @@ Highlights
 - Multi-scale branches with per-layer stage-query cross-scale exchange
 - Calibrated uncertainty at one forward pass: 93.5% coverage, no ensemble
 - Physics rate head: doubles extrapolation, wins every corrupted-input MAE
-- First or joint-first on three of six datasets, top-3 vs protocol-matched
+- First on four of six datasets, second on the other two vs baselines

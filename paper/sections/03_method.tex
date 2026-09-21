@@ -10,12 +10,12 @@ $t$. Given a fixed-length input window
 $\mathbf{X}_{t} = [c_{t-W+1}, \ldots, c_t]$ of historical capacity,
 the model predicts future capacity values. The main model
 deliberately consumes capacity only, for a deployment-driven
-reason: at inference, the future values of voltage, current,
-temperature, and internal resistance are unavailable, so any model
-consuming them cannot be rolled out autoregressively to the end of
-life without information leakage. Capacity is the only health
-indicator that is both measurable online and self-contained for
-rollout. The physics-consistent extension of
+reason: at inference the future values of voltage, current,
+temperature and internal resistance are unavailable, so a model that
+consumes them cannot predict to the end of life without information
+leakage. Capacity is the only health indicator that is both
+measurable online and sufficient on its own for long-horizon
+prediction. The physics-consistent extension of
 Section~\ref{sec:physics} additionally consumes the per-cycle
 measured internal resistance---a quantity the BMS records in
 situ, available at inference without future information---so the

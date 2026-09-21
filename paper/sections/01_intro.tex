@@ -17,8 +17,7 @@ operating cost \cite{ref_qu_bess}; spacecraft batteries must operate
 for years without on-site repair under radiation, vacuum, and
 extreme temperatures, where a battery fault is not a maintenance
 item but a mission risk; and portable electronics
-make battery health the most ubiquitous---and least
-supervised---monitoring problem of all.
+make battery monitoring widespread but rarely supervised.
 
 Battery management systems (BMS) characterize battery health through three state quantities: 
 state of charge (SOC), defined as the fraction of remaining usable charge; 
@@ -52,9 +51,9 @@ and constrains life-cycle cost—the dominant expense of large-scale storage fle
 \cite{ref_yang_review,ref_qu_bess}.
 
 Existing RUL prediction methods fall into two broad families.
-Model-based approaches---such as equivalent-circuit models, extended and
-unscented Kalman filters, and particle filters---encode degradation
-physics explicitly \cite{ref_ekf_yan,ref_pf_echem,
+Model-based approaches (equivalent-circuit models, extended and unscented
+Kalman filters, particle filters) encode degradation physics explicitly
+\cite{ref_ekf_yan,ref_pf_echem,
 ref_pf_rbf,ref_pf_lui} but require accurate parameter identification
 and often lack the flexibility to capture regeneration dynamics.
 Data-driven approaches learn degradation patterns directly from
@@ -79,9 +78,9 @@ microcontrollers (MCUs) used in BMS once the required context
 outgrows a fixed attention buffer: the attention score matrix grows
 with sequence length, requiring dynamic memory allocation that is
 undesirable in safety-critical firmware. Second, degradation
-information lives at multiple time scales---fast regeneration
+information lives at multiple time scales: fast regeneration
 events, intermediate stage transitions, and the slow monotonic
-fade---and models that treat the capacity sequence as a single scale
+fade. Models that treat the capacity sequence as a single scale
 either over-smooth the recoveries or lose the global trend
 \cite{ref_omnitie}. Third, purely data-driven models are assessed on clean laboratory data, 
 yet their performance deteriorates precisely when field operation departs from laboratory conditions. 
@@ -123,7 +122,7 @@ prerequisite for per-device monitoring at fleet scale.
 \item \textbf{Multi-scale branches with stage-query cross-scale
 exchange.} Three patch branches (sizes 2/4/8) read degradation at
 local, regional, and global scales; after every layer the coarse
-branch's GDN state---the compressed degradation history---projects to
+branch's GDN state, the compressed degradation history, projects to
 a single query that reads the fine and mid branch sequences.
 A parameter-matched ablation on PANASONIC shows the exchange itself
 accounts for a $5.7\,\%$ reduction in per-SP MAE
