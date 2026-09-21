@@ -4,7 +4,7 @@
 This paper presents DeltaCycle, a capacity-only monitoring loop built on a recurrent linear-attention backbone, 
 which transforms battery health monitoring from cloud-side accuracy benchmarking into a calibrated capability
 that runs directly on the device. The backbone is built on a gated DeltaNet-2 layer with a fixed-size matrix state, 
-which occupies only 8 KB per layer in the deployed configuration. 
+which occupies only $8$\,KB per layer in the deployed configuration.
 This bounded state footprint is precisely what enables the same model weights to be executed directly on a 
 BMS microcontroller. Degradation is captured at three time scales by patch branches (2/4/8) reading local, regional, 
 and global views. A physics-consistent rate head anchors predictions to the last observed capacity  with a 
@@ -55,5 +55,5 @@ together in one model.
 Looking ahead, our future work will focus on two fronts. Architecturally, we will
 refine the cross-scale exchange to make the rate head adaptive to cells whose impedance
 channel is uninformative. On the deployment side, INT4 already halves the weights
-to 268 KB at a 16.4\% MAE cost; the open question is whether mixed precision and
+to 268 KB at an 8.0\% MAE cost; the open question is whether mixed precision and
 pruning can recover that accuracy at the same footprint.

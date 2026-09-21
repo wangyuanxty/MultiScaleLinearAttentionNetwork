@@ -33,8 +33,26 @@ sys.path.insert(0, _SRC)
 
 from make_figures import load_series                                    # noqa: E402
 from verify_q8_trajectory import (build_and_load, eval_ae,              # noqa: E402
-                                  quantize_like_export,
-                                  trajectory_predictions)
+                                  quantize_like_export)
+
+
+def trajectory_predictions(model, tc, W):
+    """Batched version of verify_q8_trajectory.trajectory_predictions.
+
+    That one feeds the windows one at a time (`model(cin).item()` inside a
+    Python loop), which costs ~4 minutes per model here.  There is no
+    cross-window state in this path -- every window is an independent forward
+    pass -- so the whole stack can go through in one call.
+
+    Kept numerically identical to the original: same windows, same de-scaling
+    with numpy's default (biased) std, model in eval mode.
+    """
+    wins = np.stack([tc[i - W:i] for i in range(W, len(tc))]).astype(np.float32)
+    cin = torch.tensor(wins).unsqueeze(-1)
+    model.eval()
+    with torch.no_grad():
+        pn = np.asarray(model(cin).cpu()).reshape(-1)
+    return pn * wins.std(axis=1) + wins.mean(axis=1)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--dataset", default="calce")

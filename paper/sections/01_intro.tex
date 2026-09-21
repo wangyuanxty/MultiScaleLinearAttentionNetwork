@@ -107,11 +107,12 @@ deployment. Our contributions are:
 \begin{enumerate}
 \item \textbf{Linear-attention backbone with verified edge
 deployment.} We adopt Gated DeltaNet-2 (GDN-2), a recurrent linear
-attention layer with a fixed-size matrix state (8\,KB per layer in
-the deployed configuration), and ship a full C
+attention layer with a fixed-size matrix state ($8$\,KB per layer,
+independent of the window), and ship a full C
 implementation that matches the PyTorch forward within
 floating-point rounding, and whose Cortex-M3 binary matches the host
-build to about half a float32 ULP. Because the state
+build to about half a float32 ULP. The weights fit $504$\,KB at INT8
+and $268$\,KB at INT4. Because the state
 does not grow with the window, the deployed model can represent a
 longer history at full resolution where a quadratic attention buffer
 would force either more SRAM or a coarser representation.
