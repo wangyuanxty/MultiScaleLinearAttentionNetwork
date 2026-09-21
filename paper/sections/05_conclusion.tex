@@ -17,11 +17,12 @@ are as follows:
 
 \begin{enumerate}
 \item \textbf{Verified edge deployment.} The full multi-scale model runs in
-freestanding C99 on a Cortex-M3 and matches the PyTorch forward to within
-float32 rounding. The recurrent state is fixed at $48$\,KB and does not grow
-with the window, the stack budget is set at compile time, and INT8
-quantization brings the weights to $504$\,KB, with the minimal single-branch
-configuration fitting a $128$\,KB part.
+freestanding C99 on a Cortex-M3; its host build matches the PyTorch forward to
+$1.07\times10^{-6}$ relative error, and its Cortex-M3 binary matches the host
+build to about half a float32 ULP. The recurrent state is fixed at $48$\,KB and
+does not grow with the window, the stack budget is set at compile time, and
+INT8 quantization brings the weights to $504$\,KB, with the minimal
+single-branch configuration fitting a $128$\,KB part.
 
 \item \textbf{Multi-scale branches with cross-scale exchange.} A
 parameter-matched control on PANASONIC attributes a $5.7\,\%$ reduction in
@@ -43,9 +44,8 @@ the same target space and raises $R^2$ on the unseen final $10\%$ of life from
 $0.374$ to $0.7745$.
 
 \item \textbf{Trajectory accuracy across six datasets.} On mean per-SP MAE the
-model ranks top-3 on all six datasets---first on GOTION, PANASONIC and TJU
-(tied), second on CALCE, third on NASA and MIT---and beats every generic
-time-series transformer. It tracks non-monotonic capacity recovery rather than
+model ranks first on PANASONIC, TJU, GOTION and MIT and second on NASA and
+CALCE, ahead of every generic time-series transformer. It tracks non-monotonic capacity recovery rather than
 smoothing it away.
 \end{enumerate}
 
@@ -54,6 +54,6 @@ uncertainty, physical consistency and trajectory accuracy can be achieved
 together in one model.
 Looking ahead, our future work will focus on two fronts. Architecturally, we will
 refine the cross-scale exchange to make the rate head adaptive to cells whose impedance
-channel is uninformative. On the deployment side, we will push compression beyond INT8---mixed
-precision and pruning---so that the multi-scale model fits the smaller flash parts
+channel is uninformative. On the deployment side, we will push compression beyond INT8 (mixed
+precision and pruning) so that the multi-scale model fits the smaller flash parts
 used in volume BMS designs.

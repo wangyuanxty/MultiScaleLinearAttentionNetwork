@@ -51,37 +51,38 @@ OURS = "#2ca02c"
 SELF_RUN = "#1f77b4"
 OTHER = "#b0b0b0"
 
-# Verbatim from make_figures_extra.py:97-128.
+# Mean per-SP MAE, read from Table 3 (all series on the same
+# normalized-capacity scale).
 DATA = {
     "NASA": {
-        "TimeMixer": 0.0228, "TimesNet": 0.0292, "PatchTST": 0.0204,
-        "MambaSimple": 0.0246, "ModernTCN": 0.0130, "Autoformer": 0.0226,
-        "FEDformer": 0.0195, "iTransformer": 0.0080, "PathFormer": 0.0225,
-        "PatchFormer": 0.0068, "RUL-Mamba": 0.0090, "Ours": 0.0089,
+        "TimeMixer": 0.0258, "TimesNet": 0.0331, "PatchTST": 0.0231,
+        "MambaSimple": 0.0279, "ModernTCN": 0.0148, "Autoformer": 0.0256,
+        "FEDformer": 0.0222, "iTransformer": 0.0091, "PathFormer": 0.0255,
+        "PatchFormer": 0.0078, "RUL-Mamba": 0.0102, "Ours": 0.0089,
     },
     "TJU": {
-        "TimeMixer": 0.0093, "TimesNet": 0.0146, "PatchTST": 0.0071,
-        "MambaSimple": 0.0107, "ModernTCN": 0.0015, "Autoformer": 0.0049,
-        "FEDformer": 0.0056, "iTransformer": 0.0018, "PathFormer": 0.0121,
-        "PatchFormer": 0.0016, "RUL-Mamba": 0.0015, "Ours": 0.0015,
+        "TimeMixer": 0.0122, "TimesNet": 0.019, "PatchTST": 0.0093,
+        "MambaSimple": 0.0139, "ModernTCN": 0.002, "Autoformer": 0.0063,
+        "FEDformer": 0.0073, "iTransformer": 0.0023, "PathFormer": 0.0158,
+        "PatchFormer": 0.0021, "RUL-Mamba": 0.002, "Ours": 0.0015,
     },
     "CALCE": {
-        "TimeMixer": 0.0291, "TimesNet": 0.0461, "PatchTST": 0.0235,
-        "MambaSimple": 0.0284, "ModernTCN": 0.0127, "Autoformer": 0.0246,
-        "FEDformer": 0.0227, "iTransformer": 0.0168, "PathFormer": 0.0541,
-        "PatchFormer": 0.0069, "RUL-Mamba": 0.0207, "Ours": 0.0079,
+        "TimeMixer": 0.0293, "TimesNet": 0.0465, "PatchTST": 0.0237,
+        "MambaSimple": 0.0287, "ModernTCN": 0.0128, "Autoformer": 0.0248,
+        "FEDformer": 0.0229, "iTransformer": 0.017, "PathFormer": 0.0545,
+        "PatchFormer": 0.0069, "RUL-Mamba": 0.0209, "Ours": 0.0079,
     },
     "PANASONIC": {
-        "iTransformer": 0.0180, "Autoformer": 0.0245, "FEDformer": 0.0274,
-        "PatchFormer": 0.0079, "RUL-Mamba": 0.0189, "Ours": 0.0038,
+        "iTransformer": 0.0177, "Autoformer": 0.024, "FEDformer": 0.0268,
+        "PatchFormer": 0.0077, "RUL-Mamba": 0.0186, "Ours": 0.0038,
     },
     "MIT": {
-        "PatchFormer": 0.0008, "RUL-Mamba": 0.0016, "Ours": 0.0025,
+        "PatchFormer": 0.0032, "RUL-Mamba": 0.0062, "Ours": 0.0025,
     },
     "GOTION": {
-        "ModernTCN": 0.0581, "Autoformer": 0.0731, "FEDformer": 0.0749,
-        "iTransformer": 0.0597, "PathFormer": 0.1965,
-        "PatchFormer": 0.0568, "RUL-Mamba": 0.0558, "Ours": 0.0080,
+        "ModernTCN": 0.0091, "Autoformer": 0.0115, "FEDformer": 0.0117,
+        "iTransformer": 0.0093, "PathFormer": 0.0307, "PatchFormer": 0.0089,
+        "RUL-Mamba": 0.0087, "Ours": 0.008,
     },
 }
 

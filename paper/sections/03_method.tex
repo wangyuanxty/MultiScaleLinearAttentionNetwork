@@ -10,15 +10,15 @@ $t$. Given a fixed-length input window
 $\mathbf{X}_{t} = [c_{t-W+1}, \ldots, c_t]$ of historical capacity,
 the model predicts future capacity values. The main model
 deliberately consumes capacity only, for a deployment-driven
-reason: at inference, the future values of voltage, current,
-temperature, and internal resistance are unavailable, so any model
-consuming them cannot be rolled out autoregressively to the end of
-life without information leakage. Capacity is the only health
-indicator that is both measurable online and self-contained for
-rollout. The physics-consistent extension of
+reason: at inference the future values of voltage, current,
+temperature and internal resistance are unavailable, so a model that
+consumes them cannot predict to the end of life without information
+leakage. Capacity is the only health indicator that is both
+measurable online and sufficient on its own for long-horizon
+prediction. The physics-consistent extension of
 Section~\ref{sec:physics} additionally consumes the per-cycle
-measured internal resistance---a quantity the BMS records in
-situ, available at inference without future information---so the
+measured internal resistance, a quantity the BMS records in
+situ and that is available at inference without future information, so the
 extension remains deployable under the same constraint.
 
 \subsection{Gated DeltaNet-2 backbone}
@@ -28,8 +28,8 @@ The backbone is Gated DeltaNet-2 (GDN-2) \cite{ref_gdn2}, a
 recurrent linear attention layer with channel-wise erase and write
 gates. GDN-2 generalizes Gated DeltaNet \cite{ref_gdn}, which ties
 erasing and writing to a single scalar gate, by moving each to its own
-channel-wise gate---erase on the key axis, write on the value axis---and
-it recovers Gated DeltaNet exactly when both gates and the decay
+channel-wise gate: erase on the key axis, write on the value axis. It
+recovers Gated DeltaNet exactly when both gates and the decay
 collapse to scalars. For one head with key dimension $d_k$ and value dimension
 $d_v$, the recurrence is
 \begin{equation}
@@ -62,9 +62,9 @@ $\mathbf{S}_t \in \mathbb{R}^{d_k \times d_v}$ is fixed-size and
 updated incrementally, yielding $O(N)$ scan complexity with
 constant memory. With $H$ heads, $d_k=16$, and $d_v=32$, the total
 state is $H \cdot d_k \cdot d_v \cdot 4$ bytes $= 8$\,KB per layer.
-During a window scan the state is updated incrementally---each new
+During a window scan the state is updated incrementally: each new
 cycle erases part of the old memory (via $\mathbf{b}_t$) and writes
-new information (via $\mathbf{w}_t$)---so the fixed-size matrix acts
+new information (via $\mathbf{w}_t$), so the fixed-size matrix acts
 as an adaptive compression of the degradation history rather than a
 static buffer. Decoupling the two axes is what makes that compression
 useful for a capacity series, which mixes a slow global fade that
@@ -128,8 +128,8 @@ regeneration events, mid-range knee-point transitions, and the
 long-term monotonic envelope. We encode these with three parallel
 branches using patch sizes $P \in \{2,4,8\}$. Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
-two GDN-2 layers. Each branch scans at its own token count---32, 16 and
-8 for patch sizes 2, 4 and 8---and the branches are aligned to the
+two GDN-2 layers. Each branch scans at its own token count (32, 16 and
+8 for patch sizes 2, 4 and 8), and the branches are aligned to the
 longest only before an exchange, since aligning first would scan the
 wrong sequence length. The two length operations differ: aligning tiles
 the whole sequence to the longest token count
@@ -137,8 +137,8 @@ the whole sequence to the longest token count
 input length repeats each token ($[a,b,c]\mapsto[a,a,b,b,c,c]$).
 After every GDN layer, branches exchange
 information through a stage-query mechanism: the coarse branch's
-GDN-2 state---the compressed degradation history, which acts as a
-stage indicator---is projected to a single query, and the fine and
+GDN-2 state, which compresses the degradation history and acts as a
+stage indicator, is projected to a single query, and the fine and
 mid branch sequences provide keys and values. For branch
 $\mathbf{h}_a$ with the coarse state $\mathbf{S}_c$,
 \begin{equation}
@@ -176,8 +176,8 @@ Here we present a physics-consistent extension whose design is the
 outcome of a systematic injection-route study (Section
 \ref{sec:phys}): a degradation-rate head driven by a measured
 physical feature. Lithium-ion capacity fade is governed by
-thermally activated processes---solid-electrolyte-interface growth,
-loss of lithium inventory, and active-material loss---and internal
+thermally activated processes (solid-electrolyte-interface growth,
+loss of lithium inventory and active-material loss), and internal
 resistance (IR) is a direct, independently measured observable of
 these aging processes that rises as the cell degrades. We therefore
 decompose the per-cycle decay rate into a learned component and a
@@ -194,7 +194,7 @@ capacity, $\mathrm{IR}_{\text{last}}$ the measured internal
 resistance at the current cycle, and $\gamma$ a learned scalar. The
 softplus makes the coefficient $\operatorname{softplus}(\gamma)$
 non-negative, so internal-resistance growth can only \emph{accelerate}
-decay, never decelerate it---the physical direction of SEI-driven
+decay, never decelerate it. This is the physical direction of SEI-driven
 aging. The formulation is structurally monotonic
 ($\hat{c}_{t+1} \le c_t$) and therefore cannot emit nonphysical
 regeneration artifacts by construction.
@@ -274,5 +274,5 @@ $q_{\text{adj}}$, the $(1-\alpha)(1+1/n)$ empirical quantile of the
 scores, where $\alpha = 0.05$ and $n$ is the calibration size.
 Calibration and coverage results are reported in
 Section~\ref{sec:conf}. The entire UQ mechanism costs one forward
-pass and two scalars at deployment---no ensemble, no MC sampling.
+pass and two scalars at deployment: no ensemble, no MC sampling.
 

@@ -79,7 +79,7 @@ into the training objective, reporting improved extrapolation at the
 end of life. Our systematic injection-route study (Section
 \ref{sec:phys}) revisits this question for a sequence model that
 already ingests the capacity trajectory: objective regularization,
-input feature concatenation, and structural heads all fail---the
+input feature concatenation, and structural heads all fail: the
 per-window z-score target space is structurally incompatible with
 monotone predictors, and the features are redundant with capacity
 history. The mechanism that survives is a degradation-rate head
@@ -101,8 +101,8 @@ modeling. To our knowledge, the present work is the first to report
 floating-point-accurate MCU deployment of a linear-attention battery model.
 
 Stepping back from individual architectures, the surveyed literature
-answers one question---which model is most accurate on public cycling
-data---while leaving the questions that decide operational adoption
+answers one question, which model is most accurate on public cycling
+data, while leaving the questions that decide operational adoption
 largely open. First, accuracy has been demonstrated only on
 server-class hardware: none of the battery-specific models above
 reports a deployment path onto the microcontrollers that production
@@ -113,7 +113,7 @@ consumer of a forecast is a maintenance schedule, which requires an
 explicit statement of risk; few works report calibrated intervals
 suitable for scheduling. Third, evaluations are confined to clean
 laboratory data: the end-of-life acceleration tail and the
-corrupted-sensor regimes---where field decisions concentrate---are
+corrupted-sensor regimes, where field decisions concentrate, are
 rarely tested, so reported accuracy says little about how a
 predictor will behave in deployment. DeltaCycle is designed around
 these three operational gaps rather than around a single benchmark
