@@ -772,7 +772,7 @@ sliding-window predictions for one cell of each dataset;
 Table~\ref{tab:tableA} reports the full per-SP results. The six datasets span distinct degradation regimes 
 and operational scenarios. We present each as a standalone case study in the sections below: 
 each case concludes with a discussion of the practical implications of our experimental results, 
-as well as a benchmark comparison against state-of-the-art (SOTA) results reported on the same dataset.
+as well as a benchmark comparison against state-of-the-art results reported on the same dataset.
 
 \begin{figure*}[!t]
 \centering
@@ -1023,6 +1023,10 @@ PatchFormer result at SP90
 ($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), and at
 SP90 it leads on MAE as well ($0.0071$ vs.\ $0.0072$; AE $0.5$ vs.\
 $2.5$). PatchFormer stays ahead on MAE at SP50 and SP70.
+\emph{Operational implication:} a usable degradation trajectory is
+available within the first fifty cycles, so a newly commissioned or
+sparsely instrumented asset can be graded long before a full-life
+label exists.
 
 
 
@@ -1200,13 +1204,13 @@ capacity-channel-only failure (for example a current-sensor drift
 or a capacity-estimator failure), in which the independently
 measured impedance data remain valid; a total telemetry outage
 affecting both channels is outside the scenario. The rate head wins
-all four settings on every MAE contrast (clean $-34\%$, drop30
-$-23\%$, gauss $-13\%$, impulse $-32\%$); under 30\% loss the
+all four settings on every MAE contrast (clean $-35\%$, drop30
+$-22\%$, gauss $-13\%$, impulse $-32\%$); under 30\% loss the
 biased hold-last-value filling hurts the free head worst (MAE
-$0.0095\pm0.0012$ vs.\ $0.0073\pm0.0010$). The two heads end close on
-AE there ($3.1$ against $3.4$), so dropout costs the rate head
-trajectory accuracy rather than lifetime; its AE stays within $9$ in
-every seed and every mode. Figure~\ref{fig:robust} shows the
+$0.0094\pm0.0012$ vs.\ $0.0073\pm0.0010$). Under dropout the two heads
+separate on MAE and nearly coincide on AE ($3.1$ against $3.4$), with
+the rate head's AE staying within $9$ across the ten seeds.
+Figure~\ref{fig:robust} shows the
 mechanism: the forward-filled input plateaus upward, dragging the
 free head's near-EOL crossing late, while the rate head leans on the
 clean IR channel and keeps the crossing close to truth. A caveat:
@@ -1230,8 +1234,12 @@ Table~\ref{tab:robust}.}
 \begin{table}[htbp]
 \centering
 \caption{Corrupted-input robustness (capacity channel corrupted, IR
-clean), CALCE, ten seeds (mean $\pm$ std; AE as mean over seeds,
-median 1 for the rate head in every mode).
+clean), CALCE, ten seeds (MAE in Ah, mean $\pm$ std; AE as mean over
+seeds). AE is a coarse statistic at this seed count: across the ten
+seeds it spans, for the free and rate head respectively, 1--7 and 1--1
+under clean, 0--9 and 1--9 under drop30, 0--7 and 0--6 under gauss, and
+0--7 and 0--68 under impulse, so a one- or two-cycle gap between the
+two heads is not resolved here.
 $^{\ddagger}$worst-case AE 68 in a single rate-head seed, under impulse:
 a spike falls on the last sample of the input window, and the rate head,
 whose prediction is anchored to that sample, follows it below the
@@ -1244,9 +1252,9 @@ threshold for exactly one step before recovering.}
 Mode & \multicolumn{2}{c}{MAE (Ah)} & \multicolumn{2}{c}{AE} \\
  & free head & rate head & free head & rate head \\
 \midrule
-clean & $0.0065\pm0.0003$ & \textbf{$0.00424\pm0.00002$} & 1.9 & \textbf{1.0} \\
-drop30 & $0.0095\pm0.0012$ & \textbf{$0.0073\pm0.0010$} & \textbf{3.1} & 3.4 \\
-gauss ($\pm1\%$) & $0.0110\pm0.0005$ & \textbf{$0.0096\pm0.0003$} & 2.9 & \textbf{2.5} \\
+clean & $0.0065\pm0.0003$ & \textbf{$0.00424\pm0.00002$} & 1.7 & \textbf{1.0} \\
+drop30 & $0.0094\pm0.0012$ & \textbf{$0.0073\pm0.0010$} & \textbf{3.1} & 3.4 \\
+gauss ($\pm1\%$) & $0.0110\pm0.0005$ & \textbf{$0.0096\pm0.0003$} & \textbf{2.4} & 2.5 \\
 impulse (5\%) & $0.0087\pm0.0003$ & \textbf{$0.0060\pm0.0001$} & \textbf{3.2} & $8.4^{\ddagger}$ \\
 \bottomrule
 \end{tabular}
@@ -1259,8 +1267,9 @@ $\operatorname{softplus}(\gamma)$ is non-negative by construction,
 so the measured internal
 resistance can only accelerate the predicted decay (the SEI-growth
 direction), and the structural monotonicity removes nonphysical
-regeneration artifacts (regen fraction $0.163$ vs $0.232$ for the
-free head on CALCE). The learned rate component
+regeneration artifacts: of the consecutive steps in the predicted
+trajectory, $16.3\%$ rise by more than $2$\,mAh on CALCE, against
+$23.2\%$ for the free head. The learned rate component
 $\operatorname{softplus}(\mathbf{w}^\top\mathbf{h})$ absorbs the
 dataset-specific fade dynamics, leaving the IR term as an
 interpretable, independently measured correction.
