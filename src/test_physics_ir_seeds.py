@@ -131,6 +131,14 @@ def corrupt_capacity(tc_clean, mode, seed):
         for i in range(1, n):
             if np.isnan(out[i]):
                 out[i] = out[i - 1]
+        # A dropout that starts at index 0 has nothing to forward-fill from, so
+        # the leading block stays NaN and the line below used to write it out as
+        # capacity 0.0 -- eight cycles of an impossible input sitting inside the
+        # model's first window.  Back-fill from the first surviving sample, which
+        # is what test_ablation_robust.corrupt() already does.
+        if np.isnan(out[0]):
+            first_ok = int(np.argmax(~np.isnan(out)))
+            out[:first_ok] = out[first_ok]
         out = np.where(np.isnan(out), 0.0, out)
         return out
     elif mode == "gauss":
