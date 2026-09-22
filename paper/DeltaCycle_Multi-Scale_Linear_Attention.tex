@@ -1000,9 +1000,9 @@ accuracy here translates into replacement planning with margin.
 
 
 
-\subsubsection{MIT: cross-cell fleet screening}
-MIT (LFP, 1.074\,Ah, 8 train / 2 test cells) is our large-scale
-fleet proxy: many training cells, unseen test cells. Over the two
+\subsubsection{MIT: cross-cell generalization}
+MIT (LFP, 1.074\,Ah, 8 train / 2 test cells) is our held-out cross-cell
+split, where neither test cell is seen during training. Over the two
 test cells the model achieves R$^2 \ge 0.9995$ at every SP
 (Table~\ref{tab:tableA}), with mean AE $0.2$ cycles on one test cell
 and $1.6$ on the other (10-seed means), exceeding the published MIT
@@ -1012,9 +1012,10 @@ Against the two self-run baselines on this dataset
 (Table~\ref{tab:lit_all}) the model ranks first on both
 MAE and R\textsuperscript{2} at all three starting points, and within one
 cycle of the best AE. Per-SP protocol (every (SP, seed) retrained from scratch, 10 seeds
-per SP) is applied uniformly. Cross-cell generalization at this
-accuracy is what makes fleet-scale screening and grading with
-per-device confidence practical.
+per SP) is applied uniformly. Generalization across unseen cells at
+this accuracy is the property behind cell-to-cell screening and
+grading without per-cell retraining, and the direction this work
+points at fleet scale.
 
 
 \subsubsection{NASA: short-history rapid assessment}
