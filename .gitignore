@@ -1,10 +1,15 @@
 # Only ignore large/third-party data directories; everything else (paper/,
-# .claude/, results/, PDFs, sources) is tracked.
+# results/, PDFs, sources) is tracked.
 
 checkpoints/
 data/
 literature/
 reference_repos/
+
+# Local agent tooling: .claude/skills holds vendored third-party skills
+# (~39 MB, 744 files).  .claude/settings.json is already tracked and stays
+# so -- gitignore only governs untracked files, so no negation is needed.
+.claude/
 
 # LaTeX build artifacts (paper/ and paper_indojc/)
 paper*/**/*.aux
