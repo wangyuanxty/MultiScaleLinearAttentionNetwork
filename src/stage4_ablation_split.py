@@ -21,7 +21,7 @@ new1 = (
     "The stage-query exchange is essential (seed 42, standard protocol;\n"
     "Table~\\ref{tab:ablation}): three branches without interaction\n"
     "degrade by 15\\% (MAE $0.0076$ vs $0.0066$), while the exchange\n"
-    "outperforms a single-branch backbone ($0.0066$ vs $0.0070$).\n"
+    "outperforms a single-branch backbone ($0.0066$ vs $0.0089$).\n"
 )
 assert pat1.search(s), "block 1 not found"
 s = pat1.sub(lambda m: new1, s, count=1)
@@ -82,7 +82,7 @@ new4 = (
     "capacity space and to an independently measured feature; a control\n"
     "free head trained in the same absolute space ($0.0097$) isolates the\n"
     "mechanism from the objective, and the rate head itself improves\n"
-    "CALCE MAE by 40\\% ($0.0042$ vs $0.0070$). Its value shows in the\n"
+    "CALCE MAE by 53\\% ($0.0042$ vs $0.0089$). Its value shows in the\n"
     "two regimes where physics is expected to matter;\n"
     "Figures~\\ref{fig:extrap} and \\ref{fig:robust} together with\n"
     "Tables~\\ref{tab:extrap} and \\ref{tab:robust} quantify both, and we\n"

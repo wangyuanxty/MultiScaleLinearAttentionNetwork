@@ -28,7 +28,7 @@ else:
 translates into an operational policy directly: the simplest
 risk-aware rule is ``schedule replacement at the first cycle where
 the P2.5 trajectory crosses the EOL threshold.'' With CQR the
-$93.3\\%$ coverage bounds the missed-EOL rate, and the $+36\\%$
+$93.5\\%$ coverage bounds the missed-EOL rate, and the $+25\\%$
 interval-width cost quantified above is the price paid for that
 bound. Quantifying the associated maintenance-cost trade-off under a
 concrete cost model is left to future work."""

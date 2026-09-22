@@ -9,7 +9,7 @@ A. On-board sensing (left panel): a PHOTO-REALISTIC close-up photograph of a bat
 B. Deterministic inference (middle panel): a pale-teal block "MCU inference" with four stacked small annotation chips:
    - "fixed 8 KB recurrent state"
    - "zero dynamic allocation"
-   - "INT8 weights 340 KB (−75%)"
+   - "INT8 weights 504 KB (−73%)"
    - "three scalar outputs: P2.5 / P50 / P97.5"
 
 C. Verification (right panel): a rounded block "QEMU Cortex-M3" with a sage checkmark chip "bit-exact vs PyTorch" and a coral latency chip "8–12 ms @ STM32F4".

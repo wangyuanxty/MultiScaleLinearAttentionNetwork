@@ -10,6 +10,6 @@ B. Physics-enabled foresight & resilience (second panel): a forward-extrapolated
 
 C. Trustworthy decisions (third panel): a capacity curve band with a shaded 95% interval between P2.5 and P97.5 curves, plus a small calendar/gantt glyph with annotation chip "risk-aware maintenance scheduling".
 
-D. Edge deployment (right panel): a PHOTO-REALISTIC close-up photograph of a small microcontroller board with the same band curve coming out of it; annotation chips "8 KB state", "340 KB INT8", "no cloud".
+D. Edge deployment (right panel): a PHOTO-REALISTIC close-up photograph of a small microcontroller board with the same band curve coming out of it; annotation chips "8 KB state", "504 KB INT8", "no cloud".
 
 Style requirements: soft Nature/Science palette (muted teal, dusty blue, sage green, warm sand, coral accents), white background, precise vector-like arrows, modest shadows only, readable small labels, generous whitespace, no futuristic HUD, no 3D gloss, no real logos, no watermark.

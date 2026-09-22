@@ -316,7 +316,7 @@ def build_phys_ir():
 def build_deploy():
     fig, ax = fig_start()
     masthead(ax, "Edge deployment: sensing → deterministic inference → verification",
-             "fixed 8 KB state, 340 KB INT8 weights, bit-exact against PyTorch")
+             "fixed 8 KB state, 504 KB INT8 weights, bit-exact against PyTorch")
     lanes = [(0.025, "A  On-board sensing", DATA),
              (0.355, "B  Deterministic inference", UNCERT),
              (0.685, "C  Verification", "#9CB380")]
@@ -370,7 +370,7 @@ def build_deploy():
                            "SYS_WRITE0 semihosting print",
                            "verified on lm3s + an505"]):
         txt(ax, 0.705, 0.185 - j * 0.020, "· " + t, fs=6.2)
-    tiles(fig, ax, [("State", "8 KB"), ("Weights", "340 KB"),
+    tiles(fig, ax, [("State", "8 KB"), ("Weights", "504 KB"),
                     ("Latency", "8–12 ms"), ("Fidelity", "2.5e-6"),
                     ("Platform", "STM32F4")])
     save(fig, "fig_deploy")

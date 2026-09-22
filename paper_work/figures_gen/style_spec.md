@@ -20,7 +20,7 @@ real matplotlib-style data charts, a bearing photograph and Chinese text. None o
 these may appear in our figure. The reference is used ONLY as a style template
 (layout structure, palette, print look).
 
-NUMBERS: only model facts (e.g. "W=64", "8 KB", "340 KB", "8–12 ms", "P2.5/P50/P97.5").
+NUMBERS: only model facts (e.g. "W=64", "8 KB", "504 KB", "8–12 ms", "P2.5/P50/P97.5").
 No other numeric values anywhere — no axis values, no data points.
 
 NO title, NO watermark, NO page border. All text in English only.

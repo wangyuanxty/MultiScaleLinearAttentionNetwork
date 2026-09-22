@@ -174,7 +174,7 @@ def main():
     box(ax, 0.525, 0.115, 0.235, 0.115, None, fc=LANE, ec=HARDLINE, lw=0.9)
     ax.text(0.533, 0.205, "EDGE MCU", fontsize=8.6, fontweight="bold",
             color=INK, transform=ax.transAxes)
-    kv = [("Recurrent state", "fixed 8 KB"), ("Weights", "INT8, 340 KB (−75%)"),
+    kv = [("Recurrent state", "fixed 8 KB"), ("Weights", "INT8, 504 KB (−73%)"),
           ("Inference", "8–12 ms @ 168 MHz"), ("Fidelity", "bit-exact, 2.5e-6")]
     for j, (k, v) in enumerate(kv):
         yy = 0.181 - j * 0.024

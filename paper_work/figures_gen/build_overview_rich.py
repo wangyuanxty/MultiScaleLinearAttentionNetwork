@@ -287,7 +287,7 @@ def create_capability_d(ax, data):
     # Memory breakdown horizontal bars
     ax_mem = ax.inset_axes([0.1, 0.55, 0.8, 0.3])
 
-    components = ['State\n(8 KB)', 'Weights\n(340 KB)']
+    components = ['State\n(8 KB)', 'Weights\n(504 KB)']
     sizes = [8, 340]
     colors = [BG_GREEN, BG_BLUE]
 

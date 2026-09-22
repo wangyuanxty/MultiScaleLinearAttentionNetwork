@@ -106,7 +106,7 @@ card(ax, (0.035, 0.535), 0.225, 0.275, fc="#EAF1F8")
 fig.text(0.035 + 0.1125, 0.795, "DETERMINISTIC MEMORY", ha="center",
          fontsize=7.5, fontweight="bold", color=TEAL, va="center")
 rows = [("state", "16 KB  (8 KB × 2 layers)", 2.3),
-        ("weights", "340 KB  INT8 (−75%)", 100),
+        ("weights", "504 KB  INT8 (−73%)", 100),
         ("alloc", "zero dynamic malloc", 0)]
 for i, (lab, val, frac) in enumerate(rows):
     y = 0.755 - i * 0.062

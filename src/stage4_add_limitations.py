@@ -3,7 +3,7 @@ P1 = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 P2 = "../paper/main.tex"
 
 s = open(P1, encoding="utf-8").read()
-anchor = "\\label{tab:deploy}\n\\begin{tabular}{lccc}\n\\toprule\nConfig & fp32 AE & INT8 AE & Memory \\\\\n\\midrule\nSingle-branch & 2.2 & 2.3 & 337 KB \\\\\nMulti-scale & 1 & 1 & 340 KB \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table}"
+anchor = "\\label{tab:deploy}\n\\begin{tabular}{lccc}\n\\toprule\nConfig & fp32 AE & INT8 AE & Memory \\\\\n\\midrule\nSingle-branch & 2.2 & 2.3 & 337 KB \\\\\nMulti-scale & 1 & 1 & 504 KB \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table}"
 lim = anchor + r"""
 
 \subsection{Limitations}

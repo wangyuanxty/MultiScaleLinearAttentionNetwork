@@ -128,7 +128,7 @@ def build_overview():
         ("A  Accurate monitoring", TEAL, "SOTA trajectory accuracy"),
         ("B  Physics foresight", SAGE, "unseen-tail extrapolation"),
         ("C  Trustworthy decisions", BLUE, "risk-aware scheduling"),
-        ("D  Edge deployment", CORAL, "8 KB state · 340 KB · no cloud"),
+        ("D  Edge deployment", CORAL, "8 KB state · 504 KB · no cloud"),
     ]
     px = [0.355, 0.515, 0.675, 0.835]
     for i, (title, col, ct) in enumerate(panels):
@@ -402,7 +402,7 @@ def build_deploy():
         fs=12, tc="white", bold=True)
     for j, t in enumerate(["fixed 8 KB recurrent state",
                            "zero dynamic allocation",
-                           "INT8 weights 340 KB (−75%)",
+                           "INT8 weights 504 KB (−73%)",
                            "P2.5 / P50 / P97.5 scalar outputs"]):
         box(ax, 0.418, 0.605 - j * 0.052, 0.154, 0.044, t, fc=BOXFC, ec=EDGE,
             lw=0.8, fs=7.8)
