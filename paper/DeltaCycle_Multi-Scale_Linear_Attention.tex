@@ -68,8 +68,8 @@ rounding error;
 conformal-calibrated prediction intervals with verified coverage;
 and a physics-consistent degradation-rate head driven by measured internal resistance
 which acts as a constraint on the decay direction.
-Across six public battery datasets spanning multiple chemistries, 
-On mean per-SP MAE, DeltaCycle ranks first on PANASONIC, TJU, GOTION and MIT
+Across six public battery datasets spanning multiple chemistries,
+DeltaCycle's mean per-SP MAE ranks first on PANASONIC, TJU, GOTION and MIT
 and second on NASA and CALCE among protocol-matched baselines. Interval coverage
 is lifted to $93.5\%\pm0.9\%$ at nominal $95\%$, and the physics rate head more than
 doubles unseen-tail extrapolation fidelity while winning every corruption-robustness
@@ -710,7 +710,7 @@ as an auxiliary input of the physics-extension rate head
 \caption{Dataset overview.}
 \label{tab:datasets}
 \tiny
-\begin{tabular}{lcccccl}
+\begin{tabular}{lccccc}
 \toprule
 Dataset & Chemistry & Rated & Cells & EOL (Ah) & Role \\
 \midrule
@@ -738,9 +738,8 @@ remaining useful life in cycles at an SP (cycles from the SP to the
 true EOL crossing), PRUL is the predicted RUL from the first threshold
 crossing of the predicted capacity sequence (taken at its first occurrence, so
 a single-sample dip counts even where the prediction recovers on the next
-step), AE $= |\text{TRUL} -
-\text{PRUL}|$ is the absolute RUL error in cycles, and RE $=$
-AE/TRUL is the relative RUL error.
+step), and AE $= |\text{TRUL} - \text{PRUL}|$ is the absolute RUL error in
+cycles.
 
 \emph{Training configuration.} All models use Adam (learning rate
 $1\times10^{-3}$, batch size 64) for 100 epochs with a window of
