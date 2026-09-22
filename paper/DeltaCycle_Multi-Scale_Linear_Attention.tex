@@ -119,20 +119,20 @@ replacement decisions ultimately depend.
 That progression rests on a fundamental contradiction: the chemistry
 prized for its high energy density and long cycle life ages
 inevitably under use. Two microscopic mechanisms dominate aging. 
-The first is loss of lithium inventory, as the growing solid–electrolyte interface consumes cyclable lithium. 
+The first is loss of lithium inventory, as the growing solid-electrolyte interface consumes cyclable lithium. 
 The second is loss of active material, as electrode particles crack and detach. 
 Both processes manifest macroscopically as capacity fade and rising internal resistance
 \cite{ref_yang_review}. The resulting degradation is inherently nonlinear and heterogeneous: 
 a long-term monotonic fade is intertwined with capacity regeneration events, stage-wise transitions, 
 and measurement noise, which renders RUL prediction a challenging prognostics problem \cite{ref_rulmamba,ref_omnitie}.
-Moreover, the battery’s internal state is inherently opaque: 
+Moreover, the battery's internal state is inherently opaque: 
 health indicators cannot be observed directly and must instead be inferred from external measurements. 
 This opacity makes health prediction intrinsically uncertain and highlights the operational value 
 of an estimator that relies solely on field-measurable quantities.
 
 For operators, RUL is considerably more than an academic metric: 
 it transforms maintenance from reactive repair to planned intervention, 
-informs retirement and second-life decisions that extend a battery’s economic life, 
+informs retirement and second-life decisions that extend a battery's economic life, 
 defines safety margins because capacity fade and resistance rise are recognized precursors of thermal runaway, 
 and constrains life-cycle cost---the dominant expense of large-scale storage fleets
 \cite{ref_yang_review,ref_qu_bess}.
@@ -366,14 +366,14 @@ proposed a physics-informed network for stable degradation modeling,
 and PiDDM \cite{ref_piddm} incorporates Arrhenius degradation kinetics
 into the training objective, reporting improved extrapolation at the
 end of life. Our systematic injection-route study (Section
-\ref{sec:phys}) revisits this question for a sequence model that
+\ref{sec:exp-phys}) revisits this question for a sequence model that
 already ingests the capacity trajectory: objective regularization,
 input feature concatenation, and structural heads all fail: the
 per-window z-score target space is structurally incompatible with
 monotone predictors, and the features are redundant with capacity
 history. The remaining route is a degradation-rate head driven by
 measured internal resistance, trained in absolute capacity space
-(Section~\ref{sec:physics}).
+(Section~\ref{sec:rate-head}).
 
 \subsection{Linear attention and recurrent mixing}
 
@@ -426,7 +426,7 @@ consumes them cannot predict to the end of life without information
 leakage. Capacity is the only health indicator that is both
 measurable online and sufficient on its own for long-horizon
 prediction. The physics-consistent extension of
-Section~\ref{sec:physics} additionally consumes the per-cycle
+Section~\ref{sec:rate-head} additionally consumes the per-cycle
 measured internal resistance, a quantity the BMS records in
 situ and that is available at inference without future information, so the
 extension remains deployable under the same constraint.
@@ -570,7 +570,7 @@ grown to the same parameter count on PANASONIC, the exchange lowers
 per-SP MAE by $5.7\,\%$ on average ($p=0.014$), winning $22$ of the $30$
 (starting point, seed) pairs.
 
-An interpretability analysis (Section \ref{sec:phys}) reveals that
+An interpretability analysis (Section \ref{sec:exp-phys}) reveals that
 the coarse branch (patch 8) spontaneously encodes the degradation
 stage: its pooled representation is $93.2\%$ linearly separable into
 early/mid/late life stages on the PANASONIC dataset ($2.9\times$
@@ -578,13 +578,13 @@ chance), providing stage-aware state awareness at no additional
 supervision cost.
 
 \subsection{Physics-consistent extension: the rate head}
-\label{sec:physics}
+\label{sec:rate-head}
 
 The main architecture of Section~\ref{sec:multiscale} is trained
 purely data-driven under the baseline-consistent per-window protocol.
 Here we present a physics-consistent extension whose design is the
 outcome of a systematic injection-route study (Section
-\ref{sec:phys}): a degradation-rate head driven by a measured
+\ref{sec:exp-phys}): a degradation-rate head driven by a measured
 physical feature. Lithium-ion capacity fade is governed by
 thermally activated processes (solid-electrolyte-interface growth,
 loss of lithium inventory and active-material loss), and internal
@@ -622,7 +622,7 @@ the z-score free head at $0.0065\pm0.0003$), while the rate head
 reaches $0.00424\pm0.00002$. The extension
 further improves the unseen-tail extrapolation ($R^2$ $0.775$ vs
 $0.374$) and robustness to corrupted inputs (Section
-\ref{sec:phys}).
+\ref{sec:exp-phys}).
 
 \subsection{Readout and training protocol}
 \label{sec:readout}
@@ -703,7 +703,7 @@ capacity times convention: 70\% for small cells and 80\% for
 large-format cells. For MIT we use a 10-cell subset (8 training, 2 test) for this study.
 All models use pure capacity input; internal resistance is used only
 as an auxiliary input of the physics-extension rate head
-(Section~\ref{sec:physics}).
+(Section~\ref{sec:rate-head}).
 
 \begin{table}[htbp]
 \centering
@@ -744,7 +744,7 @@ window convention of the baseline literature). These settings were
 fixed during the ablation stage and held constant across datasets,
 seeds, and model variants: no per-dataset or per-variant tuning is
 applied to the reported results, so every variant compared in
-Sections~\ref{sec:ablation}--\ref{sec:phys} shares the same optimizer
+Sections~\ref{sec:ablation}--\ref{sec:exp-phys} shares the same optimizer
 budget. A sensitivity note on these choices is in
 Section~\ref{sec:limitations}.
 The main results (Table~\ref{tab:tableA}) additionally follow the
@@ -934,7 +934,7 @@ represent this pattern at all. In practice, real
 fleet data is non-monotonic. A model with a structural monotonicity
 bias would systematically mis-schedule maintenance after recovery
 events. The free head covers this regime, and the monotonic rate head
-(Section~\ref{sec:physics}) is deliberately reserved for
+(Section~\ref{sec:rate-head}) is deliberately reserved for
 monotonic-degradation cells: the two readouts partition the
 degradation regimes by design.
 
@@ -1040,7 +1040,7 @@ amplifies a small trajectory bias into several cycles of RUL error,
 as quantified below. \emph{Operational
 implication:} on
 monotonic cells the free head is the workhorse for daily SOH
-monitoring, while the monotonic rate head of Section~\ref{sec:physics}
+monitoring, while the monotonic rate head of Section~\ref{sec:rate-head}
 applies with zero regeneration risk and improves MAE by 40\%.
 
 
@@ -1065,7 +1065,7 @@ AE $=$ 3.2 (R\textsuperscript{2} $0.9962$ vs.\ $0.9951$).
 \label{sec:ablation}
 
 This section ablates the architecture only; the physics extension is
-validated separately in Section~\ref{sec:phys}. The comparison is run
+validated separately in Section~\ref{sec:exp-phys}. The comparison is run
 on PANASONIC, the regeneration-rich benchmark whose staircase profiles
 stress the multi-scale design's intended regime, and it uses the same
 per-SP protocol and ten seeds as the main results, so the two tables
@@ -1117,7 +1117,7 @@ Starting point & multi, no exchange & multi + stage-query & $p$ \\
 \end{table}
 
 \subsection{Physics extension and interpretability}
-\label{sec:phys}
+\label{sec:exp-phys}
 
 We compared every physics injection route in the literature against
 the main backbone: (i) an objective regularizer with an
@@ -1131,7 +1131,7 @@ extrapolation), the features are redundant with capacity history (no
 gain in any setting), and the structural head cannot represent the
 positive z-score targets of plateau segments (training loss stalls).
 The surviving mechanism, the rate head of
-Section~\ref{sec:physics}, moves the constraint to absolute
+Section~\ref{sec:rate-head}, moves the constraint to absolute
 capacity space and to an independently measured feature; a control
 free head trained in the same absolute space (MAE
 $0.0089\pm0.0058$ over ten seeds, ranging $0.0052$--$0.0242$)
@@ -1456,7 +1456,7 @@ model needs $512$\,KB at INT4 or INT8 and $2$\,MB at fp32.}
 
 \subsection{Memory and stack budget}
 
-The deployed model has a static stack budget of 3.1 KB, as determined by the compiler’s stack-usage report 
+The deployed model has a static stack budget of 3.1 KB, as determined by the compiler's stack-usage report 
 over the entire call chain. The implementation is non-recursive, uses no runtime-sized buffers, 
 and allocates all transient activation buffers from a compile-time fixed pool. Together with the fixed state in Table~\ref{tab:deploy},
 this ensures that the SRAM requirement is known at compile time, a property that safety-related firmware reviews
