@@ -1346,6 +1346,15 @@ Interval width & 0.0334 & 0.0418 & --- \\
 \subsection{Limitations}
 \label{sec:limitations}
 
+One convention deserves stating outright, because it shapes how the robustness
+row should be read. AE is defined by the first crossing of the predicted
+trajectory, so a single-sample excursion below the threshold counts as a
+crossing even when the prediction recovers on the next step. The impulse row of
+Table~\ref{tab:robust} is where that bites: a spike landing on the last sample of
+the input window is inherited by a head that anchors on that sample, and the
+resulting one-step dip is scored as a full crossing. Removing that single
+corrupted sample from the same checkpoint returns its AE from $68$ to $1$.
+
 All main results are aggregated over ten training seeds per
 starting point (seeds 1--10, per-SP protocol,
 Table~\ref{tab:tableA}); the architecture ablation is PANASONIC-only,
