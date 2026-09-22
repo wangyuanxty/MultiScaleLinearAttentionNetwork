@@ -1182,7 +1182,7 @@ degradation envelope instead of flattening or drifting.}
 \caption{Unseen-tail extrapolation (train 90\%, evaluate final 10\%),
 CALCE. Sliding-window protocol identical to the main results. The rate
 head is a ten-seed mean; the seeds agree to within $1\times10^{-5}$ on
-both columns, below the precision shown.}
+both columns.}
 \label{tab:extrap}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -1291,10 +1291,7 @@ linear classifier on the projection (accuracy $93.2\%$).}
 \label{sec:conf}
 
 Table~\ref{tab:quantile} reports the quantile and conformal results on
-CALCE. The P50 estimate has MAE $0.0075\pm0.0007$. We do not set it against
-the point model's MAE: conformal calibration holds out CS2\_36, so the
-quantile model trains on one cell fewer and the two are not directly
-comparable. Raw pinball quantiles are miscalibrated: the P2.5--P97.5
+CALCE. The P50 estimate has MAE $0.0075\pm0.0007$. Raw pinball quantiles are miscalibrated: the P2.5--P97.5
 interval covers only $89.1\%$ of observations against the nominal
 $95\%$, a known failure mode of quantile regression under
 distribution shift. Conformal calibration on a held-out cell
