@@ -6,7 +6,7 @@ fig_compare:    ours vs published baselines (NASA/TJU numbers from tab:lit)
 fig_stages:     coarse-branch stage separability (PCA + linear classifier,
                 PANASONIC, coarse branch = branches[2])
 
-Outputs paper/figures/{fig_traj,fig_metrics_sp,fig_compare,fig_stages}.pdf
+Outputs paper/{fig_traj,fig_metrics_sp,fig_compare,fig_stages}.pdf
 (+ .png). All data from checkpoints/full_*_seed42.pt — no retraining.
 """
 import sys
@@ -23,7 +23,12 @@ from train_per_sp import window_std
 
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 EPS = 1e-6
-OUT = "../paper/figures/"
+OUT = "../paper/"
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = OUT.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 
 # matplotlib 3.11 tight-bbox bug guard: explicit rcParams after imports
 plt.rcParams.update({
@@ -94,7 +99,7 @@ def fig_traj():
     axes[5].axis("off")
     fig.tight_layout()
     fig.savefig(OUT + "fig_traj.pdf")
-    fig.savefig(OUT + "fig_traj.png", dpi=150)
+    fig.savefig(EXPORT + "fig_traj.png", dpi=150)
     plt.close(fig)
     print("saved fig_traj", flush=True)
 
@@ -117,7 +122,7 @@ def fig_metrics_sp():
     axes[0].legend(fontsize=6)
     fig.tight_layout()
     fig.savefig(OUT + "fig_metrics_sp.pdf")
-    fig.savefig(OUT + "fig_metrics_sp.png", dpi=150)
+    fig.savefig(EXPORT + "fig_metrics_sp.png", dpi=150)
     plt.close(fig)
     print("saved fig_metrics_sp", flush=True)
 
@@ -167,7 +172,7 @@ def fig_compare():
                       bbox_to_anchor=(1.02, 0.5))
     fig.tight_layout()
     fig.savefig(OUT + "fig_compare.pdf")
-    fig.savefig(OUT + "fig_compare.png", dpi=150)
+    fig.savefig(EXPORT + "fig_compare.png", dpi=150)
     plt.close(fig)
     print("saved fig_compare", flush=True)
 
@@ -241,7 +246,7 @@ def fig_stages():
     fig.colorbar(im, ax=axes[1], fraction=0.046)
     fig.tight_layout()
     fig.savefig(OUT + "fig_stages.pdf")
-    fig.savefig(OUT + "fig_stages.png", dpi=150)
+    fig.savefig(EXPORT + "fig_stages.png", dpi=150)
     plt.close(fig)
     print(f"saved fig_stages (acc={acc:.3f})", flush=True)
 
@@ -291,7 +296,7 @@ def fig_regen():
     axes[1].legend(fontsize=6)
     fig.tight_layout()
     fig.savefig(OUT + "fig_regen.pdf")
-    fig.savefig(OUT + "fig_regen.png", dpi=150)
+    fig.savefig(EXPORT + "fig_regen.png", dpi=150)
     plt.close(fig)
     print(f"saved fig_regen (zone {a + W}-{b + W}, "
           f"rise {seg_t[b] - seg_t[a]:.4f} Ah)", flush=True)
@@ -342,7 +347,7 @@ def fig_uq_band():
     ax.legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(OUT + "fig_uq_band.pdf")
-    fig.savefig(OUT + "fig_uq_band.png", dpi=150)
+    fig.savefig(EXPORT + "fig_uq_band.png", dpi=150)
     plt.close(fig)
     print("saved fig_uq_band", flush=True)
 

@@ -121,7 +121,7 @@ def run(ds, k, steps, seeds):
           f"{'AE (cycles)':>16} {'final (median)':>15}")
     for lv in LEVELS:
         r = out[lv]
-        # AE = |predicted crossing - true EOL| (04_experiments.tex:47); a run
+        # AE = |predicted crossing - true EOL| (DeltaCycle_Multi-Scale_Linear_Attention.tex); a run
         # that never crosses contributes no AE and is counted separately.
         aes = [abs(c) for c in r["cross"] if c != 0]
         nc = len(aes)

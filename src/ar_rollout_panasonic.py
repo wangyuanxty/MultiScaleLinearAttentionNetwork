@@ -90,7 +90,7 @@ FIRST_STEP_TOL = 1e-5
 REF_TF = {
     "ours": {"sp": {"300": 0.0037, "400": 0.0036, "500": 0.0040},
              "space": "common (= ours' own normalisation)",
-             "src": "paper/sections/04_experiments.tex tab:tableA "
+             "src": "paper/DeltaCycle_Multi-Scale_Linear_Attention.tex tab:tableA "
                     "(PANASONIC, 10-seed mean)"},
     "pf": {"sp": {"300": 0.0033, "400": 0.0037, "500": 0.0167},
            "space": "Ah",

@@ -48,7 +48,7 @@ sys.path.insert(0, _SRC)
 
 from make_figures import load_series, norm_setup   # noqa: E402
 
-TEX = os.path.join(_ROOT, "paper", "sections", "04_experiments.tex")
+TEX = os.path.join(_ROOT, "paper", "DeltaCycle_Multi-Scale_Linear_Attention.tex")
 REF = "afd3ed8"
 KEY = {"PANASONIC": "panasonic", "TJU": "tju", "GOTION": "gotion",
        "MIT": "mit", "NASA": "nasa", "CALCE": "calce"}
@@ -294,6 +294,6 @@ if "--apply" in sys.argv:
                  "existing change -- running this twice corrupts every value.")
     io.open(TEX, "w", encoding="utf-8", newline="").write(out)
     print(f"\nWROTE {TEX}")
-    print(f"revert with:  git checkout -- paper/sections/04_experiments.tex")
+    print(f"revert with:  git checkout -- paper/DeltaCycle_Multi-Scale_Linear_Attention.tex")
 else:
     print("[dry run -- pass --apply to write, --diff to print the diff]")

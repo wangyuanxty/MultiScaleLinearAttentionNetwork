@@ -1,6 +1,6 @@
 """Move fig:appl to the first figure position (right after the
 application-domains paragraph) and de-name DeltaCycle in its caption."""
-P = "../paper/sections/01_intro.tex"
+P = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 s = open(P, encoding="utf-8").read()
 
 i = s.index("\\caption{Application outlook as an operational pipeline")

@@ -16,7 +16,7 @@ Protocols replicate exactly:
   - test_phys_irhead.py            (rate head, absolute, frac=0.9)
   - test_ablation_robust.py        (both heads, clean train, 4 modes)
 
-Outputs paper/figures/fig_extrap.{pdf,png}, fig_robust.{pdf,png};
+Outputs paper/fig_extrap.{pdf,png}, fig_robust.{pdf,png};
 predictions cached in results/phys_figs.npz so replotting never
 retrains.
 """
@@ -39,7 +39,12 @@ DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 W, BATCH, EPOCHS, SEED = 64, 64, 100, 42
 EPS = 1e-6
 IR_IDX = 3
-OUT = "../paper/figures/"
+OUT = "../paper/"
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = OUT.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 NPA = "results/phys_figs.npz"
 
 # matplotlib 3.11 tight-bbox bug guard: explicit rcParams after imports
@@ -153,7 +158,7 @@ def plot_extrap(x, truth, last, free, rate):
     ax.legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(OUT + "fig_extrap.pdf")
-    fig.savefig(OUT + "fig_extrap.png", dpi=150)
+    fig.savefig(EXPORT + "fig_extrap.png", dpi=150)
     plt.close(fig)
     print("saved fig_extrap", flush=True)
 
@@ -189,7 +194,7 @@ def plot_robust(x, truth, corr, free, rate, eol_th):
     axes[1].legend(fontsize=6)
     fig.tight_layout()
     fig.savefig(OUT + "fig_robust.pdf")
-    fig.savefig(OUT + "fig_robust.png", dpi=150)
+    fig.savefig(EXPORT + "fig_robust.png", dpi=150)
     plt.close(fig)
     print("saved fig_robust", flush=True)
 

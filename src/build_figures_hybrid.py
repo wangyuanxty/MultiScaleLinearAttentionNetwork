@@ -24,7 +24,12 @@ from matplotlib.patches import BoxStyle
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PHOTOS = os.path.join(ROOT, "paper", "figures_gen", "photos")
-OUT = os.path.join(ROOT, "paper", "figures")
+OUT = os.path.join(ROOT, "paper")
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = OUT.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 DATA = json.load(open(os.path.join(ROOT, "src", "results", "figs_data.json")))
 
 INK, EDGE, BOXFC = "#22303A", "#BFCCD2", "#F4F6F7"
@@ -92,7 +97,7 @@ def miniplot(fig, x, y, w, h, title, ylab="", xlab="", fs=6.5):
 
 
 def savefig(fig, name):
-    fig.savefig(os.path.join(OUT, name + ".png"), dpi=200)
+    fig.savefig(os.path.join(EXPORT, name + ".png"), dpi=200)
     fig.savefig(os.path.join(OUT, name + ".pdf"))
     plt.close(fig)
     print("saved", name)

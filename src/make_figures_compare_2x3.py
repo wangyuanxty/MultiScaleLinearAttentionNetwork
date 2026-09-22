@@ -10,7 +10,7 @@ same six datasets, same values, same colour roles.  make_figures_extra.py
 is left untouched.
 
 Usage: python src/make_figures_compare_2x3.py
-Writes: paper/figures/fig_compare.pdf and .png (replacing the 3x2 render).
+Writes: paper/fig_compare.pdf and .png (replacing the 3x2 render).
 """
 import os
 
@@ -20,8 +20,13 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 FIG = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures"
+    os.path.dirname(os.path.abspath(__file__)), "..", "paper"
 )
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = FIG.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 os.makedirs(FIG, exist_ok=True)
 
 # rcParams copied from make_figures.py:37-56 -- the block that produced
@@ -126,7 +131,7 @@ def main():
 
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_compare.pdf"))
-    fig.savefig(os.path.join(FIG, "fig_compare.png"), dpi=300)
+    fig.savefig(os.path.join(EXPORT, "fig_compare.png"), dpi=300)
     plt.close(fig)
     print("fig_compare.pdf/png done (2x3)")
 

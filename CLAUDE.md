@@ -40,7 +40,8 @@ python src/test_recompute_ae.py       # Table A: per-SP MAE/RMSE/R2/AE
 python src/test_physics_ir_seeds.py   # physics rate-head 10-seed (std/extrap/robust/control)
 python src/eval_multiseed.py          # mean±std over seeds 42/43/44
 
-# Figures (matplotlib; all write paper/figures/*.pdf|png)
+# Figures (matplotlib; all write paper/*.pdf|png -- paper/ is flat, no subdirs,
+# so the tree doubles as an Editorial Manager-ready submission package)
 python src/make_figures.py            # traj/ablation/stages/k32/deploy/quantile
 python src/make_figures_extra.py      # regen/compare
 python src/make_figures_insight.py    # w_interp/state_evol
@@ -49,12 +50,12 @@ python src/make_horizon_analysis.py   # C3 per-horizon error
 # key in ~/.baoyu-skills/.env
 
 # Paper compile (pdflatex + bibtex, run pdflatex TWICE to resolve \ref)
-# The master .tex is named after the paper title (spaces and colons -> "_"):
-# DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics
-cd paper && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.tex \
-  && bibtex DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics \
-  && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.tex \
-  && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.tex
+# The master .tex is named after the method in the paper title, with spaces
+# and colons replaced by "_". Single source of truth: paper/*.tex
+cd paper && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention.tex \
+  && bibtex DeltaCycle_Multi-Scale_Linear_Attention \
+  && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention.tex \
+  && pdflatex -interaction=nonstopmode DeltaCycle_Multi-Scale_Linear_Attention.tex
 
 # MCU deployment verification (QEMU Cortex-M3, bit-exact vs PyTorch)
 #   C sources in src/*.c (gdn2_mcu.c scan kernel, qemu_test.c harness)

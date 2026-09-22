@@ -21,7 +21,7 @@ from make_figures import predict_series, load_series
 from gdn_model import build_gdn_model
 
 CKPT = "D:/research/degradation_prognostics/Transformer_and_Multi_Scale_Models/checkpoints"
-FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures")
+FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper")
 os.makedirs(FIG, exist_ok=True)
 
 COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]

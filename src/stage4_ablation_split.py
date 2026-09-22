@@ -2,7 +2,7 @@
 to sec:phys. Tolerates mixed line endings via regex DOTALL."""
 import re
 
-P = "../paper/sections/04_experiments.tex"
+P = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 s = open(P, encoding="utf-8").read()
 
 # 1) opening block: justification + architecture + injection routes -> architecture-only

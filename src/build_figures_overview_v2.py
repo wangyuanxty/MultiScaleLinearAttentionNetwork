@@ -13,7 +13,12 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, BoxStyle
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "paper", "figures_gen", "data")
-OUT = os.path.join(ROOT, "paper", "figures")
+OUT = os.path.join(ROOT, "paper")
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = OUT.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 
 INK = "#1E2A32"          # graphite ink
 PAPER = "#FFFFFF"
@@ -190,7 +195,7 @@ def main():
     ax.plot([0.02, 0.975], [0.085, 0.085], color=HARDLINE, lw=0.6,
             transform=ax.transAxes)
 
-    fig.savefig(os.path.join(OUT, "fig_overview.png"), dpi=200)
+    fig.savefig(os.path.join(EXPORT, "fig_overview.png"), dpi=200)
     fig.savefig(os.path.join(OUT, "fig_overview.pdf"))
     plt.close(fig)
     print("saved fig_overview (v3, design-system pass)")

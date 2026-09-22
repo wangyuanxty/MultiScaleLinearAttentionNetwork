@@ -1,6 +1,6 @@
 """Generate all data figures for the Gated DeltaFormer paper.
 
-Figures written to ../paper/figures/*.pdf (vector). Sources:
+Figures written to ../paper/*.pdf (vector). Sources:
   - fig_traj:   non-recursive SOH trajectory + prediction per dataset (unified_*_K1.pt)
   - fig_ablation:  per-dataset MAE by config (published ablation numbers)
   - fig_stages:  PCA of PANASONIC coarse-branch patches with stage coloring (unified_panasonic_K1.pt)
@@ -30,7 +30,7 @@ from load_datasets import (
 )
 
 CKPT = "D:/research/degradation_prognostics/Transformer_and_Multi_Scale_Models/checkpoints"
-FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures")
+FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper")
 os.makedirs(FIG, exist_ok=True)
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

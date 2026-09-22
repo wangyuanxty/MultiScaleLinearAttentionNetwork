@@ -1,5 +1,5 @@
 """One-off: move tab:tableA before the case studies (sec 4.3 restructure)."""
-P = "../paper/sections/04_experiments.tex"
+P = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 lines = open(P, encoding="utf-8").read().split("\n")
 
 cap = next(i for i, l in enumerate(lines) if "Per-SP trajectory results" in l)

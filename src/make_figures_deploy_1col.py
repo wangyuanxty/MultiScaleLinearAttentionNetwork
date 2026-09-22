@@ -10,7 +10,7 @@ nominal size instead of being scaled down.
 make_figures_deploy.py is left untouched.
 
 Usage: python src/make_figures_deploy_1col.py
-Writes: paper/figures/fig_dep_memctx.pdf/.png, fig_dep_flash.pdf/.png
+Writes: paper/fig_dep_memctx.pdf/.png, fig_dep_flash.pdf/.png
 """
 import os
 
@@ -23,7 +23,7 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
 FIG = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures"
+    os.path.dirname(os.path.abspath(__file__)), "..", "paper"
 )
 os.makedirs(FIG, exist_ok=True)
 

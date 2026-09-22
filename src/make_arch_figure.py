@@ -18,7 +18,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 
-FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures")
+FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper")
 os.makedirs(FIG, exist_ok=True)
 
 BLUE = "#1f77b4"

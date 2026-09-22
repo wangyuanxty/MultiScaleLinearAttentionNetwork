@@ -19,7 +19,12 @@ import matplotlib.pyplot as plt
 from make_figures import predict_series, load_series
 
 CKPT = "D:/research/degradation_prognostics/Transformer_and_Multi_Scale_Models/checkpoints"
-FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures")
+FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper")
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = FIG.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 os.makedirs(FIG, exist_ok=True)
 
 COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
@@ -85,7 +90,7 @@ def fig_w_interp():
 
     fig.subplots_adjust(left=0.06, right=0.985, top=0.82, bottom=0.20,
                         wspace=0.42)
-    fig.savefig(os.path.join(FIG, "fig_w_interp.png"), dpi=300)
+    fig.savefig(os.path.join(EXPORT, "fig_w_interp.png"), dpi=300)
     plt.close(fig)
     print(f"fig_w_interp.pdf done (row_sim={sim.mean():.3f}, dim95={dim95})")
 

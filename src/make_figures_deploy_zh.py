@@ -1,7 +1,7 @@
 """Chinese (中文) versions of the edge-deployment figures -> paper/figures_zh/.
 
 Regenerated rather than patched: every number in `make_figures_deploy.py` comes
-from hardcoded constants sourced from paper/sections/05_deployment.tex
+from hardcoded constants sourced from paper/DeltaCycle_Multi-Scale_Linear_Attention.tex
 (tab:deploy), so no checkpoint or dataset is involved and the Chinese version
 can be a real vector figure instead of a PDF with substituted glyphs.
 

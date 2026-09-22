@@ -1,13 +1,13 @@
 """Edge-deployment figures for the DeltaCycle paper (sec:deploy).
 
-Four figures, all numbers traceable to paper/sections/05_deployment.tex:
+Four figures, all numbers traceable to paper/DeltaCycle_Multi-Scale_Linear_Attention.tex:
 
   - fig_dep_memctx: working memory vs context length. Attention score
                     matrix (H*L^2*4 B) and KV cache (2*L*d_model*4 B) for
                     H=4, d_model=64, against the fixed six-layer recurrent
                     state (48 KB). Crossover at L ~ 55 tokens; the evaluated
                     window is 32 tokens, where attention is still smaller.
-                    Source: tab:attn in 05_deployment.tex.
+                    Source: tab:attn in DeltaCycle_Multi-Scale_Linear_Attention.tex.
   - fig_dep_pareto: quantization footprint vs trajectory MAE (multi-scale,
                     CALCE SP500, ten seeds). Source: tab:deploy.
                     The single-branch encoder has no trajectory MAE in that
@@ -16,7 +16,7 @@ Four figures, all numbers traceable to paper/sections/05_deployment.tex:
                     threshold lines at common part sizes). Source: tab:deploy.
   - fig_dep_budget: compile-time SRAM budget: recurrent state + static
                     stack. Weights are const arrays executed from flash
-                    (05_deployment.tex, "Implementation"), so they are NOT
+                    (DeltaCycle_Multi-Scale_Linear_Attention.tex, "Implementation"), so they are NOT
                     part of the SRAM bar; fig_dep_flash covers them.
 
 Usage: python src/make_figures_deploy.py
@@ -31,7 +31,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
-FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper", "figures")
+FIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "paper")
 os.makedirs(FIG, exist_ok=True)
 
 COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
@@ -59,7 +59,7 @@ plt.rcParams.update(
 )
 
 # ---------------------------------------------------------------------------
-# Shared constants (paper/sections/05_deployment.tex)
+# Shared constants (paper/DeltaCycle_Multi-Scale_Linear_Attention.tex)
 # ---------------------------------------------------------------------------
 ATTN_H = 4                    # heads, matching the deployed model
 MODEL_D = 64                  # d_model of the comparison attention model

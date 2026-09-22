@@ -1,5 +1,5 @@
 """Stage 4 edit: add Limitations subsection + Data/code availability."""
-P1 = "../paper/sections/04_experiments.tex"
+P1 = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 P2 = "../paper/main.tex"
 
 s = open(P1, encoding="utf-8").read()
@@ -27,8 +27,8 @@ open(P1, "w", encoding="utf-8").write(s)
 print("limitations subsection added")
 
 m = open(P2, encoding="utf-8").read()
-old = "\\input{sections/05_conclusion}"
-new = r"""\input{sections/05_conclusion}
+old = "\\input{06_conclusion}"
+new = r"""\input{06_conclusion}
 
 \section*{Data and code availability}
 

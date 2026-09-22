@@ -14,7 +14,7 @@ Two things are patched, both cosmetic and both explicit:
 
 make_figures_phys.py and make_figures_v2.py are left untouched.
 
-Run FROM src/ (both modules write to "../paper/figures/", a cwd-relative path):
+Run FROM src/ (both modules write to "../paper/", a cwd-relative path):
     cd src && python make_figures_1col.py
 """
 import os

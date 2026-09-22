@@ -19,7 +19,7 @@ import re
 
 _SRC = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.dirname(_SRC)
-SECTIONS = os.path.join(_ROOT, "paper", "sections")
+SECTIONS = os.path.join(_ROOT, "paper")
 
 # a line that is only about a dimensionless or cycle-scale quantity
 NOT_MAE = re.compile(r"(p\s*=|coverage|nominal|width|R\\text|R\^?2|\bAE\b|%|"

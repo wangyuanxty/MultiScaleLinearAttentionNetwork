@@ -1,6 +1,6 @@
 """Preview: what every MAE in the paper becomes if we report Ah, not normalized.
 
-READ-ONLY.  Parses Table 2 and Table 3 out of paper/sections/04_experiments.tex,
+READ-ONLY.  Parses Table 2 and Table 3 out of paper/DeltaCycle_Multi-Scale_Linear_Attention.tex,
 multiplies each dataset's MAE column by that dataset's real train-cell range
 (hi - lo from make_figures.load_series -- NOT the rated capacity), and writes a
 before/after listing to src/mae_ah_preview.txt for the author to check.
@@ -20,7 +20,7 @@ sys.path.insert(0, _SRC)
 
 from make_figures import load_series, norm_setup   # noqa: E402
 
-PAPER = os.path.join(_ROOT, "paper", "sections", "04_experiments.tex")
+PAPER = os.path.join(_ROOT, "paper", "DeltaCycle_Multi-Scale_Linear_Attention.tex")
 OUT = os.path.join(_SRC, "mae_ah_preview.txt")   # lives with the paper it describes
 
 ORDER = ["PANASONIC", "TJU", "GOTION", "MIT", "NASA", "CALCE"]

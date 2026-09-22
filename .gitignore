@@ -31,7 +31,7 @@ __pycache__/
 .vscode/
 
 # compiled paper (build artifact; regenerate with pdflatex)
-paper*/DeltaCycle_Multi-Scale_Linear_Attention_for_Calibrated_On-Device_Battery_Prognostics.pdf
+paper*/DeltaCycle_Multi-Scale_Linear_Attention.pdf
 paper*/main.pdf
 
 # working numbers ledger -- decisions and current figures, kept local

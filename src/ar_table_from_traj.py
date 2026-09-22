@@ -89,7 +89,7 @@ def run_one(ds_name, cfg):
                 if xi < 0:
                     n_never += 1
                 else:
-                    # AE = |TRUL - PRUL| (04_experiments.tex:47).  The signed
+                    # AE = |TRUL - PRUL| (DeltaCycle_Multi-Scale_Linear_Attention.tex).  The signed
                     # value is kept separately as a diagnostic -- it says
                     # whether the model calls EOL early or late -- but it is
                     # not the reported metric.

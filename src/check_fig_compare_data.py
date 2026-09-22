@@ -16,7 +16,7 @@ import re
 
 _SRC = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.dirname(_SRC)
-TEX = os.path.join(_ROOT, "paper", "sections", "04_experiments.tex")
+TEX = os.path.join(_ROOT, "paper", "DeltaCycle_Multi-Scale_Linear_Attention.tex")
 FIGPY = os.path.join(_SRC, "make_figures_extra.py")
 MARK_RE = (r"\\multirow\{(\d+)\}\{\*\}\{\\shortstack\[l\]\{([A-Za-z\-]+)"
            r"(?:\$\^\{[^}]*\}\$)?\\+(?:\\emph\{[^}]*\})?\}\}")

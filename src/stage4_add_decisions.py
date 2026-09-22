@@ -1,5 +1,5 @@
 """Stage 4 edit: baseline-positioning paragraph + CQR decision-rule paragraph."""
-P = "../paper/sections/04_experiments.tex"
+P = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 
 s = open(P, encoding="utf-8").read()
 

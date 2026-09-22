@@ -14,7 +14,12 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, BoxStyle
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "paper", "figures_gen", "data")
-OUT = os.path.join(ROOT, "paper", "figures")
+OUT = os.path.join(ROOT, "paper")
+
+# PNG twins are not read by the paper -- keep them out of paper/ so the
+# tree stays an Editorial Manager package with nothing extra to upload.
+EXPORT = OUT.replace("paper", "figures_export")
+os.makedirs(EXPORT, exist_ok=True)
 
 INK = "#1E2A32"; PAPER = "#FFFFFF"; LANE = "#F4F6F7"; HARDLINE = "#D8DEE2"
 DATA = "#2E7D8C"; PHYSICS = "#C96A4A"; UNCERT = "#6B8FB0"; DEPLOY = "#D9BE8C"
@@ -115,7 +120,7 @@ def tiles(fig, ax, items):
 
 
 def save(fig, name):
-    fig.savefig(os.path.join(OUT, name + ".png"), dpi=200)
+    fig.savefig(os.path.join(EXPORT, name + ".png"), dpi=200)
     fig.savefig(os.path.join(OUT, name + ".pdf"))
     plt.close(fig)
     print("saved", name)

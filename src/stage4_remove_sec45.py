@@ -3,7 +3,7 @@ content: positioning+summary+fig_compare -> §4.3 intro; CALCE AE
 spread + self-run PatchFormer -> CALCE case study."""
 import re
 
-P = "../paper/sections/04_experiments.tex"
+P = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
 s = open(P, encoding="utf-8").read()
 
 # ---- 1) build the §4.3 intro block (moved content) ----
