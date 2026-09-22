@@ -938,10 +938,7 @@ without overshoot, while a structurally monotonic predictor cannot
 represent this pattern at all. In practice, real
 fleet data is non-monotonic. A model with a structural monotonicity
 bias would systematically mis-schedule maintenance after recovery
-events. The free head covers this regime, and the monotonic rate head
-(Section~\ref{sec:rate-head}) is deliberately reserved for
-monotonic-degradation cells: the two readouts partition the
-degradation regimes by design.
+events.
 
 
 \begin{figure*}[!t]
@@ -1025,10 +1022,7 @@ model still reaches R$^2 \ge 0.9804$ and mean AE $0.6$ cycles
 PatchFormer result at SP90
 ($0.9804$ vs.\ $0.9623$) and at SP70 ($0.9822$ vs.\ $0.9808$), and at
 SP90 it leads on MAE as well ($0.0071$ vs.\ $0.0072$; AE $0.5$ vs.\
-$2.5$). PatchFormer stays ahead on MAE at SP50 and SP70. This regime is where
-rapid commissioning checks and second-life screening must run with
-limited data, and the model's trajectory error is already small from
-$\sim$50 cycles of observation.
+$2.5$). PatchFormer stays ahead on MAE at SP50 and SP70.
 
 
 
@@ -1043,10 +1037,9 @@ mean $2.4$--$3.2$ vs.\ $0.9$--$1.0$); the AE seed-to-seed spread
 whose near-flat tail crossing
 amplifies a small trajectory bias into several cycles of RUL error,
 as quantified below. \emph{Operational
-implication:} on
-monotonic cells the free head is the workhorse for daily SOH
-monitoring, while the monotonic rate head of Section~\ref{sec:rate-head}
-applies with zero regeneration risk and improves MAE by 53\%.
+implication:} in this regime the trajectory itself is the health
+signal, so day-to-day monitoring is served by the tracked capacity
+curve and not by the exact cycle of the end-of-life crossing.
 
 
 \emph{On the CALCE AE spread.} The AE column deserves an
