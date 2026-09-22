@@ -978,22 +978,22 @@ dynamic range, the format of grid-storage and heavy-duty
 applications. Our
 model leads every reported and reproduced baseline on MAE at each SP
 (Table~\ref{tab:lit_all}: $0.0473$-$0.0550$ against $0.0525$-$0.0598$
-for the closest of them), and also leads their R\textsuperscript{2}
-($0.9970$ vs.\ $0.9964$ at SP450); the margin over the reported
+for the closest of them), and also leads their R\textsuperscript{2} at every
+starting point ($0.9970$ against $0.9964$, $0.9958$ against $0.9952$, and
+$0.9938$ against $0.9928$); the margin over the reported
 time-series baselines ranges from $1.2\times$ (ModernTCN) to
-$4.2\times$ (PathFormer). The gap concentrates in the capacity-scale
-normalization, where operating a 27\,Ah range reacts badly to
-per-window statistics. Part of that spread comes from the EOL reference
+$4.2\times$ (PathFormer). Part of that spread comes from the EOL reference
 itself: the measured series crosses the threshold nine times between cycles
-1371 and 1415, and measuring against cycle~1392, the reference the cited
-sources use, gives an AE of $2.8/10.3/6.1$ (footnote
+1371 and 1415. The unparenthesised AE takes the first crossing, cycle~1371;
+measuring instead against cycle~1392, the reference the cited
+sources use, gives $2.8/10.3/6.1$ (footnote
 $^{\ast}$ in Table~\ref{tab:lit_all}). The remainder is scale-dependent:
 the 27\,Ah envelope spans
-$6.7$\,Ah at $\sim$4.7\,mAh/cycle, so a given capacity error
-converts to 4--10$\times$ more cycles than on the small-cell
-datasets; relative error stays at $1.4$--$2.4$\%. \emph{Operational
-implication:} large-format assets are exactly where on-device
-monitoring pays for itself in maintenance optics; the surplus
+$6.7$\,Ah at $\sim$4.7\,mAh/cycle, so an error of the same relative size
+displaces the crossing several times further than it would on a small cell,
+which is why the absolute AE is large here while the relative error itself
+stays at $1.4$--$2.4$\%. \emph{Operational implication:} large-format assets
+are exactly where on-device monitoring pays for itself; the surplus
 accuracy here translates into replacement planning with margin.
 
 
