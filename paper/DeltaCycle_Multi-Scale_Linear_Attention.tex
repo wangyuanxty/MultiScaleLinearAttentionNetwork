@@ -1152,8 +1152,8 @@ close with the interpretability of the learned physics term.
 
 We train on the first $90\%$ of each cell's life and evaluate the
 unseen final $10\%$ under the same sliding-window protocol used for
-the main results. The rate head reaches $R^2 = 0.7745\pm0.0001$ (ten seeds)
-on the tail, more than doubling the main-model readout
+the main results. The rate head reaches $R^2 = 0.7745$ on the tail (ten
+seeds, spread below $10^{-5}$), more than doubling the main-model readout
 ($0.374$) and far
 beyond last-value continuation ($-5.28$). The mechanism is explicit:
 the head predicts $\hat{Q}_t = Q_{t-1} - r$, so it never drifts
@@ -1181,7 +1181,9 @@ degradation envelope instead of flattening or drifting.}
 \begin{table}[htbp]
 \centering
 \caption{Unseen-tail extrapolation (train 90\%, evaluate final 10\%),
-CALCE. Sliding-window protocol identical to the main results.}
+CALCE. Sliding-window protocol identical to the main results. The rate
+head is a ten-seed mean; the seeds agree to within $1\times10^{-5}$ on
+both columns, below the precision shown.}
 \label{tab:extrap}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -1191,7 +1193,7 @@ Predictor & Tail R\textsuperscript{2} & Tail MAE (Ah) \\
 \midrule
 last-value continuation & $-5.28$ & 0.142 \\
 main-model readout (free head) & 0.374 & 0.035 \\
-\textbf{rate head + IR} & \textbf{0.7745$\pm$0.0001} & \textbf{0.0110$\pm$0.0001} \\
+\textbf{rate head + IR} & \textbf{0.7745} & \textbf{0.0110} \\
 \bottomrule
 \end{tabular}
 \end{table}
