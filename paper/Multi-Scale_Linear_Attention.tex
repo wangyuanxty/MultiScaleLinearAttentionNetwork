@@ -1,5 +1,5 @@
 % ============================================================
-% DeltaCycle: Multi-Scale Linear Attention for Calibrated On-Device Battery Prognostics
+% Multi-Scale Linear Attention for Calibrated On-Device Battery Prognostics
 %
 % Target: Journal of Energy Storage (Elsevier, elsarticle)
 % ============================================================
@@ -30,7 +30,7 @@
 
 \begin{frontmatter}
 
-\title{DeltaCycle: Multi-Scale Linear Attention
+\title{Multi-Scale Linear Attention
 for Calibrated On-Device Battery Prognostics}
 
 \author[nuaa]{Yuan Wang}
@@ -60,7 +60,7 @@ inside battery management systems rather than in the cloud;
 remaining-life predictions that stay trustworthy even when field data are corrupted;
 and uncertainty statements that let operators trade risk against cost explicitly.
 
-To address these limitations, we propose DeltaCycle, a capacity-only battery monitoring loop built
+To address these limitations, we propose a capacity-only battery monitoring loop built
 for deployment. Our work makes the following innovations: a multi-scale linear-attention encoder,
 deployed in C on a Cortex-M3 with a fixed-size recurrent state, whose host build matches the
 PyTorch forward and whose Cortex-M3 binary matches the host build to within floating-point
@@ -69,7 +69,7 @@ conformal-calibrated prediction intervals with verified coverage;
 and a physics-consistent degradation-rate head driven by measured internal resistance
 which acts as a constraint on the decay direction.
 Across six public battery datasets spanning multiple chemistries,
-DeltaCycle's mean per-SP MAE ranks first on PANASONIC, TJU, GOTION and MIT
+the model's mean per-SP MAE ranks first on PANASONIC, TJU, GOTION and MIT
 and second on NASA and CALCE among protocol-matched baselines. Interval coverage
 is lifted to $93.5\%\pm0.9\%$ at nominal $95\%$, and the physics rate head more than
 doubles unseen-tail extrapolation fidelity while winning every corruption-robustness
@@ -187,7 +187,7 @@ lithium-ion batteries, in-orbit repair is impossible, and a battery fault
 cannot be serviced. In that regime, on-device prognostics is a requirement
 rather than a convenience.
 
-This paper proposes DeltaCycle, a multi-scale linear-attention
+This paper proposes a multi-scale linear-attention
 network for battery prognostics designed from the outset for embedded
 deployment. Our contributions are:
 
@@ -404,7 +404,7 @@ suitable for scheduling. Third, evaluations are confined to clean
 laboratory data: the end-of-life acceleration tail and the
 corrupted-sensor regimes, where field decisions concentrate, are
 rarely tested, so reported accuracy says little about how a
-predictor will behave in deployment. DeltaCycle is designed around
+predictor will behave in deployment. The model is designed around
 these three operational gaps rather than around a single benchmark
 number.
 
@@ -1569,7 +1569,7 @@ On-silicon validation is the natural next step and is left to future work.
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presents DeltaCycle, a capacity-only monitoring loop built on a recurrent linear-attention backbone, 
+This paper presents a capacity-only monitoring loop built on a recurrent linear-attention backbone, 
 which transforms battery health monitoring from cloud-side accuracy benchmarking into a calibrated capability
 that runs directly on the device. The backbone is built on a gated DeltaNet-2 layer with a fixed-size matrix state, 
 which occupies only $8$\,KB per layer in the deployed configuration.

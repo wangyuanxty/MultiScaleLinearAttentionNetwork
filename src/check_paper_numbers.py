@@ -11,7 +11,7 @@ footnote markers.  Those are the blind spots this script covers:
      caption quotes a single run while the table quotes a ten-seed mean;
   3. the same claim stated with different numbers in different places.
 
-Read-only: parses paper/DeltaCycle_Multi-Scale_Linear_Attention.tex, writes
+Read-only: parses paper/Multi-Scale_Linear_Attention.tex, writes
 nothing.
 
 Usage: python src/check_paper_numbers.py
@@ -22,7 +22,7 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEX = os.path.join(ROOT, "paper", "DeltaCycle_Multi-Scale_Linear_Attention.tex")
+TEX = os.path.join(ROOT, "paper", "Multi-Scale_Linear_Attention.tex")
 BS = chr(92)
 src = io.open(TEX, encoding="utf-8").read()
 

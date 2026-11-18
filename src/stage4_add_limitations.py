@@ -1,5 +1,5 @@
 """Stage 4 edit: add Limitations subsection + Data/code availability."""
-P1 = "../paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
+P1 = "../paper/Multi-Scale_Linear_Attention.tex"
 P2 = "../paper/main.tex"
 
 s = open(P1, encoding="utf-8").read()

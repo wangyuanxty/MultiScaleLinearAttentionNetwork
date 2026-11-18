@@ -29,6 +29,7 @@ paper*/**/*.bbl
 paper*/**/*.blg
 paper*/**/*.out
 paper*/**/*.synctex.gz
+paper*/**/*.spl
 paper*/**/*.fdb_latexmk
 paper*/**/texput.log
 texput.log
@@ -45,7 +46,7 @@ __pycache__/
 .vscode/
 
 # compiled paper (build artifact; regenerate with pdflatex)
-paper*/DeltaCycle_Multi-Scale_Linear_Attention.pdf
+paper*/Multi-Scale_Linear_Attention.pdf
 paper*/main.pdf
 
 # working numbers ledger -- decisions and current figures, kept local

@@ -1,13 +1,13 @@
 """Edge-deployment figures for the DeltaCycle paper (sec:deploy).
 
-Four figures, all numbers traceable to paper/DeltaCycle_Multi-Scale_Linear_Attention.tex:
+Four figures, all numbers traceable to paper/Multi-Scale_Linear_Attention.tex:
 
   - fig_dep_memctx: working memory vs context length. Attention score
                     matrix (H*L^2*4 B) and KV cache (2*L*d_model*4 B) for
                     H=4, d_model=64, against the fixed six-layer recurrent
                     state (48 KB). Crossover at L ~ 55 tokens; the evaluated
                     window is 32 tokens, where attention is still smaller.
-                    Source: tab:attn in DeltaCycle_Multi-Scale_Linear_Attention.tex.
+                    Source: tab:attn in Multi-Scale_Linear_Attention.tex.
   - fig_dep_pareto: quantization footprint vs trajectory MAE (multi-scale,
                     CALCE SP500, ten seeds). Source: tab:deploy.
                     The single-branch encoder has no trajectory MAE in that
@@ -16,7 +16,7 @@ Four figures, all numbers traceable to paper/DeltaCycle_Multi-Scale_Linear_Atten
                     threshold lines at common part sizes). Source: tab:deploy.
   - fig_dep_budget: compile-time SRAM budget: recurrent state + static
                     stack. Weights are const arrays executed from flash
-                    (DeltaCycle_Multi-Scale_Linear_Attention.tex, "Implementation"), so they are NOT
+                    (Multi-Scale_Linear_Attention.tex, "Implementation"), so they are NOT
                     part of the SRAM bar; fig_dep_flash covers them.
 
 Usage: python src/make_figures_deploy.py
@@ -59,7 +59,7 @@ plt.rcParams.update(
 )
 
 # ---------------------------------------------------------------------------
-# Shared constants (paper/DeltaCycle_Multi-Scale_Linear_Attention.tex)
+# Shared constants (paper/Multi-Scale_Linear_Attention.tex)
 # ---------------------------------------------------------------------------
 ATTN_H = 4                    # heads, matching the deployed model
 MODEL_D = 64                  # d_model of the comparison attention model

@@ -17,7 +17,7 @@ import subprocess
 
 _SRC = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.dirname(_SRC)
-TEX = "paper/DeltaCycle_Multi-Scale_Linear_Attention.tex"
+TEX = "paper/Multi-Scale_Linear_Attention.tex"
 
 
 def grab(src):
