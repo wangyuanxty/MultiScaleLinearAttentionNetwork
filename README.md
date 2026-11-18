@@ -1,10 +1,10 @@
-# DeltaCycle: A Multi-Scale Linear-Attention Network with a Physics-Consistent Degradation-Rate Head for Battery Prognostics
+# Multi-Scale Linear Attention for Calibrated On-Device Battery Prognostics
 
-Official code for the DeltaCycle paper (battery SOH/RUL prediction).
+Official code for the accompanying paper (battery SOH/RUL prediction).
 
 ## Overview
 
-DeltaCycle is a multi-scale linear-attention architecture for lithium-ion battery
+The model is a multi-scale linear-attention architecture for lithium-ion battery
 capacity trajectory and remaining-useful-life (RUL) prediction:
 
 - **Backbone**: Gated DeltaNet-2 recurrence (fixed-size matrix state, linear time),
@@ -24,7 +24,7 @@ capacity trajectory and remaining-useful-life (RUL) prediction:
 ```
 src/
   gdn_v2.py            GDN2Block core (recurrence, scan)
-  gdn_model.py         DeltaCycle model + physics rate head + quantile/CQR
+  gdn_model.py         core model + physics rate head + quantile/CQR
   load_datasets.py     dataset loaders (CALCE/NASA/MIT/PANASONIC/TJU/GOTION)
   test_full_train.py   main-model training (multiscale + stage-query, z-score protocol)
   test_eval_tableA.py  per-SP trajectory evaluation from checkpoints
@@ -85,4 +85,4 @@ Checkpoints and results are git-ignored (`checkpoints/`, `results/`).
 
 ## Citation
 
-If you use this code, please cite the DeltaCycle paper (link added upon publication).
+If you use this code, please cite the paper (link added upon publication).
