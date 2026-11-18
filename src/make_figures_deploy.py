@@ -1,4 +1,4 @@
-"""Edge-deployment figures for the DeltaCycle paper (sec:deploy).
+"""Edge-deployment figures for the paper (sec:deploy).
 
 Four figures, all numbers traceable to paper/Multi-Scale_Linear_Attention.tex:
 

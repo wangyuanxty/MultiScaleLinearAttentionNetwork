@@ -1,4 +1,4 @@
-"""Graphical abstract for DeltaCycle, composed as a data figure.
+"""Graphical abstract, composed as a data figure.
 
 Archetype: schematic-led composite. The accuracy comparison is the hero panel
 -- it gets the most width and the largest type; the method and the headline
@@ -57,10 +57,8 @@ ax.axis("off")
 ax.add_patch(FancyBboxPatch((0.008, 0.858), 0.984, 0.130,
                             boxstyle="round,pad=0,rounding_size=0.010",
                             linewidth=0, facecolor=GREEN))
-ax.text(0.5, 0.950, "DeltaCycle", ha="center", va="center",
-        fontsize=10, fontweight="bold", color="white")
-ax.text(0.5, 0.888, "multi-scale linear attention for calibrated on-device battery prognostics",
-        ha="center", va="center", fontsize=5.5, color=GREEN_PALE)
+ax.text(0.5, 0.920, "Multi-scale linear attention for calibrated on-device battery prognostics",
+        ha="center", va="center", fontsize=7, fontweight="bold", color="white")
 
 def header(cx, text):
     ax.text(cx, 0.822, text, ha="center", va="center",

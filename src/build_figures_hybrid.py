@@ -111,7 +111,7 @@ def build_overview():
     ax = fig.add_axes([0, 0, 1, 1]); ax.axis("off"); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
 
     box(ax, 0.02, 0.935, 0.96, 0.05,
-        "DeltaCycle — capacity-only battery monitoring loop", fc="#FDF6E3",
+        "Capacity-only battery monitoring loop", fc="#FDF6E3",
         ec=EDGE, bold=True, fs=13)
 
     scenes = [("ev_pack", "EV fleets"), ("robot", "Robot fleets"),

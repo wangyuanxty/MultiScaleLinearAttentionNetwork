@@ -1,4 +1,4 @@
-"""Graphical abstract for DeltaCycle (v4) -- Elsevier's own template structure.
+"""Graphical abstract (v4) -- Elsevier's own template structure.
 
 Three earlier drafts are superseded.  v1 was a grid of text boxes.  v2 filled
 panels with real plots but had no picture of the model.  v3 fixed the
@@ -151,11 +151,9 @@ def claim(col, y, s):
 # title bar and column headers
 # ==========================================================================
 band(MARGIN, TITLE_Y, 1.0 - 2 * MARGIN, TITLE_H, NAVY, z=2)
-txt(MARGIN + 0.014, TITLE_Y + TITLE_H / 2, "DeltaCycle", size=9,
-    color="white", weight="bold")
-txt(MARGIN + 0.178, TITLE_Y + TITLE_H / 2,
-    ":  multi-scale linear attention for calibrated on-device battery prognostics",
-    size=7, color="#C9D8E8")
+txt(MARGIN + 0.014, TITLE_Y + TITLE_H / 2,
+    "Multi-scale linear attention for calibrated on-device battery prognostics",
+    size=9, color="white", weight="bold")
 
 for i, name in enumerate(COL_NAMES):
     band(COL_X[i], HDR_Y, COL_W[i], HDR_H, NAVY, z=2)

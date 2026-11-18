@@ -95,7 +95,7 @@ def main():
     ax.set_xlim(0, 1); ax.set_ylim(0, 1)
 
     # ---- masthead: ink title + hairline rule ----
-    ax.text(0.025, 0.95, "DeltaCycle", fontsize=19, fontweight="bold",
+    ax.text(0.025, 0.95, "Multi-scale linear attention", fontsize=19, fontweight="bold",
             color=INK, transform=ax.transAxes)
     ax.text(0.025, 0.915,
             "Capacity-only monitoring: five datasets, one linear-attention loop, "

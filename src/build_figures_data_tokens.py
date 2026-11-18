@@ -129,7 +129,7 @@ def save(fig, name):
 # ----------------------------------------------------------------------
 def build_arch_main():
     fig, ax = fig_start()
-    masthead(ax, "DeltaCycle architecture",
+    masthead(ax, "Multi-scale architecture",
              "normalization, multi-scale branches with stage-query exchange, "
              "last-token readout")
     # Lane 1

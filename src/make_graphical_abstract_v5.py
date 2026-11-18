@@ -1,4 +1,4 @@
-"""Graphical abstract for DeltaCycle (v5) -- Elsevier's own template structure.
+"""Graphical abstract (v5) -- Elsevier's own template structure.
 
 The layout is cursor-based: every block advances a y cursor by its true
 height, and an assert fires if a column overruns its body.  The rule this
@@ -187,12 +187,10 @@ def strip(col_x, col_w, y_top, text):
 # title bar + column headers
 # ==========================================================================
 rect(MARGIN, TITLE_Y, 1.0 - 2 * MARGIN, TITLE_H, NAVY, z=2)
-txt(MARGIN + 0.014, TITLE_Y + TITLE_H / 2, "DeltaCycle", size=9, color="white",
-    weight="bold")
-t = txt(MARGIN + 0.170, TITLE_Y + TITLE_H / 2,
-        ":  one capacity-only model for calibrated on-device battery prognostics",
-        size=7, color="#C9D8E8")
-fit(t, 1.0 - MARGIN - 0.170 - 0.012, "title")
+t = txt(MARGIN + 0.014, TITLE_Y + TITLE_H / 2,
+        "One capacity-only model for calibrated on-device battery prognostics",
+        size=9, color="white", weight="bold")
+fit(t, 1.0 - MARGIN - 0.014 - 0.012, "title")
 for i, name in enumerate(("METHOD", "EVIDENCE", "OUTCOME")):
     rect(COL_X[i], HDR_Y, COL_W[i], HDR_H, NAVY, z=2)
     txt(COL_X[i] + 0.010, HDR_Y + HDR_H / 2, name, size=6.5, color="white",

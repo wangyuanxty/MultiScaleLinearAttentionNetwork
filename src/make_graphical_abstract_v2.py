@@ -1,4 +1,4 @@
-"""Graphical abstract for DeltaCycle (v2) -- organised by the paper's highlights.
+"""Graphical abstract (v2) -- organised by the paper's highlights.
 
 The v1 draft was a grid of text boxes and numbers.  A graphical abstract made
 of text and numbers is a table with rounded corners, so this version inverts
@@ -166,12 +166,10 @@ def panel_head(i, n, title, head, sub):
 # ==========================================================================
 # header
 # ==========================================================================
-t = fig.text(MARGIN, HEADER_Y, "DeltaCycle", ha="left", va="center",
-             fontsize=9.5, fontweight="bold", color=BLUE)
-t2 = fig.text(MARGIN + 0.142, HEADER_Y,
-              "multi-scale linear attention for on-device battery prognostics",
-              ha="left", va="center", fontsize=6.5, color=INK)
-fit(t2, BAND_W - 0.142 - 0.02, "header")
+t2 = fig.text(MARGIN, HEADER_Y,
+              "Multi-scale linear attention for on-device battery prognostics",
+              ha="left", va="center", fontsize=8, fontweight="bold", color=BLUE)
+fit(t2, BAND_W - 0.02, "header")
 fig.patches.append(Rectangle((MARGIN, RULE_Y), BAND_W, 0.0032, linewidth=0,
                              facecolor=GRAY_L, transform=fig.transFigure,
                              figure=fig, zorder=2))

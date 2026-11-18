@@ -1,4 +1,4 @@
-"""Graphical abstract for DeltaCycle (v7) -- Elsevier published-example style.
+"""Graphical abstract (v7) -- Elsevier published-example style.
 
 Canvas 17.0 x 10.0 cm (1.7:1), PNG 2677 x 1575 px at 400 dpi: above Elsevier's
 minimum 531 x 1328 px (height x width), >= 300 dpi, Arial only.  The ratio is
@@ -185,12 +185,10 @@ def vbox(col_x, col_w, y_top, h, line1, line2):
 # title bar + column headers + column tints
 # ==========================================================================
 rect(MARGIN, TITLE_Y, 1.0 - 2 * MARGIN, TITLE_H, NAVY, z=2)
-txt(MARGIN + 0.016, TITLE_Y + TITLE_H / 2, "DeltaCycle", size=13, color=WHITE,
-    weight="bold")
-t = txt(MARGIN + 0.118, TITLE_Y + TITLE_H / 2,
-        ":  multi-scale linear attention for calibrated on-device battery "
-        "prognostics", size=9.5, color="#C9D8E8")
-fit(t, 1.0 - MARGIN - 0.118 - 0.014, "title")
+t = txt(MARGIN + 0.016, TITLE_Y + TITLE_H / 2,
+        "Multi-scale linear attention for calibrated on-device battery "
+        "prognostics", size=11, color=WHITE, weight="bold")
+fit(t, 1.0 - MARGIN - 0.016 - 0.014, "title")
 for i, name in enumerate(("METHOD", "EVIDENCE", "OUTCOME")):
     rect(COL_X[i], BODY_B - 0.006, COL_W[i],
          (HDR_Y + HDR_H) - (BODY_B - 0.006), COL_BG[i], z=-1)

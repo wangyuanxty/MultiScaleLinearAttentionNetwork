@@ -1,4 +1,4 @@
-"""Graphical abstract for DeltaCycle (v3) -- organised by the paper's highlights.
+"""Graphical abstract (v3) -- organised by the paper's highlights.
 
 Two earlier drafts failed the same way: v1 was a grid of text boxes, which a
 graphical abstract should never be, and v2 filled five panels with real plots
@@ -164,12 +164,10 @@ def panel_head(i, n, title, head):
 # ==========================================================================
 # header
 # ==========================================================================
-fig.text(MARGIN, HEADER_Y, "DeltaCycle", ha="left", va="center",
-         fontsize=9.5, fontweight="bold", color=BLUE)
-t = fig.text(MARGIN + 0.142, HEADER_Y,
-             "multi-scale linear attention for on-device battery prognostics",
-             ha="left", va="center", fontsize=6.5, color=INK)
-fit(t, 1.0 - MARGIN - 0.142 - 0.02, "header")
+t = fig.text(MARGIN, HEADER_Y,
+             "Multi-scale linear attention for on-device battery prognostics",
+             ha="left", va="center", fontsize=8, fontweight="bold", color=BLUE)
+fit(t, 1.0 - MARGIN - 0.02, "header")
 fig.patches.append(Rectangle((MARGIN, RULE_Y), 1.0 - 2 * MARGIN, 0.0032,
                              linewidth=0, facecolor=GRAY_L,
                              transform=fig.transFigure, figure=fig, zorder=2))

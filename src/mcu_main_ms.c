@@ -1,4 +1,4 @@
-/* mcu_main_ms.c — full DeltaCycle inference on QEMU mps2-an385.
+/* mcu_main_ms.c — full model inference on QEMU mps2-an385.
  *
  * Bare metal, no libc: semihosting SYS_WRITE0 output, self-contained vector
  * table + _start, and a static-pool allocator for the inference buffers.

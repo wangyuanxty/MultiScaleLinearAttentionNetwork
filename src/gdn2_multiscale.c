@@ -1,4 +1,4 @@
-/** gdn2_multiscale.c — full DeltaCycle inference in C.
+/** gdn2_multiscale.c — full model inference in C.
  *
  * Replicates GDNBatteryModel.forward(stage_query=True) exactly: three patch
  * branches (2/4/8) of two GDN-2 layers each, a per-layer cross-scale exchange
