@@ -31,8 +31,8 @@
   st/.style   = {draw=fink, fill=fink, text=white, rounded corners=1pt,
                  align=center, font=\footnotesize, inner sep=3pt},
   vec/.style  = {draw=sandL, fill=veilF, inner sep=1pt},
-  note/.style = {font=\scriptsize, text=fink!70},
-  head/.style = {font=\scriptsize, text=fink!75},
+  note/.style = {font=\scriptsize, text=fink!85},
+  head/.style = {font=\footnotesize, text=fink!90},
   arr/.style  = {->, >={Stealth[length=1.5mm]}, semithick, fink!85},
   bus/.style  = {semithick, fink!85},
 }
@@ -56,7 +56,7 @@
 \draw[bus] (split) -- ++(0,-1.40);  % down to the projection rows
 
 % ---------------------------------------------------------------- gates
-\node[head, anchor=west] at (2.20,7.05) {GATES};
+\node[head, anchor=west] at (2.20,7.05) {Gates};
 \node[proj] (fproj) at (2.85,6.55) {$F_{\text{proj}}$};
 \draw[arr] (split |- fproj.west) -- (fproj.west);
 
@@ -69,7 +69,7 @@
 \foreach \g in {decay,erase,write}{\draw[arr] (\g.east) -- (upd.west);}
 
 % ---------------------------------------------------------- projections
-\node[head, anchor=west] at (2.20,4.95) {PROJECTIONS};
+\node[head, anchor=west] at (2.20,4.95) {Projections};
 \foreach \n/\y in {v/4.45, k/3.65, q/2.85}{
   \node[proj] (w\n) at (2.85,\y) {$W_{\n}$};
   \node[proj, minimum width=13mm, font=\scriptsize] (cv\n) at (4.45,\y) {conv $k{=}4$};

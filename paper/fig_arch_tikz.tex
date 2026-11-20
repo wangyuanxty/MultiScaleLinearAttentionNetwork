@@ -64,7 +64,7 @@
   proj/.style = {draw=brassL, fill=brassF, rounded corners=1pt, align=center,
                 font=\footnotesize, inner sep=2.2pt, minimum height=6mm},
   vec/.style  = {draw=fink!45, fill=veilF, inner sep=1pt},
-  tiny/.style = {font=\scriptsize, text=fink!75},
+  tiny/.style = {font=\footnotesize, text=fink!88},
   arr/.style  = {->, >={Stealth[length=1.6mm]}, semithick, fink!80},
   bus/.style  = {semithick, fink!80},
   exh/.style  = {<->, >={Stealth[length=1.4mm]}, semithick, ambL!85},
@@ -134,8 +134,8 @@
 \foreach \x in {8.50,10.85}{
   \draw[exh] (\x,0.55) -- (\x,1.60);
   \draw[exh] (\x,-0.55) -- (\x,-1.60);
-  \node[tiny, anchor=west] at ($(\x,1.07)+(0.09,0)$) {cross-scale exchange};
-  \node[tiny, anchor=west] at ($(\x,-1.07)+(0.09,0)$) {cross-scale exchange};
+  \node[tiny, anchor=east, align=right] at ($(\x,1.07)+(-0.09,0)$) {cross-scale\\exchange};
+  \node[tiny, anchor=east, align=right] at ($(\x,-1.07)+(-0.09,0)$) {cross-scale\\exchange};
 }
 
 \node[dat, font=\scriptsize, text width=9mm, minimum height=13mm,
@@ -158,7 +158,7 @@
 % so the three projections enter its left edge as three clean horizontal arrows.
 \newcommand{\exchange}[3]{% #1 x-origin, #2 branch name, #3 coefficient
   \begin{scope}[shift={(#1,-6.90)}]
-    \node[tiny, anchor=west] at (0.05,3.50) {CROSS-SCALE EXCHANGE, \MakeUppercase{#2} BRANCH};
+    \node[tiny, anchor=west] at (0.05,3.50) {Cross-scale exchange, #2 branch};
 
     \stategrid{0.10}{2.25}{0.18}
     \node[tiny, anchor=north west] at (0.10,2.13) {coarse state $S$};
