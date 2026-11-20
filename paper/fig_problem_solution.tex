@@ -23,9 +23,9 @@
   flow/.style     = {->, >={Stealth[length=2.6mm]}, line width=1.6pt, brassL},
   dim/.style      = {<->, >={Stealth[length=1.2mm]}, line width=0.5pt, brassL},
   rule/.style     = {line width=0.5pt, black!55},
-  lab/.style      = {font=\scriptsize, text=fink, align=left},
-  val/.style      = {font=\scriptsize, text=fink},
-  note/.style     = {font=\tiny, text=fink!78, align=center},
+  lab/.style      = {font=\footnotesize, text=fink, align=left},
+  val/.style      = {font=\footnotesize, text=fink},
+  note/.style     = {font=\scriptsize, text=fink!78, align=center},
 }
 
 \begin{document}
@@ -76,10 +76,10 @@
 \draw[form, sandL] (3.90,7.55) .. controls (4.80,7.48) and (5.30,7.20) .. (5.90,7.16)
                     .. controls (6.60,7.12) and (7.10,6.90) .. (7.70,6.62);
 \foreach \k in {0,1,2,3}{
-  \draw[thin, fink!35, fill=slate2!70] (4.55+\k*0.66,6.95) rectangle ++(0.64,0.46);
-  \node[font=\tiny, text=fink!80] at (4.87+\k*0.66,7.18) {patch 8};
+  \draw[thin, fink!40] (4.55+\k*0.66,6.95) rectangle ++(0.64,0.46);
+  \node[font=\tiny, text=fink!80] at (4.87+\k*0.66,7.18) {p8};
 }
-\node[note, anchor=south] at (5.87,7.45) {one patch size};
+\node[note, anchor=south] at (5.87,7.45) {the whole segment at one patch size};
 
 % answer: three tilings of the same segment, coarse state becomes the query
 \foreach \lab/\n/\y in {32 tokens/16/7.55, 16 tokens/8/7.05, 8 tokens/4/6.55}{
@@ -111,7 +111,7 @@
 \draw[axis] (3.80,3.95) -- (3.80,5.65);
 \node[note, anchor=east] at (3.74,5.55) {capacity};
 \draw[fill=sandF, draw=none] (3.85,4.05) rectangle (5.90,4.72);
-\node[note] at (4.85,4.38) {training range};
+\node[note] at (4.72,4.16) {training range};
 \draw[form, sandL] (3.90,4.48) .. controls (4.80,4.46) and (5.40,4.44) .. (5.95,4.40)
                     .. controls (6.70,4.36) and (7.10,5.10) .. (7.70,5.48);
 \draw[thin, fink!55, dashed] (5.95,4.40) -- (7.70,4.12);
@@ -157,7 +157,7 @@
   \node[val, anchor=west] at (15.48,\y) {\l};
 }
 \draw[dim] (9.90,1.92) -- (9.90,2.86);
-\node[note, anchor=east] at (9.72,2.39) {calibrated};
+\node[note, anchor=south] at (11.10,2.92) {calibrated};
 
 \end{tikzpicture}
 \end{document}
