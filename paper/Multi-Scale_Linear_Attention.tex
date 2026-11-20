@@ -211,7 +211,13 @@ prerequisite for per-device monitoring at fleet scale.
 exchange.} Three patch branches (sizes 2/4/8) read degradation at
 local, regional, and global scales; after every layer the coarse
 branch's recurrent state, the compressed degradation history, projects to
-a single query that reads the fine and mid branch sequences.
+a single query that reads the fine and mid branch sequences. The query is
+the state itself rather than a learned or positional query, so what the
+finer branches are asked for is conditioned on the history compressed so
+far rather than on the current token; a single query keeps the exchange
+linear in sequence length, and applying it after every layer lets the
+scales correct one another throughout the stack instead of once at its
+output.
 A parameter-matched ablation on PANASONIC shows the exchange itself
 accounts for a $5.7\,\%$ reduction in per-SP MAE
 (Section~\ref{sec:exp}). The coarse
