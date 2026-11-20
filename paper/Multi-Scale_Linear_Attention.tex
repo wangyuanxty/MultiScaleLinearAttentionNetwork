@@ -193,7 +193,7 @@ deployment. Our contributions are:
 
 \begin{enumerate}
 \item \textbf{Linear-attention backbone with verified edge
-deployment.} We adopt Gated DeltaNet-2 (GDN-2), a recurrent linear
+deployment.} We adopt Gated DeltaNet-2, a recurrent linear
 attention layer with a fixed-size matrix state ($8$\,KB per layer,
 independent of the window), and ship a full C
 implementation that matches the PyTorch forward within
@@ -210,7 +210,7 @@ prerequisite for per-device monitoring at fleet scale.
 \item \textbf{Multi-scale branches with stage-query cross-scale
 exchange.} Three patch branches (sizes 2/4/8) read degradation at
 local, regional, and global scales; after every layer the coarse
-branch's GDN state, the compressed degradation history, projects to
+branch's recurrent state, the compressed degradation history, projects to
 a single query that reads the fine and mid branch sequences.
 A parameter-matched ablation on PANASONIC shows the exchange itself
 accounts for a $5.7\,\%$ reduction in per-SP MAE
@@ -384,7 +384,7 @@ efficiency as a GPU concern, while the delta-rule family below is
 the technical lineage of our backbone. Linear attention replaces the softmax attention map with a recurrent
 matrix state, achieving $O(N)$ complexity. Gated DeltaNet
 \cite{ref_gdn} combined the delta rule with learned gating, and
-Gated DeltaNet-2 (GDN-2) \cite{ref_gdn2} decoupled channel-wise erase
+Gated DeltaNet-2 \cite{ref_gdn2} decoupled channel-wise erase
 and write gates, improving long-context retrieval in language
 modeling. To our knowledge, the present work is the first to report
 floating-point-accurate MCU deployment of a linear-attention battery model.
@@ -431,12 +431,12 @@ measured internal resistance, a quantity the BMS records in
 situ and that is available at inference without future information, so the
 extension remains deployable under the same constraint.
 
-\subsection{Gated DeltaNet-2 backbone}
+\subsection{Linear-attention backbone}
 \label{sec:gdn2}
 
-The backbone is Gated DeltaNet-2 (GDN-2) \cite{ref_gdn2}, a
+The backbone is Gated DeltaNet-2 \cite{ref_gdn2}, a
 recurrent linear attention layer with channel-wise erase and write
-gates. GDN-2 generalizes Gated DeltaNet \cite{ref_gdn}, which ties
+gates. It generalizes Gated DeltaNet \cite{ref_gdn}, which ties
 erasing and writing to a single scalar gate, by moving each to its own
 channel-wise gate: erase on the key axis, write on the value axis. It
 recovers Gated DeltaNet exactly when both gates and the decay
@@ -488,36 +488,36 @@ channels that carry the trend.
 \label{sec:multiscale}
 
 Figure~\ref{fig:arch} shows the multi-scale encoder
-together with the per-layer cross-scale exchange submodule (bottom,
-light-green box), and Figure~\ref{fig:gdn2} details the internal
-recurrence of one GDN-2 block.
+together with the per-layer cross-scale exchange submodule (bottom
+panels b and c), and Figure~\ref{fig:gdn2} details the internal
+recurrence of one linear-attention layer.
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth]{new_modelarch.png}
-\caption{Multi-scale GDN-2 architecture and cross-scale exchange
+\includegraphics[width=\textwidth]{fig_arch_tikz.pdf}
+\caption{Multi-scale linear-attention encoder and cross-scale exchange
 submodule. Top: the fixed window of $W{=}64$ capacity cycles (the
 tokens $cap_t$; $cyc_t$ denotes the cycle index) is encoded in
 parallel at three scales (patch 2/4/8, 32/16/8 tokens), embedded
-per scale, and passed through two GDN-2 layers per branch ($8$\,KB
+per scale, and passed through two linear-attention layers per branch ($8$\,KB
 fixed state per layer); the three branches exchange multi-scale
-information through the per-layer cross-scale exchange (orange
+information through the per-layer cross-scale exchange (amber
 arrows, coarse state as query), fuse at the $fuse$ node, and emit
 the next-cycle capacity prediction
 $\hat{c}_{t+1}$ via the last-token readout (Linear\,128 $\to$ GELU
-$\to$ Linear\,1). Bottom (light-green box): the cross-scale exchange
+$\to$ Linear\,1). Bottom (panels b and c): the cross-scale exchange
 submodule maps the coarse state $S$ (2048 elements) to a single
 query $q$ ($d_q{=}32$) via $W_q$; single-query attention interacts
 $q$ with the fine/mid branch keys and values ($k, v$,
 $d_{\text{model}}{=}64$) to produce the context $c_f$, added to the
-fused state: $h_f = h_{\text{fuse}} + c_f$.}
+fused state: $h_f' = h_f + c_f$.}
 \label{fig:arch}
 \end{figure*}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{fig_gdn2_flow}
-\caption{One GDN-2 block. The input token $x_t$ is projected to
+\caption{One linear-attention layer. The input token $x_t$ is projected to
 queries/keys/values ($W_q$: $64\to64$, $W_k$: $64\to64$,
 $W_v$: $64\to128$), each through a causal 1-D convolution
 (kernel $k{=}4$, $L2$-normalized for $q$ and $k$), while a shared
@@ -538,16 +538,16 @@ regeneration events, mid-range knee-point transitions, and the
 long-term monotonic envelope. We encode these with three parallel
 branches using patch sizes $P \in \{2,4,8\}$. Each branch projects its
 patched input to a common $d_{\text{model}}=64$ embedding and applies
-two GDN-2 layers. Each branch scans at its own token count (32, 16 and
+two linear-attention layers. Each branch scans at its own token count (32, 16 and
 8 for patch sizes 2, 4 and 8), and the branches are aligned to the
 longest only before an exchange, since aligning first would scan the
 wrong sequence length. The two length operations differ: aligning tiles
 the whole sequence to the longest token count
 ($[a,b,c]\mapsto[a,b,c,a,b,c]$), whereas restoring a branch to the full
 input length repeats each token ($[a,b,c]\mapsto[a,a,b,b,c,c]$).
-After every GDN layer, branches exchange
+After every linear-attention layer, branches exchange
 information through a stage-query mechanism: the coarse branch's
-GDN-2 state, which compresses the degradation history and acts as a
+recurrent state, which compresses the degradation history and acts as a
 stage indicator, is projected to a single query, and the fine and
 mid branch sequences provide keys and values. For branch
 $\mathbf{h}_a$ with the coarse state $\mathbf{S}_c$,
@@ -599,7 +599,7 @@ r \;=\; \operatorname{softplus}(\mathbf{w}^{\top}\mathbf{h})
 \qquad
 \hat{c}_{t+1} \;=\; c_t - r,
 \end{equation}
-where $\mathbf{h}$ is the last-token GDN state, $c_t$ the current
+where $\mathbf{h}$ is the last-token recurrent state, $c_t$ the current
 capacity, $\mathrm{IR}_{\text{last}}$ the measured internal
 resistance at the current cycle, and $\gamma$ a learned scalar. The
 softplus makes the coefficient $\operatorname{softplus}(\gamma)$
@@ -1401,7 +1401,7 @@ history.
 \subsection{Numerical fidelity across architectures}
 
 We implement the full multi-scale model rather than only the single-branch encoder. 
-Since both variants share the same GDN-2 kernel implementation, 
+Since both variants share the same recurrent kernel implementation, 
 the verification established for the encoder extends to the model reported in Section~\ref{sec:exp},
 obviating the need for a separate validation argument. 
 We compile the same C source for the host and Cortex-M3 and compare the two outputs bit for bit on identical inputs.
