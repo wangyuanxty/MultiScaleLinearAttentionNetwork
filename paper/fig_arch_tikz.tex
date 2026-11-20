@@ -95,7 +95,7 @@
 }
 
 \node[dat, minimum height=13mm] (win) at (1.00,0) {capacity window\\$W=64$};
-\node[hub, minimum size=7mm] (fuse) at (13.25,0) {fuse};
+\node[hub, minimum size=7mm] (fuse) at (13.10,0) {fuse};
 
 \node[fine1] (sA) at (3.35,\yA) {fine, patch 2\\\scriptsize 32 tokens};
 \node[coa1] (sB) at (3.35,\yB) {coarse, patch 8\\\scriptsize 8 tokens};
@@ -138,13 +138,13 @@
   \node[tiny, anchor=west] at ($(\x,-1.07)+(0.09,0)$) {cross-scale exchange};
 }
 
-\node[dat, font=\scriptsize, text width=10mm, minimum height=13mm,
-                        inner sep=1pt, align=center] (last) at (14.45,0) {last-token\\readout};
-\node[dat, font=\scriptsize, text width=10mm, minimum height=13mm,
-                        inner sep=1pt, align=center] (lin1) at (15.85,0) {Linear 128\\+ GELU};
-\node[dat, font=\scriptsize, text width=10mm, minimum height=13mm,
-                        inner sep=1pt, align=center] (lin2) at (17.10,0){Linear\\1};
-\node[font=\footnotesize, anchor=west] (out) at (17.90,0){capacity, $t+1$};
+\node[dat, font=\scriptsize, text width=9mm, minimum height=13mm,
+                        inner sep=1pt, align=center] (last) at (14.30,0) {last-token\\readout};
+\node[dat, font=\scriptsize, text width=9mm, minimum height=13mm,
+                        inner sep=1pt, align=center] (lin1) at (15.55,0) {Linear 128\\+ GELU};
+\node[dat, font=\scriptsize, text width=9mm, minimum height=13mm,
+                        inner sep=1pt, align=center] (lin2) at (16.70,0){Linear\\1};
+\node[font=\footnotesize, anchor=west] (out) at (17.45,0){capacity, $t+1$};
 \draw[arr] (fuse) -- (last.west);
 \draw[arr] (last) -- (lin1);
 \draw[arr] (lin1) -- (lin2);
