@@ -20,6 +20,9 @@ slides_assets/
 CLAUDE.md
 report_slides.html
 
+# Scratch space: AI figure drafts and other throwaway output.
+temp/
+
 # LaTeX build artifacts (paper/ and paper_indojc/)
 paper*/**/*.aux
 paper*/**/*.log
