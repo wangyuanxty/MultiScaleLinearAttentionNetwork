@@ -85,7 +85,7 @@
 
 % ===================================================================== (a)
 \def\yA{2.15} \def\yB{0} \def\yC{-2.15}
-\def\busL{2.30} \def\busR{13.35}
+\def\busL{2.10} \def\busR{12.45}
 
 % swim lanes: a faint wash behind each branch, so the three paths read
 % as lanes without turning the plate into a banner
@@ -94,23 +94,23 @@
     (2.30,\laneY-0.62) rectangle (12.70,\laneY+0.62);
 }
 
-\node[dat, minimum height=13mm] (win) at (1.05,0) {capacity window\\$W=64$};
-\node[hub, minimum size=7mm] (fuse) at (14.15,0) {fuse};
+\node[dat, minimum height=13mm] (win) at (1.00,0) {capacity window\\$W=64$};
+\node[hub, minimum size=7mm] (fuse) at (13.25,0) {fuse};
 
-\node[fine1] (sA) at (3.40,\yA) {fine, patch 2\\\tiny 32 tokens};
-\node[coa1] (sB) at (3.40,\yB) {coarse, patch 8\\\tiny 8 tokens};
-\node[med1] (sC) at (3.40,\yC) {medium, patch 4\\\tiny 16 tokens};
+\node[fine1] (sA) at (3.35,\yA) {fine, patch 2\\\scriptsize 32 tokens};
+\node[coa1] (sB) at (3.35,\yB) {coarse, patch 8\\\scriptsize 8 tokens};
+\node[med1] (sC) at (3.35,\yC) {medium, patch 4\\\scriptsize 16 tokens};
 
-\node[fine1] (eA) at (6.10,\yA) {patch embedding};
-\node[coa1] (eB) at (6.10,\yB) {patch embedding};
-\node[med1] (eC) at (6.10,\yC) {patch embedding};
+\node[fine1] (eA) at (5.85,\yA) {patch embedding};
+\node[coa1] (eB) at (5.85,\yB) {patch embedding};
+\node[med1] (eC) at (5.85,\yC) {patch embedding};
 
-\node[fine2] (aA) at (9.05,\yA) {linear-attention\\layer 1\\\tiny 8 KB state};
-\node[coa2] (aB) at (9.05,\yB) {linear-attention\\layer 1\\\tiny 8 KB state};
-\node[med2] (aC) at (9.05,\yC) {linear-attention\\layer 1\\\tiny 8 KB state};
-\node[fine3] (bA) at (11.60,\yA){linear-attention\\layer 2\\\tiny 8 KB state};
-\node[coa3] (bB) at (11.60,\yB){linear-attention\\layer 2\\\tiny 8 KB state};
-\node[med3] (bC) at (11.60,\yC){linear-attention\\layer 2\\\tiny 8 KB state};
+\node[fine2] (aA) at (8.50,\yA) {linear-attention\\layer 1\\\scriptsize 8 KB state};
+\node[coa2] (aB) at (8.50,\yB) {linear-attention\\layer 1\\\scriptsize 8 KB state};
+\node[med2] (aC) at (8.50,\yC) {linear-attention\\layer 1\\\scriptsize 8 KB state};
+\node[fine3] (bA) at (10.85,\yA){linear-attention\\layer 2\\\scriptsize 8 KB state};
+\node[coa3] (bB) at (10.85,\yB){linear-attention\\layer 2\\\scriptsize 8 KB state};
+\node[med3] (bC) at (10.85,\yC){linear-attention\\layer 2\\\scriptsize 8 KB state};
 
 % fan out from the window: one spine to the left of every block, then a stub
 % with the arrowhead into each branch.  The spine itself carries no arrows.
@@ -131,24 +131,24 @@
 \draw[arr] (\busR,0) -- (fuse.west);
 
 % cross-scale exchange: the coarse state is the query for the other branches
-\foreach \x in {9.05,11.60}{
+\foreach \x in {8.50,10.85}{
   \draw[exh] (\x,0.55) -- (\x,1.60);
   \draw[exh] (\x,-0.55) -- (\x,-1.60);
   \node[tiny, anchor=west] at ($(\x,1.07)+(0.09,0)$) {cross-scale exchange};
   \node[tiny, anchor=west] at ($(\x,-1.07)+(0.09,0)$) {cross-scale exchange};
 }
 
-\node[dat] (last) at (16.45,1.35) {last-token readout};
-\node[dat] (lin1) at (16.45,0.25) {Linear 128 + GELU};
-\node[dat] (lin2) at (16.45,-0.85){Linear 1};
-\node[font=\footnotesize] (out) at (16.45,-2.15){capacity, $t+1$};
+\node[dat, font=\scriptsize] (last) at (14.95,0) {last-token readout};
+\node[dat, font=\scriptsize] (lin1) at (17.15,0) {Linear 128 + GELU};
+\node[dat, font=\scriptsize] (lin2) at (18.95,0){Linear 1};
+\node[font=\footnotesize, anchor=west] (out) at (19.65,0){capacity, $t+1$};
 \draw[arr] (fuse) -- (last.west);
 \draw[arr] (last) -- (lin1);
 \draw[arr] (lin1) -- (lin2);
-\draw[arr] (lin2) -- (out);
+\draw[arr] (lin2) -- (out.west);
 
-\node[anchor=south east, font=\footnotesize] at (17.95,-2.65) {(a)};
-\draw[frame] (-0.15,-2.95) rectangle (18.05,3.05);
+\node[anchor=south east, font=\footnotesize] at (21.20,-2.65) {(a)};
+\draw[frame] (-0.15,-2.95) rectangle (21.30,3.05);
 
 % ===================================================================== (b)(c)
 % Exchange submodule.  The attention unit is a rounded rectangle, not a circle,
@@ -186,13 +186,13 @@
     \node[font=\scriptsize, anchor=west] at (7.25,1.78) {$h_{#3}' = h_{#3} + c_{#3}$};
   \end{scope}}
 
-\exchange{0.00}{fine}{f}
-\exchange{9.10}{medium}{m}
+\exchange{1.00}{fine}{f}
+\exchange{11.30}{medium}{m}
 
-\draw[frame] (-0.15,-6.45) rectangle (8.90,-3.20);
-\draw[frame] ( 8.95,-6.45) rectangle (18.05,-3.20);
-\node[anchor=south east, font=\footnotesize] at (8.82,-6.42) {(b)};
-\node[anchor=south east, font=\footnotesize] at (17.87,-6.42) {(c)};
+\draw[frame] (-0.15,-6.45) rectangle (10.55,-3.20);
+\draw[frame] ( 10.60,-6.45) rectangle (21.30,-3.20);
+\node[anchor=south east, font=\footnotesize] at (10.47,-6.42) {(b)};
+\node[anchor=south east, font=\footnotesize] at (21.22,-6.42) {(c)};
 
 \end{tikzpicture}
 \end{document}
