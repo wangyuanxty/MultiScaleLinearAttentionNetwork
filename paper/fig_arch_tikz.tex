@@ -138,17 +138,20 @@
   \node[tiny, anchor=west] at ($(\x,-1.07)+(0.09,0)$) {cross-scale exchange};
 }
 
-\node[dat, font=\scriptsize] (last) at (14.95,0) {last-token readout};
-\node[dat, font=\scriptsize] (lin1) at (17.15,0) {Linear 128 + GELU};
-\node[dat, font=\scriptsize] (lin2) at (18.95,0){Linear 1};
-\node[font=\footnotesize, anchor=west] (out) at (19.65,0){capacity, $t+1$};
+\node[dat, font=\scriptsize, text width=10mm, minimum height=13mm,
+                        inner sep=1pt, align=center] (last) at (14.45,0) {last-token\\readout};
+\node[dat, font=\scriptsize, text width=10mm, minimum height=13mm,
+                        inner sep=1pt, align=center] (lin1) at (15.85,0) {Linear 128\\+ GELU};
+\node[dat, font=\scriptsize, text width=10mm, minimum height=13mm,
+                        inner sep=1pt, align=center] (lin2) at (17.10,0){Linear\\1};
+\node[font=\footnotesize, anchor=west] (out) at (17.90,0){capacity, $t+1$};
 \draw[arr] (fuse) -- (last.west);
 \draw[arr] (last) -- (lin1);
 \draw[arr] (lin1) -- (lin2);
 \draw[arr] (lin2) -- (out.west);
 
-\node[anchor=south east, font=\footnotesize] at (21.20,-2.65) {(a)};
-\draw[frame] (-0.15,-2.95) rectangle (21.30,3.05);
+\node[anchor=south east, font=\footnotesize] at (19.15,-2.65) {(a)};
+\draw[frame] (-0.15,-2.95) rectangle (19.25,3.05);
 
 % ===================================================================== (b)(c)
 % Exchange submodule.  The attention unit is a rounded rectangle, not a circle,
@@ -179,20 +182,20 @@
     \draw[arr] (k.east) -- (att.west |- k);
     \draw[arr] (v.east) -- (att.west |- v);
 
-    \node[font=\footnotesize] (cf) at (6.30,1.78) {$c_{#3}$};
+    \node[font=\footnotesize] (cf) at (6.28,1.78) {$c_{#3}$};
     \draw[arr] (att.east) -- (cf);
-    \node[hub, draw=brassL, fill=brassF, minimum size=4.6mm, inner sep=0pt] (plus) at (6.95,1.78) {$+$};
+    \node[hub, draw=brassL, fill=brassF, minimum size=4.6mm, inner sep=0pt] (plus) at (6.90,1.78) {$+$};
     \draw[arr] (cf) -- (plus);
-    \node[font=\scriptsize, anchor=west] at (7.25,1.78) {$h_{#3}' = h_{#3} + c_{#3}$};
+    \node[font=\scriptsize, anchor=west] at (7.20,1.78) {$h_{#3}' = h_{#3} + c_{#3}$};
   \end{scope}}
 
-\exchange{1.00}{fine}{f}
-\exchange{11.30}{medium}{m}
+\exchange{0.65}{fine}{f}
+\exchange{10.20}{medium}{m}
 
-\draw[frame] (-0.15,-6.45) rectangle (10.55,-3.20);
-\draw[frame] ( 10.60,-6.45) rectangle (21.30,-3.20);
-\node[anchor=south east, font=\footnotesize] at (10.47,-6.42) {(b)};
-\node[anchor=south east, font=\footnotesize] at (21.22,-6.42) {(c)};
+\draw[frame] (-0.15,-6.45) rectangle (9.65,-3.20);
+\draw[frame] ( 9.70,-6.45) rectangle (19.25,-3.20);
+\node[anchor=south east, font=\footnotesize] at (9.57,-6.42) {(b)};
+\node[anchor=south east, font=\footnotesize] at (19.17,-6.42) {(c)};
 
 \end{tikzpicture}
 \end{document}
