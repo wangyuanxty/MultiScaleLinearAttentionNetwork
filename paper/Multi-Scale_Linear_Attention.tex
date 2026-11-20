@@ -252,22 +252,26 @@ every corruption-robustness setting tested.
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth]{fig_overview_tikz.pdf}
-\caption{System overview. Top: the recurrent state against the window.
-A quadratic attention mask costs $4HL^{2}$ bytes per layer, so moving from
-$W=64$ to $W=256$ multiplies its footprint by sixteen, from 64\,KB to
-1\,MB; the state costs $HD_kD_v$ bytes per layer and is therefore the same
-size at every window length. Bottom: the pipeline. Six public datasets are
-read as capacity per cycle; each (starting point, seed) pair is trained as a
-fresh model on a $W=64$ window over ten seeds; three branches read the same
-window at patch sizes 2/4/8 (32/16/8 tokens) and exchange information through
-a stage query, in which the coarse state becomes a single query; a physics
-rate head takes the hidden state together with the measured internal
-resistance (dashed: an auxiliary input, not the main capacity path) and
-predicts $\hat{Q}_t = Q_{t-1} - r$; the readout emits a point estimate and a
-conformal P2.5--P97.5 interval whose lower edge defines the end-of-life
-crossing; the exported model fits INT8 at 504\,KB and INT4 at 268\,KB with no
-dynamic allocation.}
+\includegraphics[width=\textwidth]{fig_problem_solution.pdf}
+\caption{The four limitations this work answers, and the answer to each.
+Left column, the limitation; right column, what we do about it.
+(1) A quadratic attention mask costs $4HL^{2}$ bytes per layer, 64\,KB at
+$W=64$ and 1\,MB at $W=256$; the recurrent state costs $HD_kD_v$ bytes per
+layer and is therefore the same size at both windows.
+(2) One patch size smooths over the regeneration events that a finer one
+resolves; three branches read the same window at patch 2/4/8 (32/16/8 tokens)
+and, at every layer, the coarse branch's state becomes a single query that
+reads the other two and is added back as a residual --- the query is the state
+itself, and because there is only one of it the exchange stays linear in
+sequence length.
+(3) A purely data-driven predictor drifts once the target leaves its training
+range; the rate head anchors each step on the last observed capacity,
+$\hat{Q}_t = Q_{t-1} - r$, with $r$ partly driven by measured internal
+resistance (dashed: an auxiliary input), so its output is monotone by
+construction.
+(4) The end-of-life crossing of a noisy trajectory is not a single cycle;
+the readout emits a conformal interval in one forward pass and its lower edge
+defines the crossing.}
 \label{fig:overview}
 \end{figure*}
 
