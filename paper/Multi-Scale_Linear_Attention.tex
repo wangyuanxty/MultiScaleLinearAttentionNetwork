@@ -514,24 +514,25 @@ fused state: $h_f' = h_f + c_f$.}
 \label{fig:arch}
 \end{figure*}
 
-\begin{figure}[htbp]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=\linewidth]{fig_gdn2_flow}
+\includegraphics[width=\textwidth]{fig_layer_tikz.pdf}
 \caption{One linear-attention layer. The input token $x_t$ is projected to
 queries/keys/values ($W_q$: $64\to64$, $W_k$: $64\to64$,
 $W_v$: $64\to128$), each through a causal 1-D convolution
 (kernel $k{=}4$, $L2$-normalized for $q$ and $k$), while a shared
 projection $F_{\mathrm{proj}}$ generates the erase
 ($\mathbf{b}_t$, sigmoid), write ($\mathbf{w}_t$, sigmoid) and
-per-channel decay ($\boldsymbol{\alpha}_t = \exp(g)$) gates; the
-gated update produces the fixed-size state
-$\mathbf{S}_t$ ($4\times16\times32$ elements $= 8$\,KB, zero
-growth), and the output
-$\mathbf{o}_t = \mathbf{S}_t^{\top}\mathbf{q}_t \to$ Linear
-$128\to64 \to$ RMSNorm.
+per-channel decay ($\boldsymbol{\alpha}_t = \exp(g)$) gates. The
+$k_t$ and $v_t$ vectors enter the gated update with those gates and
+produce the fixed-size state $\mathbf{S}_t$
+($4\times16\times32$ elements $= 8$\,KB, zero growth), which $q_t$
+reads as $\mathbf{o}_t = \mathbf{S}_t^{\top}\mathbf{q}_t$. The
+output then passes through RMSNorm, a SiLU gate
+$g_{\mathrm{proj}}(x_t)$, and Linear $128\to64$.
 }
 \label{fig:gdn2}
-\end{figure}
+\end{figure*}
 
 Battery degradation operates across multiple temporal scales: short
 regeneration events, mid-range knee-point transitions, and the
