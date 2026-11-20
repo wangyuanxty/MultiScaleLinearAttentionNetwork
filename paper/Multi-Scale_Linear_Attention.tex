@@ -246,22 +246,22 @@ every corruption-robustness setting tested.
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth]{new_overview.png}
-\caption{System overview: the overall pipeline of the proposed
-method and an outlook on its application across physical battery
-systems with different power and operating profiles: spacecraft
-satellites, unmanned aerial vehicles (UAVs), energy-storage battery
-cabinets, and power-battery packs. The pipeline starts from public
-cycling datasets (CALCE, NASA, MIT, PANASONIC, TJU, GOTION), performs data
-preprocessing and trains a fresh model per (dataset, starting point,
-seed) under the PatchFormer-consistent protocol, and exports an
-INT8-quantized model whose fixed 48\,KB recurrent state does not grow
-with the context window, so the window can be lengthened to meet
-accuracy requirements without the quadratic attention buffer that
-would otherwise dominate SRAM, laying the foundation for on-device
-online monitoring.
-Application images are illustrative; the experimental validation is
-conducted on public laboratory data.}
+\includegraphics[width=\textwidth]{fig_overview_tikz.pdf}
+\caption{System overview. Top: the recurrent state against the window.
+A quadratic attention mask costs $4HL^{2}$ bytes per layer, so moving from
+$W=64$ to $W=256$ multiplies its footprint by sixteen, from 64\,KB to
+1\,MB; the state costs $HD_kD_v$ bytes per layer and is therefore the same
+size at every window length. Bottom: the pipeline. Six public datasets are
+read as capacity per cycle; each (starting point, seed) pair is trained as a
+fresh model on a $W=64$ window over ten seeds; three branches read the same
+window at patch sizes 2/4/8 (32/16/8 tokens) and exchange information through
+a stage query, in which the coarse state becomes a single query; a physics
+rate head takes the hidden state together with the measured internal
+resistance (dashed: an auxiliary input, not the main capacity path) and
+predicts $\hat{Q}_t = Q_{t-1} - r$; the readout emits a point estimate and a
+conformal P2.5--P97.5 interval whose lower edge defines the end-of-life
+crossing; the exported model fits INT8 at 504\,KB and INT4 at 268\,KB with no
+dynamic allocation.}
 \label{fig:overview}
 \end{figure*}
 
